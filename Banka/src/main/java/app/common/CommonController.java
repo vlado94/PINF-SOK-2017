@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import app.User;
 import app.user.banker.BankerService;
-import app.user.client.ClientService;
+import app.user.clientPersonal.ClientPersonalService;
 
 @RestController
 @RequestMapping("/start")
@@ -24,10 +24,10 @@ public class CommonController {
 	private HttpSession httpSession;
 
 	private BankerService bankerService;
-	private ClientService clientService;
+	private ClientPersonalService clientService;
 
 	@Autowired
-	public CommonController(final HttpSession httpSession, final ClientService clientService,
+	public CommonController(final HttpSession httpSession, final ClientPersonalService clientService,
 			final BankerService bankerService) {
 		this.httpSession = httpSession;
 		this.bankerService = bankerService;
@@ -36,16 +36,19 @@ public class CommonController {
 	
 	@PostMapping(path = "/logIn")
 	@ResponseStatus(HttpStatus.OK)
-	public User logIn(@RequestBody User userInput) {
+	public String logIn(@RequestBody User userInput) {
 		User user = null;
+		String userType = "";
 		if (bankerService.findOneByMailAndPassword(userInput.getMail(), userInput.getPassword()) != null) {
 			user = bankerService.findOneByMailAndPassword(userInput.getMail(), userInput.getPassword());
+			userType = "banker";
 		} else if (clientService.findOneByMailAndPassword(userInput.getMail(),userInput.getPassword()) != null) {
 			user = clientService.findOneByMailAndPassword(userInput.getMail(), userInput.getPassword());
+			userType = "clientPersonal";
 		}
 		if (user != null) {
 			httpSession.setAttribute("user", user);
-			return user;
+			return userType;
 		} else
 			throw new NoSuchElementException("Ne postoji korisnik sa tim parametrima.");
 	}

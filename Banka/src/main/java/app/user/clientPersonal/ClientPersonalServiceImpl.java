@@ -1,4 +1,4 @@
-package app.user.client;
+package app.user.clientPersonal;
 
 import java.util.List;
 
@@ -11,36 +11,36 @@ import com.google.common.collect.Lists;
 
 @Service
 @Transactional
-public class ClientServiceImpl implements ClientService {
-	private final ClientRepository clientRepository;
+public class ClientPersonalServiceImpl implements ClientPersonalService {
+	private final ClientPersonalRepository clientRepository;
 	
 	@Autowired
-	public ClientServiceImpl(final ClientRepository clientRepository) {
+	public ClientPersonalServiceImpl(final ClientPersonalRepository clientRepository) {
 		this.clientRepository = clientRepository;
 	}
 
 	@Override
-	public List<Client> findAll() {
+	public List<ClientPersonal> findAll() {
 		return Lists.newArrayList(clientRepository.findAll());
 	}
 
 	@Override
-	public Client save(Client client) {
+	public ClientPersonal save(ClientPersonal client) {
 		return clientRepository.save(client);
 	}
 
 	@Override
-	public Client findOneById(Long id) {
+	public ClientPersonal findOneById(Long id) {
 		return clientRepository.findOne(id);
 	}
 	
 	@Override
-	public Client findOneByMailAndPassword(String mail, String password) {
+	public ClientPersonal findOneByMailAndPassword(String mail, String password) {
 		return clientRepository.findByMailAndPassword(mail, password);
 	}
 	
 	@Override
-	public Client findOneByMail(String mail) {
+	public ClientPersonal findOneByMail(String mail) {
 		return clientRepository.findByMail(mail);
 	}
 

@@ -13,7 +13,7 @@ import javax.persistence.OneToMany;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-import app.bill.Bill;
+import app.billPersonal.BillPersonal;
 import app.user.banker.Banker;
 import lombok.Data;
 
@@ -35,6 +35,6 @@ public class Bank {
 	private List<Banker> bankers;
 
 	@OneToMany
-	@JoinTable(name = "BANK_BILLS", joinColumns = @JoinColumn(name = "BANK_ID"), inverseJoinColumns = @JoinColumn(name = "BILL_ID"))
-	private List<Bill> bills;
+	@JoinTable(name = "BANK_PERSONAL_BILLS", joinColumns = @JoinColumn(name = "BANK_ID"), inverseJoinColumns = @JoinColumn(name = "BILL_PERSONAL_ID"))
+	private List<BillPersonal> personalBills;
 }

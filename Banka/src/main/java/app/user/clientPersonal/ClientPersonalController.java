@@ -1,4 +1,4 @@
-package app.user.banker;
+package app.user.clientPersonal;
 
 import javax.naming.AuthenticationException;
 import javax.servlet.http.HttpSession;
@@ -11,23 +11,26 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/banker")
-public class BankerController {
-	private final BankerService bankerService;
+@RequestMapping("/clientPersonal")
+public class ClientPersonalController {
+	private final ClientPersonalService clientService;
 	private HttpSession httpSession;
+	
 	@Autowired
-	public BankerController(final HttpSession httpSession,final BankerService bankerService) {
-		this.bankerService = bankerService;
+	public ClientPersonalController(final HttpSession httpSession,final ClientPersonalService clientService) {
+		this.clientService = clientService;
 		this.httpSession = httpSession;
 	}
 	
 	@GetMapping("/checkRights")
 	@ResponseStatus(HttpStatus.OK)
-	public Banker checkRights() throws AuthenticationException {
+	public ClientPersonal checkRights() throws AuthenticationException {
 		try {
-			return ((Banker) httpSession.getAttribute("user"));
+			return ((ClientPersonal) httpSession.getAttribute("user"));
 		} catch (Exception e) {
 			throw new AuthenticationException("Forbidden.");
 		}
 	}
+	
+
 }

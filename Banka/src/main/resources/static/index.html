@@ -6,14 +6,40 @@
 <title>Bank</title>
 
 <link rel="stylesheet"	href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+<!-- AngularJS ============================================================= -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-resource.js"></script>
 <script	src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.8/angular-ui-router.min.js"></script>
 
 <script src="app.js"></script>
 
 
+<script src="banker/bankerService.js"></script>
+<script src="banker/bankerController.js"></script>
+
+
+<script src="clientPersonal/clientPersonalService.js"></script>
+<script src="clientPersonal/clientPersonalController.js"></script>
+
+
+
+<script src="login/loginService.js"></script>
+<script src="login/loginController.js"></script>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+<script src="http://multidatespickr.sourceforge.net/jquery-ui.multidatespicker.js"> </script>
+
+
 </head>
-<body>
-dsadasdasd
+<body class="bg">
+    <div>
+		<div ui-view></div>
+	</div>
+    <br>
+
+    
+    
 </body>
 </html>

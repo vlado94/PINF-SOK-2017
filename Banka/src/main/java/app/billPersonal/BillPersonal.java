@@ -1,4 +1,4 @@
-package app.bill;
+package app.billPersonal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,15 +12,15 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import app.user.client.Client;
+import app.user.clientPersonal.ClientPersonal;
 import lombok.Data;
 
 @Data
 @Entity
-public class Bill {
+public class BillPersonal {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "BILL_ID")
+	@Column(name = "BILL_PERSONAL_ID")
 	private Long id;
 	
 	@NotBlank
@@ -28,8 +28,8 @@ public class Bill {
 	private String billNumber;
 	
 	@JsonIgnore
-	@ManyToOne
-	@JoinColumn(name = "CLIENT_ID")
-	private Client client;
+	@ManyToOne			
+	@JoinColumn(name = "CLIENT_PERSONAL_ID")
+	private ClientPersonal clientPersonal;
 	
 }
