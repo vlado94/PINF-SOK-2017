@@ -22,7 +22,7 @@ angular.module('routerApp', ['ui.router',
          	resolve: {
         		promiseObj:  function($http,$location){
         			$location.path('login');
-                    return $http.get("/start/logOut");
+                    return $http.get("/user/logOut");
                  }}
          })
          
@@ -31,35 +31,35 @@ angular.module('routerApp', ['ui.router',
         	templateUrl : 'loggedIn.html'
          })
          
-         .state('loggedIn.banker', {
+         .state('banker', {
         	url : '/banker',
           	templateUrl : 'banker/bankerPartial.html',
             controller : 'bankerController'
          })
-        .state('loggedIn.banker.home', {
+        .state('banker.home', {
         	url : '/home',
           	templateUrl : 'banker/bankerHome.html'
         })
-        .state('loggedIn.banker.profile', {
+        .state('banker.profile', {
         	url : '/profile',
           	templateUrl : 'banker/bankerProfile.html'
         })
-        .state('loggedIn.banker.createNewLegalBill', {
+        .state('banker.createNewLegalBill', {
         	url : '/createNew',
           	templateUrl : 'banker/createNewLegalBill.html'
         })
-         .state('loggedIn.banker.codeBookActivities', {
+         .state('banker.codeBookActivities', {
         	url : '/codeBookActivities',
           	templateUrl : 'banker/codeBookActivities/codeBookActivities.html'
         })
-         .state('loggedIn.banker.codeBookActivities.addCodeBookActivity', {
+         .state('banker.codeBookActivities.addCodeBookActivity', {
           	templateUrl : 'banker/codeBookActivities/addCodeBookActivity.html'
         })
-         .state('loggedIn.banker.countries', {
+         .state('banker.countries', {
         	url : '/countries',
           	templateUrl : 'banker/country/countries.html'
         })
-          .state('loggedIn.banker.countries.addCountry', {
+          .state('banker.countries.addCountry', {
           	templateUrl : 'banker/country/addCountry.html'
         })
 });

@@ -1,7 +1,5 @@
 package app.user;
 
-import java.util.NoSuchElementException;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,21 +26,18 @@ public class UserController {
 		this.bankerService = bankerService;
 	}
 	
-	@GetMapping(path = "/logIn")
+	@PostMapping(path = "/logIn")
 	@ResponseStatus(HttpStatus.OK)
-	public String logIn(@RequestBody User userInput) {
+	public User logIn(@RequestBody User userInput) {
 		User user = null;
 		System.out.println("Loged user: "+ userInput.getMail() +" pass" + userInput.getPassword());
-		String userType = "";
 		if (bankerService.findOneByMailAndPassword(userInput.getMail(), userInput.getPassword()) != null) {
 			user = bankerService.findOneByMailAndPassword(userInput.getMail(), userInput.getPassword());
-			userType = "banker";
 		}
 		if (user != null) {
 			httpSession.setAttribute("user", user);
-			return userType;
-		} else
-			throw new NoSuchElementException("Ne postoji korisnik sa tim parametrima.");
+		}	
+		return user;
 	}
 
 	@GetMapping(path = "/logOut")

@@ -32,10 +32,10 @@ public class Client {
 	private String address;
 	
 	@Column
-	private int phone;
+	private Integer phone;
 	
 	@Column
-	private int fax;
+	private Integer fax;
 	
 	@Email
 	@NotBlank

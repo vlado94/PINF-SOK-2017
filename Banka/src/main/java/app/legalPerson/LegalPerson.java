@@ -2,7 +2,6 @@ package app.legalPerson;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
 

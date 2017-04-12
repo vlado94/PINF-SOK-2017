@@ -1,6 +1,4 @@
 var app = angular.module('login.controllers', []);
- 
-var firstLoginId = null;
 
 app.controller('loginController', ['$scope','loginService', '$location',
   	function ($scope, loginService, $location) {
@@ -9,18 +7,14 @@ app.controller('loginController', ['$scope','loginService', '$location',
 			loginService.logIn($scope.user).then(
 				function (response) {
                     $scope.state = undefined;
-                    if(response.data === "clientPersonal")
-                    	$location.path('loggedIn/clientPersonal/home');
-                    else if(response.data === "banker")
-                    	$location.path('loggedIn/banker/home');
-                    
+                    if(response.data !== null)
+                    	$location.path('banker/home');                   
 				},
                 function (response) {
-                    alert("Ne postoji korisnik sa tim parametrima.");
+				    alert("Access denied!");
                 }
 			);
 		}
-		
 		
 		$scope.logOut = function() {
 			loginService.logOut().then(

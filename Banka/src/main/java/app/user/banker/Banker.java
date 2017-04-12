@@ -8,10 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import app.user.*;
 import app.bank.Bank;
+import app.user.User;
 import lombok.Data;
 
 @Data
@@ -23,9 +21,14 @@ public class Banker extends User{
 	@Column(name = "BANKER_ID")
 	private Long id;
 	
-	/*@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "BANK_ID")
-	private Bank bank;*/
+	private Bank bank;
 
+	public void setAttributes (Banker banker) {
+		this.setFirstname(banker.getFirstname());
+		this.setLastname(banker.getLastname());
+		this.setMail(banker.getMail());
+		this.setPassword(banker.getPassword());
+	}
 }

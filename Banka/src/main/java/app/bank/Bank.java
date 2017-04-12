@@ -33,11 +33,11 @@ public class Bank {
 	
 	@NotNull
 	@Column(length=3)
-	private int code;
+	private Integer code;
 	
 	@NotNull
 	@Column(length=8)
-	private int swiftCode;
+	private Integer swiftCode;
 	
 	@NotNull
 	@Column(length=18)

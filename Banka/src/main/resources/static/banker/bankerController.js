@@ -2,7 +2,6 @@ var app = angular.module('banker.controllers', []);
  
 app.controller('bankerController', ['$scope','bankerService', '$location',
   	function ($scope, bankerService, $location) {
-	
 		function checkRights() {
 			bankerService.checkRights().then(
 				function (response) {
@@ -17,66 +16,55 @@ app.controller('bankerController', ['$scope','bankerService', '$location',
 			);
 		}
 		checkRights();
-		
-		
+
 		$scope.update = function () {
-			
 			bankerService.update($scope.banker).then(
-					function(response){
-						alert("Ok zavrseno");
-					}, function (response){
-						alert("Greska");
-					}
+				function(response){
+					$scope.banker = response.data;
+				}, function (response){
+					alert("Greska");
+				}
 			);
 		}
 		
-		
-		$scope.getAllCodeBookActivities= function () {   
-			bankerService.getAllCodeBookActivities().then(
-					function(response){
-						
-						$scope.allcodeBookActivities = response.data;
-					}, function (response){
-						alert("Greska");
-					}
+		$scope.findAllCodeBookActivities= function () {   
+			bankerService.findAllCodeBookActivities().then(
+				function(response){
+					$scope.allcodeBookActivities = response.data;
+				}, function (response){
+					alert("Greska");
+				}
 			);
 		}
 		
 		$scope.addNewCodeBookActivity= function () {   
 			bankerService.addActivity($scope.codeBookActivity).then(
-					function(){
-						alert("Odgovor");
-					}, function (response){
-						alert("Greska");
-					}
+				function(){
+					alert("Odgovor");
+				}, function (response){
+					alert("Greska");
+				}
 			);
 		}
 		
-
-		
 		$scope.getAllCountries= function () {   
 			bankerService.getAllCountries().then(
-					function(response){
-						
-						$scope.allCountries = response.data;
-					}, function (response){
-						alert("Greska");
-					}
+				function(response){
+					$scope.allCountries = response.data;
+				}, function (response){
+					alert("Greska");
+				}
 			);
 		}
 		
 		$scope.addNewCountry= function () {
 			bankerService.addNewCountry($scope.country).then(
-					function(){
-						alert("Odgovor");
-					}, function (response){
-						alert("Greska");
-					}
+				function(){
+					alert("Odgovor");
+				}, function (response){
+					alert("Greska");
+				}
 			);
-		}
-		
-
-		
-		
+		}		
 	}
 ]);
