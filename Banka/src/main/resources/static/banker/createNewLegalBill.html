@@ -1,0 +1,45 @@
+<div class = "col-sm-2">
+<form name = "createNewLegal">
+
+	<label>Applicant</label>
+	<input type = "text" class = "form-control" ng-model = "$parent.newLegalPerson.applicant"></input>
+
+	<label>Short name</label>
+	<input type = "text" class = "form-control" ng-model = "$parent.newLegalPerson.shortName" required></input>
+
+	<label>address</label>
+	<input type = "text" class = "form-control" ng-model = "$parent.newLegalPerson.address" required></input>
+	
+	<label>PIB</label>
+	<input type = "text" class = "form-control" ng-model = "$parent.newLegalPerson.pib" required></input>
+	
+	<label>MIB</label>
+	<input type = "text" class = "form-control" ng-model = "$parent.newLegalPerson.mib" required></input>
+	
+	<label>Tax authority</label>
+	<input type = "text" class = "form-control" ng-model = "$parent.newLegalPerson.taxAuthority" required></input>
+	
+	<label>Responsible person</label>
+	<input type = "text" class = "form-control" ng-model = "$parent.newLegalPerson.responsiblePerson" required></input>
+	
+	<label>Jbmg</label>
+	<input type = "text" class = "form-control" ng-model = "$parent.newLegalPerson.jmbg" required></input>
+	
+	
+	<label>Fax</label>
+	<input type = "text" class = "form-control" ng-model = "$parent.newLegalPerson.fax" required></input>
+	
+	<label>Mail</label>
+	<input type = "text" class = "form-control" ng-model = "$parent.newLegalPerson.mail" required></input>
+	
+	<label>Delivery address</label>
+	<input type = "text" class = "form-control" ng-model = "$parent.newLegalPerson.deliveryAddress" required></input>
+	
+	<label>Delivery by mail</label>
+	<input type = "text" class = "form-control" ng-model = "$parent.newLegalPerson.deliveryByMail" required></input>
+	
+	
+<button class = "btn btn-default" ng-click = "save()"><span class = "glyphicon glyphicon-ok"></span>Save</button>
+<button class = "btn btn-default" ng-click = "cancel()"><span class = "glyphicon glyphicon-remove"></span>Cancel</button>
+</form>
+</div>

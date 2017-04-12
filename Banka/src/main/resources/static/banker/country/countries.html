@@ -1,0 +1,25 @@
+<div class = "col-sm-2">
+
+<div ng-init="getAllCountries()">
+<table class="table table-bordered" border="1">
+		<tbody>
+			<tr>
+				<th>Code</th>
+				<th>Name</th>
+			</tr>
+			<tr ng-repeat="country in allCountries">
+				<td>{{country.code}}</td>
+				<td>{{country.name}}</td>
+				</tr>
+		</tbody>
+	</table>
+
+<button class = "btn btn-default" ui-sref =".addCountry" ><span class = "glyphicon glyphicon-ok"></span>Add</button> 
+<button class = "btn btn-default" ng-click = "updateCountry()"><span class = "glyphicon glyphicon-ok"></span>Update</button> 
+<button class = "btn btn-default" ng-click = "deleteCountry()"><span class = "glyphicon glyphicon-ok"></span>Delete</button> 
+
+</div>
+
+</div>
+
+<div ui-view></div>

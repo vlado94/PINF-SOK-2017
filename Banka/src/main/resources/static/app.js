@@ -51,6 +51,26 @@ angular.module('routerApp', ['ui.router',
         	url : '/home',
           	templateUrl : 'banker/bankerHome.html'
         })
- 
-
+        .state('loggedIn.banker.profile', {
+        	url : '/profile',
+          	templateUrl : 'banker/bankerProfile.html'
+        })
+        .state('loggedIn.banker.createNewLegalBill', {
+        	url : '/createNew',
+          	templateUrl : 'banker/createNewLegalBill.html'
+        })
+         .state('loggedIn.banker.codeBookActivities', {
+        	url : '/codeBookActivities',
+          	templateUrl : 'banker/codeBookActivities/codeBookActivities.html'
+        })
+         .state('loggedIn.banker.codeBookActivities.addCodeBookActivity', {
+          	templateUrl : 'banker/codeBookActivities/addCodeBookActivity.html'
+        })
+         .state('loggedIn.banker.countries', {
+        	url : '/countries',
+          	templateUrl : 'banker/country/countries.html'
+        })
+          .state('loggedIn.banker.countries.addCountry', {
+          	templateUrl : 'banker/country/addCountry.html'
+        })
 });

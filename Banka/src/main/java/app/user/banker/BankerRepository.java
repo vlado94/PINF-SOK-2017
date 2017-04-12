@@ -8,5 +8,5 @@ public interface BankerRepository extends PagingAndSortingRepository<Banker, Lon
 	@Query("select r from Banker r where r.mail = ?1 and r.password = ?2")
 	public Banker findByMailAndPassword(String mail, String password);
 
-	public Banker findByMail(String mail);
+	//public Banker findByMail(String mail);
 }

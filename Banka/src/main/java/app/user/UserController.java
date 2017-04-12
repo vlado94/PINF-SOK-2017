@@ -1,4 +1,4 @@
-package app.common;
+package app.user;
 
 import java.util.NoSuchElementException;
 
@@ -13,38 +13,36 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import app.User;
 import app.user.banker.BankerService;
-import app.user.clientPersonal.ClientPersonalService;
 
 @RestController
-@RequestMapping("/start")
-public class CommonController {
+@RequestMapping("/user")
+public class UserController {
+
 
 	private HttpSession httpSession;
 
 	private BankerService bankerService;
-	private ClientPersonalService clientService;
+	
 
 	@Autowired
-	public CommonController(final HttpSession httpSession, final ClientPersonalService clientService,
+	public UserController(final HttpSession httpSession,
 			final BankerService bankerService) {
 		this.httpSession = httpSession;
 		this.bankerService = bankerService;
-		this.clientService = clientService;
+	
 	}
 	
 	@PostMapping(path = "/logIn")
 	@ResponseStatus(HttpStatus.OK)
 	public String logIn(@RequestBody User userInput) {
 		User user = null;
+		
+		System.out.println("USERRRRRRRR"+ userInput.getMail() +" pass" + userInput.getPassword());
 		String userType = "";
 		if (bankerService.findOneByMailAndPassword(userInput.getMail(), userInput.getPassword()) != null) {
 			user = bankerService.findOneByMailAndPassword(userInput.getMail(), userInput.getPassword());
 			userType = "banker";
-		} else if (clientService.findOneByMailAndPassword(userInput.getMail(),userInput.getPassword()) != null) {
-			user = clientService.findOneByMailAndPassword(userInput.getMail(), userInput.getPassword());
-			userType = "clientPersonal";
 		}
 		if (user != null) {
 			httpSession.setAttribute("user", user);

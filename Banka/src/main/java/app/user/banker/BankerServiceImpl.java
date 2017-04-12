@@ -39,13 +39,15 @@ public class BankerServiceImpl implements BankerService {
 		return bankerRepository.findByMailAndPassword(mail, password);
 	}
 	
-	@Override
+/*	@Override
 	public Banker findOneByMail(String mail) {
 		return bankerRepository.findByMail(mail);
-	}
+	}*/
 
 	@Override
 	public void delete(Long id) {
 		bankerRepository.delete(id);
 	}
+
+	
 }

@@ -13,8 +13,8 @@ import javax.persistence.OneToMany;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-import app.billPersonal.BillPersonal;
-import app.user.banker.Banker;
+import app.bill.Bill;
+import app.exchangeRate.ExchangeRate;
 import lombok.Data;
 
 @Data
@@ -30,11 +30,27 @@ public class Bank {
 	@Column
 	private String name;
 	
+	@NotBlank
+	@Column(length=3)
+	private int code;
+	
+	@NotBlank
+	@Column(length=8)
+	private int swiftCode;
+	
+	@NotBlank
+	@Column(length=18)
+	private int clearingAccount; // obracunski racun
+	
 	@OneToMany
+	@JoinTable(name = "BANK_EXCHANGE_RATE", joinColumns = @JoinColumn(name = "BANK_ID"), inverseJoinColumns = @JoinColumn(name = "EXCHANGE_RATE_ID"))
+	private List<ExchangeRate> exchangeRate; // kursna lista
+	
+	/*@OneToMany
 	@JoinTable(name = "BANK_BANKERS", joinColumns = @JoinColumn(name = "BANK_ID"), inverseJoinColumns = @JoinColumn(name = "BANKER_ID"))
-	private List<Banker> bankers;
+	private List<Banker> bankers;*/
 
 	@OneToMany
-	@JoinTable(name = "BANK_PERSONAL_BILLS", joinColumns = @JoinColumn(name = "BANK_ID"), inverseJoinColumns = @JoinColumn(name = "BILL_PERSONAL_ID"))
-	private List<BillPersonal> personalBills;
+	@JoinTable(name = "BANK_BILLS", joinColumns = @JoinColumn(name = "BANK_ID"), inverseJoinColumns = @JoinColumn(name = "BILL_ID"))
+	private List<Bill> bills;
 }

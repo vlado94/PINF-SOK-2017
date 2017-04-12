@@ -1,4 +1,4 @@
-package app;
+package app.user;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
@@ -29,8 +29,5 @@ public class User {
 	@Column
 	private String lastname;
 
-	// flag koji je inicijalno false, i kad korisnik klikne na link pri
-	// registraciji postaje true
-	@Column
-	private String registrated;
+
 }

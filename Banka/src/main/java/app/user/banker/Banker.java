@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import app.User;
+import app.user.*;
 import app.bank.Bank;
 import lombok.Data;
 
@@ -23,9 +23,9 @@ public class Banker extends User{
 	@Column(name = "BANKER_ID")
 	private Long id;
 	
-	@JsonIgnore
+	/*@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "BANK_ID")
-	private Bank bank;
+	private Bank bank;*/
 
 }

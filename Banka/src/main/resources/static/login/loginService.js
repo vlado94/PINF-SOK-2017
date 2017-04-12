@@ -5,14 +5,14 @@ var baseUrl = 'http://localhost\\:8080';
 services.service('loginService', ['$http', function($http){
 	
 	this.logIn = function(user){
-		return $http.post("/start/logIn",user);
+		return $http.post("/user/logIn",user);
 	}
 	
 	this.logOut = function(){
-		return $http.get("/start/logOut");
+		return $http.get("/user/logOut");
 	}
 	
 	this.firstLogin = function(id,user){
-		return $http.put("/start/"+id,user);
+		return $http.put("/user/"+id,user);
 	}
 }]);

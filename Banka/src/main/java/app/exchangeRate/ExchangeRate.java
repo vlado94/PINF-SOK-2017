@@ -1,4 +1,4 @@
-package app.user.clientPersonal;
+package app.exchangeRate;
 
 import java.util.List;
 
@@ -7,22 +7,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
-import app.User;
+import app.bank.Bank;
 import app.billPersonal.BillPersonal;
 import lombok.Data;
 
 @Data
 @Entity
-public class ClientPersonal extends User{
+public class ExchangeRate {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "CLIENT_PERSONAL_ID")
+	@Column(name = "EXCHANGERATE_ID")
 	private Long id;
-	
-	@OneToMany(mappedBy = "clientPersonal")
-	private List<BillPersonal> personalBills;
-
 }

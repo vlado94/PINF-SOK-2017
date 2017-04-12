@@ -14,7 +14,6 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import app.user.clientPersonal.ClientPersonal;
 import lombok.Data;
 
 @Data
@@ -36,8 +35,8 @@ public class BillPersonal {
 	@Column
 	private Date activationDate;	
 	
-	@JsonIgnore
+/*	@JsonIgnore
 	@ManyToOne			
 	@JoinColumn(name = "CLIENT_PERSONAL_ID")
-	private ClientPersonal clientPersonal;	
+	private ClientPersonal clientPersonal;*/	
 }
