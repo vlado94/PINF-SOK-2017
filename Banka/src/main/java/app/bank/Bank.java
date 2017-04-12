@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -30,17 +31,17 @@ public class Bank {
 	@Column
 	private String name;
 	
-	@NotBlank
+	@NotNull
 	@Column(length=3)
 	private int code;
 	
-	@NotBlank
+	@NotNull
 	@Column(length=8)
 	private int swiftCode;
 	
-	@NotBlank
+	@NotNull
 	@Column(length=18)
-	private int clearingAccount; // obracunski racun
+	private Long clearingAccount; // obracunski racun
 	
 	@OneToMany
 	@JoinTable(name = "BANK_EXCHANGE_RATE", joinColumns = @JoinColumn(name = "BANK_ID"), inverseJoinColumns = @JoinColumn(name = "EXCHANGE_RATE_ID"))

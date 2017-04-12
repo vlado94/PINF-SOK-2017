@@ -18,27 +18,21 @@ import app.user.banker.BankerService;
 @RestController
 @RequestMapping("/user")
 public class UserController {
-
-
 	private HttpSession httpSession;
-
 	private BankerService bankerService;
-	
 
 	@Autowired
 	public UserController(final HttpSession httpSession,
 			final BankerService bankerService) {
 		this.httpSession = httpSession;
 		this.bankerService = bankerService;
-	
 	}
 	
-	@PostMapping(path = "/logIn")
+	@GetMapping(path = "/logIn")
 	@ResponseStatus(HttpStatus.OK)
 	public String logIn(@RequestBody User userInput) {
 		User user = null;
-		
-		System.out.println("USERRRRRRRR"+ userInput.getMail() +" pass" + userInput.getPassword());
+		System.out.println("Loged user: "+ userInput.getMail() +" pass" + userInput.getPassword());
 		String userType = "";
 		if (bankerService.findOneByMailAndPassword(userInput.getMail(), userInput.getPassword()) != null) {
 			user = bankerService.findOneByMailAndPassword(userInput.getMail(), userInput.getPassword());

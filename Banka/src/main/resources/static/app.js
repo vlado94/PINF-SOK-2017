@@ -2,7 +2,6 @@
 
 angular.module('routerApp', ['ui.router', 
 	'banker.services','banker.controllers',
-	'clientPersonal.services','clientPersonal.controllers',
 	'login.services','login.controllers'
 	])
 
@@ -32,17 +31,7 @@ angular.module('routerApp', ['ui.router',
         	templateUrl : 'loggedIn.html'
          })
          
-         .state('loggedIn.clientPersonal', {
-        	url : '/clientPersonal',
-          	templateUrl : 'clientPersonal/clientPersonalPartial.html',
-            controller : 'clientPersonalController'
-         })
-        .state('loggedIn.clientPersonal.home', {
-        	url : '/home',
-          	templateUrl : 'clientPersonal/clientPersonalHome.html'
-        })
-        
-        .state('loggedIn.banker', {
+         .state('loggedIn.banker', {
         	url : '/banker',
           	templateUrl : 'banker/bankerPartial.html',
             controller : 'bankerController'

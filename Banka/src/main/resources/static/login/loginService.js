@@ -5,7 +5,7 @@ var baseUrl = 'http://localhost\\:8080';
 services.service('loginService', ['$http', function($http){
 	
 	this.logIn = function(user){
-		return $http.post("/user/logIn",user);
+		return $http.get("/user/logIn",user);
 	}
 	
 	this.logOut = function(){
