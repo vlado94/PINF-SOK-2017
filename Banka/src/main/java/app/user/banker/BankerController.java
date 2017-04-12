@@ -75,16 +75,12 @@ public class BankerController {
 	@GetMapping("/getAllCountries")
 	@ResponseStatus(HttpStatus.OK)
 	public List<Country> getAllCountries() {
-		
-		List<Country> countries = countryService.findAll();
-
-		return countries; 
+		return countryService.findAll(); 
 	}
 	
 	@PostMapping(path = "/addCountry")
 	@ResponseStatus(HttpStatus.CREATED)
 	public void addCountry(@RequestBody Country country) {
-		
 		countryService.save(country);
 	}
 	
