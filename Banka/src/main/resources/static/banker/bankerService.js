@@ -13,7 +13,7 @@ services.service('bankerService', ['$http', function($http){
 	}
 	
 	
-	this.findAllCodeBookActivities = function(){
+	this.getAllCodeBookActivities = function(){
 		return $http.get(url+"getAllCodeBookActivities");
 	}
 	

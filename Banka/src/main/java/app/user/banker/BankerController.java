@@ -58,13 +58,11 @@ public class BankerController {
 		return banker;		
 	}
 	
-	
 	@GetMapping("/getAllCodeBookActivities")
 	@ResponseStatus(HttpStatus.OK)
 	public List<CodeBookActivities> getAllCodeBookActivities() {
 		return codeBookActivitiesService.findAll(); 
 	}
-	
 	
 	@PostMapping(path = "/addCodeBookActivity")
 	@ResponseStatus(HttpStatus.CREATED)
@@ -83,6 +81,4 @@ public class BankerController {
 	public void addCountry(@RequestBody Country country) {
 		countryService.save(country);
 	}
-	
-	
 }

@@ -1,0 +1,23 @@
+.bg{
+	color: white;
+	background: url(images/bank.jpg) no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.btn{
+    color:white;
+    background: #8c8c8c;
+}
+
+.btn:hover { 
+    background: #a6a6a6;
+}
+
+.loginForm {
+	width : 25%;
+	margin-left : 500px;
+	margin-top : 200px;
+}
