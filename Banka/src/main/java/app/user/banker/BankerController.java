@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.naming.AuthenticationException;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,10 +17,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import app.client.Client;
+import app.client.Client.TypeOfClient;
+import app.client.ClientService;
 import app.codeBookActivities.CodeBookActivities;
 import app.codeBookActivities.CodeBookActivitiesService;
 import app.country.Country;
 import app.country.CountryService;
+import app.populatedPlace.PopulatedPlace;
+import app.populatedPlace.PopulatedPlaceService;
 
 @RestController
 @RequestMapping("/banker")
@@ -28,14 +34,18 @@ public class BankerController {
 	private final BankerService bankerService;
 	private final CodeBookActivitiesService codeBookActivitiesService;
 	private final CountryService countryService;
+	private final ClientService clientService;
+	private final PopulatedPlaceService populatedPlaceService;
 	private HttpSession httpSession;
 	
 	@Autowired
 	public BankerController(final HttpSession httpSession,final BankerService bankerService, final CodeBookActivitiesService codeBookActivitiesService, 
-							final CountryService countryService) {
+							final CountryService countryService, final ClientService clientService, final PopulatedPlaceService populatedPlaceService) {
 		this.bankerService = bankerService;
 		this.codeBookActivitiesService = codeBookActivitiesService;
 		this.countryService = countryService;
+		this.clientService = clientService;
+		this.populatedPlaceService = populatedPlaceService;
 		this.httpSession = httpSession;
 	}
 	
@@ -58,27 +68,55 @@ public class BankerController {
 		return banker;		
 	}
 	
-	@GetMapping("/getAllCodeBookActivities")
+	@GetMapping("/findAllCodeBookActivities")
 	@ResponseStatus(HttpStatus.OK)
-	public List<CodeBookActivities> getAllCodeBookActivities() {
+	public List<CodeBookActivities> findAllCodeBookActivities() {
 		return codeBookActivitiesService.findAll(); 
 	}
 	
-	@PostMapping(path = "/addCodeBookActivity")
+	@PostMapping(path = "/saveCodeBookActivity")
 	@ResponseStatus(HttpStatus.CREATED)
-	public void addCodeBookActivity(@RequestBody CodeBookActivities codeBookActivity) {
+	public void saveCodeBookActivity(@RequestBody CodeBookActivities codeBookActivity) {
 		codeBookActivitiesService.save(codeBookActivity);
 	}
 	
-	@GetMapping("/getAllCountries")
+	@GetMapping("/findAllCountries")
 	@ResponseStatus(HttpStatus.OK)
-	public List<Country> getAllCountries() {
+	public List<Country> findAllCountries() {
 		return countryService.findAll(); 
 	}
 	
-	@PostMapping(path = "/addCountry")
+	@PostMapping(path = "/saveCountry")
 	@ResponseStatus(HttpStatus.CREATED)
-	public void addCountry(@RequestBody Country country) {
+	public void saveCountry(@RequestBody Country country) {
 		countryService.save(country);
 	}
+	
+	@PostMapping(path = "/saveIndividualPerson")
+	@ResponseStatus(HttpStatus.CREATED)
+	public void saveIndividualPerson(@Valid @RequestBody Client client) {
+		client.setType(TypeOfClient.FIZICKO);
+		clientService.save(client);
+	}
+	
+	@PostMapping(path = "/saveLegalPerson")
+	@ResponseStatus(HttpStatus.CREATED)
+	public void saveLegalPerson(@Valid @RequestBody Client client) {
+		client.setType(TypeOfClient.PRAVNO);
+		clientService.save(client);
+	}
+	
+	@GetMapping("/findAllPopulatedPlaces")
+	@ResponseStatus(HttpStatus.OK)
+	public List<PopulatedPlace> findAllPopulatedPlaces() {
+		return populatedPlaceService.findAll(); 
+	}
+	
+	@PostMapping(path = "/savePopulatedPlace")
+	@ResponseStatus(HttpStatus.CREATED)
+	public void savePopulatedPlace(@Valid @RequestBody PopulatedPlace populatedPlace) {
+		populatedPlaceService.save(populatedPlace);
+	}
+	
+	
 }

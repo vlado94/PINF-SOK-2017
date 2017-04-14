@@ -54,4 +54,6 @@ public class Bank {
 	@OneToMany
 	@JoinTable(name = "BANK_BILLS", joinColumns = @JoinColumn(name = "BANK_ID"), inverseJoinColumns = @JoinColumn(name = "BILL_ID"))
 	private List<Bill> bills;
+	
+	
 }

@@ -2,44 +2,46 @@
 <form name = "createNewLegal">
 
 	<label>Applicant</label>
-	<input type = "text" class = "form-control" ng-model = "$parent.newLegalPerson.applicant"></input>
+	<input type = "text" class = "form-control" ng-model = "$parent.legalPerson.applicant"></input>
 
 	<label>Short name</label>
-	<input type = "text" class = "form-control" ng-model = "$parent.newLegalPerson.shortName" required></input>
+	<input type = "text" class = "form-control" ng-model = "$parent.legalPerson.shortName" required></input>
 
 	<label>address</label>
-	<input type = "text" class = "form-control" ng-model = "$parent.newLegalPerson.address" required></input>
+	<input type = "text" class = "form-control" ng-model = "$parent.legalPerson.address" required></input>
 	
 	<label>PIB</label>
-	<input type = "text" class = "form-control" ng-model = "$parent.newLegalPerson.pib" required></input>
+	<input type = "text" class = "form-control" ng-model = "$parent.legalPerson.pib" required></input>
 	
 	<label>MIB</label>
-	<input type = "text" class = "form-control" ng-model = "$parent.newLegalPerson.mib" required></input>
+	<input type = "text" class = "form-control" ng-model = "$parent.legalPerson.mib" required></input>
 	
 	<label>Tax authority</label>
-	<input type = "text" class = "form-control" ng-model = "$parent.newLegalPerson.taxAuthority" required></input>
+	<input type = "text" class = "form-control" ng-model = "$parent.legalPerson.taxAuthority" required></input>
 	
 	<label>Responsible person</label>
-	<input type = "text" class = "form-control" ng-model = "$parent.newLegalPerson.responsiblePerson" required></input>
+	<input type = "text" class = "form-control" ng-model = "$parent.legalPerson.responsiblePerson" required></input>
 	
 	<label>Jbmg</label>
-	<input type = "text" class = "form-control" ng-model = "$parent.newLegalPerson.jmbg" required></input>
+	<input type = "text" class = "form-control" ng-model = "$parent.legalPerson.jmbg" required></input>
 	
 	
 	<label>Fax</label>
-	<input type = "text" class = "form-control" ng-model = "$parent.newLegalPerson.fax" required></input>
+	<input type = "text" class = "form-control" ng-model = "$parent.legalPerson.fax" required></input>
 	
 	<label>Mail</label>
-	<input type = "text" class = "form-control" ng-model = "$parent.newLegalPerson.mail" required></input>
+	<input type = "text" class = "form-control" ng-model = "$parent.legalPerson.mail" required></input>
 	
 	<label>Delivery address</label>
-	<input type = "text" class = "form-control" ng-model = "$parent.newLegalPerson.deliveryAddress" required></input>
+	<input type = "text" class = "form-control" ng-model = "$parent.legalPerson.deliveryAddress" required></input>
 	
 	<label>Delivery by mail</label>
-	<input type = "text" class = "form-control" ng-model = "$parent.newLegalPerson.deliveryByMail" required></input>
+	
+	<input type ="radio" class = "form-control" ng-model = "$parent.legalPerson.deliveryByMail" value = "true"> Yes
+	<input type ="radio" class = "form-control" ng-model = "$parent.legalPerson.deliveryByMail" value="false"> No
 	
 	
-<button class = "btn btn-default" ng-click = "save()"><span class = "glyphicon glyphicon-ok"></span>Save</button>
-<button class = "btn btn-default" ng-click = "cancel()"><span class = "glyphicon glyphicon-remove"></span>Cancel</button>
+<button class = "btn btn-default" ng-click = "saveLegalPerson()"><span class = "glyphicon glyphicon-plus"></span>  Save</button>
+<button class = "btn btn-default" ng-click = "cancel()"><span class = "glyphicon glyphicon-remove"></span>  Cancel</button>
 </form>
 </div>

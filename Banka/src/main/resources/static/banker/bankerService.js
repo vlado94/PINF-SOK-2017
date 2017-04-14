@@ -13,20 +13,30 @@ services.service('bankerService', ['$http', function($http){
 	}
 	
 	
-	this.getAllCodeBookActivities = function(){
-		return $http.get(url+"getAllCodeBookActivities");
+	this.findAllCodeBookActivities = function(){
+		return $http.get(url+"findAllCodeBookActivities");
 	}
 	
-	this.addActivity = function(codeBookActivities){
-		return $http.post(url+"addCodeBookActivity",codeBookActivities);
+	this.saveCodeBookActivity = function(codeBookActivity){
+		return $http.post(url+"saveCodeBookActivity",codeBookActivity);
 	}
 	
-	this.getAllCountries = function(){
-		return $http.get(url+"getAllCountries");
+	this.findAllCountries = function(){
+		return $http.get(url+"findAllCountries");
 	}
-	this.addNewCountry = function(country){
-		return $http.post(url+"addCountry",country);
+	this.saveCountry = function(country){
+		return $http.post(url+"saveCountry",country);
 	}
-	
-	
+	this.saveIndividualPerson = function(individualPerson){
+		return $http.post(url+"saveIndividualPerson",individualPerson);
+	}
+	this.saveLegalPerson = function(legalPerson){
+		return $http.post(url+"saveLegalPerson",legalPerson);
+	}
+	this.findAllPopulatedPlaces = function(){
+		return $http.get(url+"findAllPopulatedPlaces");
+	}
+	this.savePopulatedPlace = function(populatedPlac){
+		return $http.post(url+"savePopulatedPlace",populatedPlac);
+	}
 }]);

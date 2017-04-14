@@ -5,9 +5,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import app.currency.Currency;
 import lombok.Data;
 
 @Data
@@ -27,6 +29,8 @@ public class Country {
 	@NotBlank
 	private String name;
 	
-	
+	/*@ManyToOne
+	private Currency currency;
+	*/
 	
 }

@@ -37,8 +37,8 @@ app.controller('bankerController', ['$scope','bankerService', '$location',
 			);
 		}
 		
-		$scope.addNewCodeBookActivity= function () {   
-			bankerService.addActivity($scope.codeBookActivity).then(
+		$scope.saveCodeBookActivity= function () { 
+			bankerService.saveCodeBookActivity($scope.codeBookActivity).then(
 				function(){
 					alert("Odgovor");
 				}, function (response){
@@ -47,8 +47,8 @@ app.controller('bankerController', ['$scope','bankerService', '$location',
 			);
 		}
 		
-		$scope.getAllCountries= function () {   
-			bankerService.getAllCountries().then(
+		$scope.findAllCountries= function () {   
+			bankerService.findAllCountries().then(
 				function(response){
 					$scope.allCountries = response.data;
 				}, function (response){
@@ -57,8 +57,8 @@ app.controller('bankerController', ['$scope','bankerService', '$location',
 			);
 		}
 		
-		$scope.addNewCountry= function () {
-			bankerService.addNewCountry($scope.country).then(
+		$scope.saveCountry= function () {
+			bankerService.saveCountry($scope.country).then(
 				function(){
 					alert("Odgovor");
 				}, function (response){
@@ -66,5 +66,46 @@ app.controller('bankerController', ['$scope','bankerService', '$location',
 				}
 			);
 		}		
+		
+		$scope.saveIndividualPerson= function () {
+			bankerService.saveIndividualPerson($scope.individualPerson).then(
+				function(){
+					alert("Odgovor");
+				}, function (response){
+					alert("Greska");
+				}
+			);
+		}	
+		
+		$scope.saveLegalPerson= function () {
+			bankerService.saveLegalPerson($scope.legalPerson).then(
+				function(){
+					alert("Odgovor");
+				}, function (response){
+					alert("Greska");
+				}
+			);
+		}	
+		
+		$scope.findAllPopulatedPlaces= function () {   
+			bankerService.findAllPopulatedPlaces().then(
+				function(response){
+					$scope.allPopulatedPlaces = response.data;
+				}, function (response){
+					alert("Greska");
+				}
+			);
+		}
+		$scope.savePopulatedPlace= function () {
+			bankerService.savePopulatedPlace($scope.populatedPlace).then(
+				function(){
+					alert("Odgovor");
+				}, function (response){
+					alert("Greska");
+				}
+			);
+		}	
+		
+		
 	}
 ]);

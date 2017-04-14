@@ -1,0 +1,30 @@
+<div class = "col-sm-2">
+<form name = "createNewIndividual">
+
+	<label>Applicant</label>
+	<input type = "text" class = "form-control" ng-model = "$parent.individualPerson.applicant"></input>
+
+	<label>Jmbg</label>
+	<input type = "text" class = "form-control" ng-model = "$parent.individualPerson.jmbg" ></input>
+	
+	<label>address</label>
+	<input type = "text" class = "form-control" ng-model = "$parent.individualPerson.address"></input>
+	
+	<label>Fax</label>
+	<input type = "text" class = "form-control" ng-model = "$parent.individualPerson.fax" ></input>
+	
+	<label>Mail</label>
+	<input type = "text" class = "form-control" ng-model = "$parent.individualPerson.mail" ></input>
+	
+	<label>Delivery address</label>
+	<input type = "text" class = "form-control" ng-model = "$parent.individualPerson.deliveryAddress" ></input>
+	
+	<label>Delivery by mail</label>
+	<input type ="radio" class = "form-control" ng-model = "$parent.individualPerson.deliveryByMail" value = "true"> Yes
+	<input type ="radio" class = "form-control" ng-model = "$parent.individualPerson.deliveryByMail" value="false"> No
+	
+<button class = "btn btn-default" ng-click = "saveIndividualPerson()"><span class = "glyphicon glyphicon-plus"></span>  Save</button>
+<button class = "btn btn-default" ng-click = "cancel()"><span class = "glyphicon glyphicon-remove"></span>  Cancel</button>
+</form>
+</div>
+

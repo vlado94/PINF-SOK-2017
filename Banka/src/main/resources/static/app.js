@@ -45,8 +45,10 @@ angular.module('routerApp', ['ui.router',
           	templateUrl : 'banker/bankerProfile.html'
         })
         .state('banker.createNewLegalBill', {
-        	url : '/createNew',
           	templateUrl : 'banker/createNewLegalBill.html'
+        })
+        .state('banker.createNewIndividualBill', {
+          	templateUrl : 'banker/createNewIndividualBill.html'
         })
          .state('banker.codeBookActivities', {
         	url : '/codeBookActivities',
@@ -61,5 +63,12 @@ angular.module('routerApp', ['ui.router',
         })
           .state('banker.countries.addCountry', {
           	templateUrl : 'banker/country/addCountry.html'
+        })
+          .state('banker.populatedPlaces', {
+        	url : '/populatedPlace',
+          	templateUrl : 'banker/populatedPlace/populatedPlaces.html'
+        })
+          .state('banker.populatedPlaces.addPopulatedPlace', {
+          	templateUrl : 'banker/populatedPlace/addPopulatedPlace.html'
         })
 });

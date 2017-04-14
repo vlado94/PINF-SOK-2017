@@ -5,9 +5,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import app.country.Country;
 import lombok.Data;
 
 @Data
@@ -26,4 +30,10 @@ public class PopulatedPlace {
 	@Column(length=5)
 	@NotBlank
 	private String pttCode;
+	
+	@ManyToOne
+	@JoinTable(name = "POPULATED_PLACE_COUNTRY", joinColumns = @JoinColumn(name = "POPULATED_PLACE_ID"), inverseJoinColumns = @JoinColumn(name = "COUNTRY_ID"))
+	private Country country;
+	
+	
 }

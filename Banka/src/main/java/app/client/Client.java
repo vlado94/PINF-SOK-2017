@@ -1,56 +1,95 @@
 package app.client;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Table;
+import static javax.persistence.InheritanceType.JOINED;
 
-import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.stereotype.Component;
 
+import app.codeBookActivities.CodeBookActivities;
 import lombok.Data;
 
+
 @Data
-@MappedSuperclass
+@Entity
 public class Client {
 	
 	
 	@Id
-	@NotBlank
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(unique = true)
-	private String id;
+	protected Long id;
 	
 	@NotBlank
 	@Column
-	private String applicant;
+	protected String applicant;
+	
+	
+	@Column(nullable = false)
+	protected Integer jmbg; //not null
 	
 	@NotBlank
 	@Column
-	private String jmbg;
+	protected String address;
 	
 	@Column
-	@NotBlank
-	private String address;
+	protected Integer phone;
 	
 	@Column
-	private Integer phone;
+	protected Integer fax;
 	
-	@Column
-	private Integer fax;
-	
-	@Email
-	@NotBlank
+	//@Email
+	//@NotBlank
 	@Column(unique = true)
-	private String mail;
+	protected String mail;
 	
 	@Column
-	private String deliveryAddress;
+	protected String deliveryAddress;
 	
 	@Column
-	private boolean deliveryByMail;
+	protected boolean deliveryByMail;
+	
+	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
+	protected TypeOfClient type; //not null
+	
 	
 	@Column
-	@NotBlank
-	private String type;
+	private String shortName;
+	
+	@Column
+	private Integer pib; //(length=9) not null
+	
+	@Column
+	private Integer mib; //(length=8) not null
 	
 	
+	@Column
+	private String taxAuthority; //naziv poreskog organa
+	
+	@Column
+	private String responsiblePerson;
+	
+	@ManyToOne
+	@JoinTable(name = "LEGAL_PERSON_CODE_BOOK_ACTIVITIES", joinColumns = @JoinColumn(name = "LEGAL_PERSON_ID"), inverseJoinColumns = @JoinColumn(name = "CODE_BOOK_ACTIVITIES_ID"))
+	private CodeBookActivities codeBookActivities;
+
+	
+	public enum TypeOfClient {
+	   PRAVNO,
+	   FIZICKO
+	}
 }

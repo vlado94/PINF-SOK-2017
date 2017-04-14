@@ -1,21 +1,21 @@
 <div class = "col-sm-2">
 
-<div ng-init="findAllCountries()">
+<div ng-init="findAllPopulatedPlaces()">
 <table class="table table-bordered" border="1">
 		<tbody>
 			<tr>
-				<th>Code</th>
 				<th>Name</th>
+				<th>PTT code</th>
 			</tr>
 			<tr ng-repeat="country in allCountries">
-				<td>{{country.code}}</td>
 				<td>{{country.name}}</td>
+				<td>{{country.pttCode}}</td>
 				</tr>
 		</tbody>
 	</table>
 
-<button class = "btn btn-default" ui-sref =".addCountry" ><span class = "glyphicon glyphicon-plus"></span>  Add</button> 
-<button class = "btn btn-default" ng-click = "updateCountry()"><span class = "glyphicon glyphicon-ok"></span>  Update</button> 
+<button class = "btn btn-default" ui-sref =".addPopulatedPlace()" ><span class = "glyphicon glyphicon-plus"></span>  Add</button> 
+<button class = "btn btn-default" ng-click = "updatePopulatedPlace()"><span class = "glyphicon glyphicon-ok"></span>  Update</button> 
 <button class = "btn btn-default" ng-click = "deleteCountry()"><span class = "glyphicon glyphicon-remove"></span> Delete</button> 
 
 </div>
