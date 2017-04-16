@@ -6,10 +6,12 @@
 			<tr>
 				<th>Name</th>
 				<th>PTT code</th>
+				<th>Country</th>
 			</tr>
-			<tr ng-repeat="country in allCountries">
-				<td>{{country.name}}</td>
-				<td>{{country.pttCode}}</td>
+			<tr ng-repeat="populatedPlace in allPopulatedPlaces">
+				<td>{{populatedPlace.name}}</td>
+				<td>{{populatedPlace.pttCode}}</td>
+				<td>{{populatedPlace.country.name}}</td>
 				</tr>
 		</tbody>
 	</table>

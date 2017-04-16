@@ -97,14 +97,33 @@ app.controller('bankerController', ['$scope','bankerService', '$location',
 			);
 		}
 		$scope.savePopulatedPlace= function () {
-			bankerService.savePopulatedPlace($scope.populatedPlace).then(
-				function(){
-					alert("Odgovor");
-				}, function (response){
-					alert("Greska");
-				}
-			);
+			
+			bankerService.findCountryById($scope.selected).then(
+				   function(response){
+						var country = response.data;
+						var place  = $scope.populatedPlace;
+						place.country = country;
+						
+						bankerService.savePopulatedPlace(place).then(
+							function(){
+								alert("Odgovor");
+							}, function (response){
+								alert("Greska");
+							}
+						);
+						
+					}, function (response){
+						alert("Greska");
+					}
+				);
+			
 		}	
+		
+		
+		$scope.setSelected = function(code) {
+	        $scope.selected = code;
+	        
+	    };
 		
 		
 	}

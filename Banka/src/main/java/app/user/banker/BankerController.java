@@ -86,6 +86,13 @@ public class BankerController {
 		return countryService.findAll(); 
 	}
 	
+	
+	@GetMapping(path = "/findCountryById/{id}")
+	@ResponseStatus(HttpStatus.OK)
+	public Country findCountryById(@PathVariable Long id) {
+		return countryService.findOne(id);
+	}
+	
 	@PostMapping(path = "/saveCountry")
 	@ResponseStatus(HttpStatus.CREATED)
 	public void saveCountry(@RequestBody Country country) {

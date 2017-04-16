@@ -4,8 +4,48 @@
 	<label>Name</label>
 	<input type = "text" class = "form-control" ng-model = "$parent.$parent.populatedPlace.name" ></input>
 
-	<label>PTT code</label>
-	<input type = "text" class = "form-control" ng-model = "$parent.$parent.populatedPlace.pttCode"></input>
+    <label>PTT code</label>
+	<input type = "text" class = "form-control" ng-model = "$parent.$parent.populatedPlace.pttCode"></input> 
+	
+	<label>Country</label>
+	<button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal"> ... </button>
+
+	<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog" style="color:black;">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title" >Choose country</h4>
+      </div>
+      <div class="modal-body" ng-init="findAllCountries()">
+        
+        <table class="table table-bordered table-hover" border="1">
+		<tbody>
+			<tr>
+				<th>Code</th>
+				<th>Name</th>
+			</tr>
+			<tr ng-repeat="country in allCountries" ng-click="setSelected(country.id);">
+				<td>{{country.code}}</td>
+				<td>{{country.name}}</td>
+				</tr>
+		</tbody>
+		</table>
+        
+       
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
 
 <button class = "btn btn-default" ng-click = "savePopulatedPlace()"><span class = "glyphicon glyphicon-ok"></span>Add</button>
 <button class = "btn btn-default" ng-click = "cancel()"><span class = "glyphicon glyphicon-remove"></span>Cancel</button>

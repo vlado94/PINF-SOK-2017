@@ -24,6 +24,9 @@ services.service('bankerService', ['$http', function($http){
 	this.findAllCountries = function(){
 		return $http.get(url+"findAllCountries");
 	}
+	this.findCountryById = function(countryId){
+		return $http.get(url+"findCountryById/"+countryId);
+	}
 	this.saveCountry = function(country){
 		return $http.post(url+"saveCountry",country);
 	}
@@ -36,7 +39,7 @@ services.service('bankerService', ['$http', function($http){
 	this.findAllPopulatedPlaces = function(){
 		return $http.get(url+"findAllPopulatedPlaces");
 	}
-	this.savePopulatedPlace = function(populatedPlac){
-		return $http.post(url+"savePopulatedPlace",populatedPlac);
+	this.savePopulatedPlace = function(populatedPlace){
+		return $http.post(url+"savePopulatedPlace",populatedPlace);
 	}
 }]);
