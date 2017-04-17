@@ -9,5 +9,7 @@ public interface CountryService {
 	public void save(Country country);
 
 	Country findOne(Long id);
+
+	void delete(Long id);
 	
 }

@@ -32,4 +32,9 @@ public class CountryServiceImpl implements CountryService{
 	public Country findOne(Long id) {
 		return countryRepository.findOne(id);
 	}
+
+	@Override
+	public void delete(Long id) {
+		countryRepository.delete(id);
+	}
 }

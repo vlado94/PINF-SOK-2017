@@ -8,6 +8,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -59,7 +60,7 @@ public class BankerController {
 		}
 	}
 	
-	@PutMapping(path = "/update/{id}")
+	@PutMapping(path = "/updateProfile/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public Banker update(@PathVariable Long id,@RequestBody Banker banker) {
 		Banker bankerForEdit = bankerService.findOneById(id);
@@ -80,6 +81,15 @@ public class BankerController {
 		codeBookActivitiesService.save(codeBookActivity);
 	}
 	
+	@PutMapping(path = "/updateCodeBookActivity/{id}")
+	@ResponseStatus(HttpStatus.CREATED)
+	public void updateCodeBookActivity(@PathVariable Long id,@RequestBody CodeBookActivities codeBookActivity) {
+		CodeBookActivities codeBookActivityForUpdate = codeBookActivitiesService.findOne(id);
+		codeBookActivityForUpdate.setCode(codeBookActivity.getCode());
+		codeBookActivityForUpdate.setName(codeBookActivity.getName());
+		codeBookActivitiesService.save(codeBookActivity);
+	}
+	
 	@GetMapping("/findAllCountries")
 	@ResponseStatus(HttpStatus.OK)
 	public List<Country> findAllCountries() {
@@ -97,6 +107,21 @@ public class BankerController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public void saveCountry(@RequestBody Country country) {
 		countryService.save(country);
+	}
+	
+	@PutMapping(path = "/updateCountry/{id}")
+	@ResponseStatus(HttpStatus.CREATED)
+	public void updateCountry(@PathVariable Long id,@RequestBody Country country) {
+		Country countryForUpdate = countryService.findOne(id);
+		countryForUpdate.setCode(country.getCode());
+		countryForUpdate.setName(country.getName());
+		countryService.save(countryForUpdate);
+	}
+	
+	@DeleteMapping(path = "/deleteCountry/{id}")
+	@ResponseStatus(HttpStatus.OK)
+	public void deleteCountry(@PathVariable Long id) {
+		countryService.delete(id);
 	}
 	
 	@PostMapping(path = "/saveIndividualPerson")

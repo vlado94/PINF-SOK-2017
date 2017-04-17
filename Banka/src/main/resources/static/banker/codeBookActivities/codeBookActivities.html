@@ -6,17 +6,18 @@
 			<tr>
 				<th>Code</th>
 				<th>Name</th>
+				<th>Update</th>
 			</tr>
 			<tr ng-repeat="activity in allcodeBookActivities">
 				<td>{{activity.code}}</td>
 				<td>{{activity.name}}</td>
-				</tr>
+				<td><button class = "btn" ui-sref =".updateCodeBookActivity" ng-click = prepareToUpdateCodeBookActivity(activity)><span class = "glyphicon glyphicon-ok"></span></button></td>
+			</tr>
 		</tbody>
 	</table>
 
-<button class = "btn btn-default" ui-sref =".addCodeBookActivity" ><span class = "glyphicon glyphicon-plus"></span>  Add</button> 
-<button class = "btn btn-default" ng-click = "updateActivity()"><span class = "glyphicon glyphicon-ok"></span>  Update</button> 
-<button class = "btn btn-default" ng-click = "deleteActivity()"><span class = "glyphicon glyphicon-remove"></span>  Delete</button> 
+<button class = "btn btn-default" ui-sref =".addCodeBookActivity" ><span class = "glyphicon glyphicon-plus"></span> Add</button> 
+<button class = "btn btn-default" ng-click = "deleteActivity()"><span class = "glyphicon glyphicon-remove"></span> Delete</button> 
 
 </div>
 

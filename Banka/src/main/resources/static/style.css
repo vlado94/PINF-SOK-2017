@@ -16,6 +16,10 @@
     background: #a6a6a6;
 }
 
+.table{
+	background-color: #8c8c8c;
+}
+
 .loginForm {
 	width : 25%;
 	margin-left : 500px;

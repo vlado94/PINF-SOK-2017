@@ -6,16 +6,20 @@
 			<tr>
 				<th>Code</th>
 				<th>Name</th>
+				<th colspan="2">Action</th>
 			</tr>
 			<tr ng-repeat="country in allCountries">
 				<td>{{country.code}}</td>
 				<td>{{country.name}}</td>
-				</tr>
+				<td colspan="2">
+					<button class = "btn" ui-sref =".updateCountry" ng-click = prepareToUpdateCountry(country)><span class = "glyphicon glyphicon-ok"></span></button>
+					<button class = "btn" ng-click = deleteCountry(country.id)><span class = "glyphicon glyphicon-remove"></span></button>
+				</td>
+			</tr>
 		</tbody>
 	</table>
 
 <button class = "btn btn-default" ui-sref =".addCountry" ><span class = "glyphicon glyphicon-plus"></span>  Add</button> 
-<button class = "btn btn-default" ng-click = "updateCountry()"><span class = "glyphicon glyphicon-ok"></span>  Update</button> 
 <button class = "btn btn-default" ng-click = "deleteCountry()"><span class = "glyphicon glyphicon-remove"></span> Delete</button> 
 
 </div>

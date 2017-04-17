@@ -57,12 +57,18 @@ angular.module('routerApp', ['ui.router',
          .state('banker.codeBookActivities.addCodeBookActivity', {
           	templateUrl : 'banker/codeBookActivities/addCodeBookActivity.html'
         })
+         .state('banker.codeBookActivities.updateCodeBookActivity', {
+          	templateUrl : 'banker/codeBookActivities/updateCodeBookActivity.html'
+        })
          .state('banker.countries', {
         	url : '/countries',
           	templateUrl : 'banker/country/countries.html'
         })
           .state('banker.countries.addCountry', {
           	templateUrl : 'banker/country/addCountry.html'
+        })
+          .state('banker.countries.updateCountry', {
+          	templateUrl : 'banker/country/updateCountry.html'
         })
           .state('banker.populatedPlaces', {
         	url : '/populatedPlace',
