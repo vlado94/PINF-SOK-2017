@@ -77,4 +77,8 @@ angular.module('routerApp', ['ui.router',
           .state('banker.populatedPlaces.addPopulatedPlace', {
           	templateUrl : 'banker/populatedPlace/addPopulatedPlace.html'
         })
+        .state('banker.exchangeRates', {
+        	url : '/exchangeRates',
+          	templateUrl : 'banker/exchangeRate/exchangeRates.html'
+        })
 });

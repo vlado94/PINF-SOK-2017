@@ -5,6 +5,7 @@ import java.util.List;
 import javax.naming.AuthenticationException;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import javax.ws.rs.NotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -60,13 +61,18 @@ public class BankerController {
 		}
 	}
 	
-	@PutMapping(path = "/updateProfile/{id}")
+	@PutMapping("/updateProfile/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public Banker update(@PathVariable Long id,@RequestBody Banker banker) {
 		Banker bankerForEdit = bankerService.findOneById(id);
-		bankerForEdit.setAttributes(banker);
-		banker = bankerService.save(bankerForEdit);
-		return banker;		
+		if(bankerForEdit != null) {
+			bankerForEdit.setAttributes(banker);
+			banker = bankerService.save(bankerForEdit);
+			return banker;		
+		}
+		else {
+			throw new NotFoundException();
+		}
 	}
 	
 	@GetMapping("/findAllCodeBookActivities")
@@ -78,16 +84,27 @@ public class BankerController {
 	@PostMapping(path = "/saveCodeBookActivity")
 	@ResponseStatus(HttpStatus.CREATED)
 	public void saveCodeBookActivity(@RequestBody CodeBookActivities codeBookActivity) {
-		codeBookActivitiesService.save(codeBookActivity);
+		try {
+			codeBookActivitiesService.save(codeBookActivity);
+		}
+		catch(Exception ex) {
+			throw new NotFoundException();
+		}
+
 	}
 	
 	@PutMapping(path = "/updateCodeBookActivity/{id}")
 	@ResponseStatus(HttpStatus.CREATED)
 	public void updateCodeBookActivity(@PathVariable Long id,@RequestBody CodeBookActivities codeBookActivity) {
 		CodeBookActivities codeBookActivityForUpdate = codeBookActivitiesService.findOne(id);
-		codeBookActivityForUpdate.setCode(codeBookActivity.getCode());
-		codeBookActivityForUpdate.setName(codeBookActivity.getName());
-		codeBookActivitiesService.save(codeBookActivity);
+		if(codeBookActivityForUpdate != null) {
+			codeBookActivityForUpdate.setCode(codeBookActivity.getCode());
+			codeBookActivityForUpdate.setName(codeBookActivity.getName());
+			codeBookActivitiesService.save(codeBookActivity);
+		}
+		else {
+			throw new NotFoundException();
+		}
 	}
 	
 	@GetMapping("/findAllCountries")

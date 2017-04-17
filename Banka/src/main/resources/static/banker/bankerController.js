@@ -7,6 +7,8 @@ app.controller('bankerController', ['$scope','bankerService', '$location',
 				function (response) {
 					if(response.data != "") {
 						$scope.banker = response.data;
+						$scope.currentExchangeRate = $scope.banker.bank.exchangeRates[$scope.banker.bank.exchangeRates.length - 1];
+	
 						findAllCodeBookActivities();
 					}
 					else {
@@ -16,6 +18,7 @@ app.controller('bankerController', ['$scope','bankerService', '$location',
 				}
 			);
 		}
+		
 		checkRights();
 
 		$scope.updateProfile = function () {

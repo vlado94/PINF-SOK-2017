@@ -7,8 +7,10 @@ app.controller('loginController', ['$scope','loginService', '$location',
 			loginService.logIn($scope.user).then(
 				function (response) {
                     $scope.state = undefined;
-                    if(response.data !== null)
-                    	$location.path('banker/home');                   
+                    if(response.data !== null && response.data !== "")
+                    	$location.path('banker/home');      
+                    else
+    				    alert("Access denied!");
 				},
                 function (response) {
 				    alert("Access denied!");

@@ -18,10 +18,18 @@
 
 .table{
 	background-color: #8c8c8c;
-}
+ 	border: 3px solid #eeefe6;
+ }
 
 .loginForm {
 	width : 25%;
 	margin-left : 500px;
 	margin-top : 200px;
+}
+
+.caption {
+ 	border: 3px solid #eeefe6;
+	border-bottom : 0px;
+	font-size : 20px;
+	background-color: #8c8c8c;
 }

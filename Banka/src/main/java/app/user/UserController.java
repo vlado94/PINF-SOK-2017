@@ -1,6 +1,7 @@
 package app.user;
 
 import javax.servlet.http.HttpSession;
+import javax.ws.rs.NotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -47,6 +48,10 @@ public class UserController {
 
 	@GetMapping(path = "/getLoggedUser")
 	public User getLoggedUser() {
-		return (User) httpSession.getAttribute("user");
+		try {
+			return (User) httpSession.getAttribute("user");
+		} catch(Exception ex) {
+			throw new NotFoundException();
+		}
 	}
 }
