@@ -40,6 +40,6 @@ public class ExchangeRate {
 	private Integer numberOfExchangeRate;
 	
 	@OneToMany
-	@JoinTable(name = "EXCHANGE_CURRENCY", joinColumns = @JoinColumn(name = "EXCHANGE_RATE_ID"), inverseJoinColumns = @JoinColumn(name = "EXCHANGE_IN_CURRENCY"))
+	@JoinTable(name = "EXCHANGE_CURRENCY", joinColumns = @JoinColumn(name = "EXCHANGE_RATE_ID"), inverseJoinColumns = @JoinColumn(name = "EXCHANGE_IN_CURRENCY_ID"))
 	private List<ExchangeInCurrency> exchangeInCurrencies;
 }
