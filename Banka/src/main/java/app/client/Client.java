@@ -84,7 +84,6 @@ public class Client {
 	private String responsiblePerson;
 	
 	@ManyToOne
-	@JoinTable(name = "LEGAL_PERSON_CODE_BOOK_ACTIVITIES", joinColumns = @JoinColumn(name = "LEGAL_PERSON_ID"), inverseJoinColumns = @JoinColumn(name = "CODE_BOOK_ACTIVITIES_ID"))
 	private CodeBookActivities codeBookActivities;
 
 	
