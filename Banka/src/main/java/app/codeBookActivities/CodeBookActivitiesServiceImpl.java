@@ -32,4 +32,10 @@ public class CodeBookActivitiesServiceImpl implements CodeBookActivitiesService 
 	public CodeBookActivities findOne(Long id) {
 		return codeBookActivitiesRepository.findOne(id);
 	}
+
+	@Override
+	public void delete(Long id) {
+		codeBookActivitiesRepository.delete(id);
+		
+	}
 }

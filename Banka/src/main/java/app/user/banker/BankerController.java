@@ -107,6 +107,13 @@ public class BankerController {
 		}
 	}
 	
+	
+	@DeleteMapping(path = "/deleteCodeBookActivity/{id}")
+	@ResponseStatus(HttpStatus.OK)
+	public void deleteCodeBookActivity(@PathVariable Long id) {
+		codeBookActivitiesService.delete(id);
+	}
+	
 	@GetMapping("/findAllCountries")
 	@ResponseStatus(HttpStatus.OK)
 	public List<Country> findAllCountries() {
@@ -167,5 +174,23 @@ public class BankerController {
 		populatedPlaceService.save(populatedPlace);
 	}
 	
+	@DeleteMapping(path = "/deletePopulatedPlace/{id}")
+	@ResponseStatus(HttpStatus.OK)
+	public void deletePopulatedPlace(@PathVariable Long id) {
+		populatedPlaceService.delete(id);
+	}
 	
+	@PutMapping(path = "/updatePopulatedPlace/{id}")
+	@ResponseStatus(HttpStatus.CREATED)
+	public void updatePopulatedPlace(@PathVariable Long id,@RequestBody PopulatedPlace populatedPlace) {
+		PopulatedPlace populatedPlaceForUpdate = populatedPlaceService.findOne(id);
+		if(populatedPlaceForUpdate != null) {
+			populatedPlaceForUpdate.setName(populatedPlace.getName());
+			populatedPlaceForUpdate.setPttCode(populatedPlace.getPttCode());
+			populatedPlaceService.save(populatedPlaceForUpdate);
+		}
+		else {
+			throw new NotFoundException();
+		}
+	}
 }

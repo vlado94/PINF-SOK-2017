@@ -1,4 +1,4 @@
-<div class = "col-sm-2">
+<div class = "col-sm-4">
 
 <div>
 <table class="table table-bordered" border="1">
@@ -6,12 +6,15 @@
 			<tr>
 				<th>Code</th>
 				<th>Name</th>
-				<th>Update</th>
+				<th>Action</th>
 			</tr>
 			<tr ng-repeat="activity in allcodeBookActivities">
 				<td>{{activity.code}}</td>
 				<td>{{activity.name}}</td>
-				<td><button class = "btn" ui-sref =".updateCodeBookActivity" ng-click = prepareToUpdateCodeBookActivity(activity)><span class = "glyphicon glyphicon-pencil"></span></button></td>
+				<td>
+					<button class = "btn" ui-sref =".updateCodeBookActivity" ng-click = prepareToUpdateCodeBookActivity(activity)><span class = "glyphicon glyphicon-pencil"></span></button>
+					<button class = "btn" ng-click = deleteCodeBookActivity(activity.id)><span class = "glyphicon glyphicon-remove"></span></button>
+				</td>
 			</tr>
 		</tbody>
 	</table>
@@ -20,6 +23,5 @@
 <button class = "btn btn-default" ng-click = "deleteActivity()"><span class = "glyphicon glyphicon-remove"></span> Delete</button> 
 
 </div>
-
-</div>
 <div ui-view></div>
+</div>

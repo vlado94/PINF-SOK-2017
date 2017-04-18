@@ -66,6 +66,16 @@ app.controller('bankerController', ['$scope','bankerService', '$location',
 			);
 		};
 		
+		$scope.deleteCodeBookActivity = function(id) {
+			bankerService.deleteCodeBookActivity(id).then(
+				function(){
+					 location.reload();
+				}, 
+				function (response){
+					alert("Postoji pravno lice koje posjeduje datu djelatnost. Nije moguce trenutno izbrisati.");					}
+			);
+		};
+		
 		$scope.findAllCountries = function () {   
 			bankerService.findAllCountries().then(
 				function(response){
@@ -140,6 +150,15 @@ app.controller('bankerController', ['$scope','bankerService', '$location',
 			);
 		}
 		
+		
+		$scope.saveCountryForPopulatedPlace= function () {   
+			$scope.previousSelected = $scope.selected;
+		}
+		
+		$scope.annulCountryForPopulatedPlace= function () {   
+			$scope.selected = $scope.previousSelected;
+		}
+		
 		$scope.savePopulatedPlace= function () {
 			bankerService.findCountryById($scope.selected).then(
 				function(response){
@@ -154,10 +173,35 @@ app.controller('bankerController', ['$scope','bankerService', '$location',
 						}
 					);
 				}, function (response){
-					alert("Greska");
+					alert("Morate odabrati drzavu!");
 				}
 			);
-		}		
+		}
+		
+		
+		$scope.deletePopulatedPlace = function(id) {
+			bankerService.deletePopulatedPlace(id).then(
+				function(){
+					 location.reload();
+				}, 
+				function (response){
+					alert("Postoji pravno lice koje posjeduje datu djelatnost. Nije moguce trenutno izbrisati.");					}
+			);
+		};
+		
+		$scope.prepareToUpdatePopulatedPlace= function (populatedPlace) { 
+			$scope.populatedPlaceForUpdate = populatedPlace;
+		}
+		
+		$scope.updatePopulatedPlacee = function() {
+			bankerService.updatePopulatedPlace($scope.populatedPlaceForUpdate).then(
+				function(){
+					 location.reload();
+				}, 
+				function (response){
+					alert("Greska");					}
+			);
+		};
 		
 		$scope.setSelected = function(code) {
 	        $scope.selected = code;

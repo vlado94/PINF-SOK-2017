@@ -23,6 +23,9 @@ services.service('bankerService', ['$http', function($http){
 	this.updateCodeBookActivity = function(codeBookActivity){
 		return $http.put(url+"updateCodeBookActivity/"+codeBookActivity.id,codeBookActivity);
 	}
+	this.deleteCodeBookActivity = function(id){
+		return $http.delete(url+"deleteCodeBookActivity/"+id);
+	}
 	
 	this.findAllCountries = function(){
 		return $http.get(url+"findAllCountries");
@@ -52,5 +55,11 @@ services.service('bankerService', ['$http', function($http){
 	}
 	this.savePopulatedPlace = function(populatedPlace){
 		return $http.post(url+"savePopulatedPlace",populatedPlace);
+	}
+	this.deletePopulatedPlace = function(id){
+		return $http.delete(url+"deletePopulatedPlace/"+id);
+	}
+	this.updatePopulatedPlace = function(populatedPlace){
+		return $http.put(url+"updatePopulatedPlace/"+populatedPlace.id,populatedPlace);
 	}
 }]);

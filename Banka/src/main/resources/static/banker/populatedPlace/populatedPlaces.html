@@ -1,6 +1,6 @@
-<div class = "col-sm-2">
+<div class = "col-sm-4">
 
-<div ng-init="findAllPopulatedPlaces()">
+<div  ng-init="findAllPopulatedPlaces()">
 <table class="table table-bordered" border="1">
 		<tbody>
 			<tr>
@@ -15,18 +15,18 @@
 				<td>{{populatedPlace.country.name}}</td>
 				<td colspan="2">
 					<button class = "btn" ui-sref =".updatePopulatedPlace" ng-click = prepareToUpdatePopulatedPlace(populatedPlace)><span class = "glyphicon glyphicon-pencil"></span></button>
-					<button class = "btn" ng-click = deletePopulatedPace(populatedPlace.id)><span class = "glyphicon glyphicon-remove"></span></button>
+					<button class = "btn" ng-click = deletePopulatedPlace(populatedPlace.id)><span class = "glyphicon glyphicon-remove"></span></button>
 				</td>
 				</tr>
 		</tbody>
 	</table>
 
 <button class = "btn btn-default" ui-sref =".addPopulatedPlace()" ><span class = "glyphicon glyphicon-plus"></span>  Add</button> 
-<button class = "btn btn-default" ng-click = "updatePopulatedPlace()"><span class = "glyphicon glyphicon-ok"></span>  Update</button> 
-<button class = "btn btn-default" ng-click = "deleteCountry()"><span class = "glyphicon glyphicon-remove"></span> Delete</button> 
+
+
 
 </div>
-
+<div ui-view ></div>
 </div>
 
-<div ui-view></div>
+
