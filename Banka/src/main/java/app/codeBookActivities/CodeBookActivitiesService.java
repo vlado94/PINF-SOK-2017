@@ -2,11 +2,15 @@ package app.codeBookActivities;
 
 import java.util.List;
 
-import app.user.banker.Banker;
-
 public interface CodeBookActivitiesService {
 
-	public List<CodeBookActivities> findAll();
+	List<CodeBookActivities> findAll();
 
-	public void save(CodeBookActivities codeBookActivity);
+	CodeBookActivities findOne(Long id);
+
+	void save(CodeBookActivities codeBookActivity);
+
+	void delete(Long id);
+	
+	
 }

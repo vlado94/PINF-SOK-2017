@@ -8,13 +8,15 @@
 </nav>
 
 <div id = "options">
- 	<button ui-sref=".home" class="btn btn-default navbar-btn"><span class="glyphicon glyphicon-list"></span>Home</button>
-	<button ui-sref=".profile" class="btn btn-default navbar-btn" ><span class="glyphicon glyphicon-user"></span> Update profile</button>
+ 	<button ui-sref = ".home" class="btn btn-default navbar-btn"><span class="glyphicon glyphicon-list"></span>Home</button>
+	<button ui-sref = ".profile" class="btn btn-default navbar-btn" ><span class="glyphicon glyphicon-user"></span> Update profile</button>
  	<button ui-sref = ".createNewLegalBill" class="btn btn-default navbar-btn" ><span class="glyphicon glyphicon-user"></span> Create new legal bill</button>
  	<button ui-sref = ".createNewIndividualBill" class="btn btn-default navbar-btn" ><span class="glyphicon glyphicon-user"></span> Create new individual bill</button>
  	
     <button ui-sref = ".codeBookActivities" ng-click = "findAllCodeBookActivities()" class="btn btn-default navbar-btn" ><span class="glyphicon glyphicon-user"></span> Code book activities</button>
     <button ui-sref = ".countries" class="btn btn-default navbar-btn" ><span class="glyphicon glyphicon-user"></span> Countries</button>
     <button ui-sref = ".populatedPlaces" class="btn btn-default navbar-btn" ><span class="glyphicon glyphicon-user"></span> Populated places</button>
+	<button ui-sref = ".exchangeRates" class="btn btn-default navbar-btn" ><span class="glyphicon glyphicon-user"></span>History of exchange of rates</button>
+	
 </div>
 <div ui-view></div>

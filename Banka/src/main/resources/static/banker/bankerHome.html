@@ -1,3 +1,25 @@
 <h1>Banker: {{banker.firstname}}</h1>
 <h1>Bank: {{banker.bank.name}}</h1>
 
+<div name="actualExchangeRate">
+	<button ui-sref = "banker.exchangeRates" class="btn btn-default navbar-btn" ><span class="glyphicon glyphicon-user"></span>History of exchange of rates</button>
+	
+	<table class="table table-bordered" border="1">
+		<caption class = "caption">Date:  {{currentExchangeRate.startDate}}</caption>
+		<tbody>
+			<tr>
+				<th>Number</th>
+				<th>Date formed</th>
+				<th>Date start</th>
+			</tr>
+			<tr ng-repeat="exchangeRate in banker.bank.exchangeRates">
+				<td>{{exchangeRate.numberOfExchangeRate}}</td>
+				<td>{{exchangeRate.date}}</td>
+				<td>{{exchangeRate.startDate}}</td>
+			</tr>
+		</tbody>
+	</table>
+	
+
+
+</div>

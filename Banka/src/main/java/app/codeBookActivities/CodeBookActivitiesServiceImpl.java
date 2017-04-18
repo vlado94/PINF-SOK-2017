@@ -27,4 +27,15 @@ public class CodeBookActivitiesServiceImpl implements CodeBookActivitiesService 
 	public void save(CodeBookActivities codeBookActivity) {
 		codeBookActivitiesRepository.save(codeBookActivity);
 	}
+
+	@Override
+	public CodeBookActivities findOne(Long id) {
+		return codeBookActivitiesRepository.findOne(id);
+	}
+
+	@Override
+	public void delete(Long id) {
+		codeBookActivitiesRepository.delete(id);
+		
+	}
 }

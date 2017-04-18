@@ -84,6 +84,7 @@ public class Client {
 	private String responsiblePerson;
 	
 	@ManyToOne
+	@JoinColumn(name = "CODE_BOOK_ACTIVITIES_ID")
 	private CodeBookActivities codeBookActivities;
 
 	

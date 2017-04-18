@@ -1,0 +1,17 @@
+<div class = "col-sm-6">
+<form name = "updatePopulatedPlace">
+
+	<label>Name</label>
+	<input type = "text" class = "form-control" ng-model = "$parent.$parent.populatedPlaceForUpdate.name" ></input>
+
+	<label>PTT code</label>
+	<input type = "text" class = "form-control" ng-model = "$parent.$parent.populatedPlaceForUpdate.pttCode"></input>
+
+	<label>Country</label>
+<!-- 	<input type = "text" class = "form-control" ng-model = "$parent.$parent.countryForUpdate.name"></input> -->
+	
+</br></br>
+<button class = "btn btn-default" ng-click = "updatePopulatedPlacee()"><span class = "glyphicon glyphicon-ok"></span>Update</button>
+<button class = "btn btn-default" ng-click = "cancel()"><span class = "glyphicon glyphicon-remove"></span>Cancel</button>
+</form>
+</div>

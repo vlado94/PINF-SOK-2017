@@ -29,4 +29,15 @@ public class PopulatedPlaceServiceImpl implements PopulatedPlaceService {
 		
 	}
 
+	@Override
+	public void delete(Long id) {
+		populatedPlaceRepository.delete(id);
+		
+	}
+
+	@Override
+	public PopulatedPlace findOne(Long id) {
+		return populatedPlaceRepository.findOne(id);
+	}
+
 }

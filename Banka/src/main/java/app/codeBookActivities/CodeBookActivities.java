@@ -6,8 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import org.hibernate.validator.constraints.NotBlank;
-
 import lombok.Data;
 
 @Data
@@ -20,7 +18,7 @@ public class CodeBookActivities { //sifarnik djelatnosti
 	private Long id;
 	
 	@Column
-	private int code; //number(5) not null
+	private Integer code; //number(5) not null
 	
 	@Column
 	private String name; //not nul

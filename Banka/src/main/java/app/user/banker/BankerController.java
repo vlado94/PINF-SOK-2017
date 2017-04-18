@@ -5,9 +5,11 @@ import java.util.List;
 import javax.naming.AuthenticationException;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import javax.ws.rs.NotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -59,13 +61,18 @@ public class BankerController {
 		}
 	}
 	
-	@PutMapping(path = "/update/{id}")
+	@PutMapping("/updateProfile/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public Banker update(@PathVariable Long id,@RequestBody Banker banker) {
 		Banker bankerForEdit = bankerService.findOneById(id);
-		bankerForEdit.setAttributes(banker);
-		banker = bankerService.save(bankerForEdit);
-		return banker;		
+		if(bankerForEdit != null) {
+			bankerForEdit.setAttributes(banker);
+			banker = bankerService.save(bankerForEdit);
+			return banker;		
+		}
+		else {
+			throw new NotFoundException();
+		}
 	}
 	
 	@GetMapping("/findAllCodeBookActivities")
@@ -77,7 +84,34 @@ public class BankerController {
 	@PostMapping(path = "/saveCodeBookActivity")
 	@ResponseStatus(HttpStatus.CREATED)
 	public void saveCodeBookActivity(@RequestBody CodeBookActivities codeBookActivity) {
-		codeBookActivitiesService.save(codeBookActivity);
+		try {
+			codeBookActivitiesService.save(codeBookActivity);
+		}
+		catch(Exception ex) {
+			throw new NotFoundException();
+		}
+
+	}
+	
+	@PutMapping(path = "/updateCodeBookActivity/{id}")
+	@ResponseStatus(HttpStatus.CREATED)
+	public void updateCodeBookActivity(@PathVariable Long id,@RequestBody CodeBookActivities codeBookActivity) {
+		CodeBookActivities codeBookActivityForUpdate = codeBookActivitiesService.findOne(id);
+		if(codeBookActivityForUpdate != null) {
+			codeBookActivityForUpdate.setCode(codeBookActivity.getCode());
+			codeBookActivityForUpdate.setName(codeBookActivity.getName());
+			codeBookActivitiesService.save(codeBookActivity);
+		}
+		else {
+			throw new NotFoundException();
+		}
+	}
+	
+	
+	@DeleteMapping(path = "/deleteCodeBookActivity/{id}")
+	@ResponseStatus(HttpStatus.OK)
+	public void deleteCodeBookActivity(@PathVariable Long id) {
+		codeBookActivitiesService.delete(id);
 	}
 	
 	@GetMapping("/findAllCountries")
@@ -97,6 +131,21 @@ public class BankerController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public void saveCountry(@RequestBody Country country) {
 		countryService.save(country);
+	}
+	
+	@PutMapping(path = "/updateCountry/{id}")
+	@ResponseStatus(HttpStatus.CREATED)
+	public void updateCountry(@PathVariable Long id,@RequestBody Country country) {
+		Country countryForUpdate = countryService.findOne(id);
+		countryForUpdate.setCode(country.getCode());
+		countryForUpdate.setName(country.getName());
+		countryService.save(countryForUpdate);
+	}
+	
+	@DeleteMapping(path = "/deleteCountry/{id}")
+	@ResponseStatus(HttpStatus.OK)
+	public void deleteCountry(@PathVariable Long id) {
+		countryService.delete(id);
 	}
 	
 	@PostMapping(path = "/saveIndividualPerson")
@@ -125,5 +174,23 @@ public class BankerController {
 		populatedPlaceService.save(populatedPlace);
 	}
 	
+	@DeleteMapping(path = "/deletePopulatedPlace/{id}")
+	@ResponseStatus(HttpStatus.OK)
+	public void deletePopulatedPlace(@PathVariable Long id) {
+		populatedPlaceService.delete(id);
+	}
 	
+	@PutMapping(path = "/updatePopulatedPlace/{id}")
+	@ResponseStatus(HttpStatus.CREATED)
+	public void updatePopulatedPlace(@PathVariable Long id,@RequestBody PopulatedPlace populatedPlace) {
+		PopulatedPlace populatedPlaceForUpdate = populatedPlaceService.findOne(id);
+		if(populatedPlaceForUpdate != null) {
+			populatedPlaceForUpdate.setName(populatedPlace.getName());
+			populatedPlaceForUpdate.setPttCode(populatedPlace.getPttCode());
+			populatedPlaceService.save(populatedPlaceForUpdate);
+		}
+		else {
+			throw new NotFoundException();
+		}
+	}
 }

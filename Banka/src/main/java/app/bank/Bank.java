@@ -45,7 +45,7 @@ public class Bank {
 	
 	@OneToMany
 	@JoinTable(name = "BANK_EXCHANGE_RATE", joinColumns = @JoinColumn(name = "BANK_ID"), inverseJoinColumns = @JoinColumn(name = "EXCHANGE_RATE_ID"))
-	private List<ExchangeRate> exchangeRate; // kursna lista
+	private List<ExchangeRate> exchangeRates; // kursna lista
 	
 	/*@OneToMany
 	@JoinTable(name = "BANK_BANKERS", joinColumns = @JoinColumn(name = "BANK_ID"), inverseJoinColumns = @JoinColumn(name = "BANKER_ID"))
