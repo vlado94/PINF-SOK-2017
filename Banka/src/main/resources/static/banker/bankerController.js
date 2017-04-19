@@ -89,7 +89,7 @@ app.controller('bankerController', ['$scope','bankerService', '$location',
 		$scope.saveCountry= function () {
 			bankerService.saveCountry($scope.country).then(
 				function(){
-					alert("Odgovor");
+					location.reload();
 				}, function (response){
 					alert("Greska");
 				}
@@ -150,13 +150,44 @@ app.controller('bankerController', ['$scope','bankerService', '$location',
 			);
 		}
 		
-		
+		$scope.setSelected = function(code) {
+	        $scope.selected = code;
+	        bankerService.findCountryById($scope.selected).then(
+					function(response){
+						$scope.selectedName = response.data.name;
+					}, function (response){
+						alert("Morate odabrati drzavu!");
+					}
+				);
+	    };	
+	    
+
 		$scope.saveCountryForPopulatedPlace= function () {   
 			$scope.previousSelected = $scope.selected;
+			
+			
+			 bankerService.findCountryById($scope.selected).then(
+						function(response){
+							$scope.selectedName = response.data.name;
+			
+						}, function (response){
+							alert("Morate odabrati drzavu!");
+						}
+					);
+			
+			/*$scope.selectedName = $scope.selected;*/
 		}
 		
 		$scope.annulCountryForPopulatedPlace= function () {   
 			$scope.selected = $scope.previousSelected;
+			
+			bankerService.findCountryById($scope.previousSelected).then(
+					function(response){
+						$scope.selectedName = response.data.name;
+					}, function (response){
+						$scope.selectedName =$scope.previousSelected; 
+					}
+				);
 		}
 		
 		$scope.savePopulatedPlace= function () {
@@ -167,7 +198,7 @@ app.controller('bankerController', ['$scope','bankerService', '$location',
 					place.country = country;
 					bankerService.savePopulatedPlace(place).then(
 						function(){
-							alert("Odgovor");
+							location.reload();
 						}, function (response){
 							alert("Greska");
 						}
@@ -191,20 +222,63 @@ app.controller('bankerController', ['$scope','bankerService', '$location',
 		
 		$scope.prepareToUpdatePopulatedPlace= function (populatedPlace) { 
 			$scope.populatedPlaceForUpdate = populatedPlace;
+			$scope.selectedNameWhenChanged = populatedPlace.country.name;
 		}
 		
 		$scope.updatePopulatedPlacee = function() {
-			bankerService.updatePopulatedPlace($scope.populatedPlaceForUpdate).then(
-				function(){
-					 location.reload();
-				}, 
-				function (response){
-					alert("Greska");					}
-			);
+			bankerService.findCountryByName($scope.selectedNameWhenChanged).then(
+					function(response){
+						var country = response.data;
+						alert(country.name);
+						var place  = $scope.populatedPlaceForUpdate;
+						place.country = country;
+						bankerService.updatePopulatedPlace(place).then(
+							function(){
+								location.reload();
+							}, function (response){
+								alert("Morate odabrati drzavu!");
+							}
+						);
+					}, function (response){
+						alert("Morate odabrati drzavu!");
+					}
+				);
+			
 		};
 		
-		$scope.setSelected = function(code) {
-	        $scope.selected = code;
-	    };		
+		
+	    
+		$scope.setSelectedWhenChanged = function(code) {
+	        $scope.selectedForUpdate = code;
+	    };
+	    
+	    
+		$scope.saveChangedCountryForPopulatedPlace= function () {   
+			$scope.previousSelectedForUpdate = $scope.selectedForUpdate;
+			
+			 bankerService.findCountryById($scope.selectedForUpdate).then(
+						function(response){
+							$scope.selectedNameWhenChanged = response.data.name;
+			
+						}, function (response){
+							alert("Morate odabrati drzavu!");
+						}
+					);
+		}
+		
+		$scope.annulChangedCountryForPopulatedPlace= function () {   
+			$scope.selectedForUpdate = $scope.previousSelectedForUpdate;
+			
+			bankerService.findCountryById($scope.previousSelectedForUpdate).then(
+					function(response){
+						$scope.selectedNameWhenChanged = response.data.name;
+		
+					}, function (response){
+						alert("Morate odabrati drzavu!");
+					}
+				);
+			
+		}
+	    
 	}
 ]);

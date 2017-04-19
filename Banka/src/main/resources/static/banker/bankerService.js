@@ -33,7 +33,9 @@ services.service('bankerService', ['$http', function($http){
 	this.findCountryById = function(countryId){
 		return $http.get(url+"findCountryById/"+countryId);
 	}
-	
+	this.findCountryByName = function(countryName){
+		return $http.get(url+"findCountryByName/"+countryName);
+	}
 	this.updateCountry = function(country){
 		return $http.put(url+"updateCountry/"+country.id,country);
 	}

@@ -127,6 +127,13 @@ public class BankerController {
 		return countryService.findOne(id);
 	}
 	
+	@GetMapping(path = "/findCountryByName/{name}")
+	@ResponseStatus(HttpStatus.OK)
+	public Country findCountryByName(@PathVariable String name) {
+		return countryService.findByName(name);
+		
+	}
+	
 	@PostMapping(path = "/saveCountry")
 	@ResponseStatus(HttpStatus.CREATED)
 	public void saveCountry(@RequestBody Country country) {
@@ -187,6 +194,7 @@ public class BankerController {
 		if(populatedPlaceForUpdate != null) {
 			populatedPlaceForUpdate.setName(populatedPlace.getName());
 			populatedPlaceForUpdate.setPttCode(populatedPlace.getPttCode());
+			populatedPlaceForUpdate.setCountry(populatedPlace.getCountry());
 			populatedPlaceService.save(populatedPlaceForUpdate);
 		}
 		else {
