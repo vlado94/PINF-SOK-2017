@@ -152,6 +152,8 @@ app.controller('bankerController', ['$scope','bankerService', '$location',
 		
 		$scope.setSelected = function(code) {
 	        $scope.selected = code;
+	        markRow(code);
+	        
 	        bankerService.findCountryById($scope.selected).then(
 					function(response){
 						$scope.selectedName = response.data.name;
@@ -160,6 +162,18 @@ app.controller('bankerController', ['$scope','bankerService', '$location',
 					}
 				);
 	    };	
+	    
+	    
+	    function markRow(code) {   
+	    	 var rows = document.getElementsByTagName('tr');
+		        for(var i=0; i<rows.length; i +=1) {
+		          
+		          rows[i].className = "";
+		        }
+		        
+		     element = document.getElementById(code);
+		     element.setAttribute("class", "selectedRow");
+		}
 	    
 
 		$scope.saveCountryForPopulatedPlace= function () {   
@@ -175,7 +189,7 @@ app.controller('bankerController', ['$scope','bankerService', '$location',
 						}
 					);
 			
-			/*$scope.selectedName = $scope.selected;*/
+		
 		}
 		
 		$scope.annulCountryForPopulatedPlace= function () {   
@@ -250,6 +264,8 @@ app.controller('bankerController', ['$scope','bankerService', '$location',
 	    
 		$scope.setSelectedWhenChanged = function(code) {
 	        $scope.selectedForUpdate = code;
+	        markRow(code);
+	       
 	    };
 	    
 	    

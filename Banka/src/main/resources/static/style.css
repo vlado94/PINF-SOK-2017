@@ -7,6 +7,12 @@
 	background-size: cover;
 }
 
+
+.selectedRow{
+    /* color:white; */
+    background: #ffff6f;
+}
+
 .btn{
     color:white;
     background: #8c8c8c;
