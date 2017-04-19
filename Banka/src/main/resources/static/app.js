@@ -84,4 +84,7 @@ angular.module('routerApp', ['ui.router',
         	url : '/exchangeRates',
           	templateUrl : 'banker/exchangeRate/exchangeRates.html'
         })
+        .state('banker.exchangeRates.addExchangeRate', {
+          	templateUrl : 'banker/exchangeRate/addExchangeRate.html'
+        })
 });
