@@ -8,7 +8,7 @@ public interface ClientService {
 
 	public List<Client> findAll();
 
-	public void save(Client client);
+	public Client save(Client client);
 
 	public List<Client> findAllIndividualBills();
 

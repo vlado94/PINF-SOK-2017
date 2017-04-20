@@ -165,36 +165,67 @@ app.controller('bankerController', ['$scope','bankerService', '$location',
 		
 		$scope.saveIndividualBill= function () {
 			bankerService.saveIndividualBill($scope.individualPerson).then(
-				function(){
-					alert("Odgovor");
+				function(response){
+					var client = response.data;
+					
+					var bill = {};
+					
+					bill.accountNumber = "656555";
+					bill.status = true;
+					bill.date = "2016-03-03";
+					bill.client = client;
+					
+					bankerService.saveBill(bill).then(
+						function(response){ 
+							var banker = $scope.banker;
+							banker.bank.bills.push(response.data);
+							bankerService.updateBank(banker.bank).then(
+								function(){
+									alert("odgovor posle update bank");
+									location.reload();
+								}, function (response){
+									alert("Greska kod update banke!");
+								}
+							);
+							
+						}, function (response){
+							alert("Morate odabrati drzavu!");
+						}
+					);
 				}, function (response){
 					alert("Greska");
 				}
 			);
 		}	
 		
+		
+		function generateAccountNumber(){
+			
+		}
+		
+		
 		$scope.updateLegalClient = function() {
 			var deliveryByMail =$scope.delivery ; 
 	
 			bankerService.findActivityByName($scope.selectedNameOfActivity).then(
-					function(response){
-						var activity = response.data;
-						var client  = $scope.client;
+				function(response){
+					var activity = response.data;
+					var client  = $scope.client;
 						
-						client.deliveryByMail = $scope.delivery;
-						client.codeBookActivities =activity;
-						bankerService.updateLegalClient(client).then(
-							function(){
-								alert("odgovor");
-								location.reload();
-							}, function (response){
-								alert("Morate odabrati drzavu!");
-							}
-						);
-					}, function (response){
-						alert("Morate odabrati drzavu!");
-					}
-				);
+					client.deliveryByMail = $scope.delivery;
+					client.codeBookActivities =activity;
+					bankerService.updateLegalClient(client).then(
+						function(){
+							alert("odgovor");
+							location.reload();
+						}, function (response){
+							alert("Greska!");
+						}
+					);
+				}, function (response){
+					alert("Greska!");
+				}
+			);
 		};
 		
 		
@@ -206,10 +237,9 @@ app.controller('bankerController', ['$scope','bankerService', '$location',
 			client.deliveryByMail = $scope.delivery;		
 		    bankerService.updateIndividualClient(client).then(
 				function(){
-					alert("odgovor");
 					location.reload();
 				}, function (response){
-					alert("Morate odabrati drzavu!");
+					alert("Greska!");
 				}
 			);
 		};
@@ -229,28 +259,25 @@ app.controller('bankerController', ['$scope','bankerService', '$location',
 			
 		}
 		
-			
-		
-
 		$scope.saveLegalBill= function () {
 			bankerService.findActivityById($scope.selectedActivity).then(
-					function(response){
-						var activity = response.data;
-						var person  = $scope.legalPerson;
-						person.codeBookActivities = activity;
+				function(response){
+					var activity = response.data;
+					var person  = $scope.legalPerson;
+					person.codeBookActivities = activity;
 						
-						bankerService.saveLegalBill(person).then(
-							function(){
-								alert("Odgovor");
-								location.reload();
-							}, function (response){
-								alert("Greska");
-							}
-						);
-					}, function (response){
-						alert("Morate odabrati drzavu!");
-					}
-				);
+					bankerService.saveLegalBill(person).then(
+						function(){
+							alert("Odgovor");
+							location.reload();
+						}, function (response){
+							alert("Greska");
+						}
+					);
+				}, function (response){
+					alert("Morate odabrati drzavu!");
+				}
+			);
 		
 		}	
 		
@@ -260,11 +287,11 @@ app.controller('bankerController', ['$scope','bankerService', '$location',
 	        markRow(code);
 	        
 	        bankerService.findActivityById($scope.selectedActivity).then(
-					function(response){
-						$scope.selectedNameOfActivity = response.data.name; 
-					}, function (response){
-						alert("Morate odabrati drzavu!");
-					}
+				function(response){
+					$scope.selectedNameOfActivity = response.data.name; 
+				}, function (response){
+					alert("Morate odabrati drzavu!");
+				}
 			);
 	    };
 	    
@@ -274,13 +301,12 @@ app.controller('bankerController', ['$scope','bankerService', '$location',
 			
 			
 			 bankerService.findActivityById($scope.selectedActivity).then(
-						function(response){
-							$scope.selectedNameOfActivity = response.data.name; 
-			
-						}, function (response){
-							alert("Morate odabrati drzavu!");
-						}
-					);
+					function(response){
+						$scope.selectedNameOfActivity = response.data.name; 
+					}, function (response){
+						alert("Morate odabrati drzavu!");
+					}
+			 );
 			
 		
 		}
@@ -312,12 +338,12 @@ app.controller('bankerController', ['$scope','bankerService', '$location',
 	        markRow(code);
 	        
 	        bankerService.findCountryById($scope.selected).then(
-					function(response){
-						$scope.selectedName = response.data.name;
-					}, function (response){
-						alert("Morate odabrati drzavu!");
-					}
-				);
+				function(response){
+					$scope.selectedName = response.data.name;
+				}, function (response){
+					alert("Morate odabrati drzavu!");
+				}
+			);
 	    };	
 	    
 	    
@@ -338,13 +364,12 @@ app.controller('bankerController', ['$scope','bankerService', '$location',
 			
 			
 			 bankerService.findCountryById($scope.selected).then(
-						function(response){
-							$scope.selectedName = response.data.name;
-			
-						}, function (response){
-							alert("Morate odabrati drzavu!");
-						}
-					);
+					function(response){
+						$scope.selectedName = response.data.name;
+					}, function (response){
+						alert("Morate odabrati drzavu!");
+					}
+			 );
 			
 		
 		}
@@ -353,12 +378,12 @@ app.controller('bankerController', ['$scope','bankerService', '$location',
 			$scope.selected = $scope.previousSelected;
 			
 			bankerService.findCountryById($scope.previousSelected).then(
-					function(response){
-						$scope.selectedName = response.data.name;
-					}, function (response){
-						$scope.selectedName =$scope.previousSelected; 
-					}
-				);
+				function(response){
+					$scope.selectedName = response.data.name;
+				}, function (response){
+					$scope.selectedName =$scope.previousSelected; 
+				}
+			);
 		}
 		
 		$scope.savePopulatedPlace= function () {
@@ -427,25 +452,24 @@ app.controller('bankerController', ['$scope','bankerService', '$location',
 			$scope.previousSelectedForUpdate = $scope.selectedForUpdate;
 			
 			 bankerService.findCountryById($scope.selectedForUpdate).then(
-						function(response){
-							$scope.selectedNameWhenChanged = response.data.name;
-						}, function (response){
-							alert("Morate odabrati drzavu!");
-						}
-					);
+				function(response){
+					$scope.selectedNameWhenChanged = response.data.name;
+				}, function (response){
+					alert("Morate odabrati drzavu!");
+				}
+			 );
 		}
 		
 		$scope.annulChangedCountryForPopulatedPlace= function () {   
 			$scope.selectedForUpdate = $scope.previousSelectedForUpdate;
 			
 			bankerService.findCountryById($scope.previousSelectedForUpdate).then(
-					function(response){
-						$scope.selectedNameWhenChanged = response.data.name;
-		
-					}, function (response){
-						alert("Morate odabrati drzavu!");
-					}
-				);
+				function(response){
+					$scope.selectedNameWhenChanged = response.data.name;
+				}, function (response){
+					alert("Morate odabrati drzavu!");
+				}
+			);
 		}
 	    
 		$scope.getCurrentExchangeRate = function () {

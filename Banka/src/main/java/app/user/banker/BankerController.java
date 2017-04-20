@@ -19,6 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import app.bank.Bank;
+import app.bank.BankService;
+import app.bill.Bill;
+import app.bill.BillService;
 import app.client.Client;
 import app.client.Client.TypeOfClient;
 import app.client.ClientService;
@@ -38,16 +42,21 @@ public class BankerController {
 	private final CountryService countryService;
 	private final ClientService clientService;
 	private final PopulatedPlaceService populatedPlaceService;
+	private final BillService billService;
+	private final BankService bankService;
 	private HttpSession httpSession;
 	
 	@Autowired
 	public BankerController(final HttpSession httpSession,final BankerService bankerService, final CodeBookActivitiesService codeBookActivitiesService, 
-							final CountryService countryService, final ClientService clientService, final PopulatedPlaceService populatedPlaceService) {
+							final CountryService countryService, final ClientService clientService, final PopulatedPlaceService populatedPlaceService,
+							final BillService billService, final BankService bankService) {
 		this.bankerService = bankerService;
 		this.codeBookActivitiesService = codeBookActivitiesService;
 		this.countryService = countryService;
 		this.clientService = clientService;
 		this.populatedPlaceService = populatedPlaceService;
+		this.billService = billService;
+		this.bankService = bankService;
 		this.httpSession = httpSession;
 	}
 	
@@ -179,9 +188,9 @@ public class BankerController {
 	
 	@PostMapping(path = "/saveIndividualBill")
 	@ResponseStatus(HttpStatus.CREATED)
-	public void saveIndividualBill(@Valid @RequestBody Client client) {
+	public Client saveIndividualBill(@Valid @RequestBody Client client) {
 		client.setType(TypeOfClient.FIZICKO);
-		clientService.save(client);
+		return clientService.save(client);
 	}
 	
 	@PutMapping(path = "/updateIndividualClient/{id}")
@@ -279,4 +288,21 @@ public class BankerController {
 			throw new NotFoundException();
 		}
 	}
+	
+	
+	@PostMapping(path = "/saveBill")
+	@ResponseStatus(HttpStatus.CREATED)
+	public Bill saveBill(@Valid @RequestBody Bill bill) {
+		return billService.save(bill);
+	}
+	
+	@PutMapping(path = "/updateBank/{id}")
+	@ResponseStatus(HttpStatus.CREATED)
+	public void updateBank(@PathVariable Long id,@RequestBody Bank bank) {
+		Bank bankForUpdate = bankService.findOne(id);
+		bankForUpdate.setBills(bank.getBills());
+		bankService.save(bankForUpdate);
+	}
+	
+	
 }

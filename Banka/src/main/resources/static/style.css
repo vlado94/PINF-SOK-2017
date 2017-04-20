@@ -69,7 +69,10 @@
    margin-right : 350px; 
   
 }
-
+.individual-bill-form {  
+  margin-left : 320px;
+  width : 20%;
+}
 .span-radio-buttons {
   	margin-left : 85px;
 }
