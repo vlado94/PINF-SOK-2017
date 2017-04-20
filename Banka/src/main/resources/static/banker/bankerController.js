@@ -118,8 +118,36 @@ app.controller('bankerController', ['$scope','bankerService', '$location',
 			);
 		};
 		
-		$scope.saveIndividualPerson= function () {
-			bankerService.saveIndividualPerson($scope.individualPerson).then(
+		
+		$scope.findAllIndividualBills = function () {   
+			var banker = $scope.banker;
+			var listOfBills = banker.bank.bills;
+			var list = [];
+			
+			 for(var i=0; i<listOfBills.length; i +=1) {
+				 if(listOfBills[i].client.type == "FIZICKO"){
+					 list.push(listOfBills[i]);
+				 }
+		     }
+			$scope.allIndividualBills = list;
+			
+			
+		}
+		
+		
+		$scope.getDetails= function (client) { 
+			$scope.client = client;
+			/*$scope.selectedNameWhenChanged = populatedPlace.country.name;*/
+		}
+		
+		/*$scope.getDetailsAboutLegal= function (client) { 
+			$scope.legalClient = client;
+			$scope.populatedPlaceForUpdate = populatedPlace;
+			$scope.selectedNameWhenChanged = populatedPlace.country.name;
+		}*/
+		
+		$scope.saveIndividualBill= function () {
+			bankerService.saveIndividualBill($scope.individualPerson).then(
 				function(){
 					alert("Odgovor");
 				}, function (response){
@@ -128,15 +156,89 @@ app.controller('bankerController', ['$scope','bankerService', '$location',
 			);
 		}	
 		
-		$scope.saveLegalPerson= function () {
-			bankerService.saveLegalPerson($scope.legalPerson).then(
-				function(){
-					alert("Odgovor");
-				}, function (response){
-					alert("Greska");
-				}
-			);
+		
+		$scope.findAllLegalBills= function () {   
+			var banker = $scope.banker;
+			var listOfBills = banker.bank.bills;
+			var list = [];
+			
+			 for(var i=0; i<listOfBills.length; i +=1) {
+				 if(listOfBills[i].client.type == "PRAVNO"){
+					 list.push(listOfBills[i]);
+				 }
+		     }
+			
+			$scope.allLegalBills = list;
+			
+		}
+		
+		
+		
+
+		$scope.saveLegalBill= function () {
+			bankerService.findActivityById($scope.selectedActivity).then(
+					function(response){
+						var activity = response.data;
+						var person  = $scope.legalPerson;
+						person.codeBookActivities = activity;
+						
+						bankerService.saveLegalBill(person).then(
+							function(){
+								alert("Odgovor");
+								location.reload();
+							}, function (response){
+								alert("Greska");
+							}
+						);
+					}, function (response){
+						alert("Morate odabrati drzavu!");
+					}
+				);
+		
 		}	
+		
+		
+		$scope.setSelectedActivity = function(code) {
+	        $scope.selectedActivity = code;
+	        markRow(code);
+	        
+	        bankerService.findActivityById($scope.selectedActivity).then(
+					function(response){
+						//$scope.selectedName = response.data.name; //dodati 
+					}, function (response){
+						alert("Morate odabrati drzavu!");
+					}
+			);
+	    };
+	    
+	    
+		$scope.saveActivityForLegalBill= function () {   
+			$scope.previousSelectedActivity = $scope.selectedActivity;
+			
+			
+			 bankerService.findActivityById($scope.selectedActivity).then(
+						function(response){
+							//$scope.selectedName = response.data.name; //dodati
+			
+						}, function (response){
+							alert("Morate odabrati drzavu!");
+						}
+					);
+			
+		
+		}
+		
+		$scope.annulActivityForLegalBill= function () {   
+			$scope.selectedActivity = $scope.previousSelectedActivity;
+			
+			bankerService.findActivityById($scope.previousSelectedActivity).then(
+					function(response){
+						//$scope.selectedName = response.data.name; //dodati
+					}, function (response){
+						//$scope.selectedName =$scope.previousSelected;  //dodati
+					}
+				);
+		}
 		
 		$scope.findAllPopulatedPlaces= function () {   
 			bankerService.findAllPopulatedPlaces().then(

@@ -26,5 +26,13 @@ public class ClientServiceImpl  implements ClientService{
 	public void save(Client client) {
 		clientRepository.save(client);
 	}
+	@Override
+	public List<Client> findAllIndividualBills() {
+		return clientRepository.findAllIndividualBills();
+	}
+	@Override
+	public List<Client> findAllLegalBills() {
+		return clientRepository.findAllLegalBills();
+	}
 
 }

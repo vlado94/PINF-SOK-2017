@@ -9,7 +9,6 @@
 
 
 .selectedRow{
-    /* color:white; */
     background: #ffff6f;
 }
 
@@ -48,6 +47,37 @@
 	margin-top : -55px;
 	margin-left : 220px;
 }
+
+
+.chooseActivityButton{
+	margin-top : -57px;
+ 	margin-left : 250px; 
+}
+
+
+.whole-bill-form {
+ margin-right : 30px;  
+  margin-left : 380px;
+}
+.left-bill-form {
+  	width : 30%;
+  
+}
+.right-bill-form {
+  float:right;
+  width : 30%;
+   margin-right : 350px; 
+  
+}
+
+.span-radio-buttons {
+  	margin-left : 85px;
+}
+
+.form-control {
+
+  	width : 85%;
+  
 
 .addExchangeRatePartal {
 	margin-right : 150px;

@@ -1,0 +1,28 @@
+<div class = "col-sm-4">
+
+<div ng-init="findAllLegalBills()">
+<table class="table table-bordered" border="1">
+		<tbody>
+			<tr>
+				<th>accountNumber</th>
+				<th>client name</th>
+				<th colspan="2"></th>
+			</tr>
+			<tr ng-repeat="legalBill in allLegalBills">
+				<td>{{legalBill.accountNumber}}</td>
+				<td>{{legalBill.client.applicant}}</td>
+				<td colspan="2">
+					<button class = "btn" ui-sref ="banker.detailsAboutLegal" ng-click = getDetails(legalBill.client)><span class = "glyphicon glyphicon-th"></span> Details</button>
+<!-- 					<button class = "btn" ng-click = deleteCountry(country.id)><span class = "glyphicon glyphicon-remove"></span></button> -->
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+<button class = "btn btn-default" ui-sref =".addCountry" ><span class = "glyphicon glyphicon-plus"></span>  Add</button> 
+
+
+</div>
+<div ui-view></div>
+</div>
+

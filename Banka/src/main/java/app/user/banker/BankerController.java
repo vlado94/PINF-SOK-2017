@@ -81,6 +81,12 @@ public class BankerController {
 		return codeBookActivitiesService.findAll(); 
 	}
 	
+	@GetMapping(path = "/findActivityById/{id}")
+	@ResponseStatus(HttpStatus.OK)
+	public CodeBookActivities findActivityById(@PathVariable Long id) {
+		return codeBookActivitiesService.findOne(id);
+	}
+	
 	@PostMapping(path = "/saveCodeBookActivity")
 	@ResponseStatus(HttpStatus.CREATED)
 	public void saveCodeBookActivity(@RequestBody CodeBookActivities codeBookActivity) {
@@ -155,16 +161,30 @@ public class BankerController {
 		countryService.delete(id);
 	}
 	
-	@PostMapping(path = "/saveIndividualPerson")
+	
+	@GetMapping("/findAllIndividualBills")
+	@ResponseStatus(HttpStatus.OK)
+	public List<Client> findAllIndividualBills() {
+		return clientService.findAllIndividualBills(); 
+	}
+	
+	@PostMapping(path = "/saveIndividualBill")
 	@ResponseStatus(HttpStatus.CREATED)
-	public void saveIndividualPerson(@Valid @RequestBody Client client) {
+	public void saveIndividualBill(@Valid @RequestBody Client client) {
 		client.setType(TypeOfClient.FIZICKO);
 		clientService.save(client);
 	}
 	
-	@PostMapping(path = "/saveLegalPerson")
+	
+	@GetMapping("/findAllLegalBills")
+	@ResponseStatus(HttpStatus.OK)
+	public List<Client> findAllLegalBills() {
+		return clientService.findAllLegalBills(); 
+	}
+	
+	@PostMapping(path = "/saveLegalBill")
 	@ResponseStatus(HttpStatus.CREATED)
-	public void saveLegalPerson(@Valid @RequestBody Client client) {
+	public void saveLegalBill(@Valid @RequestBody Client client) {
 		client.setType(TypeOfClient.PRAVNO);
 		clientService.save(client);
 	}
