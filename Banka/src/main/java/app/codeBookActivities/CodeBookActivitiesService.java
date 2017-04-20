@@ -11,6 +11,8 @@ public interface CodeBookActivitiesService {
 	void save(CodeBookActivities codeBookActivity);
 
 	void delete(Long id);
+
+	CodeBookActivities findByName(String name);
 	
 	
 }

@@ -1,5 +1,5 @@
-<div class = "col-sm-2">
-<form name = "createNewIndividual">
+<div class = "col-sm-2" ng-init="initDetails($parent.client)">
+<form name = "createNewIndividual" >
 
 	<label>Applicant</label>
 	<input type = "text" class = "form-control" ng-model = "$parent.client.applicant"></input>
@@ -20,11 +20,11 @@
 	<input type = "text" class = "form-control" ng-model = "$parent.client.deliveryAddress" ></input>
 	
 	<label>Delivery by mail</label>
-	<input type ="radio" class = "form-control" ng-model = "$parent.client.deliveryByMail" value = "true"> Yes
-	<input type ="radio" class = "form-control" ng-model = "$parent.client.deliveryByMail" value="false"> No
+	<input type ="radio"  id="deliveryTrue" ng-click = "chooseDelivery(true)" > Yes
+	<input type ="radio"  id="deliveryFalse" ng-click = "chooseDelivery(false)" > No
 	
-<!-- <button class = "btn btn-default" ng-click = "saveIndividualBill()"><span class = "glyphicon glyphicon-plus"></span>  Save</button> -->
-<!-- <button class = "btn btn-default" ng-click = "cancel()"><span class = "glyphicon glyphicon-remove"></span>  Cancel</button> -->
+<button class = "btn btn-default" ng-click = "updateIndividualClient()"><span class = "glyphicon glyphicon-plus"></span>  Save</button> 
+<button class = "btn btn-default" ng-click = "cancel()"><span class = "glyphicon glyphicon-remove"></span>  Cancel</button> 
 </form>
 </div>
 

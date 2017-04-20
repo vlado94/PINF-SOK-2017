@@ -38,4 +38,9 @@ public class CodeBookActivitiesServiceImpl implements CodeBookActivitiesService 
 		codeBookActivitiesRepository.delete(id);
 		
 	}
+
+	@Override
+	public CodeBookActivities findByName(String name) {
+		return codeBookActivitiesRepository.findByName(name);
+	}
 }

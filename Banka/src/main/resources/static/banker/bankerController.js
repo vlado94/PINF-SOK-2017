@@ -29,7 +29,7 @@ app.controller('bankerController', ['$scope','bankerService', '$location',
 			);
 		}
 		
-		function findAllCodeBookActivities() {   
+		$scope.findAllCodeBookActivities = function () { 
 			bankerService.findAllCodeBookActivities().then(
 				function(response){
 					$scope.allcodeBookActivities = response.data;
@@ -137,14 +137,31 @@ app.controller('bankerController', ['$scope','bankerService', '$location',
 		
 		$scope.getDetails= function (client) { 
 			$scope.client = client;
-			/*$scope.selectedNameWhenChanged = populatedPlace.country.name;*/
+			
 		}
 		
-		/*$scope.getDetailsAboutLegal= function (client) { 
-			$scope.legalClient = client;
-			$scope.populatedPlaceForUpdate = populatedPlace;
-			$scope.selectedNameWhenChanged = populatedPlace.country.name;
-		}*/
+		
+		$scope.initDetails= function (client) { 
+			if(client.deliveryByMail == true){
+				document.getElementById("deliveryTrue").checked= true;
+			}else{
+				document.getElementById("deliveryFalse").checked= true;
+				
+			}
+		}
+		
+		
+		$scope.chooseDelivery= function (chosen) {
+			if(chosen == true){
+				document.getElementById("deliveryFalse").checked= false;
+				document.getElementById("deliveryTrue").checked= true;
+				$scope.delivery = "true";
+			}else{
+				document.getElementById("deliveryTrue").checked= false;
+				document.getElementById("deliveryFalse").checked= true;
+				$scope.delivery = "false";
+			}
+		}
 		
 		$scope.saveIndividualBill= function () {
 			bankerService.saveIndividualBill($scope.individualPerson).then(
@@ -156,6 +173,46 @@ app.controller('bankerController', ['$scope','bankerService', '$location',
 			);
 		}	
 		
+		$scope.updateLegalClient = function() {
+			var deliveryByMail =$scope.delivery ; 
+	
+			bankerService.findActivityByName($scope.selectedNameOfActivity).then(
+					function(response){
+						var activity = response.data;
+						var client  = $scope.client;
+						
+						client.deliveryByMail = $scope.delivery;
+						client.codeBookActivities =activity;
+						bankerService.updateLegalClient(client).then(
+							function(){
+								alert("odgovor");
+								location.reload();
+							}, function (response){
+								alert("Morate odabrati drzavu!");
+							}
+						);
+					}, function (response){
+						alert("Morate odabrati drzavu!");
+					}
+				);
+		};
+		
+		
+		
+		$scope.updateIndividualClient = function() {
+			var deliveryByMail =$scope.delivery ; 
+			var client  = $scope.client;
+		
+			client.deliveryByMail = $scope.delivery;		
+		    bankerService.updateIndividualClient(client).then(
+				function(){
+					alert("odgovor");
+					location.reload();
+				}, function (response){
+					alert("Morate odabrati drzavu!");
+				}
+			);
+		};
 		
 		$scope.findAllLegalBills= function () {   
 			var banker = $scope.banker;
@@ -172,7 +229,7 @@ app.controller('bankerController', ['$scope','bankerService', '$location',
 			
 		}
 		
-		
+			
 		
 
 		$scope.saveLegalBill= function () {
@@ -204,7 +261,7 @@ app.controller('bankerController', ['$scope','bankerService', '$location',
 	        
 	        bankerService.findActivityById($scope.selectedActivity).then(
 					function(response){
-						//$scope.selectedName = response.data.name; //dodati 
+						$scope.selectedNameOfActivity = response.data.name; 
 					}, function (response){
 						alert("Morate odabrati drzavu!");
 					}
@@ -218,7 +275,7 @@ app.controller('bankerController', ['$scope','bankerService', '$location',
 			
 			 bankerService.findActivityById($scope.selectedActivity).then(
 						function(response){
-							//$scope.selectedName = response.data.name; //dodati
+							$scope.selectedNameOfActivity = response.data.name; 
 			
 						}, function (response){
 							alert("Morate odabrati drzavu!");
@@ -341,27 +398,24 @@ app.controller('bankerController', ['$scope','bankerService', '$location',
 		
 		$scope.updatePopulatedPlacee = function() {
 			bankerService.findCountryByName($scope.selectedNameWhenChanged).then(
-					function(response){
-						var country = response.data;
-						alert(country.name);
-						var place  = $scope.populatedPlaceForUpdate;
-						place.country = country;
-						bankerService.updatePopulatedPlace(place).then(
-							function(){
-								location.reload();
-							}, function (response){
+				function(response){
+					var country = response.data;
+					var place  = $scope.populatedPlaceForUpdate;
+					place.country = country;
+					bankerService.updatePopulatedPlace(place).then(
+						function(){
+							location.reload();
+						}, function (response){
 								alert("Morate odabrati drzavu!");
-							}
-						);
-					}, function (response){
-						alert("Morate odabrati drzavu!");
-					}
-				);
-			
+						}
+					);
+				}, function (response){
+					alert("Morate odabrati drzavu!");
+				}
+			);
 		};
 		
 		
-	    
 		$scope.setSelectedWhenChanged = function(code) {
 	        $scope.selectedForUpdate = code;
 	        markRow(code);
@@ -375,7 +429,6 @@ app.controller('bankerController', ['$scope','bankerService', '$location',
 			 bankerService.findCountryById($scope.selectedForUpdate).then(
 						function(response){
 							$scope.selectedNameWhenChanged = response.data.name;
-			
 						}, function (response){
 							alert("Morate odabrati drzavu!");
 						}

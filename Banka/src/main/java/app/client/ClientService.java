@@ -13,4 +13,6 @@ public interface ClientService {
 	public List<Client> findAllIndividualBills();
 
 	public List<Client> findAllLegalBills();
+
+	public Client findOne(Long id);
 }

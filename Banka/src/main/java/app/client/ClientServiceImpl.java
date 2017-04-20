@@ -34,5 +34,9 @@ public class ClientServiceImpl  implements ClientService{
 	public List<Client> findAllLegalBills() {
 		return clientRepository.findAllLegalBills();
 	}
+	@Override
+	public Client findOne(Long id) {
+		return clientRepository.findOne(id);
+	}
 
 }

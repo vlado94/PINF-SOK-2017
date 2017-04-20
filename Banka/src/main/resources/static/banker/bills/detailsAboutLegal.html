@@ -1,37 +1,37 @@
-<div class ="whole-bill-form">
+<div class ="whole-bill-form" >
 <form name = "createNewLegal">
-<div class = "right-bill-form">
+<div class = "right-bill-form" ng-init="initDetails($parent.client)">
 	
 
 	<label>Phone</label>
-	<input type = "text" class = "form-control" ng-model = "$parent.client.phone" required></input>
+	<input type = "text" class = "form-control" ng-model = "$parent.client.phone"></input>
 	
 	
 	<label>Fax</label>
-	<input type = "text" class = "form-control" ng-model = "$parent.client.fax" required></input>
+	<input type = "text" class = "form-control" ng-model = "$parent.client.fax"></input>
 	
 	<label>Mail</label>
-	<input type = "text" class = "form-control" ng-model = "$parent.client.mail" required></input>
+	<input type = "text" class = "form-control" ng-model = "$parent.client.mail" ></input>
 	
 	<label>Delivery address</label>
-	<input type = "text" class = "form-control" ng-model = "$parent.client.deliveryAddress" required></input>
+	<input type = "text" class = "form-control" ng-model = "$parent.client.deliveryAddress"></input>
 	
 	<label>Delivery by mail</label>
 	
 	</br>
 	<span class = "span-radio-buttons">
-	Yes <input type ="radio" ng-model = "$parent.client.deliveryByMail" value = "true"> 
-	No <input type ="radio"  ng-model = "$parent.client.deliveryByMail" value="false"> 
+	Yes <input type ="radio" id="deliveryTrue" ng-click ="chooseDelivery(true)"> 
+	No <input type ="radio" id="deliveryFalse" ng-click ="chooseDelivery(false)"> 
 	</span>
 	
 	</br>
 	<label>Activity</label>
-	<span><input type = "text" class = "form-control" ng-model = "$parent.selectedActivity" style="background-color: #a4a6aa;" disabled></input> 
+	<span><input type = "text" class = "form-control" ng-model = "$parent.selectedNameOfActivity" style="background-color: #a4a6aa;" disabled></input> 
 	<button type="button" class="btn btn-default chooseActivityButton" data-toggle="modal" data-target="#addActivity"> ... </button>
 	</span>
 	
 	</br>
-	<button class = "btn btn-default" ng-click = "saveLegalBill()"><span class = "glyphicon glyphicon-plus"></span>  Save</button>
+	<button class = "btn btn-default" ng-click = "updateLegalClient()"><span class = "glyphicon glyphicon-plus"></span>  Save</button>
 	<button class = "btn btn-default" ng-click = "cancel()"><span class = "glyphicon glyphicon-remove"></span>  Cancel</button>
 	
 </div>

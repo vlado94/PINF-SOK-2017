@@ -87,6 +87,15 @@ public class BankerController {
 		return codeBookActivitiesService.findOne(id);
 	}
 	
+	
+	@GetMapping(path = "/findActivityByName/{name}")
+	@ResponseStatus(HttpStatus.OK)
+	public CodeBookActivities findActivityByName(@PathVariable String name) {
+		return codeBookActivitiesService.findByName(name);
+		
+	}
+	
+	
 	@PostMapping(path = "/saveCodeBookActivity")
 	@ResponseStatus(HttpStatus.CREATED)
 	public void saveCodeBookActivity(@RequestBody CodeBookActivities codeBookActivity) {
@@ -175,6 +184,55 @@ public class BankerController {
 		clientService.save(client);
 	}
 	
+	@PutMapping(path = "/updateIndividualClient/{id}")
+	@ResponseStatus(HttpStatus.CREATED)
+	public void updateIndividualClient(@PathVariable Long id,@RequestBody Client client) {
+		Client clientForUpdate = clientService.findOne(id);
+		if(clientForUpdate != null) {
+			clientForUpdate.setApplicant(client.getApplicant());
+			clientForUpdate.setJmbg(client.getJmbg());
+			clientForUpdate.setAddress(client.getAddress());
+			clientForUpdate.setPhone(client.getPhone());
+			clientForUpdate.setFax(client.getFax());
+			clientForUpdate.setMail(client.getMail());
+			clientForUpdate.setDeliveryAddress(client.getDeliveryAddress());
+			clientForUpdate.setDeliveryByMail(client.isDeliveryByMail());
+			clientForUpdate.setShortName(client.getShortName());
+			clientForUpdate.setPib(client.getPib());
+			clientForUpdate.setMib(client.getMib());
+			clientForUpdate.setTaxAuthority(client.getTaxAuthority());
+			clientForUpdate.setResponsiblePerson(client.getResponsiblePerson());
+			clientForUpdate.setCodeBookActivities(client.getCodeBookActivities());
+			
+			clientService.save(clientForUpdate);
+		}
+		else {
+			throw new NotFoundException();
+		}
+	}
+	
+	
+	@PutMapping(path = "/updateLegalClient/{id}")
+	@ResponseStatus(HttpStatus.CREATED)
+	public void updateLegalClient(@PathVariable Long id,@RequestBody Client client) {
+		Client clientForUpdate = clientService.findOne(id);
+		if(clientForUpdate != null) {
+			clientForUpdate.setApplicant(client.getApplicant());
+			clientForUpdate.setJmbg(client.getJmbg());
+			clientForUpdate.setAddress(client.getAddress());
+			clientForUpdate.setPhone(client.getPhone());
+			clientForUpdate.setFax(client.getFax());
+			clientForUpdate.setMail(client.getMail());
+			clientForUpdate.setDeliveryAddress(client.getDeliveryAddress());
+			clientForUpdate.setDeliveryByMail(client.isDeliveryByMail());
+			
+			
+			clientService.save(clientForUpdate);
+		}
+		else {
+			throw new NotFoundException();
+		}
+	}
 	
 	@GetMapping("/findAllLegalBills")
 	@ResponseStatus(HttpStatus.OK)

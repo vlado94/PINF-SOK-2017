@@ -4,5 +4,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface CodeBookActivitiesRepository extends PagingAndSortingRepository<CodeBookActivities, Long> {
 
+	CodeBookActivities findByName(String name);
+
 }
 	
