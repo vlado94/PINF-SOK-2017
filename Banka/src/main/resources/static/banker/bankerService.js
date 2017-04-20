@@ -15,6 +15,9 @@ services.service('bankerService', ['$http', function($http){
 	this.findAllCodeBookActivities = function(){
 		return $http.get(url+"findAllCodeBookActivities");
 	}
+	this.findActivityById = function(activityId){
+		return $http.get(url+"findActivityById/"+activityId);
+	}
 	
 	this.saveCodeBookActivity = function(codeBookActivity){
 		return $http.post(url+"saveCodeBookActivity",codeBookActivity);
@@ -45,12 +48,17 @@ services.service('bankerService', ['$http', function($http){
 	this.deleteCountry = function(id){
 		return $http.delete(url+"deleteCountry/"+id);
 	}
-	
-	this.saveIndividualPerson = function(individualPerson){
-		return $http.post(url+"saveIndividualPerson",individualPerson);
+	this.findAllIndividualBills = function(){
+		return $http.get(url+"findAllIndividualBills");
 	}
-	this.saveLegalPerson = function(legalPerson){
-		return $http.post(url+"saveLegalPerson",legalPerson);
+	this.saveIndividualBill = function(individualPerson){
+		return $http.post(url+"saveIndividualBill",individualPerson);
+	}
+	this.findAllLegalBills = function(){
+		return $http.get(url+"findAllLegalBills");
+	}
+	this.saveLegalBill = function(legalPerson){
+		return $http.post(url+"saveLegalBill",legalPerson);
 	}
 	this.findAllPopulatedPlaces = function(){
 		return $http.get(url+"findAllPopulatedPlaces");

@@ -44,11 +44,23 @@ angular.module('routerApp', ['ui.router',
         	url : '/profile',
           	templateUrl : 'banker/bankerProfile.html'
         })
-        .state('banker.createNewLegalBill', {
-          	templateUrl : 'banker/createNewLegalBill.html'
+        .state('banker.legalBills', {
+          	templateUrl : 'banker/bills/legalBills.html'
         })
-        .state('banker.createNewIndividualBill', {
-          	templateUrl : 'banker/createNewIndividualBill.html'
+         .state('banker.individualBills', {
+          	templateUrl : 'banker/bills/individualBills.html'
+        })
+          .state('banker.detailsAboutIndividual', {
+          	templateUrl : 'banker/bills/detailsAboutIndividual.html'
+        })
+          .state('banker.detailsAboutLegal', {
+          	templateUrl : 'banker/bills/detailsAboutLegal.html'
+        })
+        .state('banker.addLegalBill', {
+          	templateUrl : 'banker/bills/addLegalBill.html'
+        })
+        .state('banker.addIndividualBill', {
+          	templateUrl : 'banker/bills/addIndividualBill.html'
         })
          .state('banker.codeBookActivities', {
         	url : '/codeBookActivities',
