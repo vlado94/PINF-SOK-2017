@@ -48,6 +48,7 @@
 	margin-left : 220px;
 }
 
+
 .chooseActivityButton{
 	margin-top : -57px;
  	margin-left : 250px; 
@@ -77,4 +78,10 @@
 
   	width : 85%;
   
+
+.addExchangeRatePartal {
+	margin-right : 150px;
+	width : 30%;
+	margin-top : 30px;
+
 }
