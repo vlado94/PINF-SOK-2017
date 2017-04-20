@@ -1,7 +1,16 @@
-<div class = "col-sm-6 addExchangeRatePartal">
-<form name = "addExchangeRate">
-	<span>
-		<span>Name</span><span>
-		<input type = "text" class = "form-control" ng-model = "$parent.exchangeRate.name" ></input></span>
-	</span>
+<div class = "col-sm-12 addExchangeRatePartal">
+
+<div ng-init="getCurrentExchangeRate()">
+<form name = "addExchangeRate" class = "formForAddExchangeRate">
+	<fieldset>
+		<div  ng-repeat="exchangeInCurrency in newCurrentExchange.exchangeInCurrencies">
+			<label>{{exchangeInCurrency.currency.code}}</label>
+			<input type = "number" value = {{exchangeInCurrency.purchasingRate}} >
+			<input type = "number" value = {{exchangeInCurrency.middleRate}}>
+			<input type = "number" value = {{exchangeInCurrency.saleRate}}>
+		</div>
+		
+	</fieldset>
+	<button ng-click="addExchangeRatee()" class="btn btn-default navbar-btn" ><span class="glyphicon glyphicon-check"></span>Create</button>
+	
 </form>

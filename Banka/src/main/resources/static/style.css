@@ -54,3 +54,12 @@
 	width : 30%;
 	margin-top : 30px;
 }
+
+.formForAddExchangeRate {
+	width: 600px;
+	margin-left : 150px;
+}
+
+input{
+	color : black;
+}

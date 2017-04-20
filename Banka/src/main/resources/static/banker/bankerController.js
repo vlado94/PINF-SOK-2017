@@ -8,8 +8,6 @@ app.controller('bankerController', ['$scope','bankerService', '$location',
 					if(response.data != "") {
 						$scope.banker = response.data;
 						$scope.currentExchangeRate = $scope.banker.bank.exchangeRates[$scope.banker.bank.exchangeRates.length - 1];
-	
-						findAllCodeBookActivities();
 					}
 					else {
 					    $location.path('login');
@@ -293,8 +291,15 @@ app.controller('bankerController', ['$scope','bankerService', '$location',
 						alert("Morate odabrati drzavu!");
 					}
 				);
-			
 		}
 	    
+		$scope.getCurrentExchangeRate = function () {
+			$scope.newCurrentExchange = $scope.currentExchangeRate;
+		}
+		$scope.addExchangeRatee = function() {
+			
+			
+			alert(1)
+		}
 	}
 ]);
