@@ -1,6 +1,14 @@
 <div class = "col-sm-4">
 
 <div  ng-init="findAllPopulatedPlaces()">
+ <form>
+   <div class="form-group">
+     <div class="input-group">
+       <div class="input-group-addon"><i class="fa fa-search"></i></div>
+       <input type="text" class="form-control" placeholder="Search populated place..." ng-model="searchPopulatedPlace">
+     </div>      
+   </div>
+ </form>
 <table class="table table-bordered" border="1">
 		<tbody>
 			<tr>
@@ -9,7 +17,7 @@
 				<th>Country</th>
 				<th colspan="2">Action</th>
 			</tr>
-			<tr ng-repeat="populatedPlace in allPopulatedPlaces">
+			<tr ng-repeat="populatedPlace in allPopulatedPlaces | filter:searchPopulatedPlace">
 				<td>{{populatedPlace.name}}</td>
 				<td>{{populatedPlace.pttCode}}</td>
 				<td>{{populatedPlace.country.name}}</td>

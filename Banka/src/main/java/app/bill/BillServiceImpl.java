@@ -35,4 +35,9 @@ public class BillServiceImpl implements BillService{
 		return billRepository.findOne(id);
 	}
 
+	@Override
+	public Bill findByAccountNumber(String accountNumber) {
+		return this.billRepository.findByAccountNumber(accountNumber);
+	}
+
 }

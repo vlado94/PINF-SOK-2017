@@ -135,11 +135,15 @@ app.controller('bankerController', ['$scope','bankerService', '$location',
 		}
 		
 		
+		$scope.getDetailsIndividual= function (individualBill) { 
+			$scope.billForClosing = individualBill;
+			$scope.client = individualBill.client;
+			
+		}
 		$scope.getDetails= function (client) { 
 			$scope.client = client;
 			
 		}
-		
 		
 		$scope.initDetails= function (client) { 
 			if(client.deliveryByMail == true){
@@ -480,5 +484,36 @@ app.controller('bankerController', ['$scope','bankerService', '$location',
 			
 			alert(1)
 		}
+		var clientClosingBill;
+		$scope.closeBill = function () {
+			clientClosingBill  = $scope.client;
+			alert(clientClosingBill.applicant);
+			
+		}
+		
+		$scope.setSelectedIndividual = function(index,accountNumber) {
+	        $scope.selected = index;
+	        if (confirm("sure for bill successor?")) {
+	        	var date = new Date();
+	        	var bill = $scope.billForClosing;
+	        	var closingBill = 
+                {
+                    "date": date,
+                    "billSuccessor": accountNumber,
+                    "bill":bill
+                };
+	            bankerService.saveClosingBill(closingBill).then(
+						function(response){
+							alert("Uspjesno sacuvano "+response);
+							location.reload();
+							
+						}, function (response){
+							alert("Greska "+response);
+						}
+					);
+	        }else{
+	        	alert("NO");
+	        }
+	    };
 	}
 ]);

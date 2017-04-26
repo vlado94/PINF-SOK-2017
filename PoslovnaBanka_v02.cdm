@@ -1315,7 +1315,7 @@ Shadow=0</a:DisplayPreferences>
 <o:RelationshipSymbol Id="o22">
 <a:CreationDate>1491585676</a:CreationDate>
 <a:ModificationDate>1491807528</a:ModificationDate>
-<a:Rect>((-25946,-71177), (22696,-49513))</a:Rect>
+<a:Rect>((-25946,-69931), (19734,-49513))</a:Rect>
 <a:ListOfPoints>((-25946,-69931),(19734,-69931),(19734,-49513))</a:ListOfPoints>
 <a:CornerStyle>1</a:CornerStyle>
 <a:ArrowStyle>4371</a:ArrowStyle>
@@ -1335,7 +1335,7 @@ Shadow=0</a:DisplayPreferences>
 <o:RelationshipSymbol Id="o25">
 <a:CreationDate>1491585756</a:CreationDate>
 <a:ModificationDate>1491585881</a:ModificationDate>
-<a:Rect>((-49341,-67785), (-32734,-27193))</a:Rect>
+<a:Rect>((-49341,-67784), (-32734,-27193))</a:Rect>
 <a:ListOfPoints>((-46341,-27193),(-46341,-67198),(-32734,-67198))</a:ListOfPoints>
 <a:CornerStyle>1</a:CornerStyle>
 <a:ArrowStyle>4627</a:ArrowStyle>
@@ -1436,7 +1436,7 @@ Shadow=0</a:DisplayPreferences>
 <o:RelationshipSymbol Id="o39">
 <a:CreationDate>1491586364</a:CreationDate>
 <a:ModificationDate>1491586364</a:ModificationDate>
-<a:Rect>((-36867,7007), (-25156,17188))</a:Rect>
+<a:Rect>((-36867,7057), (-25156,17188))</a:Rect>
 <a:ListOfPoints>((-25156,8303),(-33042,8303),(-33042,17188))</a:ListOfPoints>
 <a:CornerStyle>1</a:CornerStyle>
 <a:ArrowStyle>4627</a:ArrowStyle>
@@ -1525,8 +1525,8 @@ Shadow=0</a:DisplayPreferences>
 <o:InheritanceLinkSymbol Id="o51">
 <a:CreationDate>1491809814</a:CreationDate>
 <a:ModificationDate>1491809822</a:ModificationDate>
-<a:Rect>((51370,16731), (67567,16735))</a:Rect>
-<a:ListOfPoints>((67567,16731),(51370,16735))</a:ListOfPoints>
+<a:Rect>((51370,16734), (67567,16735))</a:Rect>
+<a:ListOfPoints>((67567,16734),(51370,16735))</a:ListOfPoints>
 <a:CornerStyle>1</a:CornerStyle>
 <a:ArrowStyle>0</a:ArrowStyle>
 <a:LineColor>16744576</a:LineColor>
@@ -1606,7 +1606,7 @@ programski ce biti rijeseno.</a:Text>
 <a:CreationDate>1491499760</a:CreationDate>
 <a:ModificationDate>1491810075</a:ModificationDate>
 <a:CenterTextOffset>(-3369, 842)</a:CenterTextOffset>
-<a:Rect>((11973,-43371), (30205,-20947))</a:Rect>
+<a:Rect>((11973,-43420), (30205,-20947))</a:Rect>
 <a:ListOfPoints>((11973,-42967),(30205,-42967),(30205,-20947))</a:ListOfPoints>
 <a:CornerStyle>1</a:CornerStyle>
 <a:ArrowStyle>4882</a:ArrowStyle>
@@ -1803,7 +1803,7 @@ Da li su neophodne? </a:Text>
 <o:RelationshipSymbol Id="o76">
 <a:CreationDate>1490202123</a:CreationDate>
 <a:ModificationDate>1491585357</a:ModificationDate>
-<a:Rect>((-15096,-20241), (-3784,-1863))</a:Rect>
+<a:Rect>((-15096,-20241), (-3784,-1913))</a:Rect>
 <a:ListOfPoints>((-3784,-3159),(-11871,-3159),(-11871,-20241))</a:ListOfPoints>
 <a:CornerStyle>1</a:CornerStyle>
 <a:ArrowStyle>4627</a:ArrowStyle>
@@ -1823,7 +1823,7 @@ Da li su neophodne? </a:Text>
 <o:RelationshipSymbol Id="o79">
 <a:CreationDate>1490202220</a:CreationDate>
 <a:ModificationDate>1491585305</a:ModificationDate>
-<a:Rect>((-7021,-40441), (5653,-24002))</a:Rect>
+<a:Rect>((-7020,-40441), (5654,-24002))</a:Rect>
 <a:ListOfPoints>((901,-40441),(901,-30259),(-2270,-30259),(-2270,-24002))</a:ListOfPoints>
 <a:CornerStyle>1</a:CornerStyle>
 <a:ArrowStyle>4371</a:ArrowStyle>

@@ -11,4 +11,6 @@ public interface BillService {
 	public Bill save(Bill bill);
 
 	public Bill findOne(Long id);
+	
+	public Bill findByAccountNumber(String accountNumber);
 }

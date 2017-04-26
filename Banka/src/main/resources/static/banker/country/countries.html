@@ -1,6 +1,15 @@
 <div class = "col-sm-4">
 
 <div ng-init="findAllCountries()">
+<!--  Search: <input type="text" class = "form-control"  ng-model="filter.name">-->
+  <form>
+    <div class="form-group">
+      <div class="input-group">
+        <div class="input-group-addon"><i class="fa fa-search"></i></div>
+        <input type="text" class="form-control" placeholder="Search country..." ng-model="searchCountry">
+      </div>      
+    </div>
+  </form>
 <table class="table table-bordered" border="1">
 		<tbody>
 			<tr>
@@ -8,7 +17,7 @@
 				<th>Name</th>
 				<th colspan="2">Action</th>
 			</tr>
-			<tr ng-repeat="country in allCountries">
+			<tr ng-repeat="country in allCountries  | filter:searchCountry">
 				<td>{{country.code}}</td>
 				<td>{{country.name}}</td>
 				<td colspan="2">
