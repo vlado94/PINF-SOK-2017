@@ -7,8 +7,8 @@
 </style>
 <div class = "col-sm-4">
 
-<div ng-init="findAllIndividualBills()">
-<div ng-init="findAllLegalBills()">
+<div ng-init="findAllIndividualBillsExceptClosingOne()">
+<div ng-init="findAllLegalBillsExceptClosingOne()">
  <form>
    <div class="form-group">
      <div class="input-group">
@@ -25,7 +25,7 @@
 				<th>client name</th>
 				<th colspan="2"></th>
 			</tr>
-			<tr ng-repeat="individualBill in allIndividualBills | filter:searchBillSuccessor" ng-click="setSelectedIndividual($index,individualBill.accountNumber)" ng-class="{'selected': $index === selectedRow}">
+			<tr ng-repeat="individualBill in allIndividualBills | filter:searchBillSuccessor" ng-click="setSelectedIndividual($index,individualBill.accountNumber)">
 				<td>{{individualBill.accountNumber}}</td>
 				<td>{{individualBill.client.applicant}}</td>
 				<td colspan="2">
@@ -33,7 +33,7 @@
 <!-- 					<button class = "btn" ng-click = deleteCountry(country.id)><span class = "glyphicon glyphicon-remove"></span></button> -->
 				</td>
 			</tr>
-			<tr ng-repeat="legalBill in allLegalBills | filter:searchBillSuccessor" ng-click="setSelected();">
+			<tr ng-repeat="legalBill in allLegalBills | filter:searchBillSuccessor" ng-click="setSelectedIndividual($index,legalBill.accountNumber)">
 				<td>{{legalBill.accountNumber}}</td>
 				<td>{{legalBill.client.applicant}}</td>
 				<td colspan="2">

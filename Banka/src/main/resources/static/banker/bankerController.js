@@ -135,12 +135,8 @@ app.controller('bankerController', ['$scope','bankerService', '$location',
 		}
 		
 		
-		$scope.getDetailsIndividual= function (individualBill) { 
-			$scope.billForClosing = individualBill;
-			$scope.client = individualBill.client;
-			
-		}
 		$scope.getDetails= function (client) { 
+			alert("OVvooo")
 			$scope.client = client;
 			
 		}
@@ -484,16 +480,16 @@ app.controller('bankerController', ['$scope','bankerService', '$location',
 			
 			alert(1)
 		}
-		var clientClosingBill;
-		$scope.closeBill = function () {
-			clientClosingBill  = $scope.client;
-			alert(clientClosingBill.applicant);
+
+		$scope.closeBill = function (individualBill) {
+			$scope.billForClosing = individualBill;
+			alert("Bill for closing: "+$scope.billForClosing.client.applicant +" "+$scope.billForClosing.accountNumber);
 			
 		}
 		
 		$scope.setSelectedIndividual = function(index,accountNumber) {
 	        $scope.selected = index;
-	        if (confirm("sure for bill successor?")) {
+	        if (confirm("Sure for bill successor?")) {
 	        	var date = new Date();
 	        	var bill = $scope.billForClosing;
 	        	var closingBill = 
@@ -504,16 +500,48 @@ app.controller('bankerController', ['$scope','bankerService', '$location',
                 };
 	            bankerService.saveClosingBill(closingBill).then(
 						function(response){
-							alert("Uspjesno sacuvano "+response);
+							alert("Bill is closed successfully! ");
 							location.reload();
 							
 						}, function (response){
-							alert("Greska "+response);
+							alert("Saving error "+response);
 						}
 					);
 	        }else{
-	        	alert("NO");
+	        	
 	        }
 	    };
+		$scope.findAllIndividualBillsExceptClosingOne = function () {   
+			var banker = $scope.banker;
+			var listOfBills = banker.bank.bills;
+			var list = [];
+			
+			 for(var i=0; i<listOfBills.length; i +=1) {
+				 if(listOfBills[i].client.type == "FIZICKO" ){
+					 if($scope.billForClosing.accountNumber != listOfBills[i].accountNumber){
+						 list.push(listOfBills[i]);
+					 }
+				 }
+		     }
+			$scope.allIndividualBills = list;
+			
+			
+		}
+		$scope.findAllLegalBillsExceptClosingOne= function () {   
+			var banker = $scope.banker;
+			var listOfBills = banker.bank.bills;
+			var list = [];
+			
+			 for(var i=0; i<listOfBills.length; i +=1) {
+				 if(listOfBills[i].client.type == "PRAVNO"){
+					 if($scope.billForClosing.accountNumber != listOfBills[i].accountNumber){
+						 list.push(listOfBills[i]);
+					 }
+				 }
+		     }
+			
+			$scope.allLegalBills = list;
+			
+		}
 	}
 ]);
