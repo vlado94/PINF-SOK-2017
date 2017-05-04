@@ -2,8 +2,6 @@ package app.dailyBalance;
 
 import java.util.List;
 
-import app.bill.Bill;
-
 public interface DailyBalanceService {
 	
 	public List<DailyBalance> findAll();

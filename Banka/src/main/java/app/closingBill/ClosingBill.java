@@ -10,8 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import org.hibernate.validator.constraints.NotBlank;
-
 import app.bill.Bill;
 import lombok.Data;
 
@@ -35,5 +33,8 @@ public class ClosingBill {
 	@ManyToOne
 	@JoinColumn(name = "BILL_ID")
 	private Bill bill;  //not null
+	
+	
+	//fali da se pribelezi kojim nalogom se zatvara racun
 	
 }
