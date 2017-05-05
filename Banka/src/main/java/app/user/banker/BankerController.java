@@ -37,6 +37,8 @@ import app.country.Country;
 import app.country.CountryService;
 import app.dailyBalance.DailyBalance;
 import app.dailyBalance.DailyBalanceService;
+import app.depositSlip.DepositSlip;
+import app.depositSlip.DepositSlipService;
 import app.populatedPlace.PopulatedPlace;
 import app.populatedPlace.PopulatedPlaceService;
 
@@ -54,12 +56,13 @@ public class BankerController {
 	private HttpSession httpSession;
 	private final ClosingBillService closingBillService;
 	private final DailyBalanceService dailyBalanceService;
+	private final DepositSlipService depositSlipService;
 	
 	@Autowired
 	public BankerController(final HttpSession httpSession,final BankerService bankerService, final CodeBookActivitiesService codeBookActivitiesService, 
 							final CountryService countryService, final ClientService clientService, final PopulatedPlaceService populatedPlaceService,
 							final BillService billService, final BankService bankService,final ClosingBillService closingBillService,
-							final DailyBalanceService dailyBalanceService) {
+							final DailyBalanceService dailyBalanceService,DepositSlipService depositSlipService) {
 		this.bankerService = bankerService;
 		this.codeBookActivitiesService = codeBookActivitiesService;
 		this.countryService = countryService;
@@ -70,6 +73,7 @@ public class BankerController {
 		this.httpSession = httpSession;
 		this.closingBillService = closingBillService;
 		this.dailyBalanceService = dailyBalanceService;
+		this.depositSlipService = depositSlipService;
 	}
 	
 	@GetMapping("/checkRights")
@@ -224,7 +228,6 @@ public class BankerController {
 			clientForUpdate.setTaxAuthority(client.getTaxAuthority());
 			clientForUpdate.setResponsiblePerson(client.getResponsiblePerson());
 			clientForUpdate.setCodeBookActivities(client.getCodeBookActivities());
-			
 			clientService.save(clientForUpdate);
 		}
 		else {
@@ -246,8 +249,6 @@ public class BankerController {
 			clientForUpdate.setMail(client.getMail());
 			clientForUpdate.setDeliveryAddress(client.getDeliveryAddress());
 			clientForUpdate.setDeliveryByMail(client.isDeliveryByMail());
-			
-			
 			clientService.save(clientForUpdate);
 		}
 		else {
@@ -333,7 +334,6 @@ public class BankerController {
 	@PostMapping(path = "/saveClosingBill")
 	@ResponseStatus(HttpStatus.CREATED)
 	public ClosingBill saveClosingBill(@Valid @RequestBody ClosingBill closingBill) {
-		
 		Bill billSuccessor = billService.findByAccountNumber(closingBill.getBillSuccessor());
 		System.out.println(billSuccessor.getClient().getApplicant());
 		/////ISPRAVI OVO DESANKA
@@ -362,10 +362,14 @@ public class BankerController {
 		System.out.println(closingBill.getDate().toString());
 		closingBill.setDate(date);
 		return closingBillService.save(closingBill);
-		
-		
 	}
 	
+	@PostMapping(path = "/saveDepositSlip")
+	@ResponseStatus(HttpStatus.CREATED)
+	public void saveDepositSlip(@RequestBody DepositSlip depositSlip) {
+		depositSlipService.save(depositSlip);
+		
 	
+	}
 	
 }

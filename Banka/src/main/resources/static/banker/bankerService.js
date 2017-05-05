@@ -94,4 +94,8 @@ services.service('bankerService', ['$http', function($http){
 		return $http.post(url+"saveClosingBill",closingBill);
 	}
 	
+	this.saveDepositSlip = function(depositSlip){
+		return $http.post(url+"saveDepositSlip",depositSlip);
+	}
+	
 }]);

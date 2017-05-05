@@ -78,9 +78,10 @@
 }
 
 .form-control {
-
-  	width : 85%;
-  
+  	width : 45%;
+  	display : inline;
+  	margin-top: 10px;
+}
 
 .addExchangeRatePartal {
 	margin-right : 150px;
@@ -96,3 +97,87 @@
 input{
 	color : black;
 }
+
+
+.rightSideOfDepositSlip {
+	float:right;	
+	margin-right: 180px;
+	width : 30%;
+}
+
+.leftSideOfDepositSlip {
+	margin-left: 180px;
+	float:left;
+	width : 30%;
+}
+
+.buttonsDepositSlip {
+	padding-top : 50px;
+	margin-left: 600px;
+	
+}
+
+.infoLabel {
+	width : 140px;
+}
+
+
+
+
+
+
+
+
+input[type=checkbox] {
+	visibility: hidden;
+}
+
+
+.checkboxTwo {
+	width: 190px;
+	height: 35px;
+	background: #333;
+	margin-top : -20px;
+	margin-left : 140px;
+	border-radius: 50px;
+	position: relative;
+}
+
+.checkboxTwo:before {
+	content: '';
+	position: absolute;
+	top: 15px;
+	left: -44px;
+	height: 2px;
+	width: 160px;
+	background: #111;
+	margin-left : 60px;
+}
+
+.checkboxTwo label {
+	display: block;
+	width: 18px;
+	height: 18px;
+	border-radius: 50%;
+
+	transition: all .5s ease;
+	cursor: pointer;
+	position: absolute;
+	top: -39px;
+	margin-left : 15px;
+	margin-top : 45px;
+	z-index: 1;
+	background: #ddd;
+}
+
+.checkboxTwo input[type=checkbox]:checked + label {
+	left: 145px;
+	background: #26ca28;
+}
+
+
+
+
+
+
+

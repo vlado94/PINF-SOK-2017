@@ -524,9 +524,8 @@ app.controller('bankerController', ['$scope','bankerService', '$location',
 				 }
 		     }
 			$scope.allIndividualBills = list;
-			
-			
 		}
+		
 		$scope.findAllLegalBillsExceptClosingOne= function () {   
 			var banker = $scope.banker;
 			var listOfBills = banker.bank.bills;
@@ -539,9 +538,19 @@ app.controller('bankerController', ['$scope','bankerService', '$location',
 					 }
 				 }
 		     }
-			
 			$scope.allLegalBills = list;
-			
+		}
+		
+		$scope.saveDepositSlip = function() {
+			depositSlip = $scope.depositSlip;
+			alert(1);
+			bankerService.saveDepositSlip($scope.depositSlip).then(
+				function(response){
+					alert("Ok");
+				}, function (response){
+					alert("Error!");
+				}
+			);
 		}
 	}
 ]);

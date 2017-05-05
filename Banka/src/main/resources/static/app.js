@@ -102,4 +102,11 @@ angular.module('routerApp', ['ui.router',
         .state('banker.closeBill', {
           	templateUrl : 'banker/bills/closeBill.html'
         })
+        .state('banker.depositSlip', {
+        	url : '/banker/depositSlip',
+          	templateUrl : 'banker/depositSlip/addDepositSlip.html'
+        })
+        .state('banker.depositSlip.allDepositSlips', {
+          	templateUrl : 'banker/depositSlip/depositSlips.html'
+        })
 });
