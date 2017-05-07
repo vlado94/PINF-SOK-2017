@@ -109,4 +109,5 @@ angular.module('routerApp', ['ui.router',
         .state('banker.depositSlip.allDepositSlips', {
           	templateUrl : 'banker/depositSlip/depositSlips.html'
         })
+        
 });
