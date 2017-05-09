@@ -29,15 +29,15 @@ public class Bill {
 	@Column(name = "BILL_ID")
 	private Long id;
 	
-	@NotBlank
+	//@NotBlank
 	@Column
 	private String accountNumber; //18
 	
-	@NotNull
+	//@NotNull
 	@Column
 	private boolean status;
 	
-	@NotNull
+	//@NotNull
 	@Column
 	private Date date;
 	

@@ -170,9 +170,11 @@ app.controller('bankerController', ['$scope','bankerService', '$location',
 					
 					var bill = {};
 					
-					bill.accountNumber = "656555";
+					var generatedAccountNumber = generateAccountNumber();
+					alert("Genereated"  + generatedAccountNumber);
+					bill.accountNumber = generatedAccountNumber;
 					bill.status = true;
-					bill.date = "2016-03-03";
+					bill.date = new Date();
 					bill.client = client;
 					
 					bankerService.saveBill(bill).then(
@@ -182,14 +184,14 @@ app.controller('bankerController', ['$scope','bankerService', '$location',
 							bankerService.updateBank(banker.bank).then(
 								function(){
 									alert("odgovor posle update bank");
-									location.reload();
+									location.reload();//srediti Vlado!
 								}, function (response){
 									alert("Greska kod update banke!");
 								}
 							);
 							
 						}, function (response){
-							alert("Morate odabrati drzavu!");
+							alert("Ne moze se dodati racun!");
 						}
 					);
 				}, function (response){
@@ -200,7 +202,15 @@ app.controller('bankerController', ['$scope','bankerService', '$location',
 		
 		
 		function generateAccountNumber(){
+			var bankCode= $scope.banker.bank.code;
+			var numberOfBill =(Math.floor(1000000000000 + Math.random() * 9000000000000)).toString();
+			var concatNumber = bankCode+numberOfBill;
+			var controlNumber = (98-((concatNumber * 100)%97)).toString();
 			
+			if(controlNumber.length == 1){
+				controlNumber = "0"+ controlNumber;
+			}
+			return concatNumber+controlNumber;
 		}
 		
 		
@@ -254,10 +264,9 @@ app.controller('bankerController', ['$scope','bankerService', '$location',
 					 list.push(listOfBills[i]);
 				 }
 		     }
-			
 			$scope.allLegalBills = list;
-			
 		}
+		
 		
 		$scope.saveLegalBill= function () {
 			bankerService.findActivityById($scope.selectedActivity).then(
@@ -267,18 +276,39 @@ app.controller('bankerController', ['$scope','bankerService', '$location',
 					person.codeBookActivities = activity;
 						
 					bankerService.saveLegalBill(person).then(
-						function(){
-							alert("Odgovor");
-							location.reload();
+						function(response){
+							var client = response.data;
+							var bill = {};
+							
+							var generatedAccountNumber = generateAccountNumber();
+							bill.accountNumber = generatedAccountNumber;
+							bill.status = true;
+							bill.date = new Date();
+							bill.client = client;
+							
+							bankerService.saveBill(bill).then(
+								function(response){ 
+									var banker = $scope.banker;
+									banker.bank.bills.push(response.data);
+									bankerService.updateBank(banker.bank).then(
+										function(){
+											alert("odgovor posle update bank");//srediti Vlado!
+										}, function (response){
+											alert("Greska kod update banke!");
+										}
+									);
+								}, function (response){
+									alert("Ne moze se dodati racun!");
+								}
+							);
 						}, function (response){
-							alert("Greska");
+							alert("Ne moze se sacuvati pravno lice");
 						}
 					);
 				}, function (response){
-					alert("Morate odabrati drzavu!");
+					alert("Morate odabrati djelatnost!");
 				}
 			);
-		
 		}	
 		
 		
