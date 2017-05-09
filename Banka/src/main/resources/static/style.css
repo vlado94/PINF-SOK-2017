@@ -108,12 +108,12 @@ input{
 
 .rightSideOfDepositSlip {
 	float:right;	
-	margin-right: 180px;
+	margin-right: 250px;
 	width : 30%;
 }
 
 .leftSideOfDepositSlip {
-	margin-left: 180px;
+	margin-left: 250px;
 	float:left;
 	width : 30%;
 }
@@ -177,6 +177,33 @@ input[type=checkbox] {
 .checkboxTwo input[type=checkbox]:checked + label {
 	left: 145px;
 	background: #26ca28;
+}
+
+.code3Num {
+	width : 15%;
+}
+
+.inputAfter3Num {
+	width : 45%;
+	float : right;
+	margin-right: 150px;
+	margin-top : -34px;
+}
+
+.labelAfterCode{
+	margin-left : 14px;
+}
+
+.depositSlipDateDiv {
+	width : 60%;
+	margin-top : 140px;
+	margin-left : -180px;
+}
+
+.currencyDateDiv {
+	width : 60%;
+	margin-top : -58px;
+	margin-left : 100px;
 }
 
 

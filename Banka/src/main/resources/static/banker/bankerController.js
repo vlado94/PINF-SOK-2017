@@ -1,7 +1,7 @@
 var app = angular.module('banker.controllers', []);
  
-app.controller('bankerController', ['$scope','bankerService', '$location',
-  	function ($scope, bankerService, $location) {
+app.controller('bankerController', ['$scope','bankerService', '$location','$state',
+  	function ($scope, bankerService, $location,$state) {
 		function checkRights() {
 			bankerService.checkRights().then(
 				function (response) {
@@ -579,6 +579,21 @@ app.controller('bankerController', ['$scope','bankerService', '$location',
 					alert("Error!");
 				}
 			);
+		}
+		
+		$scope.openDepositSlip = function() {
+			if($scope.depositSlip.type == "PRENOS") {
+				$state.go("banker.depositSlip.prenos", {});
+			}
+			else if($scope.depositSlip.type == "UPLATA"){
+				$state.go("banker.depositSlip.uplata", {});
+			}
+			else if($scope.depositSlip.type == "ISPLATA"){
+				$state.go("banker.depositSlip.isplata", {});
+			}
+			else if($scope.depositSlip.type == "NAPLATA"){
+				$state.go("banker.depositSlip.naplata", {});
+			}
 		}
 	}
 ]);

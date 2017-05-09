@@ -2,8 +2,8 @@
 		<fieldset>
 			<div>
 				<label class = "infoLabel"> Type</label>
-				<select class = "form-control" ng-model="$parent.depositSlip.type"
-					ng-options="option as option for option in ['PRENOS', 'UPLATA', 'ISPLATA','NAPLATA']" required>
+				<select class = "form-control" ng-model="$parent.depositSlip.type" ng-change="openDepositSlip()"
+					ng-options="option as option for option in ['PRENOS', 'UPLATA', 'ISPLATA','NAPLATA']"required>
 				 	<option value="" selected hidden />
 			    </select>
 		    </div><br/><br/><br/>

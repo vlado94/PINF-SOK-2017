@@ -1,1 +1,44 @@
-naplata
+<div class = "leftSideOfDepositSlip">
+	<div>
+		<label class = "infoLabel"> Debtor:</label>
+		<input type="text" class = "form-control bigerLabel" ng-model = "$parent.depositSlip.deptor"> </input>
+	</div>
+	<div>
+		<label class = "infoLabel"> Purpose of payment:</label>
+		<input type="text" class = "form-control bigerLabel" ng-model = "$parent.depositSlip.purposeOfPayment"> </input>
+	</div>
+	<div>
+		<label class = "infoLabel"> Receiver:</label>
+		<input type="text" class = "form-control bigerLabel" ng-model = "$parent.depositSlip.receiver"> </input>
+	</div>
+</div>
+<div class = "rightSideOfDepositSlip">
+	<div>
+		<label class = "infoLabel code3Num"> Code of currency</label> <!-- valuta	 -->
+		<label class = "infoLabel labelAfterCode"> Amount</label> <!-- iznos -->
+		<input type="text" class = "form-control code3Num" ng-model = "$parent.depositSlip.codeOfCurrency"/>
+		<input type="number" class = "form-control inputAfter3Num" ng-model = "$parent.depositSlip.amount"/>
+	</div>
+				
+	<div>
+		<label class = "infoLabel"> Bill of debtor</label> <!-- racun duznika -->
+		<input type="text" class = "form-control" ng-model = "$parent.depositSlip.billOfDeptor"> </input>
+	</div>
+				
+	<div>
+		<label class = "infoLabel code3Num"> Model assignment</label> <!-- model odobrenja -->
+		<label class = "infoLabel labelAfterCode"> Reference number assignment</label> <!-- poziv na broj odobrenja -->
+		<input type="number" class = "form-control code3Num" ng-model = "$parent.depositSlip.modelAssignment"> </input>
+		<input type="text" class = "form-control inputAfter3Num" ng-model = "$parent.depositSlip.referenceNumberAssignment"> </input>
+	</div>
+				
+	<div class = "depositSlipDateDiv">
+		<label class = "infoLabel" > Deposit slip date</label> <!-- datum naloga, isti kao currency date -->
+		<input type="date" class = "form-control" ng-model = "$parent.depositSlip.depositSlipDate"> </input>
+	</div>
+				
+	<div class = "currencyDateDiv">
+		<label class = "infoLabel"> Currency date</label> <!-- datum valute -->
+		<input type="date" class = "form-control" ng-model = "$parent.depositSlip.currencyDate"> </input>
+	</div>
+</div>
