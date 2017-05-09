@@ -360,8 +360,5 @@ public class BankerController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public void saveDepositSlip(@RequestBody DepositSlip depositSlip) {
 		depositSlipService.save(depositSlip);
-		
-	
 	}
-	
 }

@@ -1,0 +1,87 @@
+<div class = "leftSideOfDepositSlip">
+				<div>
+					<label class = "infoLabel"> Debtor:</label>
+					<input type="text" class = "form-control bigerLabel" ng-model = "$parent.depositSlip.deptor"> </input>
+				</div>
+				<div>
+					<label class = "infoLabel"> Purpose of payment:</label>
+					<input type="text" class = "form-control bigerLabel" ng-model = "$parent.depositSlip.purposeOfPayment"> </input>
+				</div>
+				<div>
+					<label class = "infoLabel"> Receiver:</label>
+					<input type="text" class = "form-control bigerLabel" ng-model = "$parent.depositSlip.receiver"> </input>
+				</div>
+				
+			</div>
+			<div class = "rightSideOfDepositSlip">
+				<div>
+					<label class = "infoLabel"> Code of currency</label> <!-- valuta	 -->
+					<input type="text" class = "form-control" ng-model = "$parent.depositSlip.codeOfCurrency"> </input>
+				</div>	
+				
+				
+				<div>
+					<label class = "infoLabel"> Amount</label> <!-- iznos -->
+					<input type="number" class = "form-control" ng-model = "$parent.depositSlip.amount"> </input>
+				</div>
+				
+				
+				
+				
+				
+				
+				<div>
+					<label class = "infoLabel"> Currency date</label> <!-- datum valute -->
+					<input type="date" class = "form-control" ng-model = "$parent.depositSlip.currencyDate"> </input>
+				</div>
+				
+				<div>
+					<label class = "infoLabel"> Deposit slip date</label> <!-- datum naloga, isti kao currency date -->
+					<input type="date" class = "form-control" ng-model = "$parent.depositSlip.depositSlipDate"> </input>
+				</div>
+				
+				
+				
+				<div>
+					<label class = "infoLabel"> Debtors account</label> <!-- racun duznika -->
+					<input type="text" class = "form-control" ng-model = "$parent.depositSlip.billOfDeptor"> </input>
+				</div>
+				<div>
+					<label class = "infoLabel"> Direction</label> <!-- smer -->
+					<div class="checkboxTwo">
+				  		<input ng-model = "$parent.depositSlip.direction" type="checkbox" value="1" id="checkboxTwoInput" name="" />
+					  	<label for="checkboxTwoInput"></label>
+				  	</div>
+				</div>
+				<div>
+					<label class = "infoLabel"> Model assignment</label> <!-- model zaduzenja -->
+					<input type="number" class = "form-control" ng-model = "$parent.depositSlip.modelAssignment"> </input>
+				</div>
+				<div>	
+					<label class = "infoLabel"> Urgent</label> <!-- hitno -->
+					<div class="checkboxTwo">
+				  		<input ng-model = "$parent.depositSlip.urgently" type="checkbox" value="1" id="checkboxTwoInputt" name="" />
+					  	<label for="checkboxTwoInputt"></label>
+				  	</div>
+				</div>
+					
+				
+				<div>
+					<label class = "infoLabel"> Reference number assignment</label> <!-- poziv na broj zaduzenja -->
+					<input type="text" class = "form-control" ng-model = "$parent.depositSlip.referenceNumberAssignment"> </input>
+				</div>
+				
+				<div>
+					<label class = "infoLabel"> Bill of receiver</label> <!-- racun primaoca -->
+					<input type="text" class = "form-control" ng-model = "$parent.depositSlip.billOfReceiver"> </input>
+				</div>
+				<div>
+					<label class = "infoLabel"> Model approval</label> <!-- model odobrenja -->
+					<input type="number" class = "form-control" ng-model = "$parent.depositSlip.modelApproval"> </input>
+				</div>
+				<div>
+					<label class = "infoLabel"> Reference number approval</label> <!-- poziv na broj odobrenja -->
+					<input type="text" class = "form-control" ng-model = "$parent.depositSlip.referenceNumberApproval"> </input>
+				</div>
+							
+			</div>

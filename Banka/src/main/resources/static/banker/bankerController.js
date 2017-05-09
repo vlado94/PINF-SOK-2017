@@ -542,8 +542,6 @@ app.controller('bankerController', ['$scope','bankerService', '$location',
 		}
 		
 		$scope.saveDepositSlip = function() {
-			depositSlip = $scope.depositSlip;
-			alert(1);
 			bankerService.saveDepositSlip($scope.depositSlip).then(
 				function(response){
 					alert("Ok");

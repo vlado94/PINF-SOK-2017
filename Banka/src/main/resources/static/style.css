@@ -78,9 +78,16 @@
 }
 
 .form-control {
-  	width : 45%;
-  	display : inline;
-  	margin-top: 10px;
+  	width : 65%;
+}
+
+.infoLabel {
+	padding: 0px;
+}
+
+.bigerLabel {
+  	width : 85%;
+  	height: 60px;
 }
 
 .addExchangeRatePartal {
@@ -117,9 +124,6 @@ input{
 	
 }
 
-.infoLabel {
-	width : 140px;
-}
 
 
 

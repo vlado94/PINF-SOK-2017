@@ -106,7 +106,16 @@ angular.module('routerApp', ['ui.router',
         	url : '/banker/depositSlip',
           	templateUrl : 'banker/depositSlip/addDepositSlip.html'
         })
-        .state('banker.depositSlip.allDepositSlips', {
+        .state('banker.depositSlip.uplata', {
+        	url : '/banker/depositSlip',
+          	templateUrl : 'banker/depositSlip/nalogZaUplatu.html'
+        })
+        
+        .state('banker.depositSlip.naplata', {
+        	url : '/banker/depositSlip',
+          	templateUrl : 'banker/depositSlip/nalogZaNaplatu.html'
+        })
+        .state('banker.allDepositSlips', {
           	templateUrl : 'banker/depositSlip/depositSlips.html'
         })
         
