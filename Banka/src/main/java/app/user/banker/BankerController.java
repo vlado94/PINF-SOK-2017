@@ -343,10 +343,7 @@ public class BankerController {
 		List<DailyBalance> dailyBalancesForClose = dailyBalanceService.findByBill_id(billForClose.getId());
 		DailyBalance dailyBalanceForClose = dailyBalancesForClose.get(dailyBalancesForClose.size()-1);
 		double newNewState = dailyBalance.getNewState() + dailyBalanceForClose.getNewState();
-		System.out.println(newNewState+"="+dailyBalance.getNewState() +"+"+dailyBalanceForClose.getNewState());
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date date = new Date();
-		System.out.println(dateFormat.format(date));
 		DailyBalance newDailyBalance = new DailyBalance();
 		newDailyBalance.setDate(date);
 		newDailyBalance.setPreviousState(dailyBalance.getNewState());
@@ -354,12 +351,7 @@ public class BankerController {
 		//u korist je stanje sa racuna koji se zatvara
 		newDailyBalance.setTrafficToBenefit(dailyBalanceForClose.getNewState());
 		newDailyBalance.setTrafficAtExpense(0);
-		DailyBalance db = dailyBalanceService.save(newDailyBalance);
-		System.out.println(db.getId()+" newState = "+db.getNewState());
-		
-		System.out.println(closingBill.getBillSuccessor());
-		System.out.println(closingBill.getBill().getClient().getApplicant());
-		System.out.println(closingBill.getDate().toString());
+		dailyBalanceService.save(newDailyBalance);
 		closingBill.setDate(date);
 		return closingBillService.save(closingBill);
 	}
