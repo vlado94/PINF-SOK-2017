@@ -611,17 +611,17 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 		}
 		
 		$scope.openDepositSlip = function() {
-			if($scope.depositSlip.type == "PRENOS") {
-				$state.go("banker.depositSlip.prenos", {});
+			if($scope.depositSlip.type == "TRANSFER") {
+				$state.go("banker.depositSlip.transer", {});
 			}
-			else if($scope.depositSlip.type == "UPLATA"){
-				$state.go("banker.depositSlip.uplata", {});
+			else if($scope.depositSlip.type == "PAYMENTOUT"){
+				$state.go("banker.depositSlip.paymentOut", {});
 			}
-			else if($scope.depositSlip.type == "ISPLATA"){
-				$state.go("banker.depositSlip.isplata", {});
+			else if($scope.depositSlip.type == "PAYOUT"){
+				$state.go("banker.depositSlip.payout", {});
 			}
-			else if($scope.depositSlip.type == "NAPLATA"){
-				$state.go("banker.depositSlip.naplata", {});
+			else if($scope.depositSlip.type == "PAYMENTIN"){
+				$state.go("banker.depositSlip.paymentIn", {});
 			}
 		}
 	}

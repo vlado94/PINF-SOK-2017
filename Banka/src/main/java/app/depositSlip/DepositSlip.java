@@ -1,7 +1,6 @@
 package app.depositSlip;
 
 import java.sql.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,11 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
-import app.exchangeRate.ExchangeRate;
 import app.paymentTypes.PaymentTypes;
 import lombok.Data;
 
@@ -24,10 +20,10 @@ import lombok.Data;
 public class DepositSlip {
 
 	public enum Type {
-	    PRENOS,
-	    UPLATA,
-	    ISPLATA,
-	    NAPLATA
+	    TRANSEF, //prenos
+	    PAYMENTOUT, //uplata
+	    PAYOUT, //isplata
+	    PAYMENTIN //naplata
 	}
 
 	@Id
