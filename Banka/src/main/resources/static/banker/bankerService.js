@@ -90,8 +90,8 @@ services.service('bankerService', ['$http', function($http){
 	this.updateBank = function(bank){
 		return $http.put(url+"updateBank/"+bank.id,bank);
 	}
-	this.saveClosingBill = function(closingBill){
-		return $http.post(url+"saveClosingBill",closingBill);
+	this.closeBill = function(closingBill){
+		return $http.post(url+"closeBill",closingBill);
 	}
 	
 	this.saveDepositSlip = function(depositSlip){
