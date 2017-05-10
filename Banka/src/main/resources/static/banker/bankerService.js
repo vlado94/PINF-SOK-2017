@@ -66,6 +66,10 @@ services.service('bankerService', ['$http', function($http){
 		return $http.put(url+"updateIndividualClient/"+individualClient.id,individualClient);
 	}
 	
+	this.findClientById = function(clientId){
+		return $http.get(url+"findClientById/"+clientId);
+	}
+	
 	this.updateLegalClient = function(legalClient){
 		return $http.put(url+"updateLegalClient/"+legalClient.id, legalClient);
 	}

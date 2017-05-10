@@ -134,22 +134,49 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 			
 		}
 		
-		
-		$scope.getDetails= function (client) { 
-			alert("OVvooo")
-			$scope.client = client;
+		$scope.getDetailsAboutLegal= function (clientID) { 
+			bankerService.findClientById(clientID).then(
+					function(response){
+						$scope.client = response.data;
+						initDetailsAboutLegal($scope.client);
+					}, function (response){
+						alert("Greska!");
+					}
+				);
 			
 		}
 		
-		$scope.initDetails= function (client) { 
+		
+		
+		$scope.getDetailsAboutIndividual= function (clientID) { 
+			bankerService.findClientById(clientID).then(
+					function(response){
+						$scope.client = response.data;
+						initDetailsAboutIndividual($scope.client);
+					}, function (response){
+						alert("Greska!");
+					}
+				);
+			
+		}
+		
+		function initDetailsAboutIndividual(client) { 
 			if(client.deliveryByMail == true){
 				document.getElementById("deliveryTrue").checked= true;
 			}else{
 				document.getElementById("deliveryFalse").checked= true;
-				
 			}
 		}
 		
+		
+		function initDetailsAboutLegal(client) {
+			if(client.deliveryByMail == true){
+				document.getElementById("deliveryTrue").checked= true;
+			}else{
+				document.getElementById("deliveryFalse").checked= true;
+			}
+			$scope.selectedNameOfActivity = client.codeBookActivities.name;
+		}
 		
 		$scope.chooseDelivery= function (chosen) {
 			if(chosen == true){
@@ -167,11 +194,9 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 			bankerService.saveIndividualBill($scope.individualPerson).then(
 				function(response){
 					var client = response.data;
-					
 					var bill = {};
 					
 					var generatedAccountNumber = generateAccountNumber();
-					alert("Genereated"  + generatedAccountNumber);
 					bill.accountNumber = generatedAccountNumber;
 					bill.status = true;
 					bill.date = new Date();
@@ -183,13 +208,11 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 							banker.bank.bills.push(response.data);
 							bankerService.updateBank(banker.bank).then(
 								function(){
-									alert("odgovor posle update bank");
-									location.reload();//srediti Vlado!
+									$state.go("banker.individualBills", {});
 								}, function (response){
 									alert("Greska kod update banke!");
 								}
 							);
-							
 						}, function (response){
 							alert("Ne moze se dodati racun!");
 						}
@@ -227,7 +250,7 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 					bankerService.updateLegalClient(client).then(
 						function(){
 							alert("odgovor");
-							location.reload();
+							$state.go("banker.legalBills", {});
 						}, function (response){
 							alert("Greska!");
 						}
@@ -247,7 +270,7 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 			client.deliveryByMail = $scope.delivery;		
 		    bankerService.updateIndividualClient(client).then(
 				function(){
-					location.reload();
+					$state.go("banker.individualBills", {});
 				}, function (response){
 					alert("Greska!");
 				}
@@ -292,7 +315,7 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 									banker.bank.bills.push(response.data);
 									bankerService.updateBank(banker.bank).then(
 										function(){
-											alert("odgovor posle update bank");//srediti Vlado!
+											$state.go("banker.legalBills", {});
 										}, function (response){
 											alert("Greska kod update banke!");
 										}
@@ -380,10 +403,8 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 	    function markRow(code) {   
 	    	 var rows = document.getElementsByTagName('tr');
 		        for(var i=0; i<rows.length; i +=1) {
-		          
 		          rows[i].className = "";
 		        }
-		        
 		     element = document.getElementById(code);
 		     element.setAttribute("class", "selectedRow");
 		}
@@ -506,7 +527,6 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 			$scope.newCurrentExchange = $scope.currentExchangeRate;
 		}
 		$scope.addExchangeRatee = function() {
-			
 			
 			alert(1)
 		}

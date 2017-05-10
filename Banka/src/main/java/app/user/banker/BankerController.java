@@ -209,6 +209,13 @@ public class BankerController {
 		return clientService.save(client);
 	}
 	
+	
+	@GetMapping(path = "/findClientById/{id}")
+	@ResponseStatus(HttpStatus.OK)
+	public Client findClientById(@PathVariable Long id) {
+		return clientService.findOne(id);
+	}
+	
 	@PutMapping(path = "/updateIndividualClient/{id}")
 	@ResponseStatus(HttpStatus.CREATED)
 	public void updateIndividualClient(@PathVariable Long id,@RequestBody Client client) {

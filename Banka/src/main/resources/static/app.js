@@ -45,9 +45,11 @@ angular.module('routerApp', ['ui.router',
           	templateUrl : 'banker/bankerProfile.html'
         })
         .state('banker.legalBills', {
+        	url : '/legalBills',
           	templateUrl : 'banker/bills/legalBills.html'
         })
          .state('banker.individualBills', {
+        	url : '/individualBills',
           	templateUrl : 'banker/bills/individualBills.html'
         })
           .state('banker.detailsAboutIndividual', {
