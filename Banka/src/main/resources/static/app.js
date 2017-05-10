@@ -108,22 +108,22 @@ angular.module('routerApp', ['ui.router',
         	url : '/depositSlip/newSlip',
           	templateUrl : 'banker/depositSlip/addDepositSlip.html'
         })
-        .state('banker.depositSlip.uplata', {
-        	url : '/depositSlip/newSlip/Uplata',
-          	templateUrl : 'banker/depositSlip/nalogZaUplatu.html'
+        .state('banker.depositSlip.paymentOut', {
+        	url : '/depositSlip/newSlip/PaymentOut',
+          	templateUrl : 'banker/depositSlip/depositSlipForPaymentOut.html'
         })
         
-        .state('banker.depositSlip.naplata', {
-        	url : '/depositSlip/newSlip/Naplata',
-          	templateUrl : 'banker/depositSlip/nalogZaNaplatu.html'
+        .state('banker.depositSlip.paymentIn', {
+        	url : '/depositSlip/newSlip/PaymentIn',
+          	templateUrl : 'banker/depositSlip/depositSlipForPaymentIn.html'
         })
-        .state('banker.depositSlip.isplata', {
-        	url : '/depositSlip/newSlip/Naplata',
-          	templateUrl : 'banker/depositSlip/nalogZaIsplatu.html'
+        .state('banker.depositSlip.payout', {
+        	url : '/depositSlip/newSlip/Payout',
+          	templateUrl : 'banker/depositSlip/depositSlipForPayout.html'
         })
-        .state('banker.depositSlip.prenos', {
-        	url : '/depositSlip/newSlip/Naplata',
-          	templateUrl : 'banker/depositSlip/nalogZaPrenos.html'
+        .state('banker.depositSlip.transer', {
+        	url : '/depositSlip/newSlip/Transfer',
+          	templateUrl : 'banker/depositSlip/depositSlipForTransfer.html'
         })
         .state('banker.allDepositSlips', {
           	templateUrl : 'banker/depositSlip/depositSlips.html'

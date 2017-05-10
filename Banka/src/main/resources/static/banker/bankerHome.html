@@ -4,10 +4,11 @@
 <div name="actualExchangeRate">
 	<button ui-sref = "banker.exchangeRates" class="btn btn-default navbar-btn" ><span class="glyphicon glyphicon-user"></span>History of exchange of rates</button>
 	<button ui-sref = "banker.exchangeRates.addExchangeRate" class="btn btn-default navbar-btn" ><span class="glyphicon glyphicon-user"></span>Add exchange of rates</button>
-	<button ui-sref = "banker.depositSlip" class="btn btn-default navbar-btn" ><span class="glyphicon glyphicon-user"></span>New order</button>
-	<button ui-sref = "banker.depositSlip.allDepositSlips" class="btn btn-default navbar-btn" ><span class="glyphicon glyphicon-user"></span>All orders</button>
+	<button ui-sref = "banker.depositSlip.paymentOut" class="btn btn-default navbar-btn" ><span class="glyphicon glyphicon-user"></span>New deposit slip</button>
+	<button ui-sref = "banker.depositSlip.allDepositSlips" class="btn btn-default navbar-btn" ><span class="glyphicon glyphicon-user"></span>All deposit slips</button>
 	
 	<table class="table table-bordered exchangeInCurrencyTable">
+		<caption class = "caption">Exchange rate</caption>
 		<caption class = "caption">Date:  {{currentExchangeRate.startDate}}</caption>
 		<tbody>
 			<tr>

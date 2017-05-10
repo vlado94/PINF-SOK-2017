@@ -9,7 +9,10 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
+import app.paymentTypes.PaymentTypes;
 import lombok.Data;
 
 @Data
@@ -17,10 +20,10 @@ import lombok.Data;
 public class DepositSlip {
 
 	public enum Type {
-	    PRENOS,
-	    UPLATA,
-	    ISPLATA,
-	    NAPLATA
+	    TRANSEF, //prenos
+	    PAYMENTOUT, //uplata
+	    PAYOUT, //isplata
+	    PAYMENTIN //naplata
 	}
 
 	@Id
@@ -77,5 +80,9 @@ public class DepositSlip {
 	
 	@Column
 	private boolean direction; //smjer provjeriti tip - na stetu, na korist
+	
+	@ManyToOne
+	@JoinColumn(name = "PAYMENT_TYPE_ID")
+	private PaymentTypes paymentType;
 		
 }
