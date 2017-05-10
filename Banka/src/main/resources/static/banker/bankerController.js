@@ -484,7 +484,7 @@ app.controller('bankerController', ['$scope','bankerService', '$location',
 		$scope.closeBill = function (individualBill) {
 			$scope.billForClosing = individualBill;
 			alert("Bill for closing: "+$scope.billForClosing.client.applicant +" "+$scope.billForClosing.accountNumber);
-			
+
 		}
 		
 		$scope.setSelectedIndividual = function(index,accountNumber) {
@@ -498,7 +498,7 @@ app.controller('bankerController', ['$scope','bankerService', '$location',
                     "billSuccessor": accountNumber,
                     "bill":bill
                 };
-	            bankerService.saveClosingBill(closingBill).then(
+	            bankerService.closeBill(closingBill).then(
 						function(response){
 							alert("Bill is closed successfully! ");
 							location.reload();
@@ -547,6 +547,35 @@ app.controller('bankerController', ['$scope','bankerService', '$location',
 			bankerService.saveDepositSlip($scope.depositSlip).then(
 				function(response){
 					alert("Ok");
+				}, function (response){
+					alert("Error!");
+				}
+			);
+		}
+		
+		$scope.saveDepositSlipAndCloseBill = function(){
+			depositSlip = $scope.depositSlip;
+			alert(1);
+			bankerService.saveDepositSlip($scope.depositSlip).then(
+				function(response){
+					alert("Ok saving deposit slip");
+					var date = new Date();
+		        	var bill = $scope.billForClosing;
+					var closingBill = 
+	                {
+	                    "date": date,
+	                    "billSuccessor": depositSlip.billOfReceiver,
+	                    "bill": bill
+	                };
+		            bankerService.closeBill(closingBill).then(
+							function(response){
+								alert("Bill is closed successfully! ");
+								location.reload();
+								
+							}, function (response){
+								alert("Saving error "+response);
+							}
+						);
 				}, function (response){
 					alert("Error!");
 				}

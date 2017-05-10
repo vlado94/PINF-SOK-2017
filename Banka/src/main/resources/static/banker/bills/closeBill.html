@@ -17,6 +17,93 @@
      </div>      
    </div>
  </form>
+ 	<form name = "addDepositSlip">
+		<fieldset>
+			<!--  <div class = "leftSideOfDepositSlip">-->
+				<div>
+					<label class = "infoLabel"> Type</label>
+					<input type="text" class = "form-control" ng-model="$parent.depositSlip.type" ng-init="$parent.depositSlip.type='UPLATA'" value="UPLATA" disabled></input>
+			    </div>
+				<div>
+					<label class = "infoLabel"> Deptor</label>
+					<input type="text" class = "form-control"   ng-model = "$parent.depositSlip.deptor" ng-init="$parent.depositSlip.deptor='{{billForClosing.client.applicant}}'" value={{billForClosing.client.applicant}} ng-disabled="true"> </input>
+				</div>
+				<div>
+					<label class = "infoLabel"> Purpose of payment</label>
+					<input type="text" class = "form-control" ng-model = "$parent.depositSlip.purposeOfPayment" > </input>
+				</div>
+				<div>
+					<label class = "infoLabel"> Receiver</label>
+					<input type="text" class = "form-control" ng-model = "$parent.depositSlip.receiver"> </input>
+				</div>
+				
+				<div>
+					<label class = "infoLabel"> Currency date</label>
+					<input type="date" class = "form-control" ng-model = "$parent.depositSlip.currencyDate"> </input>
+				</div>
+				
+				<div>
+					<label class = "infoLabel"> Order date</label>
+					<input type="date" class = "form-control" ng-model = "$parent.depositSlip.depositSlipDate"> </input>
+				</div>
+				<div>
+					<label class = "infoLabel"> Debtors account</label>
+					<input type="text" class = "form-control" ng-model = "$parent.depositSlip.billOfDeptor" ng-init="$parent.depositSlip.billOfDeptor='{{billForClosing.accountNumber}}'" value={{billForClosing.accountNumber}} ng-disabled="true"> </input>
+				</div>
+				<div>
+					<label class = "infoLabel"> Direction</label>
+					<div class="checkboxTwo">
+				  		<input ng-model = "$parent.depositSlip.direction" type="checkbox" value="1" id="checkboxTwoInput" name="" />
+					  	<label for="checkboxTwoInput"></label>
+				  	</div>
+				</div>
+				<div>	
+					<label class = "infoLabel"> Urgent</label>
+					<div class="checkboxTwo">
+				  		<input ng-model = "$parent.depositSlip.urgently" type="checkbox" value="1" id="checkboxTwoInputt" name="" />
+					  	<label for="checkboxTwoInputt"></label>
+				  	</div>
+				</div>
+			<!--</div>-->
+			<!--<div class = "rightSideOfDepositSlip">-->
+				
+				<div>
+					<label class = "infoLabel"> Model assignment</label>
+					<input type="number" class = "form-control" ng-model = "$parent.depositSlip.modelAssignment"> </input>
+				</div>
+				<div>
+					<label class = "infoLabel"> Reference number assignment</label>
+					<input type="text" class = "form-control" ng-model = "$parent.depositSlip.referenceNumberAssignment"> </input>
+				</div>
+				
+				<div>
+					<label class = "infoLabel"> Bill of receiver</label>
+					<input type="text" class = "form-control" ng-model = "$parent.depositSlip.billOfReceiver"> </input>
+				</div>
+				<div>
+					<label class = "infoLabel"> Model approval</label>
+					<input type="number" class = "form-control" ng-model = "$parent.depositSlip.modelApproval"> </input>
+				</div>
+				<div>
+					<label class = "infoLabel"> Reference number approval</label>
+					<input type="text" class = "form-control" ng-model = "$parent.depositSlip.referenceNumberApproval"> </input>
+				</div>
+				<div>
+					<label class = "infoLabel"> Amount</label>
+					<input type="number" class = "form-control" ng-model = "$parent.depositSlip.amount"> </input>
+				</div>
+				<div>
+					<label class = "infoLabel"> Code of currency</label>
+					<input type="text" class = "form-control" ng-model = "$parent.depositSlip.codeOfCurrency"> </input>
+				</div>				
+			<!-- </div> -->
+		</fieldset>
+		<div class = "buttonsDepositSlip">
+			<button class = "btn btn-default" ng-click = "saveDepositSlipAndCloseBill()"><span class = "glyphicon glyphicon-plus"></span>Save</button>
+			<button class = "btn btn-default" ng-click = "cancel()"><span class = "glyphicon glyphicon-remove"></span>Cancel</button>
+		</div>
+	</form>
+<div ui-view></div>
 <table class="table table-hover" border="1" >
 	<caption>Possible bill successor</caption>
 		<tbody>

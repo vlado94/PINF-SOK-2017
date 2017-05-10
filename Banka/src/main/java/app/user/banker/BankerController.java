@@ -331,35 +331,39 @@ public class BankerController {
 	}
 	
 	//zatvaranje racuna i prebacivanje sredstava na racun pravnog nasljednika
-	@PostMapping(path = "/saveClosingBill")
+	@PostMapping(path = "/closeBill")
 	@ResponseStatus(HttpStatus.CREATED)
-	public ClosingBill saveClosingBill(@Valid @RequestBody ClosingBill closingBill) {
+	public ClosingBill closeBill(@Valid @RequestBody ClosingBill closingBill) {
 		Bill billSuccessor = billService.findByAccountNumber(closingBill.getBillSuccessor());
-		System.out.println(billSuccessor.getClient().getApplicant());
-		/////ISPRAVI OVO DESANKA
-		List<DailyBalance> dailyBalances = dailyBalanceService.findByBill_id(billSuccessor.getId());
-		DailyBalance dailyBalance = dailyBalances.get(dailyBalances.size()-1);
-		Bill billForClose = closingBill.getBill();
-		List<DailyBalance> dailyBalancesForClose = dailyBalanceService.findByBill_id(billForClose.getId());
-		DailyBalance dailyBalanceForClose = dailyBalancesForClose.get(dailyBalancesForClose.size()-1);
-		double newNewState = dailyBalance.getNewState() + dailyBalanceForClose.getNewState();
-		System.out.println(newNewState+"="+dailyBalance.getNewState() +"+"+dailyBalanceForClose.getNewState());
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		Date date = new Date();
-		System.out.println(dateFormat.format(date));
-		DailyBalance newDailyBalance = new DailyBalance();
-		newDailyBalance.setDate(date);
-		newDailyBalance.setPreviousState(dailyBalance.getNewState());
-		newDailyBalance.setNewState(newNewState);
-		//u korist je stanje sa racuna koji se zatvara
-		newDailyBalance.setTrafficToBenefit(dailyBalanceForClose.getNewState());
-		newDailyBalance.setTrafficAtExpense(0);
-		DailyBalance db = dailyBalanceService.save(newDailyBalance);
-		System.out.println(db.getId()+" newState = "+db.getNewState());
-		
-		System.out.println(closingBill.getBillSuccessor());
-		System.out.println(closingBill.getBill().getClient().getApplicant());
-		System.out.println(closingBill.getDate().toString());
+		Date date=new Date();;
+		if(billSuccessor!=null){
+			System.out.println("IMA BILL SUC");
+			System.out.println(billSuccessor.getClient().getApplicant());
+			/////ISPRAVI OVO DESANKA posto trenutno uzimas posljednjo stanje iz DailyBalance
+			List<DailyBalance> dailyBalances = dailyBalanceService.findByBill_id(billSuccessor.getId());
+			DailyBalance dailyBalance = dailyBalances.get(dailyBalances.size()-1);
+			Bill billForClose = closingBill.getBill();
+			List<DailyBalance> dailyBalancesForClose = dailyBalanceService.findByBill_id(billForClose.getId());
+			DailyBalance dailyBalanceForClose = dailyBalancesForClose.get(dailyBalancesForClose.size()-1);
+			double newNewState = dailyBalance.getNewState() + dailyBalanceForClose.getNewState();
+			System.out.println(newNewState+"="+dailyBalance.getNewState() +"+"+dailyBalanceForClose.getNewState());
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			
+			System.out.println(dateFormat.format(date));
+			DailyBalance newDailyBalance = new DailyBalance();
+			newDailyBalance.setDate(date);
+			newDailyBalance.setPreviousState(dailyBalance.getNewState());
+			newDailyBalance.setNewState(newNewState);
+			//u korist je stanje sa racuna koji se zatvara
+			newDailyBalance.setTrafficToBenefit(dailyBalanceForClose.getNewState());
+			newDailyBalance.setTrafficAtExpense(0);
+			DailyBalance db = dailyBalanceService.save(newDailyBalance);
+			System.out.println(db.getId()+" newState = "+db.getNewState());
+			
+			System.out.println(closingBill.getBillSuccessor());
+			System.out.println(closingBill.getBill().getClient().getApplicant());
+			System.out.println(closingBill.getDate().toString());
+		}
 		closingBill.setDate(date);
 		return closingBillService.save(closingBill);
 	}
