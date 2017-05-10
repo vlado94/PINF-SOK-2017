@@ -103,10 +103,27 @@ angular.module('routerApp', ['ui.router',
           	templateUrl : 'banker/bills/closeBill.html'
         })
         .state('banker.depositSlip', {
-        	url : '/banker/depositSlip',
+        	url : '/depositSlip/newSlip',
           	templateUrl : 'banker/depositSlip/addDepositSlip.html'
         })
-        .state('banker.depositSlip.allDepositSlips', {
+        .state('banker.depositSlip.uplata', {
+        	url : '/depositSlip/newSlip/Uplata',
+          	templateUrl : 'banker/depositSlip/nalogZaUplatu.html'
+        })
+        
+        .state('banker.depositSlip.naplata', {
+        	url : '/depositSlip/newSlip/Naplata',
+          	templateUrl : 'banker/depositSlip/nalogZaNaplatu.html'
+        })
+        .state('banker.depositSlip.isplata', {
+        	url : '/depositSlip/newSlip/Naplata',
+          	templateUrl : 'banker/depositSlip/nalogZaIsplatu.html'
+        })
+        .state('banker.depositSlip.prenos', {
+        	url : '/depositSlip/newSlip/Naplata',
+          	templateUrl : 'banker/depositSlip/nalogZaPrenos.html'
+        })
+        .state('banker.allDepositSlips', {
           	templateUrl : 'banker/depositSlip/depositSlips.html'
         })
         

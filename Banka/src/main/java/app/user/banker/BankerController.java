@@ -264,9 +264,9 @@ public class BankerController {
 	
 	@PostMapping(path = "/saveLegalBill")
 	@ResponseStatus(HttpStatus.CREATED)
-	public void saveLegalBill(@Valid @RequestBody Client client) {
+	public Client saveLegalBill(@Valid @RequestBody Client client) {
 		client.setType(TypeOfClient.PRAVNO);
-		clientService.save(client);
+		return clientService.save(client);
 	}
 	
 	@GetMapping("/findAllPopulatedPlaces")
@@ -309,7 +309,7 @@ public class BankerController {
 		
 		//desa dodala da cim se kreira racun, doda u DailyBalance red saza taj racun, 
 		//sa vrijednostima za prethodno i tekuce stanje 0
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		/*DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date date = new Date();
 		System.out.println(dateFormat.format(date));
 		DailyBalance dailyBalance = new DailyBalance();
@@ -318,7 +318,7 @@ public class BankerController {
 		dailyBalance.setNewState(0);
 		dailyBalance.setTrafficAtExpense(0);
 		dailyBalance.setTrafficToBenefit(0);	
-		dailyBalanceService.save(dailyBalance);
+		dailyBalanceService.save(dailyBalance);*/
 		return billService.save(bill);
 	}
 	
@@ -337,19 +337,13 @@ public class BankerController {
 		Bill billSuccessor = billService.findByAccountNumber(closingBill.getBillSuccessor());
 		Date date=new Date();;
 		if(billSuccessor!=null){
-			System.out.println("IMA BILL SUC");
-			System.out.println(billSuccessor.getClient().getApplicant());
-			/////ISPRAVI OVO DESANKA posto trenutno uzimas posljednjo stanje iz DailyBalance
+			/////ISPRAVI OVO DESANKA posto trenutno uzimas posljednje stanje iz DailyBalance
 			List<DailyBalance> dailyBalances = dailyBalanceService.findByBill_id(billSuccessor.getId());
 			DailyBalance dailyBalance = dailyBalances.get(dailyBalances.size()-1);
 			Bill billForClose = closingBill.getBill();
 			List<DailyBalance> dailyBalancesForClose = dailyBalanceService.findByBill_id(billForClose.getId());
 			DailyBalance dailyBalanceForClose = dailyBalancesForClose.get(dailyBalancesForClose.size()-1);
 			double newNewState = dailyBalance.getNewState() + dailyBalanceForClose.getNewState();
-			System.out.println(newNewState+"="+dailyBalance.getNewState() +"+"+dailyBalanceForClose.getNewState());
-			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			
-			System.out.println(dateFormat.format(date));
 			DailyBalance newDailyBalance = new DailyBalance();
 			newDailyBalance.setDate(date);
 			newDailyBalance.setPreviousState(dailyBalance.getNewState());
@@ -358,12 +352,8 @@ public class BankerController {
 			newDailyBalance.setTrafficToBenefit(dailyBalanceForClose.getNewState());
 			newDailyBalance.setTrafficAtExpense(0);
 			DailyBalance db = dailyBalanceService.save(newDailyBalance);
-			System.out.println(db.getId()+" newState = "+db.getNewState());
-			
-			System.out.println(closingBill.getBillSuccessor());
-			System.out.println(closingBill.getBill().getClient().getApplicant());
-			System.out.println(closingBill.getDate().toString());
 		}
+
 		closingBill.setDate(date);
 		return closingBillService.save(closingBill);
 	}
@@ -372,8 +362,5 @@ public class BankerController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public void saveDepositSlip(@RequestBody DepositSlip depositSlip) {
 		depositSlipService.save(depositSlip);
-		
-	
 	}
-	
 }
