@@ -1,15 +1,29 @@
 	<form name = "addDepositSlip">
 		<fieldset>
-			<div>
+			<div class = "selectTypeOfDepositSLip">
 				<label class = "infoLabel"> Type</label>
-				<select class = "form-control" ng-model="$parent.depositSlip.type" ng-change="openDepositSlip()"
-					ng-options="option as option for option in ['PRENOS', 'UPLATA', 'ISPLATA','NAPLATA']"required>
-				 	<option value="" selected hidden />
+				<select class = "form-control" ng-model="$parent.depositSlip.type" ng-change="openDepositSlip()">
+				  <option value="UPLATA" selected>UPLATA</option>
+				  <option value="NAPLATA">NAPLATA</option>
+				  <option value="ISPLATA">ISPLATA</option>
+				  <option value="PRENOS">PRENOS</option>
 			    </select>
-		    </div><br/><br/><br/>
+			</div>
+		    <br/><br/><br/>
 			
 			<div ui-view></div>
 		</fieldset>
+		<div class = "dates">
+			<div class = "depositSlipDateDiv">
+				<label class = "infoLabel" > Deposit slip date</label> <!-- datum naloga, isti kao currency date -->
+				<input type="date" class = "form-control" ng-model = "$parent.depositSlip.depositSlipDate">
+			</div>
+			<div class="currencySlipDateDiv">
+				<label class = "infoLabel"> Currency date</label> <!-- datum valute -->
+				<input type="date" class = "form-control" ng-model = "$parent.depositSlip.currencyDate">
+			</div>
+		</div>
+		<br><br><br>
 		<div class = "buttonsDepositSlip">
 			<button class = "btn btn-default" ng-click = "saveDepositSlip()"><span class = "glyphicon glyphicon-plus"></span>Save</button>
 			<button class = "btn btn-default" ng-click = "cancel()"><span class = "glyphicon glyphicon-remove"></span>Cancel</button>

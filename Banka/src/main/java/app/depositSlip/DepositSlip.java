@@ -1,6 +1,7 @@
 package app.depositSlip;
 
 import java.sql.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +10,13 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
+import app.exchangeRate.ExchangeRate;
+import app.paymentTypes.PaymentTypes;
 import lombok.Data;
 
 @Data
@@ -77,5 +84,9 @@ public class DepositSlip {
 	
 	@Column
 	private boolean direction; //smjer provjeriti tip - na stetu, na korist
+	
+	@ManyToOne
+	@JoinColumn(name = "PAYMENT_TYPE_ID")
+	private PaymentTypes paymentType;
 		
 }

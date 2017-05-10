@@ -264,9 +264,9 @@ public class BankerController {
 	
 	@PostMapping(path = "/saveLegalBill")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Client saveLegalBill(@Valid @RequestBody Client client) {
+	public void saveLegalBill(@Valid @RequestBody Client client) {
 		client.setType(TypeOfClient.PRAVNO);
-		return clientService.save(client);
+		clientService.save(client);
 	}
 	
 	@GetMapping("/findAllPopulatedPlaces")
@@ -309,7 +309,7 @@ public class BankerController {
 		
 		//desa dodala da cim se kreira racun, doda u DailyBalance red saza taj racun, 
 		//sa vrijednostima za prethodno i tekuce stanje 0
-		/*DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date date = new Date();
 		System.out.println(dateFormat.format(date));
 		DailyBalance dailyBalance = new DailyBalance();
@@ -318,7 +318,7 @@ public class BankerController {
 		dailyBalance.setNewState(0);
 		dailyBalance.setTrafficAtExpense(0);
 		dailyBalance.setTrafficToBenefit(0);	
-		dailyBalanceService.save(dailyBalance);*/
+		dailyBalanceService.save(dailyBalance);
 		return billService.save(bill);
 	}
 	

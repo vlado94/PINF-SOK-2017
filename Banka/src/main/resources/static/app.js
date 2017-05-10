@@ -116,11 +116,11 @@ angular.module('routerApp', ['ui.router',
           	templateUrl : 'banker/depositSlip/nalogZaNaplatu.html'
         })
         .state('banker.depositSlip.isplata', {
-        	url : '/depositSlip/newSlip/Naplata',
+        	url : '/depositSlip/newSlip/Isplata',
           	templateUrl : 'banker/depositSlip/nalogZaIsplatu.html'
         })
         .state('banker.depositSlip.prenos', {
-        	url : '/depositSlip/newSlip/Naplata',
+        	url : '/depositSlip/newSlip/Prenos',
           	templateUrl : 'banker/depositSlip/nalogZaPrenos.html'
         })
         .state('banker.allDepositSlips', {
