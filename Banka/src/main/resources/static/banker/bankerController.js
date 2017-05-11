@@ -628,14 +628,17 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 
 		}
 		
-		$scope.finishClosingBill = function() {
+		$scope.setSelectedIndividual = function(index,accountNumber) {
+	        $scope.selected = index;
 	        if (confirm("Sure for bill successor?")) {
 	        	var date = new Date();
 	        	var bill = $scope.billForClosing;
-	        	$scope.closingBill.date = date;
-	        	$scope.closingBill.bill = bill;
-	        	var closingBill = $scope.closingBill;
-	        	alert(closingBill.billSuccessor+" "+closingBill.date+" "+closingBill.bill.accountNumber);
+	        	var closingBill = 
+                {
+                    "date": date,
+                    "billSuccessor": accountNumber,
+                    "bill":bill
+                };
 	            bankerService.closeBill(closingBill).then(
 						function(response){
 							alert("Bill is closed successfully! ");
@@ -701,8 +704,7 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 	                {
 	                    "date": date,
 	                    "billSuccessor": depositSlip.billOfReceiver,
-	                    "bill": bill,
-	                    "depositSlip" : null
+	                    "bill": bill
 	                };
 		            bankerService.closeBill(closingBill).then(
 							function(response){
