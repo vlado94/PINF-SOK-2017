@@ -366,6 +366,9 @@ public class BankerController {
 		DepositSlip savedDepositSlip = depositSlipService.save(depositSlip);
 		if(savedDepositSlip != null){//uspjesno cuvanje izvoda
 			closingBill.setDepositSlip(depositSlip);
+			//pozova obradu izvoda
+			bookingDepositSlip(savedDepositSlip);
+			////
 			ClosingBill savedClosingBill = closingBillService.save(closingBill);
 			if(savedClosingBill != null){//uspjesno zatvoren racuna
 				billForClosing.setStatus(false);//postavi status racuna da je zatvoren
@@ -375,6 +378,25 @@ public class BankerController {
 			}
 		}else{
 			return null;
+		}
+	}
+	
+	//obrada izvoda - azuriranje dnevnih stanja, razvrstavanje u medjubankarski prenos
+	public void bookingDepositSlip(DepositSlip depositSlip){
+		if(depositSlip.getType().equals(Type.TRANSFER)){
+			String billOfReciver = depositSlip.getBillOfReceiver();
+			String billOfDeptor = depositSlip.getBillOfDeptor();
+			String bankCodeBillOfReciver = billOfReciver.substring(0, 3);
+			String bankCodeBillOfDeptor = billOfDeptor.substring(0, 3);
+			//DailyBalance dailyBalance = dailyBalanceService.findMaxDate(billOfDeptor);
+			//System.out.println(dailyBalance.getId());
+			//System.out.println(dailyBalance.getNewState());
+			if(bankCodeBillOfReciver.equals(bankCodeBillOfDeptor)){
+				System.out.println("ISTE BANKE");
+				
+			}else{
+				System.out.println("RAZLICITE BANKE");
+			}
 		}
 	}
 	
