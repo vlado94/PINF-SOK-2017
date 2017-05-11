@@ -24,8 +24,8 @@ public class CodeBookActivitiesServiceImpl implements CodeBookActivitiesService 
 	}
 
 	@Override
-	public void save(CodeBookActivities codeBookActivity) {
-		codeBookActivitiesRepository.save(codeBookActivity);
+	public CodeBookActivities save(CodeBookActivities codeBookActivity) {
+		return codeBookActivitiesRepository.save(codeBookActivity);
 	}
 
 	@Override

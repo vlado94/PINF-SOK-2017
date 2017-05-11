@@ -9,7 +9,7 @@ public interface PopulatedPlaceService {
 
 	public List<PopulatedPlace> findAll();
 
-	public void save(PopulatedPlace populatedPlace);
+	public PopulatedPlace save(PopulatedPlace populatedPlace);
 
 	public void delete(Long id);
 	

@@ -6,7 +6,7 @@ public interface CountryService {
 
 	public List<Country> findAll();
 
-	public void save(Country country);
+	public Country save(Country country);
 
 	Country findOne(Long id);
 

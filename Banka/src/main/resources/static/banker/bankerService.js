@@ -79,6 +79,11 @@ services.service('bankerService', ['$http', function($http){
 	this.findAllPopulatedPlaces = function(){
 		return $http.get(url+"findAllPopulatedPlaces");
 	}
+	
+	this.findPopulatedPlaceById = function(populatedPlaceId){
+		return $http.get(url+"findPopulatedPlaceById/"+populatedPlaceId);
+	}
+	
 	this.savePopulatedPlace = function(populatedPlace){
 		return $http.post(url+"savePopulatedPlace",populatedPlace);
 	}

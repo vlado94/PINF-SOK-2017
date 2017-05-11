@@ -8,7 +8,7 @@ public interface CodeBookActivitiesService {
 
 	CodeBookActivities findOne(Long id);
 
-	void save(CodeBookActivities codeBookActivity);
+	CodeBookActivities save(CodeBookActivities codeBookActivity);
 
 	void delete(Long id);
 

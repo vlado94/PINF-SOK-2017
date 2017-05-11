@@ -135,16 +135,17 @@ public class BankerController {
 	
 	@PutMapping(path = "/updateCodeBookActivity/{id}")
 	@ResponseStatus(HttpStatus.CREATED)
-	public void updateCodeBookActivity(@PathVariable Long id,@RequestBody CodeBookActivities codeBookActivity) {
+	public CodeBookActivities updateCodeBookActivity(@PathVariable Long id,@RequestBody CodeBookActivities codeBookActivity) {
 		CodeBookActivities codeBookActivityForUpdate = codeBookActivitiesService.findOne(id);
 		if(codeBookActivityForUpdate != null) {
 			codeBookActivityForUpdate.setCode(codeBookActivity.getCode());
 			codeBookActivityForUpdate.setName(codeBookActivity.getName());
-			codeBookActivitiesService.save(codeBookActivity);
+			return codeBookActivitiesService.save(codeBookActivity);
 		}
 		else {
 			throw new NotFoundException();
 		}
+		
 	}
 	
 	
@@ -176,17 +177,17 @@ public class BankerController {
 	
 	@PostMapping(path = "/saveCountry")
 	@ResponseStatus(HttpStatus.CREATED)
-	public void saveCountry(@RequestBody Country country) {
-		countryService.save(country);
+	public Country saveCountry(@RequestBody Country country) {
+		return countryService.save(country);
 	}
 	
 	@PutMapping(path = "/updateCountry/{id}")
 	@ResponseStatus(HttpStatus.CREATED)
-	public void updateCountry(@PathVariable Long id,@RequestBody Country country) {
+	public Country updateCountry(@PathVariable Long id,@RequestBody Country country) {
 		Country countryForUpdate = countryService.findOne(id);
 		countryForUpdate.setCode(country.getCode());
 		countryForUpdate.setName(country.getName());
-		countryService.save(countryForUpdate);
+		return countryService.save(countryForUpdate);
 	}
 	
 	@DeleteMapping(path = "/deleteCountry/{id}")
@@ -282,10 +283,17 @@ public class BankerController {
 		return populatedPlaceService.findAll(); 
 	}
 	
+	
+	@GetMapping(path = "/findPopulatedPlaceById/{id}")
+	@ResponseStatus(HttpStatus.OK)
+	public PopulatedPlace findPopulatedPlaceById(@PathVariable Long id) {
+		return populatedPlaceService.findOne(id);
+	}
+	
 	@PostMapping(path = "/savePopulatedPlace")
 	@ResponseStatus(HttpStatus.CREATED)
-	public void savePopulatedPlace(@Valid @RequestBody PopulatedPlace populatedPlace) {
-		populatedPlaceService.save(populatedPlace);
+	public PopulatedPlace savePopulatedPlace(@Valid @RequestBody PopulatedPlace populatedPlace) {
+		return populatedPlaceService.save(populatedPlace);
 	}
 	
 	@DeleteMapping(path = "/deletePopulatedPlace/{id}")
@@ -296,13 +304,13 @@ public class BankerController {
 	
 	@PutMapping(path = "/updatePopulatedPlace/{id}")
 	@ResponseStatus(HttpStatus.CREATED)
-	public void updatePopulatedPlace(@PathVariable Long id,@RequestBody PopulatedPlace populatedPlace) {
+	public PopulatedPlace updatePopulatedPlace(@PathVariable Long id,@RequestBody PopulatedPlace populatedPlace) {
 		PopulatedPlace populatedPlaceForUpdate = populatedPlaceService.findOne(id);
 		if(populatedPlaceForUpdate != null) {
 			populatedPlaceForUpdate.setName(populatedPlace.getName());
 			populatedPlaceForUpdate.setPttCode(populatedPlace.getPttCode());
 			populatedPlaceForUpdate.setCountry(populatedPlace.getCountry());
-			populatedPlaceService.save(populatedPlaceForUpdate);
+			return populatedPlaceService.save(populatedPlaceForUpdate);
 		}
 		else {
 			throw new NotFoundException();
