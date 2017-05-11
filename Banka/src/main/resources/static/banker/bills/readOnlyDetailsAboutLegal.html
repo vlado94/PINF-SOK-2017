@@ -1,5 +1,7 @@
 <div class ="whole-bill-form" >
+
 <form name = "createNewLegal">	
+<fieldset disabled>
 <div class = "right-bill-form" >
 
 
@@ -20,19 +22,16 @@
 	
 	</br>
 	<span class = "span-radio-buttons">
-	Yes <input type ="radio" id="deliveryTrue" ng-click ="chooseDelivery(true)"> 
-	No <input type ="radio" id="deliveryFalse" ng-click ="chooseDelivery(false)"> 
+	Yes <input type ="radio" id="deliveryTrue"> 
+	No <input type ="radio" id="deliveryFalse"> 
 	</span>
 	
 	</br>
 	<label>Activity</label>
 	<span><input type = "text" class = "form-control" ng-model = "$parent.selectedNameOfActivity" style="background-color: #a4a6aa;" disabled></input> 
-	<button type="button" class="btn btn-default chooseActivityButton" data-toggle="modal" data-target="#addActivity"> ... </button>
 	</span>
 	
 	</br>
-	<button class = "btn btn-default" ng-click = "updateLegalClient()"><span class = "glyphicon glyphicon-plus"></span>  Save</button>
-	<button class = "btn btn-default" ui-sref ="banker.closeBill" ng-click = "closeBill()"><span class = "glyphicon glyphicon-remove"></span>  Close bill</button>
 	
 </div>
 <div class = "left-bill-form">
@@ -85,23 +84,35 @@
 				</tr>
 		</tbody>
 		</table>
-        
-       
-      </div>
-      <div class="modal-footer">
-        <button type="button" ng-click = "saveActivityForLegalBill()" class="btn btn-default" data-dismiss="modal">OK</button>
-     	<button type="button" ng-click = "annulActivityForLegalBill()" class="btn btn-default" data-dismiss="modal">CANCEL</button>
-      </div>
+      </div> 
     </div>
-
   </div>
 </div>
-
-
 </br>
-
-
 	
-
+</fieldset>
 </form>
 </div>
+
+</br></br>
+<table class="table table-bordered" border="1">
+<div  ng-init="findAllDepositSlips()">
+		<tbody>
+			<tr>
+				<th>Date</th>
+				<th>Account number</th>
+				<th>Traffic at expense</th>
+				<th>Traffic to benefit</th>
+				<th>Account state</th>
+			</tr>
+			<tr ng-repeat="depositSlip in allDepositSlips">
+				<td>{{depositSlip.depositSlipDate}}</td>
+				<td>{{depositSlip.bill}}</td>
+				<td>{{depositSlip.ammount}}</td>
+				<td>{{depositSlip.ammount}}</td>
+				<td>{{depositSlip.ammount}}</td>
+				
+			</tr>
+		</tbody>
+		</div>
+	</table>

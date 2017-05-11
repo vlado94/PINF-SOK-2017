@@ -733,5 +733,17 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 				$state.go("banker.depositSlip.paymentIn", {});
 			}
 		}
+		
+		$scope.findAllDepositSlips= function () {   
+			bankerService.findAllDepositSlips().then (
+				function(response){
+					$scope.allDepositSlips = response.data;
+				}, function (response){
+					alert("Greska");
+				}
+			);
+		}
+		
+		
 	}
 ]);

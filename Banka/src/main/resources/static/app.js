@@ -52,8 +52,14 @@ angular.module('routerApp', ['ui.router',
         	url : '/individualBills',
           	templateUrl : 'banker/bills/individualBills.html'
         })
-          .state('banker.detailsAboutIndividual', {
+          .state('banker.readOnlyDetailsAboutIndividual', {
+          	templateUrl : 'banker/bills/readOnlyDetailsAboutIndividual.html'
+        })
+         .state('banker.detailsAboutIndividual', {
           	templateUrl : 'banker/bills/detailsAboutIndividual.html'
+        })
+          .state('banker.readOnlyDetailsAboutLegal', {
+          	templateUrl : 'banker/bills/readOnlyDetailsAboutLegal.html'
         })
           .state('banker.detailsAboutLegal', {
           	templateUrl : 'banker/bills/detailsAboutLegal.html'
@@ -125,7 +131,7 @@ angular.module('routerApp', ['ui.router',
         	url : '/depositSlip/newSlip/Transfer',
           	templateUrl : 'banker/depositSlip/depositSlipForTransfer.html'
         })
-        .state('banker.allDepositSlips', {
+        .state('banker.depositSlip.allDepositSlips', {
           	templateUrl : 'banker/depositSlip/depositSlips.html'
         })
         
