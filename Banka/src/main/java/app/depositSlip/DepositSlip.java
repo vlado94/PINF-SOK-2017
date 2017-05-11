@@ -1,6 +1,6 @@
 package app.depositSlip;
 
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,7 +20,7 @@ import lombok.Data;
 public class DepositSlip {
 
 	public enum Type {
-	    TRANSEF, //prenos
+	    TRANSFER, //prenos
 	    PAYMENTOUT, //uplata
 	    PAYOUT, //isplata
 	    PAYMENTIN //naplata

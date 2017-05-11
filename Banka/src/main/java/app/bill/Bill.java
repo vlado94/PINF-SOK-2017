@@ -35,7 +35,7 @@ public class Bill {
 	
 	//@NotNull
 	@Column
-	private boolean status;
+	private boolean status;//false=zatvoren, true=otvoren
 	
 	//@NotNull
 	@Column

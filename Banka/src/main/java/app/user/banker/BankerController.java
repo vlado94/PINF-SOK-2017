@@ -38,6 +38,7 @@ import app.country.CountryService;
 import app.dailyBalance.DailyBalance;
 import app.dailyBalance.DailyBalanceService;
 import app.depositSlip.DepositSlip;
+import app.depositSlip.DepositSlip.Type;
 import app.depositSlip.DepositSlipService;
 import app.populatedPlace.PopulatedPlace;
 import app.populatedPlace.PopulatedPlaceService;
@@ -326,6 +327,8 @@ public class BankerController {
 		dailyBalance.setTrafficAtExpense(0);
 		dailyBalance.setTrafficToBenefit(0);	
 		dailyBalanceService.save(dailyBalance);
+		
+		bill.setStatus(true);//postavi da je racun otvoren
 		return billService.save(bill);
 	}
 	
@@ -337,32 +340,42 @@ public class BankerController {
 		bankService.save(bankForUpdate);
 	}
 	
-	//zatvaranje racuna i prebacivanje sredstava na racun pravnog nasljednika
 	@PostMapping(path = "/closeBill")
 	@ResponseStatus(HttpStatus.CREATED)
 	public ClosingBill closeBill(@Valid @RequestBody ClosingBill closingBill) {
-		Bill billSuccessor = billService.findByAccountNumber(closingBill.getBillSuccessor());
-		Date date=new Date();;
-		if(billSuccessor!=null){
-			/////ISPRAVI OVO DESANKA posto trenutno uzimas posljednje stanje iz DailyBalance
-			List<DailyBalance> dailyBalances = dailyBalanceService.findByBill_id(billSuccessor.getId());
-			DailyBalance dailyBalance = dailyBalances.get(dailyBalances.size()-1);
-			Bill billForClose = closingBill.getBill();
-			List<DailyBalance> dailyBalancesForClose = dailyBalanceService.findByBill_id(billForClose.getId());
-			DailyBalance dailyBalanceForClose = dailyBalancesForClose.get(dailyBalancesForClose.size()-1);
-			double newNewState = dailyBalance.getNewState() + dailyBalanceForClose.getNewState();
-			DailyBalance newDailyBalance = new DailyBalance();
-			newDailyBalance.setDate(date);
-			newDailyBalance.setPreviousState(dailyBalance.getNewState());
-			newDailyBalance.setNewState(newNewState);
-			//u korist je stanje sa racuna koji se zatvara
-			newDailyBalance.setTrafficToBenefit(dailyBalanceForClose.getNewState());
-			newDailyBalance.setTrafficAtExpense(0);
-			DailyBalance db = dailyBalanceService.save(newDailyBalance);
-		}
+		Bill billForClosing = closingBill.getBill();
+		Date date = new Date();
+		String billSuccessor = closingBill.getBillSuccessor();
+		DepositSlip depositSlip = new DepositSlip();
+		depositSlip.setType(Type.TRANSFER);
+		depositSlip.setDeptor(billForClosing.getClient().getApplicant());
+		depositSlip.setPurposeOfPayment("zatvaranje racuna");
+		depositSlip.setReceiver("Pravni nasljednik");
+		depositSlip.setCurrencyDate(date);
+		depositSlip.setCodeOfCurrency("RSD");
+		depositSlip.setBillOfReceiver(billSuccessor);
+		depositSlip.setModelApproval(2);
+		depositSlip.setReferenceNumberApproval("20");
+		depositSlip.setReferenceNumberAssignment("20");
+		depositSlip.setBillOfDeptor(billForClosing.getAccountNumber());
+		depositSlip.setModelAssignment(2);
+		depositSlip.setDepositSlipDate(date);
+		depositSlip.setUrgently(false);
+		depositSlip.setDirection(false);
 
-		closingBill.setDate(date);
-		return closingBillService.save(closingBill);
+		DepositSlip savedDepositSlip = depositSlipService.save(depositSlip);
+		if(savedDepositSlip != null){//uspjesno cuvanje izvoda
+			closingBill.setDepositSlip(depositSlip);
+			ClosingBill savedClosingBill = closingBillService.save(closingBill);
+			if(savedClosingBill != null){//uspjesno zatvoren racuna
+				billForClosing.setStatus(false);//postavi status racuna da je zatvoren
+				return savedClosingBill;
+			}else{
+				return null;
+			}
+		}else{
+			return null;
+		}
 	}
 	
 	@PostMapping(path = "/saveDepositSlip")
