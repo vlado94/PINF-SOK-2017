@@ -21,7 +21,7 @@
 				<td>{{country.code}}</td>
 				<td>{{country.name}}</td>
 				<td colspan="2">
-					<button class = "btn" ui-sref =".updateCountry" ng-click = prepareToUpdateCountry(country)><span class = "glyphicon glyphicon-pencil"></span></button>
+					<button class = "btn" ui-sref =".updateCountry" ng-click = prepareToUpdateCountry(country.id)><span class = "glyphicon glyphicon-pencil"></span></button>
 					<button class = "btn" ng-click = deleteCountry(country.id)><span class = "glyphicon glyphicon-remove"></span></button>
 				</td>
 			</tr>

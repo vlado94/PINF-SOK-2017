@@ -24,8 +24,8 @@ public class PopulatedPlaceServiceImpl implements PopulatedPlaceService {
 	}
 
 	@Override
-	public void save(PopulatedPlace populatedPlace) {
-		populatedPlaceRepository.save(populatedPlace);
+	public PopulatedPlace save(PopulatedPlace populatedPlace) {
+		return populatedPlaceRepository.save(populatedPlace);
 		
 	}
 
