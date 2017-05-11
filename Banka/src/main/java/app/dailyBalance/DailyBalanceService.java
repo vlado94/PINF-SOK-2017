@@ -12,6 +12,6 @@ public interface DailyBalanceService {
 	
 	public List<DailyBalance> findByBill_id(Long id);
 	
-	
+	//public DailyBalance findMaxDate(String accountNumber);
 	
 }

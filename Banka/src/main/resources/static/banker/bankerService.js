@@ -107,4 +107,8 @@ services.service('bankerService', ['$http', function($http){
 		return $http.post(url+"saveDepositSlip",depositSlip);
 	}
 	
+	this.findAllDepositSlips = function(){
+		return $http.get(url+ "findAllDepositSlips");
+	}
+	
 }]);
