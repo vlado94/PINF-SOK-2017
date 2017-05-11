@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import app.bill.Bill;
+import app.depositSlip.DepositSlip;
 import lombok.Data;
 
 @Data
@@ -34,7 +35,8 @@ public class ClosingBill {
 	@JoinColumn(name = "BILL_ID")
 	private Bill bill;  //not null
 	
-	
-	//fali da se pribelezi kojim nalogom se zatvara racun
+	@ManyToOne
+	@JoinColumn(name = "DEPOSIT_SLIP_ID")
+	private DepositSlip depositSlip;
 	
 }
