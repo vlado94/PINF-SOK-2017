@@ -686,7 +686,9 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 			bankerService.saveDepositSlip($scope.depositSlip).then(
 				function(response){
 					alert("Deposit slip successfuly processed.");
+					location.reload();
 					$state.go("banker.home", {});
+					
 				}, function (response){
 					alert("Error!");
 				}
@@ -723,7 +725,6 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 		}
 		
 		$scope.openDepositSlip = function() {
-			location.reload();
 			if($scope.depositSlip.type == "TRANSFER") {
 				$state.go("banker.depositSlip.transer", {});
 			}
