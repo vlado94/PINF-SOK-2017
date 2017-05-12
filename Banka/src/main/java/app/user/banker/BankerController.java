@@ -413,4 +413,11 @@ public class BankerController {
 	public void saveDepositSlip(@RequestBody DepositSlip depositSlip) {
 		depositSlipService.save(depositSlip);
 	}
+	
+	@GetMapping("/findAllDepositSlips")
+	@ResponseStatus(HttpStatus.OK)
+	public List<DepositSlip> findAllDepositSlips() {
+		return depositSlipService.findAll();
+	}
+	
 }

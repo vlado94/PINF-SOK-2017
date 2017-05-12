@@ -736,8 +736,8 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 			}
 		}
 		
-		$scope.findAllDepositSlips= function () {   
-			bankerService.findAllDepositSlips().then (
+		$scope.findAllDepositSlips= function () {  //metoda nema smisla u kontekstu u kom se poziva IZMJENITI! Olja komentarisala 
+			bankerService.findAllDepositSlips().then ( //ali sada bar zaista vraca SVE torke iz depositSlip
 				function(response){
 					$scope.allDepositSlips = response.data;
 				}, function (response){
