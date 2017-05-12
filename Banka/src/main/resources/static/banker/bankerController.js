@@ -767,7 +767,7 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 					for(var i=0; i<slips.length; i +=1) { //sve uplatnice
 						if(slips[i].billOfReceiver == $scope.accNumber){
 							object = {date: slips[i].depositSlipDate,
-								account: slips[i].billOfReceiver,
+								account: slips[i].billOfDeptor,
 								description: slips[i].purposeOfPayment,
 								trafficAtExpense: 0,
 								trafficToBenefit : slips[i].amount
@@ -776,7 +776,7 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 							list.push(object);
 						} else if(slips[i].billOfDeptor == $scope.accNumber) {
 							object = {date: slips[i].depositSlipDate,
-									account: slips[i].billOfDeptor,
+									account: slips[i].billOfReceiver,
 									description: slips[i].purposeOfPayment,
 									trafficAtExpense: slips[i].amount,
 									trafficToBenefit : 0
