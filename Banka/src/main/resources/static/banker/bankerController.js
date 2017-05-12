@@ -760,6 +760,9 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 					var list = [];
 					var lista = [];
 					var object;
+					var expense = 0;
+					var benefit = 0;
+					var stanje = 0;
 					
 					for(var i=0; i<slips.length; i +=1) { //sve uplatnice
 						if(slips[i].billOfReceiver == $scope.accNumber){
@@ -769,6 +772,7 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 								trafficAtExpense: 0,
 								trafficToBenefit : slips[i].amount
 								}
+							benefit += slips[i].amount;
 							list.push(object);
 						} else if(slips[i].billOfDeptor == $scope.accNumber) {
 							object = {date: slips[i].depositSlipDate,
@@ -777,10 +781,12 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 									trafficAtExpense: slips[i].amount,
 									trafficToBenefit : 0
 									}
+							expense += slips[i].amount;
 							list.push(object);
 						}				
 					}
 					$scope.lista = list;
+					$scope.stanje = benefit - expense;
 				}, function (response){
 					alert("Greska");
 				}

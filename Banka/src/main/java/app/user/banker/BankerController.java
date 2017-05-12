@@ -361,7 +361,7 @@ public class BankerController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public ClosingBill closeBill(@Valid @RequestBody ClosingBill closingBill) {
 		Bill billForClosing = closingBill.getBill();
-		Date date = new Date();
+		java.sql.Date date = (java.sql.Date) new Date();
 		String billSuccessor = closingBill.getBillSuccessor();
 		DepositSlip depositSlip = new DepositSlip();
 		depositSlip.setType(Type.TRANSFER);
