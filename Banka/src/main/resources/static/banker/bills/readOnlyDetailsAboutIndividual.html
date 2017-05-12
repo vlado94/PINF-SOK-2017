@@ -34,32 +34,7 @@
 </div>
 </fieldset>
 </form>
-
+</br>
+<button class = "btn" ui-sref ="banker.detailsAboutIndividual" ng-click = getDetailsAboutIndividual($parent.client.id)><span class = "glyphicon glyphicon-pencil"></span> Update</button>
 </div>
 </br></br>
-
-<!-- Prikaz svih uplatnica, nije sredjeno za koji racun treba da se prikaze;
-	ukoliko jedan korisnik ima vise racuna u istoj banci kako znati sa kojeg se skida;
-	izbacuje greska - ISPRAVITI!
- -->
-<table class="table table-bordered" border="1">
-<div  ng-init="findAllDepositSlips()">
-		<tbody>
-			<tr>
-				<th>Date</th>
-				<th>Account number</th>
-				<th>Traffic at expense</th>
-				<th>Traffic to benefit</th>
-				<th>Account state</th>
-			</tr>
-			<tr ng-repeat="depositSlip in allDepositSlips">
-				<td>{{depositSlip.depositSlipDate}}</td>
-				<td>{{depositSlip.bill}}</td>
-				<td>{{depositSlip.ammount}}</td>
-				<td>{{depositSlip.ammount}}</td>
-				<td>{{depositSlip.ammount}}</td>
-				
-			</tr>
-		</tbody>
-		</div>
-	</table>

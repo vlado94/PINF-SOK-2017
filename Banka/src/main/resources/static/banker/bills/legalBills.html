@@ -21,10 +21,8 @@
 				<td>{{legalBill.client.applicant}}</td>
 				<td colspan="2">
 					<button class = "btn" ui-sref ="banker.readOnlyDetailsAboutLegal" ng-click = getDetailsAboutLegal(legalBill.client.id)><span class = "glyphicon glyphicon-th"></span> Details</button>
-					</br>
-					<button class = "btn" ui-sref ="banker.detailsAboutLegal" ng-click = getDetailsAboutLegal(legalBill.client.id)><span class = "glyphicon glyphicon-pencil"></span> Update</button>
 					<button class = "btn" ui-sref ="banker.closeBill" ng-click = "closeBill(legalBill)"><span class = "glyphicon glyphicon-remove"></span>  Close account</button>
-					<button class = "btn"><span class = "glyphicon glyphicon-tasks"></span> Daily balance</button>
+					<button class = "btn" ui-sref = "banker.depositSlips" ng-click = "getClientAccount(legalBill.accountNumber)"><span class = "glyphicon glyphicon-tasks"></span> Daily balance</button>
 				</td>
 				
 

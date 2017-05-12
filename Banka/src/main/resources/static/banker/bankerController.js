@@ -748,10 +748,39 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 			}
 		}
 		
+		$scope.getClientAccount = function(accountNumber) {
+			$scope.accNumber = accountNumber;
+			//return
+		}
+		
 		$scope.findAllDepositSlips= function () {  //koristi se kod all depositSlips
 			bankerService.findAllDepositSlips().then (
 				function(response){
-					$scope.allDepositSlips = response.data;
+					var slips = response.data;
+					var list = [];
+					var lista = [];
+					var object;
+					
+					for(var i=0; i<slips.length; i +=1) { //sve uplatnice
+						if(slips[i].billOfReceiver == $scope.accNumber){
+							object = {date: slips[i].depositSlipDate,
+								account: slips[i].billOfReceiver,
+								description: slips[i].purposeOfPayment,
+								trafficAtExpense: 0,
+								trafficToBenefit : slips[i].amount
+								}
+							list.push(object);
+						} else if(slips[i].billOfDeptor == $scope.accNumber) {
+							object = {date: slips[i].depositSlipDate,
+									account: slips[i].billOfDeptor,
+									description: slips[i].purposeOfPayment,
+									trafficAtExpense: slips[i].amount,
+									trafficToBenefit : 0
+									}
+							list.push(object);
+						}				
+					}
+					$scope.lista = list;
 				}, function (response){
 					alert("Greska");
 				}
