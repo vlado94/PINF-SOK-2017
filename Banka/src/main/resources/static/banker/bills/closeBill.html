@@ -1,12 +1,18 @@
-<style>
+<!--  <style>
 .selected{
 	background-color:white;
 	color:black;
 	font-weight:bold;
-}
+}-->
 </style>
 <div class = "col-sm-4">
-
+	<div align="center">
+		<label class = "infoLabel"> Enter the acount number of successor:</label>
+		<input type="text" class = "form-control" ng-model="$parent.closingBill.billSuccessor"> </input>
+		<button class = "btn"  ng-click="finishClosingBill()"><span class = "glyphicon glyphicon-ok-sign"></span> Finish closing</button>
+		
+	</div>
+<!-- 
 <div ng-init="findAllIndividualBillsExceptClosingOne()">
 <div ng-init="findAllLegalBillsExceptClosingOne()">
  <form>
@@ -19,7 +25,7 @@
  </form>
  	<form name = "addDepositSlip">
 		<fieldset>
-			<!--  <div class = "leftSideOfDepositSlip">-->
+			
 				<div>
 					<label class = "infoLabel"> Type</label>
 					<input type="text" class = "form-control" ng-model="$parent.depositSlip.type" ng-init="$parent.depositSlip.type='UPLATA'" value="UPLATA" disabled></input>
@@ -64,8 +70,7 @@
 					  	<label for="checkboxTwoInputt"></label>
 				  	</div>
 				</div>
-			<!--</div>-->
-			<!--<div class = "rightSideOfDepositSlip">-->
+
 				
 				<div>
 					<label class = "infoLabel"> Model assignment</label>
@@ -96,7 +101,7 @@
 					<label class = "infoLabel"> Code of currency</label>
 					<input type="text" class = "form-control" ng-model = "$parent.depositSlip.codeOfCurrency"> </input>
 				</div>				
-			<!-- </div> -->
+
 		</fieldset>
 		<div class = "buttonsDepositSlip">
 			<button class = "btn btn-default" ng-click = "saveDepositSlipAndCloseBill()"><span class = "glyphicon glyphicon-plus"></span>Save</button>
@@ -117,7 +122,7 @@
 				<td>{{individualBill.client.applicant}}</td>
 				<td colspan="2">
 					<button class = "btn" ui-sref ="banker.detailsAboutIndividual" ng-click = getDetails(individualBill.client)><span class = "glyphicon glyphicon-th"></span> Details</button>
-<!-- 					<button class = "btn" ng-click = deleteCountry(country.id)><span class = "glyphicon glyphicon-remove"></span></button> -->
+
 				</td>
 			</tr>
 			<tr ng-repeat="legalBill in allLegalBills | filter:searchBillSuccessor" ng-click="setSelectedIndividual($index,legalBill.accountNumber)">
@@ -125,7 +130,6 @@
 				<td>{{legalBill.client.applicant}}</td>
 				<td colspan="2">
 					<button class = "btn" ui-sref ="banker.detailsAboutLegal" ng-click = getDetails(legalBill.client)><span class = "glyphicon glyphicon-th"></span> Details</button>
-<!-- 					<button class = "btn" ng-click = deleteCountry(country.id)><span class = "glyphicon glyphicon-remove"></span></button> -->
 				</td>
 			</tr>
 		</tbody>
@@ -133,5 +137,6 @@
 
 
 </div>
+ -->
 <div ui-view></div>
 </div>

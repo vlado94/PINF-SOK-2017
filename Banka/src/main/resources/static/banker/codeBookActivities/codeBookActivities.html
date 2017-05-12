@@ -14,7 +14,7 @@
 				<td>{{activity.code}}</td>
 				<td>{{activity.name}}</td>
 				<td>
-					<button class = "btn" ui-sref =".updateCodeBookActivity" ng-click = prepareToUpdateCodeBookActivity(activity)><span class = "glyphicon glyphicon-pencil"></span></button>
+					<button class = "btn" ui-sref =".updateCodeBookActivity" ng-click = prepareToUpdateCodeBookActivity(activity.id)><span class = "glyphicon glyphicon-pencil"></span></button>
 					<button class = "btn" ng-click = deleteCodeBookActivity(activity.id)><span class = "glyphicon glyphicon-remove"></span></button>
 				</td>
 			</tr>

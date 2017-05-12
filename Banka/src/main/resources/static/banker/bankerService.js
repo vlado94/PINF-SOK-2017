@@ -69,6 +69,10 @@ services.service('bankerService', ['$http', function($http){
 		return $http.put(url+"updateIndividualClient/"+individualClient.id,individualClient);
 	}
 	
+	this.findClientById = function(clientId){
+		return $http.get(url+"findClientById/"+clientId);
+	}
+	
 	this.updateLegalClient = function(legalClient){
 		return $http.put(url+"updateLegalClient/"+legalClient.id, legalClient);
 	}
@@ -78,6 +82,11 @@ services.service('bankerService', ['$http', function($http){
 	this.findAllPopulatedPlaces = function(){
 		return $http.get(url+"findAllPopulatedPlaces");
 	}
+	
+	this.findPopulatedPlaceById = function(populatedPlaceId){
+		return $http.get(url+"findPopulatedPlaceById/"+populatedPlaceId);
+	}
+	
 	this.savePopulatedPlace = function(populatedPlace){
 		return $http.post(url+"savePopulatedPlace",populatedPlace);
 	}
@@ -100,5 +109,9 @@ services.service('bankerService', ['$http', function($http){
 	this.saveDepositSlip = function(depositSlip){
 		return $http.post(url+"saveDepositSlip",depositSlip);
 	}
+	
+	this.findAllDepositSlips = function(){
+		return $http.get(url+"findAllDepositSlips");
+	}	
 	
 }]);

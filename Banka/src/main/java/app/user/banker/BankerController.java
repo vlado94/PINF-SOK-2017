@@ -38,6 +38,7 @@ import app.country.CountryService;
 import app.dailyBalance.DailyBalance;
 import app.dailyBalance.DailyBalanceService;
 import app.depositSlip.DepositSlip;
+import app.depositSlip.DepositSlip.Type;
 import app.depositSlip.DepositSlipService;
 import app.exchangeRate.ExchangeRate;
 import app.exchangeRate.ExchangeRateService;
@@ -139,16 +140,17 @@ public class BankerController {
 	
 	@PutMapping(path = "/updateCodeBookActivity/{id}")
 	@ResponseStatus(HttpStatus.CREATED)
-	public void updateCodeBookActivity(@PathVariable Long id,@RequestBody CodeBookActivities codeBookActivity) {
+	public CodeBookActivities updateCodeBookActivity(@PathVariable Long id,@RequestBody CodeBookActivities codeBookActivity) {
 		CodeBookActivities codeBookActivityForUpdate = codeBookActivitiesService.findOne(id);
 		if(codeBookActivityForUpdate != null) {
 			codeBookActivityForUpdate.setCode(codeBookActivity.getCode());
 			codeBookActivityForUpdate.setName(codeBookActivity.getName());
-			codeBookActivitiesService.save(codeBookActivity);
+			return codeBookActivitiesService.save(codeBookActivity);
 		}
 		else {
 			throw new NotFoundException();
 		}
+		
 	}
 	
 	
@@ -180,17 +182,17 @@ public class BankerController {
 	
 	@PostMapping(path = "/saveCountry")
 	@ResponseStatus(HttpStatus.CREATED)
-	public void saveCountry(@RequestBody Country country) {
-		countryService.save(country);
+	public Country saveCountry(@RequestBody Country country) {
+		return countryService.save(country);
 	}
 	
 	@PutMapping(path = "/updateCountry/{id}")
 	@ResponseStatus(HttpStatus.CREATED)
-	public void updateCountry(@PathVariable Long id,@RequestBody Country country) {
+	public Country updateCountry(@PathVariable Long id,@RequestBody Country country) {
 		Country countryForUpdate = countryService.findOne(id);
 		countryForUpdate.setCode(country.getCode());
 		countryForUpdate.setName(country.getName());
-		countryService.save(countryForUpdate);
+		return countryService.save(countryForUpdate);
 	}
 	
 	@DeleteMapping(path = "/deleteCountry/{id}")
@@ -216,6 +218,13 @@ public class BankerController {
 	public Client saveIndividualBill(@Valid @RequestBody Client client) {
 		client.setType(TypeOfClient.FIZICKO);
 		return clientService.save(client);
+	}
+	
+	
+	@GetMapping(path = "/findClientById/{id}")
+	@ResponseStatus(HttpStatus.OK)
+	public Client findClientById(@PathVariable Long id) {
+		return clientService.findOne(id);
 	}
 	
 	@PutMapping(path = "/updateIndividualClient/{id}")
@@ -284,10 +293,17 @@ public class BankerController {
 		return populatedPlaceService.findAll(); 
 	}
 	
+	
+	@GetMapping(path = "/findPopulatedPlaceById/{id}")
+	@ResponseStatus(HttpStatus.OK)
+	public PopulatedPlace findPopulatedPlaceById(@PathVariable Long id) {
+		return populatedPlaceService.findOne(id);
+	}
+	
 	@PostMapping(path = "/savePopulatedPlace")
 	@ResponseStatus(HttpStatus.CREATED)
-	public void savePopulatedPlace(@Valid @RequestBody PopulatedPlace populatedPlace) {
-		populatedPlaceService.save(populatedPlace);
+	public PopulatedPlace savePopulatedPlace(@Valid @RequestBody PopulatedPlace populatedPlace) {
+		return populatedPlaceService.save(populatedPlace);
 	}
 	
 	@DeleteMapping(path = "/deletePopulatedPlace/{id}")
@@ -298,13 +314,13 @@ public class BankerController {
 	
 	@PutMapping(path = "/updatePopulatedPlace/{id}")
 	@ResponseStatus(HttpStatus.CREATED)
-	public void updatePopulatedPlace(@PathVariable Long id,@RequestBody PopulatedPlace populatedPlace) {
+	public PopulatedPlace updatePopulatedPlace(@PathVariable Long id,@RequestBody PopulatedPlace populatedPlace) {
 		PopulatedPlace populatedPlaceForUpdate = populatedPlaceService.findOne(id);
 		if(populatedPlaceForUpdate != null) {
 			populatedPlaceForUpdate.setName(populatedPlace.getName());
 			populatedPlaceForUpdate.setPttCode(populatedPlace.getPttCode());
 			populatedPlaceForUpdate.setCountry(populatedPlace.getCountry());
-			populatedPlaceService.save(populatedPlaceForUpdate);
+			return populatedPlaceService.save(populatedPlaceForUpdate);
 		}
 		else {
 			throw new NotFoundException();
@@ -328,6 +344,8 @@ public class BankerController {
 		dailyBalance.setTrafficAtExpense(0);
 		dailyBalance.setTrafficToBenefit(0);	
 		dailyBalanceService.save(dailyBalance);
+		
+		bill.setStatus(true);//postavi da je racun otvoren
 		return billService.save(bill);
 	}
 	
@@ -339,32 +357,64 @@ public class BankerController {
 		bankService.save(bankForUpdate);
 	}
 	
-	//zatvaranje racuna i prebacivanje sredstava na racun pravnog nasljednika
 	@PostMapping(path = "/closeBill")
 	@ResponseStatus(HttpStatus.CREATED)
 	public ClosingBill closeBill(@Valid @RequestBody ClosingBill closingBill) {
-		Bill billSuccessor = billService.findByAccountNumber(closingBill.getBillSuccessor());
-		Date date=new Date();;
-		if(billSuccessor!=null){
-			/////ISPRAVI OVO DESANKA posto trenutno uzimas posljednje stanje iz DailyBalance
-			List<DailyBalance> dailyBalances = dailyBalanceService.findByBill_id(billSuccessor.getId());
-			DailyBalance dailyBalance = dailyBalances.get(dailyBalances.size()-1);
-			Bill billForClose = closingBill.getBill();
-			List<DailyBalance> dailyBalancesForClose = dailyBalanceService.findByBill_id(billForClose.getId());
-			DailyBalance dailyBalanceForClose = dailyBalancesForClose.get(dailyBalancesForClose.size()-1);
-			double newNewState = dailyBalance.getNewState() + dailyBalanceForClose.getNewState();
-			DailyBalance newDailyBalance = new DailyBalance();
-			newDailyBalance.setDate(date);
-			newDailyBalance.setPreviousState(dailyBalance.getNewState());
-			newDailyBalance.setNewState(newNewState);
-			//u korist je stanje sa racuna koji se zatvara
-			newDailyBalance.setTrafficToBenefit(dailyBalanceForClose.getNewState());
-			newDailyBalance.setTrafficAtExpense(0);
-			DailyBalance db = dailyBalanceService.save(newDailyBalance);
-		}
+		Bill billForClosing = closingBill.getBill();
+		Date date = new Date();
+		String billSuccessor = closingBill.getBillSuccessor();
+		DepositSlip depositSlip = new DepositSlip();
+		depositSlip.setType(Type.TRANSFER);
+		depositSlip.setDeptor(billForClosing.getClient().getApplicant());
+		depositSlip.setPurposeOfPayment("zatvaranje racuna");
+		depositSlip.setReceiver("Pravni nasljednik");
+		depositSlip.setCurrencyDate(date);
+		depositSlip.setCodeOfCurrency("RSD");
+		depositSlip.setBillOfReceiver(billSuccessor);
+		depositSlip.setModelApproval(2);
+		depositSlip.setReferenceNumberApproval("20");
+		depositSlip.setReferenceNumberAssignment("20");
+		depositSlip.setBillOfDeptor(billForClosing.getAccountNumber());
+		depositSlip.setModelAssignment(2);
+		depositSlip.setDepositSlipDate(date);
+		depositSlip.setUrgently(false);
+		depositSlip.setDirection(false);
 
-		closingBill.setDate(date);
-		return closingBillService.save(closingBill);
+		DepositSlip savedDepositSlip = depositSlipService.save(depositSlip);
+		if(savedDepositSlip != null){//uspjesno cuvanje izvoda
+			closingBill.setDepositSlip(depositSlip);
+			//pozova obradu izvoda
+			bookingDepositSlip(savedDepositSlip);
+			////
+			ClosingBill savedClosingBill = closingBillService.save(closingBill);
+			if(savedClosingBill != null){//uspjesno zatvoren racuna
+				billForClosing.setStatus(false);//postavi status racuna da je zatvoren
+				return savedClosingBill;
+			}else{
+				return null;
+			}
+		}else{
+			return null;
+		}
+	}
+	
+	//obrada izvoda - azuriranje dnevnih stanja, razvrstavanje u medjubankarski prenos
+	public void bookingDepositSlip(DepositSlip depositSlip){
+		if(depositSlip.getType().equals(Type.TRANSFER)){
+			String billOfReciver = depositSlip.getBillOfReceiver();
+			String billOfDeptor = depositSlip.getBillOfDeptor();
+			String bankCodeBillOfReciver = billOfReciver.substring(0, 3);
+			String bankCodeBillOfDeptor = billOfDeptor.substring(0, 3);
+			//DailyBalance dailyBalance = dailyBalanceService.findMaxDate(billOfDeptor);
+			//System.out.println(dailyBalance.getId());
+			//System.out.println(dailyBalance.getNewState());
+			if(bankCodeBillOfReciver.equals(bankCodeBillOfDeptor)){
+				System.out.println("ISTE BANKE");
+				
+			}else{
+				System.out.println("RAZLICITE BANKE");
+			}
+		}
 	}
 	
 	@PostMapping(path = "/saveDepositSlip")
@@ -372,4 +422,11 @@ public class BankerController {
 	public void saveDepositSlip(@RequestBody DepositSlip depositSlip) {
 		depositSlipService.save(depositSlip);
 	}
+	
+	@GetMapping("/findAllDepositSlips")
+	@ResponseStatus(HttpStatus.OK)
+	public List<DepositSlip> findAllDepositSlips() {
+		return depositSlipService.findAll();
+	}
+	
 }

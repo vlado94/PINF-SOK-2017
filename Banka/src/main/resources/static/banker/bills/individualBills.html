@@ -12,20 +12,18 @@
 <table class="table table-bordered" border="1">
 		<tbody>
 			<tr>
-				<th>accountNumber</th>
-				<th>client name</th>
-				<th colspan="2"></th>
-				<th colspan="2"></th>
+				<th>Account number</th>
+				<th>Client name</th>
+				<th>Action</th>
 			</tr>
 			<tr ng-repeat="individualBill in allIndividualBills | filter:searchIndividualBill">
 				<td>{{individualBill.accountNumber}}</td>
 				<td>{{individualBill.client.applicant}}</td>
 				<td colspan="2">
-					<button class = "btn" ui-sref ="banker.detailsAboutIndividual" ng-click = getDetails(individualBill.client)><span class = "glyphicon glyphicon-th"></span> Details</button>
-<!-- 					<button class = "btn" ng-click = deleteCountry(country.id)><span class = "glyphicon glyphicon-remove"></span></button> -->
-				</td colspan="2">
-				<td><button class = "btn btn-default" ui-sref ="banker.closeBill" ng-click = "closeBill(individualBill)"><span class = "glyphicon glyphicon-remove"></span>  Close bill</button> 
-				
+					<button class = "btn" ui-sref ="banker.readOnlyDetailsAboutIndividual" ng-click = getDetailsAboutIndividual(individualBill.client.id)><span class = "glyphicon glyphicon-th"></span> Details</button>
+					<button class = "btn" ui-sref ="banker.detailsAboutIndividual" ng-click = getDetailsAboutIndividual(individualBill.client.id)><span class = "glyphicon glyphicon-pencil"></span> Update</button>
+					<button class = "btn" ui-sref ="banker.closeBill" ng-click = "closeBill(individualBill)"><span class = "glyphicon glyphicon-remove"></span>  Close account</button> 
+					<button class = "btn"><span class = "glyphicon glyphicon-tasks"></span> Daily balance</button>
 				</td>
 			</tr>
 		</tbody>
