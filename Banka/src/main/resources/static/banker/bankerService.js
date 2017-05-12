@@ -51,6 +51,9 @@ services.service('bankerService', ['$http', function($http){
 	this.deleteCountry = function(id){
 		return $http.delete(url+"deleteCountry/"+id);
 	}
+	this.exchangeRateDetails = function(id){
+		return $http.get(url+"exchangeRateDetails/"+id);
+	}
 	this.findAllIndividualBills = function(){
 		return $http.get(url+"findAllIndividualBills");
 	}

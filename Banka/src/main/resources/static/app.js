@@ -97,7 +97,12 @@ angular.module('routerApp', ['ui.router',
           	templateUrl : 'banker/exchangeRate/exchangeRates.html'
         })
         .state('banker.exchangeRates.addExchangeRate', {
+        	url : '/addExchangeRate',
           	templateUrl : 'banker/exchangeRate/addExchangeRate.html'
+        })
+        .state('banker.exchangeRates.exchangeRateDetails', {
+        	url : '/exchangeRateDetails',
+          	templateUrl : 'banker/exchangeRate/detailsExchangeRate.html'
         })
         .state('banker.closeBill', {
           	templateUrl : 'banker/bills/closeBill.html'

@@ -20,7 +20,7 @@ import lombok.Data;
 public class DepositSlip {
 
 	public enum Type {
-	    TRANSEF, //prenos
+	    TRANSFER, //prenos
 	    PAYMENTOUT, //uplata
 	    PAYOUT, //isplata
 	    PAYMENTIN //naplata

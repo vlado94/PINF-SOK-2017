@@ -39,6 +39,8 @@ import app.dailyBalance.DailyBalance;
 import app.dailyBalance.DailyBalanceService;
 import app.depositSlip.DepositSlip;
 import app.depositSlip.DepositSlipService;
+import app.exchangeRate.ExchangeRate;
+import app.exchangeRate.ExchangeRateService;
 import app.populatedPlace.PopulatedPlace;
 import app.populatedPlace.PopulatedPlaceService;
 
@@ -57,12 +59,13 @@ public class BankerController {
 	private final ClosingBillService closingBillService;
 	private final DailyBalanceService dailyBalanceService;
 	private final DepositSlipService depositSlipService;
+	private final ExchangeRateService exchangeRateService;
 	
 	@Autowired
 	public BankerController(final HttpSession httpSession,final BankerService bankerService, final CodeBookActivitiesService codeBookActivitiesService, 
 							final CountryService countryService, final ClientService clientService, final PopulatedPlaceService populatedPlaceService,
 							final BillService billService, final BankService bankService,final ClosingBillService closingBillService,
-							final DailyBalanceService dailyBalanceService,DepositSlipService depositSlipService) {
+							final DailyBalanceService dailyBalanceService,DepositSlipService depositSlipService,ExchangeRateService exchangeRateService) {
 		this.bankerService = bankerService;
 		this.codeBookActivitiesService = codeBookActivitiesService;
 		this.countryService = countryService;
@@ -74,6 +77,7 @@ public class BankerController {
 		this.closingBillService = closingBillService;
 		this.dailyBalanceService = dailyBalanceService;
 		this.depositSlipService = depositSlipService;
+		this.exchangeRateService = exchangeRateService;
 	}
 	
 	@GetMapping("/checkRights")
@@ -195,6 +199,11 @@ public class BankerController {
 		countryService.delete(id);
 	}
 	
+	@GetMapping(path = "/exchangeRateDetails/{id}")
+	@ResponseStatus(HttpStatus.OK)
+	public ExchangeRate exchangeRateDetails(@PathVariable Long id) {
+		return exchangeRateService.findOne(id);
+	}
 	
 	@GetMapping("/findAllIndividualBills")
 	@ResponseStatus(HttpStatus.OK)

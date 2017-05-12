@@ -506,9 +506,17 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 			$scope.newCurrentExchange = $scope.currentExchangeRate;
 		}
 		$scope.addExchangeRatee = function() {
-			
-			
 			alert(1)
+		}
+		
+		$scope.exchangeRateDetails = function(exchangeRateId) {
+			bankerService.exchangeRateDetails(exchangeRateId).then(
+					function(response){
+						$scope.exchangeRateDetail = response.data;
+					}, function (response){
+						alert("Error!");
+					}
+				);
 		}
 
 		$scope.closeBill = function (individualBill) {

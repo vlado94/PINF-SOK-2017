@@ -25,6 +25,11 @@
 	background-color: #8c8c8c;
  	border: 3px solid #eeefe6;
  }
+ 
+ .tableExchangeDetails {
+ 	margin-left :120px;
+ 	margin-top : 20px;
+}
 
 .loginForm {
 	width : 25%;
@@ -96,13 +101,30 @@
 	margin-top : 30px;
 }
 
+
 .formForAddExchangeRate {
+	border-color: red;
+	border-width : 10px;
 	width: 600px;
 	margin-left : 150px;
 }
 
 input{
 	color : black;
+}
+
+.formForAddExchangeRate {
+	border-style: solid;
+    border-color: white;
+    border-width: 3px;
+    padding: 5px;
+    width: 80%;
+    margin-top: 20px;
+	background-color: #8c8c8c;
+ 	border: 3px solid #eeefe6;
+}
+.addExchangeRateInputWidth {
+	width : 50px;
 }
 
 
