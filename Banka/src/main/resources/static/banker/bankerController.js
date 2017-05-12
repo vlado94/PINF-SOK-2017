@@ -685,7 +685,8 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 		$scope.saveDepositSlip = function() {
 			bankerService.saveDepositSlip($scope.depositSlip).then(
 				function(response){
-					alert("Ok");
+					alert("Deposit slip successfuly processed.");
+					$state.go("banker.home", {});
 				}, function (response){
 					alert("Error!");
 				}
@@ -722,6 +723,7 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 		}
 		
 		$scope.openDepositSlip = function() {
+			location.reload();
 			if($scope.depositSlip.type == "TRANSFER") {
 				$state.go("banker.depositSlip.transer", {});
 			}
@@ -736,8 +738,8 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 			}
 		}
 		
-		$scope.findAllDepositSlips= function () {  //metoda nema smisla u kontekstu u kom se poziva IZMJENITI! Olja komentarisala 
-			bankerService.findAllDepositSlips().then ( //ali sada bar zaista vraca SVE torke iz depositSlip
+		$scope.findAllDepositSlips= function () {  //koristi se kod all depositSlips
+			bankerService.findAllDepositSlips().then (
 				function(response){
 					$scope.allDepositSlips = response.data;
 				}, function (response){

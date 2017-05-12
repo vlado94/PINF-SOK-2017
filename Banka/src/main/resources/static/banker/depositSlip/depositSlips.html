@@ -1,1 +1,30 @@
-svi
+<h1>List of bank transactions</h1>
+<table class="table table-bordered" border="1">
+<div  ng-init="findAllDepositSlips()">
+		<tbody>
+			<tr>
+				<th>Date</th>
+				<th>Account number</th>
+				<th>Description</th>
+				<th>Traffic at expense</th>
+				<th>Traffic to benefit</th>
+			</tr>
+			<tr ng-repeat="depositSlip in allDepositSlips">
+				<td>{{depositSlip.depositSlipDate}}</td>
+				<td ng-switch on="depositSlip.billOfReceiver">
+					<span ng-switch-when="null">{{depositSlip.billOfDeptor}}</span>
+					<span ng-switch-when!="null">{{depositSlip.billOfReceiver}}</span>
+				</td>
+				<td>{{depositSlip.purposeOfPayment}}</td>
+				<td ng-switch on="depositSlip.type">
+					<span ng-switch-when="PAYMENTOUT">{{0}}</span>
+					<span ng-switch-when="PAYOUT">{{depositSlip.amount}}</span>
+				</td>
+				<td ng-switch on="depositSlip.type">
+					<span ng-switch-when="PAYOUT">{{0}}</span>
+					<span ng-switch-when="PAYMENTOUT">{{depositSlip.amount}}</span>
+				</td>
+			</tr>
+		</tbody>
+		</div>
+	</table>

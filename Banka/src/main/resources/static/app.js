@@ -131,7 +131,7 @@ angular.module('routerApp', ['ui.router',
         	url : '/depositSlip/newSlip/Transfer',
           	templateUrl : 'banker/depositSlip/depositSlipForTransfer.html'
         })
-        .state('banker.depositSlip.allDepositSlips', {
+        .state('banker.depositSlips', {
           	templateUrl : 'banker/depositSlip/depositSlips.html'
         })
         
