@@ -794,7 +794,8 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 		$scope.findAllDepositSlips = function() {
 			bankerService.findAllDepositSlips().then (
 				function(response){
-					alert("ok")
+					$scope.allDepositSlips = response.data;
+					//alert("ok")
 				}, function (response){
 					alert("Error!")
 				});						
