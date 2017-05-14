@@ -1,6 +1,16 @@
 <h1>List of bank transactions</h1><h1>List of client transactions</h1>
-<table class="table table-bordered" border="1">		  <table class="table table-bordered" border="1">
 
-
-
-izlistaj sve
+<table ng-init = findAllDepositSlips() class="table table-bordered" border="1">
+	<tbody>
+		<tr>
+			<th>Type</th>
+			<th>Reciever</th>
+			<th>Amount</th>
+		</tr>
+		<tr ng-repeat="depositSlip in allDepositSlips">
+			<td>{{depositSlip.type}}</td>
+			<td>{{depositSlip.billOfReceiver}}</td>
+			<td>{{depositSlip.amount}}</td>
+		</tr>
+	</tbody>
+</table>

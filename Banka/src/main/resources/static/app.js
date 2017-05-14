@@ -139,6 +139,7 @@ angular.module('routerApp', ['ui.router',
         .state('banker.depositSlipsForAccount', {
           	templateUrl : 'banker/depositSlip/depositSlipsForAccount.html'
         }).state('banker.depositSlipsAll', {
+        	url : '/depositSlip/allInBank',
           	templateUrl : 'banker/depositSlip/depositSlipsAll.html'
         })
         
