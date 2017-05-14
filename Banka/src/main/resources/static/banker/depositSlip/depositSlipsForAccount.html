@@ -3,11 +3,11 @@
 
 <label class = "infoLabel"> ACCOUNT STATE:</label>
 </br>
-<textarea class = "dailyState"  autofocus rows="1" cols="30" readonly="true" > {{stanje}}</textarea>
+<textarea class = "dailyState"  autofocus rows="1" cols="30" readonly="true" > {{state}}</textarea>
 </br></br>
 
 <table class="table table-bordered" border="1">
-<div  ng-init="findAllDepositSlips()">
+<div  ng-init="findAllDepositSlipsForAccount()">
 		<tbody>
 			<tr>
 				<th>Date</th>
@@ -15,7 +15,7 @@
 				<th>Description</th>
 				<th>Traffic at expense</th>
 				<th>Traffic to benefit</th>
-			<tr ng-repeat="object in lista track by $index">
+			<tr ng-repeat="object in list	 track by $index">
 				<td>{{object.date}}</td>
 				<td>{{object.account}}</td>
 				<td>{{object.description}}</td>

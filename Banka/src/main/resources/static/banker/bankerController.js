@@ -16,7 +16,7 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 				}
 			);
 		}
-		
+
 		checkRights();
 
 		$scope.updateProfile = function () {
@@ -706,7 +706,6 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 
 		$scope.saveDepositSlipAndCloseBill = function(){
 			depositSlip = $scope.depositSlip;
-			alert(1);
 			bankerService.saveDepositSlip($scope.depositSlip).then(
 				function(response){
 					alert("Ok saving deposit slip");
@@ -750,10 +749,9 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 		
 		$scope.getClientAccount = function(accountNumber) {
 			$scope.accNumber = accountNumber;
-			//return
 		}
 		
-		$scope.findAllDepositSlips= function () {  //koristi se kod all depositSlips
+		$scope.findAllDepositSlipsForAccount = function () {  //koristi se kod all depositSlips
 			bankerService.findAllDepositSlips().then (
 				function(response){
 					var slips = response.data;
@@ -785,14 +783,21 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 							list.push(object);
 						}				
 					}
-					$scope.lista = list;
-					$scope.stanje = benefit - expense;
+					$scope.list = list;
+					$scope.state = benefit - expense;
 				}, function (response){
 					alert("Greska");
 				}
 			);
 		}
 		
-		
+		$scope.findAllDepositSlips = function() {
+			bankerService.findAllDepositSlips().then (
+				function(response){
+					alert("ok")
+				}, function (response){
+					alert("Error!")
+				});						
+		}
 	}
 ]);

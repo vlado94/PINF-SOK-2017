@@ -417,16 +417,19 @@ public class BankerController {
 		}
 	}
 	
-	@PostMapping(path = "/saveDepositSlip")
-	@ResponseStatus(HttpStatus.CREATED)
-	public void saveDepositSlip(@RequestBody DepositSlip depositSlip) {
-		depositSlipService.save(depositSlip);
-	}
 	
 	@GetMapping("/findAllDepositSlips")
 	@ResponseStatus(HttpStatus.OK)
 	public List<DepositSlip> findAllDepositSlips() {
 		return depositSlipService.findAll();
 	}
+	
+	@PostMapping(path = "/saveDepositSlip")
+	@ResponseStatus(HttpStatus.CREATED)
+	public void saveDepositSlip(@RequestBody DepositSlip depositSlip) {
+		depositSlipService.save(depositSlip);
+	}
+	
+	
 	
 }

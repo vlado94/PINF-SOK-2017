@@ -22,7 +22,20 @@
       <li><a  ui-sref="banker.countries">Countries</a></li>
       <li><a  ui-sref="banker.populatedPlaces">Populated places</a></li>
       <li><a  ui-sref="banker.exchangeRates">History of exchange of rates</a></li>
-    </ul>
+
+	  <li class="dropdown">
+	  	<a class="dropdown-toggle" data-toggle="dropdown">Deposit slip
+	    <span class="caret"></span></a>
+	        
+	    <ul class="dropdown-menu">
+	        <li><a ui-sref="banker.depositSlipsAll">List all deposit slips</a></li>
+	        <li><a ui-sref="banker.depositSlip.transer">New deposit slip for transfer </a></li>
+	        <li><a ui-sref="banker.depositSlip.paymentOut">New deposit slip for payment out</a></li>
+	        <li><a ui-sref="banker.depositSlip.payout">New deposit slip for payout</a></li>
+	        <li><a ui-sref="banker.depositSlip.paymentIn">New deposit slip for payment in</a></li>
+	   	</ul>
+	 </li>
+	</ul>
     
     <ul class="nav navbar-nav navbar-right">  
     	<li><a href="javascript:;" ui-sref=".profile">Update profile   </a></li> 
