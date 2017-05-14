@@ -795,10 +795,6 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 			bankerService.findAllDepositSlips().then (
 				function(response){
 					$scope.allDepositSlips = response.data;
-<<<<<<< HEAD
-=======
-					//alert("ok")
->>>>>>> 485ed57f5b83cfb25c33e16b96d58d4b6d06d0a9
 				}, function (response){
 					alert("Error!")
 				});						

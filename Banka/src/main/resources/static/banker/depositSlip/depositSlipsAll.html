@@ -1,7 +1,8 @@
 <h1>List of bank transactions</h1><h1>List of client transactions</h1>
 
-<div  ng-init="findAllDepositSlips()">
-		<tbody>
+
+<table ng-init="findAllDepositSlips()"class="table table-bordered" border="1">
+	<tbody>
 			<tr>
 				<th>Date</th>
 				<th>Type of deposit slip</th>
@@ -16,5 +17,4 @@
 				<td>{{depositSlip.amount}}</td>
 			</tr>
 		</tbody>
-</div>
 </table>
