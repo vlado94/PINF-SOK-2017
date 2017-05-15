@@ -1,7 +1,5 @@
 package app.user.banker;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -131,9 +129,9 @@ public class BankerController {
 	
 	@PostMapping(path = "/saveCodeBookActivity")
 	@ResponseStatus(HttpStatus.CREATED)
-	public void saveCodeBookActivity(@RequestBody CodeBookActivities codeBookActivity) {
+	public CodeBookActivities saveCodeBookActivity(@RequestBody CodeBookActivities codeBookActivity) {
 		try {
-			codeBookActivitiesService.save(codeBookActivity);
+			return codeBookActivitiesService.save(codeBookActivity);
 		}
 		catch(Exception ex) {
 			throw new NotFoundException();
@@ -268,8 +266,14 @@ public class BankerController {
 			clientForUpdate.setPhone(client.getPhone());
 			clientForUpdate.setFax(client.getFax());
 			clientForUpdate.setMail(client.getMail());
+			clientForUpdate.setShortName(client.getShortName());
+			clientForUpdate.setPib(client.getPib());
+			clientForUpdate.setMib(client.getMib());
+			clientForUpdate.setTaxAuthority(client.getTaxAuthority());
 			clientForUpdate.setDeliveryAddress(client.getDeliveryAddress());
 			clientForUpdate.setDeliveryByMail(client.isDeliveryByMail());
+			clientForUpdate.setResponsiblePerson(client.getResponsiblePerson());
+			clientForUpdate.setCodeBookActivities(client.getCodeBookActivities());
 			clientService.save(clientForUpdate);
 		}
 		else {
@@ -285,9 +289,9 @@ public class BankerController {
 	
 	@PostMapping(path = "/saveLegalBill")
 	@ResponseStatus(HttpStatus.CREATED)
-	public void saveLegalBill(@Valid @RequestBody Client client) {
+	public Client saveLegalBill(@Valid @RequestBody Client client) {
 		client.setType(TypeOfClient.PRAVNO);
-		clientService.save(client);
+		return clientService.save(client);
 	}
 	
 	@GetMapping("/findAllPopulatedPlaces")
@@ -337,7 +341,7 @@ public class BankerController {
 		
 		//desa dodala da cim se kreira racun, doda u DailyBalance red saza taj racun, 
 		//sa vrijednostima za prethodno i tekuce stanje 0
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		/*DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date date = new Date();
 		System.out.println(dateFormat.format(date));
 		DailyBalance dailyBalance = new DailyBalance();
@@ -346,7 +350,7 @@ public class BankerController {
 		dailyBalance.setNewState(0);
 		dailyBalance.setTrafficAtExpense(0);
 		dailyBalance.setTrafficToBenefit(0);	
-		dailyBalanceService.save(dailyBalance);
+		dailyBalanceService.save(dailyBalance);*/
 		
 		bill.setStatus(true);//postavi da je racun otvoren
 		return billService.save(bill);
@@ -364,14 +368,13 @@ public class BankerController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public ClosingBill closeBill(@Valid @RequestBody ClosingBill closingBill) {
 		Bill billForClosing = closingBill.getBill();
-		java.sql.Date date = (java.sql.Date) new Date();
 		String billSuccessor = closingBill.getBillSuccessor();
 		DepositSlip depositSlip = new DepositSlip();
 		depositSlip.setType(Type.TRANSFER);
 		depositSlip.setDeptor(billForClosing.getClient().getApplicant());
 		depositSlip.setPurposeOfPayment("zatvaranje racuna");
 		depositSlip.setReceiver("Pravni nasljednik");
-		depositSlip.setCurrencyDate(date);
+		depositSlip.setCurrencyDate(closingBill.getDate());
 		depositSlip.setCodeOfCurrency("RSD");
 		depositSlip.setBillOfReceiver(billSuccessor);
 		depositSlip.setModelApproval(2);
@@ -379,7 +382,7 @@ public class BankerController {
 		depositSlip.setReferenceNumberAssignment("20");
 		depositSlip.setBillOfDeptor(billForClosing.getAccountNumber());
 		depositSlip.setModelAssignment(2);
-		depositSlip.setDepositSlipDate(date);
+		depositSlip.setDepositSlipDate(closingBill.getDate());
 		depositSlip.setUrgently(false);
 		depositSlip.setDirection(false);
 

@@ -20,7 +20,7 @@
 				<td>{{individualBill.accountNumber}}</td>
 				<td>{{individualBill.client.applicant}}</td>
 				<td colspan="2">
-					<button class = "btn" ui-sref ="banker.readOnlyDetailsAboutIndividual" ng-click = getDetailsAboutIndividual(individualBill.client.id)><span class = "glyphicon glyphicon-th"></span> Details</button>
+					<button class = "btn" ui-sref ="banker.detailsAboutIndividual" ng-click = getDetailsAboutIndividual(individualBill.client.id)><span class = "glyphicon glyphicon-th"></span> Details</button>
 					<button class = "btn" ui-sref ="banker.closeBill" ng-click = "closeBill(individualBill)"><span class = "glyphicon glyphicon-remove"></span>  Close account</button> 
 					<button class = "btn" ui-sref = "banker.depositSlipsForAccount" ng-click = "findAllDepositSlipsForAccount(individualBill.accountNumber)"><span class = "glyphicon glyphicon-tasks"></span> Daily balance</button>
 				</td>

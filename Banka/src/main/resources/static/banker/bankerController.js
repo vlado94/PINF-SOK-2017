@@ -41,8 +41,8 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 		
 		$scope.saveCodeBookActivity= function () { 
 			bankerService.saveCodeBookActivity($scope.codeBookActivity).then(
-				function(){
-					alert("Odgovor");
+				function(response){
+					$scope.allcodeBookActivities.push({ 'id':response.data.id ,'code':response.data.code, 'name': response.data.name});
 				}, function (response){
 					alert("Greska");
 				}
@@ -222,7 +222,8 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 			
 		}
 		
-		function initDetailsAboutIndividual(client) { 
+		function initDetailsAboutIndividual(client) {
+			
 			if(client.deliveryByMail == true){
 				document.getElementById("deliveryTrue").checked= true;
 			}else{
@@ -309,6 +310,7 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 						
 					client.deliveryByMail = $scope.delivery;
 					client.codeBookActivities =activity;
+					
 					bankerService.updateLegalClient(client).then(
 						function(){
 							$state.go("banker.legalBills", {});
@@ -360,8 +362,7 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 					person.codeBookActivities = activity;
 						
 					bankerService.saveLegalBill(person).then(
-						function(response){
-							var client = response.data;
+						function(response){var client = response.data;
 							var bill = {};
 							
 							var generatedAccountNumber = generateAccountNumber();
@@ -410,13 +411,14 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 	    };
 	    
 	    
-		$scope.saveActivityForLegalBill= function () {   
+		$scope.saveActivityForLegalBill= function () { 
 			$scope.previousSelectedActivity = $scope.selectedActivity;
 			
 			
 			 bankerService.findActivityById($scope.selectedActivity).then(
 					function(response){
-						$scope.selectedNameOfActivity = response.data.name; 
+						$scope.selectedNameOfActivity = response.data.name;
+						
 					}, function (response){
 						alert("Morate odabrati drzavu!");
 					}
@@ -634,20 +636,20 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 		$scope.closeBill = function (individualBill) {
 			$scope.billForClosing = individualBill;
 			alert("Bill for closing: "+$scope.billForClosing.client.applicant +" "+$scope.billForClosing.accountNumber);
-
 		}
 		
-		$scope.setSelectedIndividual = function(index,accountNumber) {
-	        $scope.selected = index;
+
+		$scope.finishClosingBill = function() {
 	        if (confirm("Sure for bill successor?")) {
 	        	var date = new Date();
 	        	var bill = $scope.billForClosing;
 	        	var closingBill = 
                 {
                     "date": date,
-                    "billSuccessor": accountNumber,
-                    "bill":bill
+                    "billSuccessor": $scope.billSuccessor,
+                    "bill": bill
                 };
+	        	alert(closingBill.billSuccessor+" "+closingBill.date+" "+closingBill.bill.accountNumber);
 	            bankerService.closeBill(closingBill).then(
 						function(response){
 							alert("Bill is closed successfully! ");
@@ -690,7 +692,26 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 		     }
 			$scope.allLegalBills = list;
 		}
-		
+		$scope.findAllBillsExceptClosingOne= function () {   
+			var banker = $scope.banker;
+			var listOfBills = banker.bank.bills;
+			var list = [];
+			
+			 for(var i=0; i<listOfBills.length; i +=1) {
+				 if(listOfBills[i].status == true){
+					 if($scope.billForClosing.accountNumber != listOfBills[i].accountNumber){
+						 list.push(listOfBills[i]);
+				 }
+				 }
+		     }
+			$scope.allBills = list;
+		}
+		$scope.setSelectedSuccessor = function(accountNumber,code) {
+			$scope.billSuccessor=accountNumber;
+	        document.getElementById("billSuccessor").value = accountNumber;
+	        markRow(code);
+	        
+	    };	
 		$scope.saveDepositSlip = function() {
 			bankerService.saveDepositSlip($scope.depositSlip).then(
 				function(response){
@@ -704,7 +725,7 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 			);
 		}
 
-		$scope.saveDepositSlipAndCloseBill = function(){
+		/*$scope.saveDepositSlipAndCloseBill = function(){
 			depositSlip = $scope.depositSlip;
 			bankerService.saveDepositSlip($scope.depositSlip).then(
 				function(response){
@@ -730,7 +751,7 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 					alert("Error!");
 				}
 			);
-		}
+		}*/
 		
 		$scope.openDepositSlip = function() {
 			if($scope.depositSlip.type == "TRANSFER") {
