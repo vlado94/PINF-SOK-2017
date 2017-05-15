@@ -747,23 +747,17 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 			}
 		}
 		
-		$scope.getClientAccount = function(accountNumber) {
-			$scope.accNumber = accountNumber;
-		}
-		
-		$scope.findAllDepositSlipsForAccount = function () {  //koristi se kod all depositSlips
+		$scope.findAllDepositSlipsForAccount = function (accountNumber) {  //koristi se kod all depositSlips
 			bankerService.findAllDepositSlips().then (
 				function(response){
 					var slips = response.data;
 					var list = [];
-					var lista = [];
 					var object;
 					var expense = 0;
 					var benefit = 0;
-					var stanje = 0;
 					
 					for(var i=0; i<slips.length; i +=1) { //sve uplatnice
-						if(slips[i].billOfReceiver == $scope.accNumber){
+						if(slips[i].billOfReceiver == accountNumber){
 							object = {date: slips[i].depositSlipDate,
 								account: slips[i].billOfDeptor,
 								description: slips[i].purposeOfPayment,
@@ -772,7 +766,7 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 								}
 							benefit += slips[i].amount;
 							list.push(object);
-						} else if(slips[i].billOfDeptor == $scope.accNumber) {
+						} else if(slips[i].billOfDeptor == accountNumber) {
 							object = {date: slips[i].depositSlipDate,
 									account: slips[i].billOfReceiver,
 									description: slips[i].purposeOfPayment,

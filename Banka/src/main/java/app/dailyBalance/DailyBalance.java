@@ -1,6 +1,7 @@
 package app.dailyBalance;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,9 +9,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 
-import app.bill.Bill;
+import app.depositSlip.DepositSlip;
 import lombok.Data;
 
 @Data
@@ -36,9 +38,14 @@ public class DailyBalance {
 	
 	@Column
 	private double newState;
-	
+	/*
 	@ManyToOne
 	@JoinColumn(name = "BILL_ID")
 	private Bill bill;  //not null
+	*/
+	@OneToMany
+	@JoinTable(name = "DAILY_BALANCEL_DEPOSIT_SLIP", joinColumns = @JoinColumn(name = "DB_ID"), inverseJoinColumns = @JoinColumn(name = "DS_ID"))
+	private List<DepositSlip> depositSlips;
+	
 	
 }
