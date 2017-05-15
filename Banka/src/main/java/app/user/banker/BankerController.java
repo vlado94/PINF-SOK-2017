@@ -1,8 +1,6 @@
 package app.user.banker;
 
 
-import java.sql.Date;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.naming.AuthenticationException;
@@ -35,6 +33,7 @@ import app.codeBookActivities.CodeBookActivities;
 import app.codeBookActivities.CodeBookActivitiesService;
 import app.country.Country;
 import app.country.CountryService;
+import app.dailyBalance.DailyBalance;
 import app.dailyBalance.DailyBalanceService;
 import app.depositSlip.DepositSlip;
 import app.depositSlip.DepositSlip.Type;
@@ -373,7 +372,7 @@ public class BankerController {
 		depositSlip.setPurposeOfPayment("zatvaranje racuna");
 		depositSlip.setReceiver("Pravni nasljednik");
 		depositSlip.setCurrencyDate(closingBill.getDate());
-		depositSlip.setCodeOfCurrency("RSD");
+		depositSlip.setCodeOfCurrency("rsd");
 		depositSlip.setBillOfReceiver(billSuccessor);
 		depositSlip.setModelApproval(2);
 		depositSlip.setReferenceNumberApproval("20");
@@ -383,7 +382,10 @@ public class BankerController {
 		depositSlip.setDepositSlipDate(closingBill.getDate());
 		depositSlip.setUrgently(false);
 		depositSlip.setDirection(false);
-
+		//novac za prenos dobijam iz dnevnog stanja racuna kog zatvaraju 
+		List<DailyBalance> dbs = dailyBalanceService.findByBill_id(billForClosing.getId());
+		DailyBalance db = dbs.get(dbs.size()-1);
+		depositSlip.setAmount(db.getNewState());
 		DepositSlip savedDepositSlip = depositSlipService.save(depositSlip);
 		if(savedDepositSlip != null){//uspjesno cuvanje izvoda
 			closingBill.setDepositSlip(depositSlip);
@@ -392,7 +394,10 @@ public class BankerController {
 			////
 			ClosingBill savedClosingBill = closingBillService.save(closingBill);
 			if(savedClosingBill != null){//uspjesno zatvoren racuna
-				billForClosing.setStatus(false);//postavi status racuna da je zatvoren
+				//billForClosing.setStatus(false);//postavi status racuna da je zatvoren
+				Bill closedBill = billService.findByAccountNumber(billForClosing.getAccountNumber());
+				closedBill.setStatus(false);
+				billService.save(closedBill);
 				return savedClosingBill;
 			}else{
 				return null;
@@ -434,6 +439,16 @@ public class BankerController {
 		depositSlipService.save(depositSlip);
 	}
 	
+	@GetMapping("/findBillsForAllBanks/{id}")
+	@ResponseStatus(HttpStatus.OK)
+	public List<Bill> findBillsForAllBanks(@PathVariable Long id) {
+		List<Bill> allBills = billService.findAllCurrentBillsExceptClosingOne(id);
+		if(allBills.isEmpty())
+			System.out.println(allBills.get(0));
+		else 
+			System.out.println("PRAZNOOO");
+		return allBills;
+	}
 	
 	
 }

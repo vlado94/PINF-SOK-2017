@@ -663,7 +663,7 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 	        	
 	        }
 	    };
-		$scope.findAllIndividualBillsExceptClosingOne = function () {   
+		/*$scope.findAllIndividualBillsExceptClosingOne = function () {   
 			var banker = $scope.banker;
 			var listOfBills = banker.bank.bills;
 			var list = [];
@@ -691,7 +691,7 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 				 }
 		     }
 			$scope.allLegalBills = list;
-		}
+		}*/
 		$scope.findAllBillsExceptClosingOne= function () {   
 			var banker = $scope.banker;
 			var listOfBills = banker.bank.bills;
@@ -706,6 +706,19 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 		     }
 			$scope.allBills = list;
 		}
+		
+		$scope.findBillsForAllBanks = function () {   
+			var id = $scope.billForClosing.id;
+			alert(id)
+			bankerService.findBillsForAllBanks(id).then(
+				function(response){
+					$scope.billsForAllBanks = response.data;
+				}, function (response){
+					alert("Greska");
+				}
+			);
+		}
+		
 		$scope.setSelectedSuccessor = function(accountNumber,code) {
 			$scope.billSuccessor=accountNumber;
 	        document.getElementById("billSuccessor").value = accountNumber;

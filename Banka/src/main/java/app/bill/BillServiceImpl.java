@@ -40,4 +40,9 @@ public class BillServiceImpl implements BillService{
 		return this.billRepository.findByAccountNumber(accountNumber);
 	}
 
+	@Override
+	public List<Bill> findAllCurrentBillsExceptClosingOne(Long id) {
+		return this.billRepository.findAllCurrentBillsExceptClosingOne(id);
+	}
+
 }

@@ -114,4 +114,7 @@ services.service('bankerService', ['$http', function($http){
 		return $http.get(url+"findAllDepositSlips");
 	}	
 	
+	this.findBillsForAllBanks = function(id){
+		return $http.get(url+"findBillsForAllBanks/"+id);
+	}	
 }]);

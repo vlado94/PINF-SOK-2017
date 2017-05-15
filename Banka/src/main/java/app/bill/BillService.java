@@ -13,4 +13,6 @@ public interface BillService {
 	public Bill findOne(Long id);
 	
 	public Bill findByAccountNumber(String accountNumber);
+	
+	public List<Bill> findAllCurrentBillsExceptClosingOne(Long id);
 }
