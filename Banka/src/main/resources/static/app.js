@@ -84,6 +84,9 @@ angular.module('routerApp', ['ui.router',
           .state('banker.countries.updateCountry', {
           	templateUrl : 'banker/country/updateCountry.html'
         })
+        .state('banker.countries.searchCountry', {
+          	templateUrl : 'banker/country/searchCountry.html'
+        })
           .state('banker.populatedPlaces', {
         	url : '/populatedPlace',
           	templateUrl : 'banker/populatedPlace/populatedPlaces.html'

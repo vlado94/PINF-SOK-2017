@@ -203,6 +203,14 @@ public class BankerController {
 		countryService.delete(id);
 	}
 	
+	@GetMapping(path = "/searchCountry")
+	@ResponseStatus(HttpStatus.OK)
+	public List<Country> searchCountry(@RequestBody Country country) {
+		System.out.println(country.getCode()+" "+country.getName());
+		
+		return null;
+	}
+	
 	@GetMapping(path = "/exchangeRateDetails/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public ExchangeRate exchangeRateDetails(@PathVariable Long id) {

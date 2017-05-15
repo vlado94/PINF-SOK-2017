@@ -180,6 +180,22 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 			);
 		};
 		
+		$scope.searchForCountry = function(){
+			var code= $scope.country.code;
+			var name = $scope.country.name;
+			alert(code+"   "+name)
+			var country = $scope.country;
+			alert(country)
+			bankerService.searchCountry(country).then(
+					function(response){
+						//$scope.countryForUpdate = response.data;
+						alert("Uspjelo je")
+					}, 
+					function (response){
+						alert("Greska");
+					}
+				);
+		}
 		
 		$scope.findAllIndividualBills = function () {   
 			var banker = $scope.banker;
@@ -737,34 +753,6 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 				}
 			);
 		}
-
-		/*$scope.saveDepositSlipAndCloseBill = function(){
-			depositSlip = $scope.depositSlip;
-			bankerService.saveDepositSlip($scope.depositSlip).then(
-				function(response){
-					alert("Ok saving deposit slip");
-					var date = new Date();
-		        	var bill = $scope.billForClosing;
-					var closingBill = 
-	                {
-	                    "date": date,
-	                    "billSuccessor": depositSlip.billOfReceiver,
-	                    "bill": bill
-	                };
-		            bankerService.closeBill(closingBill).then(
-							function(response){
-								alert("Bill is closed successfully! ");
-								location.reload();
-								
-							}, function (response){
-								alert("Saving error "+response);
-							}
-						);
-				}, function (response){
-					alert("Error!");
-				}
-			);
-		}*/
 		
 		$scope.openDepositSlip = function() {
 			if($scope.depositSlip.type == "TRANSFER") {
