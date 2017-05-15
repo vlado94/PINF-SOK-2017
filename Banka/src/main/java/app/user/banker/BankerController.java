@@ -1,8 +1,8 @@
 package app.user.banker;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.naming.AuthenticationException;
@@ -35,7 +35,6 @@ import app.codeBookActivities.CodeBookActivities;
 import app.codeBookActivities.CodeBookActivitiesService;
 import app.country.Country;
 import app.country.CountryService;
-import app.dailyBalance.DailyBalance;
 import app.dailyBalance.DailyBalanceService;
 import app.depositSlip.DepositSlip;
 import app.depositSlip.DepositSlip.Type;
@@ -340,7 +339,7 @@ public class BankerController {
 		
 		//desa dodala da cim se kreira racun, doda u DailyBalance red saza taj racun, 
 		//sa vrijednostima za prethodno i tekuce stanje 0
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		/*DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date date = new Date();
 		System.out.println(dateFormat.format(date));
 		DailyBalance dailyBalance = new DailyBalance();
@@ -349,7 +348,7 @@ public class BankerController {
 		dailyBalance.setNewState(0);
 		dailyBalance.setTrafficAtExpense(0);
 		dailyBalance.setTrafficToBenefit(0);	
-		dailyBalanceService.save(dailyBalance);
+		dailyBalanceService.save(dailyBalance);*/
 		
 		bill.setStatus(true);//postavi da je racun otvoren
 		return billService.save(bill);
@@ -367,14 +366,13 @@ public class BankerController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public ClosingBill closeBill(@Valid @RequestBody ClosingBill closingBill) {
 		Bill billForClosing = closingBill.getBill();
-		java.sql.Date date = (java.sql.Date) new Date();
 		String billSuccessor = closingBill.getBillSuccessor();
 		DepositSlip depositSlip = new DepositSlip();
 		depositSlip.setType(Type.TRANSFER);
 		depositSlip.setDeptor(billForClosing.getClient().getApplicant());
 		depositSlip.setPurposeOfPayment("zatvaranje racuna");
 		depositSlip.setReceiver("Pravni nasljednik");
-		depositSlip.setCurrencyDate(date);
+		depositSlip.setCurrencyDate(closingBill.getDate());
 		depositSlip.setCodeOfCurrency("RSD");
 		depositSlip.setBillOfReceiver(billSuccessor);
 		depositSlip.setModelApproval(2);
@@ -382,7 +380,7 @@ public class BankerController {
 		depositSlip.setReferenceNumberAssignment("20");
 		depositSlip.setBillOfDeptor(billForClosing.getAccountNumber());
 		depositSlip.setModelAssignment(2);
-		depositSlip.setDepositSlipDate(date);
+		depositSlip.setDepositSlipDate(closingBill.getDate());
 		depositSlip.setUrgently(false);
 		depositSlip.setDirection(false);
 

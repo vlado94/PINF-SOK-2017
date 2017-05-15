@@ -1,17 +1,47 @@
-<!--  <style>
-.selected{
-	background-color:white;
-	color:black;
-	font-weight:bold;
-}-->
-</style>
 <div class = "col-sm-4">
-	<div align="center">
+	<div>
 		<label class = "infoLabel"> Enter the acount number of successor:</label>
-		<input type="text" class = "form-control" ng-model="$parent.closingBill.billSuccessor"> </input>
+		<!--  <input type="text" class = "form-control" ng-model="$parent.closingBill.billSuccessor"> </input>-->
+		<input type = "text" class = "form-control" id="billSuccessor" ng-model = "$parent.closingBill.billSuccessor" style="background-color: #a4a6aa;" disabled></input> 
+		<button type="button" class="btn btn-default chooseAccountButton" data-toggle="modal" data-target="#chooseSuccessor"> ... </button>
 		<button class = "btn"  ng-click="finishClosingBill()"><span class = "glyphicon glyphicon-ok-sign"></span> Finish closing</button>
-		
+	
 	</div>
+	
+<div id="chooseSuccessor" class="modal fade" role="dialog" style="color:black;">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title" >Choose bill successor</h4>
+      </div>
+      <div class="modal-body" ng-init="findAllBillsExceptClosingOne()">
+        <input type = "text" class = "form-control"></input><button type="button" ng-click = "" class="btn btn-default" >SEARCH</button>
+        <table class="table table-bordered table-hover" border="1">
+		<tbody>
+			<tr>
+				<th>Account number</th>
+				<th>Applicant</th>
+			</tr>
+			<tr ng-repeat="bill in allBills" id="{{bill.id}}" ng-click="setSelectedSuccessor(bill.accountNumber,bill.id);">
+				<td>{{bill.accountNumber}}</td>
+				<td>{{bill.client.applicant}}</td>
+				</tr>
+		</tbody>
+		</table>
+        
+       
+      </div>
+      <div class="modal-footer">
+        <button type="button" ng-click = "" class="btn btn-default" data-dismiss="modal">OK</button>
+     	<button type="button" ng-click = "" class="btn btn-default" data-dismiss="modal">CANCEL</button>
+      </div>
+    </div>
+
+  </div>
+</div>
 <!-- 
 <div ng-init="findAllIndividualBillsExceptClosingOne()">
 <div ng-init="findAllLegalBillsExceptClosingOne()">
