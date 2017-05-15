@@ -1,11 +1,15 @@
 package app.user.banker;
 
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.naming.AuthenticationException;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import javax.ws.rs.BadRequestException;
 import javax.ws.rs.NotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -383,47 +387,24 @@ public class BankerController {
 		depositSlip.setUrgently(false);
 		depositSlip.setDirection(false);
 		//novac za prenos dobijam iz dnevnog stanja racuna kog zatvaraju 
-		List<DailyBalance> dbs = dailyBalanceService.findByBill_id(billForClosing.getId());
-		DailyBalance db = dbs.get(dbs.size()-1);
-		depositSlip.setAmount(db.getNewState());
-		DepositSlip savedDepositSlip = depositSlipService.save(depositSlip);
-		if(savedDepositSlip != null){//uspjesno cuvanje izvoda
-			closingBill.setDepositSlip(depositSlip);
-			//pozova obradu izvoda
-			bookingDepositSlip(savedDepositSlip);
-			////
-			ClosingBill savedClosingBill = closingBillService.save(closingBill);
-			if(savedClosingBill != null){//uspjesno zatvoren racuna
-				//billForClosing.setStatus(false);//postavi status racuna da je zatvoren
-				Bill closedBill = billService.findByAccountNumber(billForClosing.getAccountNumber());
-				closedBill.setStatus(false);
-				billService.save(closedBill);
-				return savedClosingBill;
-			}else{
-				return null;
-			}
+		List<DailyBalance> dbs = billForClosing.getDailyBalances();
+		if(!dbs.isEmpty()){
+			DailyBalance db = dbs.get(dbs.size()-1);
+			depositSlip.setAmount(db.getNewState());
+			System.out.println("ima dnevno stanje");
+		}
+		//poziva obradu izvoda
+		saveDepositSlip(depositSlip);
+		closingBill.setDepositSlip(depositSlip);
+		ClosingBill savedClosingBill = closingBillService.save(closingBill);
+		if(savedClosingBill != null){//uspjesno zatvoren racuna
+			billForClosing.setStatus(false);
+			billService.save(billForClosing);
+			return savedClosingBill;
 		}else{
 			return null;
 		}
-	}
-	
-	//obrada izvoda - azuriranje dnevnih stanja, razvrstavanje u medjubankarski prenos
-	public void bookingDepositSlip(DepositSlip depositSlip){
-		if(depositSlip.getType().equals(Type.TRANSFER)){
-			String billOfReciver = depositSlip.getBillOfReceiver();
-			String billOfDeptor = depositSlip.getBillOfDeptor();
-			String bankCodeBillOfReciver = billOfReciver.substring(0, 3);
-			String bankCodeBillOfDeptor = billOfDeptor.substring(0, 3);
-			//DailyBalance dailyBalance = dailyBalanceService.findMaxDate(billOfDeptor);
-			//System.out.println(dailyBalance.getId());
-			//System.out.println(dailyBalance.getNewState());
-			if(bankCodeBillOfReciver.equals(bankCodeBillOfDeptor)){
-				System.out.println("ISTE BANKE");
-				
-			}else{
-				System.out.println("RAZLICITE BANKE");
-			}
-		}
+
 	}
 	
 	
@@ -436,7 +417,88 @@ public class BankerController {
 	@PostMapping(path = "/saveDepositSlip")
 	@ResponseStatus(HttpStatus.CREATED)
 	public void saveDepositSlip(@RequestBody DepositSlip depositSlip) {
-		depositSlipService.save(depositSlip);
+		try {
+			depositSlipService.save(depositSlip);
+			int bankCodeBillOfReciver = Integer.parseInt(depositSlip.getBillOfReceiver().substring(0, 3));
+			int bankCodeBillOfDeptor = Integer.parseInt(depositSlip.getBillOfDeptor().substring(0, 3));
+			int bankCode = ((Banker)httpSession.getAttribute("user")).getBank().getCode();
+			if(bankCode == bankCodeBillOfReciver && bankCode == bankCodeBillOfDeptor) {
+				Bill billForRecieveMoney = null;
+				if(depositSlip.getType() == Type.TRANSFER) {
+					billForRecieveMoney = defineFirstBill(depositSlip);
+				}else if (depositSlip.getType() == Type.PAYOUT) {
+					
+				}else if (depositSlip.getType() == Type.PAYMENTIN) {
+					
+				}else if (depositSlip.getType() == Type.PAYMENTOUT) {
+					
+				}
+				if(billForRecieveMoney == null)
+					throw new BadRequestException();
+				if(billForRecieveMoney.getDailyBalances() == null) {
+					billForRecieveMoney.setDailyBalances(new ArrayList<DailyBalance>());
+					DailyBalance dailyB = createNewDailyBalance(depositSlip);
+					dailyB.getDepositSlips().add(depositSlip);
+					dailyB.setPreviousState(dailyB.getNewState());
+					dailyB.setNewState(dailyB.getNewState() + depositSlip.getAmount());
+					dailyB.setTrafficToBenefit(depositSlip.getAmount());
+
+					dailyB = dailyBalanceService.save(dailyB);
+					billForRecieveMoney.getDailyBalances().add(dailyB);				
+				}
+				else if(billForRecieveMoney.getDailyBalances().size() == 0) {
+ 					DailyBalance dailyB = createNewDailyBalance(depositSlip);
+					dailyB.getDepositSlips().add(depositSlip);
+					dailyB.setPreviousState(dailyB.getNewState());
+					dailyB.setNewState(dailyB.getNewState() + depositSlip.getAmount());
+					dailyB.setTrafficToBenefit(depositSlip.getAmount());
+
+					dailyB = dailyBalanceService.save(dailyB);
+					billForRecieveMoney.getDailyBalances().add(dailyB);
+				}
+				else {
+					Date currentTime = new Date();
+					DailyBalance dailyB = billForRecieveMoney.getDailyBalances().get(billForRecieveMoney.getDailyBalances().size()-1);
+					
+					Calendar c1= Calendar.getInstance();
+					Calendar c2= Calendar.getInstance();
+					c1.setTime(currentTime);
+					c2.setTime(dailyB.getDate());
+					int yearDiff = c1.get(Calendar.YEAR) - c2.get(Calendar.YEAR);
+					int monthDiff = c1.get(Calendar.MONTH) - c2.get(Calendar.MONTH);
+					int dayDiff = c1.get(Calendar.DAY_OF_MONTH) - c2.get(Calendar.DAY_OF_MONTH);
+					if(yearDiff == 0 && monthDiff == 0 && dayDiff == 0) {
+						dailyB.getDepositSlips().add(depositSlip);
+						dailyB.setPreviousState(dailyB.getNewState());
+						dailyB.setNewState(dailyB.getNewState() + depositSlip.getAmount());
+						dailyB.setTrafficToBenefit(depositSlip.getAmount());
+					}
+				}
+			}
+		}
+		catch(Exception ex) {
+			throw new BadRequestException();
+		}
+	}
+	
+	private Bill defineFirstBill(DepositSlip depositSlip) {
+		Bill retVal = null;
+		String accountNumberForRecive = depositSlip.getBillOfReceiver();
+		retVal = billService.findByAccountNumber(accountNumberForRecive);
+		
+		return retVal;
+	}
+	
+	private DailyBalance createNewDailyBalance(DepositSlip depositSlip) {
+		DailyBalance dailyBalance = new DailyBalance();
+		dailyBalance.setDate(new Date());
+		dailyBalance.setDepositSlips(new ArrayList<DepositSlip>());
+		dailyBalance.setNewState(0);
+		dailyBalance.setPreviousState(0);
+		dailyBalance.setTrafficAtExpense(0);
+		dailyBalance.setTrafficToBenefit(0);
+		dailyBalance = dailyBalanceService.save(dailyBalance);
+		return dailyBalance;
 	}
 	
 	@GetMapping("/findBillsForAllBanks/{id}")

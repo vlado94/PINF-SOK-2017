@@ -10,14 +10,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.NotNull;
-
-import org.hibernate.validator.constraints.NotBlank;
 
 import app.client.Client;
 import app.closingBill.ClosingBill;
+import app.dailyBalance.DailyBalance;
 import lombok.Data;
 
 @Data
@@ -44,10 +43,15 @@ public class Bill {
 	@ManyToOne
 	@JoinColumn(name = "CLIENT_ID")
 	private Client client;  //not null
-	
-	@OneToMany
+
+	/*@OneToMany
 	@JoinTable(name = "BILL_CLOSING_BILL", joinColumns = @JoinColumn(name = "BILL_ID"), inverseJoinColumns = @JoinColumn(name = "CLOSING_BILL_ID"))
-	private List<ClosingBill> closingBills; // kursna lista
+	private List<ClosingBill> closingBills;*/
+	
+
+	@ManyToMany
+	@JoinTable(name = "BILL_DAILY_BALANCE", joinColumns = @JoinColumn(name = "BILL_ID"), inverseJoinColumns = @JoinColumn(name = "DAILY_BALANCE_ID"))
+	private List<DailyBalance> dailyBalances;
 	
 	
 }

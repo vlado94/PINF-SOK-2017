@@ -10,8 +10,7 @@ public interface DailyBalanceService {
 
 	public DailyBalance findOne(Long id);
 	
-	public List<DailyBalance> findByBill_id(Long id);
-	
+
 	//public DailyBalance findMaxDate(String accountNumber);
 	
 }
