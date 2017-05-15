@@ -128,9 +128,9 @@ public class BankerController {
 	
 	@PostMapping(path = "/saveCodeBookActivity")
 	@ResponseStatus(HttpStatus.CREATED)
-	public void saveCodeBookActivity(@RequestBody CodeBookActivities codeBookActivity) {
+	public CodeBookActivities saveCodeBookActivity(@RequestBody CodeBookActivities codeBookActivity) {
 		try {
-			codeBookActivitiesService.save(codeBookActivity);
+			return codeBookActivitiesService.save(codeBookActivity);
 		}
 		catch(Exception ex) {
 			throw new NotFoundException();
@@ -265,8 +265,14 @@ public class BankerController {
 			clientForUpdate.setPhone(client.getPhone());
 			clientForUpdate.setFax(client.getFax());
 			clientForUpdate.setMail(client.getMail());
+			clientForUpdate.setShortName(client.getShortName());
+			clientForUpdate.setPib(client.getPib());
+			clientForUpdate.setMib(client.getMib());
+			clientForUpdate.setTaxAuthority(client.getTaxAuthority());
 			clientForUpdate.setDeliveryAddress(client.getDeliveryAddress());
 			clientForUpdate.setDeliveryByMail(client.isDeliveryByMail());
+			clientForUpdate.setResponsiblePerson(client.getResponsiblePerson());
+			clientForUpdate.setCodeBookActivities(client.getCodeBookActivities());
 			clientService.save(clientForUpdate);
 		}
 		else {
@@ -282,9 +288,9 @@ public class BankerController {
 	
 	@PostMapping(path = "/saveLegalBill")
 	@ResponseStatus(HttpStatus.CREATED)
-	public void saveLegalBill(@Valid @RequestBody Client client) {
+	public Client saveLegalBill(@Valid @RequestBody Client client) {
 		client.setType(TypeOfClient.PRAVNO);
-		clientService.save(client);
+		return clientService.save(client);
 	}
 	
 	@GetMapping("/findAllPopulatedPlaces")

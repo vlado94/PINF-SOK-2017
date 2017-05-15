@@ -41,8 +41,8 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 		
 		$scope.saveCodeBookActivity= function () { 
 			bankerService.saveCodeBookActivity($scope.codeBookActivity).then(
-				function(){
-					alert("Odgovor");
+				function(response){
+					$scope.allcodeBookActivities.push({ 'id':response.data.id ,'code':response.data.code, 'name': response.data.name});
 				}, function (response){
 					alert("Greska");
 				}
@@ -222,7 +222,8 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 			
 		}
 		
-		function initDetailsAboutIndividual(client) { 
+		function initDetailsAboutIndividual(client) {
+			
 			if(client.deliveryByMail == true){
 				document.getElementById("deliveryTrue").checked= true;
 			}else{
@@ -309,6 +310,7 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 						
 					client.deliveryByMail = $scope.delivery;
 					client.codeBookActivities =activity;
+					
 					bankerService.updateLegalClient(client).then(
 						function(){
 							$state.go("banker.legalBills", {});
@@ -360,8 +362,7 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 					person.codeBookActivities = activity;
 						
 					bankerService.saveLegalBill(person).then(
-						function(response){
-							var client = response.data;
+						function(response){var client = response.data;
 							var bill = {};
 							
 							var generatedAccountNumber = generateAccountNumber();
@@ -410,13 +411,14 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 	    };
 	    
 	    
-		$scope.saveActivityForLegalBill= function () {   
+		$scope.saveActivityForLegalBill= function () { 
 			$scope.previousSelectedActivity = $scope.selectedActivity;
 			
 			
 			 bankerService.findActivityById($scope.selectedActivity).then(
 					function(response){
-						$scope.selectedNameOfActivity = response.data.name; 
+						$scope.selectedNameOfActivity = response.data.name;
+						
 					}, function (response){
 						alert("Morate odabrati drzavu!");
 					}
