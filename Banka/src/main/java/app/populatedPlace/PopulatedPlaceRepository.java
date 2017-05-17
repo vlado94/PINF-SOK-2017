@@ -1,10 +1,12 @@
 package app.populatedPlace;
 
-import org.springframework.data.repository.PagingAndSortingRepository;
+import java.util.List;
 
-import app.country.Country;
-import scala.annotation.implicitNotFound;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface PopulatedPlaceRepository extends PagingAndSortingRepository<PopulatedPlace, Long>{
 
+	List<PopulatedPlace> findByNameLikeOrPttCodeLike(String name,String pttCode);
+
+	
 }

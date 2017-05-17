@@ -15,5 +15,7 @@ public interface PopulatedPlaceService {
 	
 	PopulatedPlace findOne(Long id);
 
+	List<PopulatedPlace> findByNameLikeOrPttCodeLike(String name,String pttCode);
+
 	
 }

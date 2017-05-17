@@ -99,6 +99,9 @@ services.service('bankerService', ['$http', function($http){
 	this.updatePopulatedPlace = function(populatedPlace){
 		return $http.put(url+"updatePopulatedPlace/"+populatedPlace.id,populatedPlace);
 	}
+	this.searchPopulatedPlace = function(populatedPlace){
+		return $http.post(url+"searchPopulatedPlace",populatedPlace);
+	}
 	this.saveBill = function(bill){
 		return $http.post(url+"saveBill",bill);
 	}

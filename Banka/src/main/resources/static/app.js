@@ -97,6 +97,9 @@ angular.module('routerApp', ['ui.router',
            .state('banker.populatedPlaces.updatePopulatedPlace', {
           	templateUrl : 'banker/populatedPlace/updatePopulatedPlace.html'
         })
+        .state('banker.populatedPlaces.searchPopulatedPlace', {
+          	templateUrl : 'banker/populatedPlace/searchPopulatedPlace.html'
+        })
         .state('banker.exchangeRates', {
         	url : '/exchangeRates',
           	templateUrl : 'banker/exchangeRate/exchangeRates.html'

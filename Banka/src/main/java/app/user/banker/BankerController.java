@@ -344,7 +344,15 @@ public class BankerController {
 			throw new NotFoundException();
 		}
 	}
-	
+	@PostMapping(path = "/searchPopulatedPlace")
+	@ResponseStatus(HttpStatus.CREATED)
+	public List<PopulatedPlace> searchPopulatedPlace(@RequestBody PopulatedPlace populatedPlace) {
+		//System.out.println(country.getCode()+" "+country.getName());
+		String pttCode = "%"+populatedPlace.getPttCode()+"%";
+		String name = "%"+populatedPlace.getName()+"%";
+		List<PopulatedPlace> populatedPlaces =populatedPlaceService.findByNameLikeOrPttCodeLike(name, pttCode);
+		return populatedPlaces;
+	}
 	
 	@PostMapping(path = "/saveBill")
 	@ResponseStatus(HttpStatus.CREATED)

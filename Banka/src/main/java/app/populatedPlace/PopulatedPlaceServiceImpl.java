@@ -40,4 +40,9 @@ public class PopulatedPlaceServiceImpl implements PopulatedPlaceService {
 		return populatedPlaceRepository.findOne(id);
 	}
 
+	@Override
+	public List<PopulatedPlace> findByNameLikeOrPttCodeLike(String name, String pttCode) {
+		return populatedPlaceRepository.findByNameLikeOrPttCodeLike(name, pttCode);
+	}
+
 }

@@ -628,7 +628,18 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 				}
 			);
 		}
-	    
+		$scope.searchForPopulatedPlace = function(){
+			var populatedPlace = $scope.populatedPlace;
+			bankerService.searchPopulatedPlace(populatedPlace).then(
+					function(response){
+						alert(response.data)
+					    $scope.allPopulatedPlaces = response.data;
+					}, 
+					function (response){
+						alert("Greska");
+					}
+				);
+		}
 		$scope.getCurrentExchangeRate = function () {
 			$scope.newCurrentExchange = $scope.currentExchangeRate;
 		}
