@@ -42,4 +42,9 @@ public class CountryServiceImpl implements CountryService{
 	public void delete(Long id) {
 		countryRepository.delete(id);
 	}
+
+	@Override
+	public List<Country> findByCodeLikeOrNameLike(String code, String name) {
+		return countryRepository.findByCodeLikeOrNameLike(code, name);
+	}
 }

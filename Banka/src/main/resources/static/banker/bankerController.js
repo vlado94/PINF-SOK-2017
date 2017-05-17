@@ -183,13 +183,10 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 		$scope.searchForCountry = function(){
 			var code= $scope.country.code;
 			var name = $scope.country.name;
-			alert(code+"   "+name)
 			var country = $scope.country;
-			alert(country)
 			bankerService.searchCountry(country).then(
 					function(response){
-						//$scope.countryForUpdate = response.data;
-						alert("Uspjelo je")
+					    $scope.allCountries = response.data;
 					}, 
 					function (response){
 						alert("Greska");

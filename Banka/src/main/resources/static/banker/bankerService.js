@@ -52,7 +52,7 @@ services.service('bankerService', ['$http', function($http){
 		return $http.delete(url+"deleteCountry/"+id);
 	}
 	this.searchCountry = function(country){
-		return $http.get(url+"searchCountry",country);
+		return $http.post(url+"searchCountry",country);
 	}
 	this.exchangeRateDetails = function(id){
 		return $http.get(url+"exchangeRateDetails/"+id);

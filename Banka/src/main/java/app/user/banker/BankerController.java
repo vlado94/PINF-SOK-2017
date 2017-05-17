@@ -203,12 +203,14 @@ public class BankerController {
 		countryService.delete(id);
 	}
 	
-	@GetMapping(path = "/searchCountry")
-	@ResponseStatus(HttpStatus.OK)
+	@PostMapping(path = "/searchCountry")
+	@ResponseStatus(HttpStatus.CREATED)
 	public List<Country> searchCountry(@RequestBody Country country) {
-		System.out.println(country.getCode()+" "+country.getName());
-		
-		return null;
+		//System.out.println(country.getCode()+" "+country.getName());
+		String code = "%"+country.getCode()+"%";
+		String name = "%"+country.getName()+"%";
+		List<Country> countries =countryService.findByCodeLikeOrNameLike(code, name);
+		return countries;
 	}
 	
 	@GetMapping(path = "/exchangeRateDetails/{id}")
