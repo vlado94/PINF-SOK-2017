@@ -13,8 +13,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.NotBlank;
-
 import app.exchangeInCurrency.ExchangeInCurrency;
 import lombok.Data;
 
@@ -26,16 +24,15 @@ public class ExchangeRate {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "EXCHANGE_RATE_ID")
 	private Long id;
-	
-	@NotBlank
+
+	@NotNull
 	@Column
 	private Date startDate;
 	
-	@NotBlank
+	@NotNull
 	@Column
 	private Date date;
 	
-	@NotNull
 	@Column(length=3)
 	private Integer numberOfExchangeRate;
 	

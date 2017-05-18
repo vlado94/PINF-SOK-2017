@@ -5,11 +5,12 @@
 		<fieldset>
 			<span> Code Purchasing Middle Sale</span>
 			<div ng-repeat="exchangeInCurrency in newCurrentExchange.exchangeInCurrencies">
-				<label class = "addExchangeRateInputWidth">{{exchangeInCurrency.currency.code}}</label>
-				<input class = "addExchangeRateInputWidth" type = "number" value = {{exchangeInCurrency.purchasingRate}} >
-				<input class = "addExchangeRateInputWidth" type = "number" value = {{exchangeInCurrency.middleRate}}>
-				<input class = "addExchangeRateInputWidth" type = "number" value = {{exchangeInCurrency.saleRate}}>
+				<label id = "exCode{{exchangeInCurrency.currency.code}}" class = "addExchangeRateInputWidth">{{exchangeInCurrency.currency.code}}</label>
+				<input id = "exPurchase{{exchangeInCurrency.currency.code}}" class = "addExchangeRateInputWidth" type = "number" value = {{exchangeInCurrency.purchasingRate}} >
+				<input id = "exMid{{exchangeInCurrency.currency.code}}" class = "addExchangeRateInputWidth" type = "number" value = {{exchangeInCurrency.middleRate}}>
+				<input id = "exSale{{exchangeInCurrency.currency.code}}" class = "addExchangeRateInputWidth" type = "number" value = {{exchangeInCurrency.saleRate}}>
 			</div>
+			<input type = "date" ng-model = "$parent.$parent.exchangeRate.startDate">
 			
 		</fieldset>
 		<button ng-click="addExchangeRatee()" class="btn btn-default navbar-btn" ><span class="glyphicon glyphicon-check"></span>Create</button>
