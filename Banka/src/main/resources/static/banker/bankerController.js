@@ -16,6 +16,8 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 				}
 			);
 		}
+		
+		
 
 		checkRights();
 
@@ -58,7 +60,6 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 						alert("Greska");
 					}
 				);
-			
 		}
 		
 		$scope.updateCodeBookActivityy = function() {
@@ -640,6 +641,18 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 					}
 				);
 		}
+		
+		$scope.findAllExchangeRates = function() {
+			bankerService.findAllExchangeRate().then(
+					function(response){
+					    $scope.exchangeRates = response.data;
+					}, 
+					function (response){
+						alert("Greska");
+					}
+				);
+		}
+		
 		$scope.getCurrentExchangeRate = function () {
 			$scope.newCurrentExchange = $scope.currentExchangeRate;
 		}

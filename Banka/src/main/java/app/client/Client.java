@@ -7,17 +7,10 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.Table;
-import static javax.persistence.InheritanceType.JOINED;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.springframework.stereotype.Component;
 
 import app.codeBookActivities.CodeBookActivities;
 import lombok.Data;
@@ -91,5 +84,22 @@ public class Client {
 	public enum TypeOfClient {
 	   PRAVNO,
 	   FIZICKO
+	}
+	
+	public void update(Client client) {
+		setApplicant(client.getApplicant());
+		setJmbg(client.getJmbg());
+		setAddress(client.getAddress());
+		setPhone(client.getPhone());
+		setFax(client.getFax());
+		setMail(client.getMail());
+		setDeliveryAddress(client.getDeliveryAddress());
+		setDeliveryByMail(client.isDeliveryByMail());
+		setShortName(client.getShortName());
+		setPib(client.getPib());
+		setMib(client.getMib());
+		setTaxAuthority(client.getTaxAuthority());
+		setResponsiblePerson(client.getResponsiblePerson());
+		setCodeBookActivities(client.getCodeBookActivities());
 	}
 }

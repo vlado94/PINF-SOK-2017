@@ -61,6 +61,10 @@ services.service('bankerService', ['$http', function($http){
 		return $http.post(url+"exchangeRateNew",exchangeRate);
 	}
 	
+	this.findAllExchangeRate = function(){
+		return $http.get(url+"findAllExchangeRate");
+	}
+	
 	this.findAllIndividualBills = function(){
 		return $http.get(url+"findAllIndividualBills");
 	}
