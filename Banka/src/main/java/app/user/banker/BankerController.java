@@ -42,6 +42,8 @@ import app.dailyBalance.DailyBalanceService;
 import app.depositSlip.DepositSlip;
 import app.depositSlip.DepositSlip.Type;
 import app.depositSlip.DepositSlipService;
+import app.exchangeInCurrency.ExchangeInCurrency;
+import app.exchangeInCurrency.ExchangeInCurrencyService;
 import app.exchangeRate.ExchangeRate;
 import app.exchangeRate.ExchangeRateService;
 import app.populatedPlace.PopulatedPlace;
@@ -63,12 +65,13 @@ public class BankerController {
 	private final DailyBalanceService dailyBalanceService;
 	private final DepositSlipService depositSlipService;
 	private final ExchangeRateService exchangeRateService;
+	private final ExchangeInCurrencyService exchangeInCurrencyService;
 	
 	@Autowired
 	public BankerController(final HttpSession httpSession,final BankerService bankerService, final CodeBookActivitiesService codeBookActivitiesService, 
 							final CountryService countryService, final ClientService clientService, final PopulatedPlaceService populatedPlaceService,
 							final BillService billService, final BankService bankService,final ClosingBillService closingBillService,
-							final DailyBalanceService dailyBalanceService,DepositSlipService depositSlipService,ExchangeRateService exchangeRateService) {
+							final DailyBalanceService dailyBalanceService,DepositSlipService depositSlipService,ExchangeRateService exchangeRateService,ExchangeInCurrencyService exchangeInCurrencyService) {
 		this.bankerService = bankerService;
 		this.codeBookActivitiesService = codeBookActivitiesService;
 		this.countryService = countryService;
@@ -81,13 +84,15 @@ public class BankerController {
 		this.dailyBalanceService = dailyBalanceService;
 		this.depositSlipService = depositSlipService;
 		this.exchangeRateService = exchangeRateService;
+		this.exchangeInCurrencyService = exchangeInCurrencyService;
 	}
 	
 	@GetMapping("/checkRights")
 	@ResponseStatus(HttpStatus.OK)
 	public Banker checkRights() throws AuthenticationException {
 		try {
-			return ((Banker) httpSession.getAttribute("user"));
+			Banker banker = bankerService.findOneById(((Banker) httpSession.getAttribute("user")).getId());
+			return banker;
 		} catch (Exception e) {
 			throw new AuthenticationException("Forbidden.");
 		}
@@ -217,6 +222,21 @@ public class BankerController {
 	@ResponseStatus(HttpStatus.OK)
 	public ExchangeRate exchangeRateDetails(@PathVariable Long id) {
 		return exchangeRateService.findOne(id);
+	}
+	
+	@PostMapping(path = "/exchangeRateNew")
+	@ResponseStatus(HttpStatus.OK)
+	public ExchangeRate exchangeRateNew(@RequestBody ExchangeRate exchangeRate) {
+		exchangeRate.setNumberOfExchangeRate(111);
+		for(int i=0;i<exchangeRate.getExchangeInCurrencies().size();i++) {
+			ExchangeInCurrency exchangeInCurrency = exchangeInCurrencyService.save(exchangeRate.getExchangeInCurrencies().get(i));
+			exchangeRate.getExchangeInCurrencies().set(i, exchangeInCurrency);
+		}
+		exchangeRate = exchangeRateService.save(exchangeRate);
+		Bank bank = bankService.findOne(((Banker)httpSession.getAttribute("user")).getBank().getId());
+		bank.getExchangeRates().add(exchangeRate);
+		bankService.save(bank);
+		return exchangeRate;
 	}
 	
 	@GetMapping("/findAllIndividualBills")

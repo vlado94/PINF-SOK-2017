@@ -644,7 +644,38 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 			$scope.newCurrentExchange = $scope.currentExchangeRate;
 		}
 		$scope.addExchangeRatee = function() {
-			alert(1)
+			exchangeInCurrencies = $scope.newCurrentExchange.exchangeInCurrencies;
+			exchangeInCurrencies2 = [];
+			for(var i =0;i<exchangeInCurrencies.length;i++) {
+				object = exchangeInCurrencies[i];
+				exPurchase = "exPurchase"+object.currency.code;
+				exMid = "exMid"+object.currency.code;
+				exSale = "exSale"+object.currency.code;
+				purchase = document.getElementById(exPurchase).value;
+				mid = document.getElementById(exMid).value;
+				sale = document.getElementById(exSale).value;
+				var exchangeInCurrency = {}
+				exchangeInCurrency.serialNumber = 999;
+				exchangeInCurrency.purchasingRate = purchase;
+				exchangeInCurrency.middleRate = mid;
+				exchangeInCurrency.saleRate = sale;
+				exchangeInCurrency.currency = object.currency;
+				exchangeInCurrencies2.push(exchangeInCurrency);
+			}
+			
+			$scope.exchangeRate.exchangeInCurrencies = exchangeInCurrencies2;
+			$scope.exchangeRate.date = new Date();
+			bankerService.exchangeRateNew($scope.exchangeRate).then(
+					function(response){
+						alert("Successfull added.");
+						$state.go("banker.home", {});
+						$scope.currentExchangeRate = response.data;
+					}, 
+					function (response){
+						alert("Greska");
+					}
+				);
+		
 		}
 		
 		$scope.exchangeRateDetails = function(exchangeRateId) {

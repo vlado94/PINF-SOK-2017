@@ -6,7 +6,7 @@ public interface ExchangeRateService {
 
 	public List<ExchangeRate> findAll();
 
-	public void save(ExchangeRate exchangeRates);
+	public ExchangeRate save(ExchangeRate exchangeRates);
 
 	public void delete(Long id);
 	
