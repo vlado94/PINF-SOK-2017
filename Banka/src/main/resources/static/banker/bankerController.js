@@ -105,6 +105,19 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 		
 		};
 		
+		$scope.searchForCodeBookActivity = function(){
+			var codeBookActivity = $scope.codeBookActivity;
+			bankerService.searchCodeBookActivity(codeBookActivity).then(
+					function(response){
+						alert(response.data)
+					    $scope.allcodeBookActivities = response.data;
+					}, 
+					function (response){
+						alert("Greska");
+					}
+				);
+		}
+		
 		$scope.findAllCountries = function () {   
 			bankerService.findAllCountries().then(
 				function(response){
@@ -181,8 +194,6 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 		};
 		
 		$scope.searchForCountry = function(){
-			var code= $scope.country.code;
-			var name = $scope.country.name;
 			var country = $scope.country;
 			bankerService.searchCountry(country).then(
 					function(response){
@@ -352,6 +363,20 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 				}
 			);
 		};
+		
+		$scope.searchForIndividualBill = function(){
+			var individualBill = $scope.individualBill;
+			alert(individualBill.accountNumber+"  "+individualBill.client.applicant)
+			/*bankerService.searchCodeBookActivity(codeBookActivity).then(
+					function(response){
+						alert(response.data)
+					    $scope.allcodeBookActivities = response.data;
+					}, 
+					function (response){
+						alert("Greska");
+					}
+				);*/
+		}
 		
 		$scope.findAllLegalBills= function () {   
 			var banker = $scope.banker;

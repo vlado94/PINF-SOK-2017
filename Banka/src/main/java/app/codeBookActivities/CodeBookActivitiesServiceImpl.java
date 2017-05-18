@@ -43,4 +43,9 @@ public class CodeBookActivitiesServiceImpl implements CodeBookActivitiesService 
 	public CodeBookActivities findByName(String name) {
 		return codeBookActivitiesRepository.findByName(name);
 	}
+
+	@Override
+	public List<CodeBookActivities> findByCodeLikeOrNameLike(Integer code, String name) {
+		return codeBookActivitiesRepository.findByCodeLikeOrNameLike(code, name);
+	}
 }

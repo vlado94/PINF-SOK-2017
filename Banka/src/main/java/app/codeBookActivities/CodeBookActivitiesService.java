@@ -14,5 +14,6 @@ public interface CodeBookActivitiesService {
 
 	CodeBookActivities findByName(String name);
 	
+	List<CodeBookActivities> findByCodeLikeOrNameLike(Integer code,String name);
 	
 }

@@ -61,6 +61,9 @@ angular.module('routerApp', ['ui.router',
         .state('banker.addLegalBill', {
           	templateUrl : 'banker/bills/addLegalBill.html'
         })
+        .state('banker.individualBills.searchIndividualBill', {
+          	templateUrl : 'banker/bills/searchIndividualBill.html'
+        })
         .state('banker.addIndividualBill', {
           	templateUrl : 'banker/bills/addIndividualBill.html'
         })
@@ -73,6 +76,9 @@ angular.module('routerApp', ['ui.router',
         })
          .state('banker.codeBookActivities.updateCodeBookActivity', {
           	templateUrl : 'banker/codeBookActivities/updateCodeBookActivity.html'
+        })
+        .state('banker.codeBookActivities.searchCodeBookActivity', {
+          	templateUrl : 'banker/codeBookActivities/searchCodeBookActivity.html'
         })
          .state('banker.countries', {
         	url : '/countries',

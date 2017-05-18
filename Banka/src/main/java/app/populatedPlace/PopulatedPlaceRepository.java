@@ -6,7 +6,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface PopulatedPlaceRepository extends PagingAndSortingRepository<PopulatedPlace, Long>{
 
-	List<PopulatedPlace> findByNameLikeOrPttCodeLike(String name,String pttCode);
+	List<PopulatedPlace> findByNameLikeOrPttCodeLikeOrCountry_NameLike(String name,String pttCode,String country);
 
 	
 }

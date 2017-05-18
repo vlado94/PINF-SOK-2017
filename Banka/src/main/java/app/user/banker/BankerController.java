@@ -162,6 +162,19 @@ public class BankerController {
 		codeBookActivitiesService.delete(id);
 	}
 	
+	@PostMapping(path = "/searchCodeBookActivity")
+	@ResponseStatus(HttpStatus.CREATED)
+	public List<CodeBookActivities> searchCodeBookActivity(@RequestBody CodeBookActivities codeBookActivity) {
+		//System.out.println(country.getCode()+" "+country.getName());
+		Integer code = codeBookActivity.getCode();
+		if(code==null){
+			code=-1;
+		}
+		String name = "%"+codeBookActivity.getName()+"%";
+		List<CodeBookActivities> codeBookActivities = codeBookActivitiesService.findByCodeLikeOrNameLike(code, name);
+		return codeBookActivities;
+	}
+	
 	@GetMapping("/findAllCountries")
 	@ResponseStatus(HttpStatus.OK)
 	public List<Country> findAllCountries() {
@@ -207,7 +220,11 @@ public class BankerController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public List<Country> searchCountry(@RequestBody Country country) {
 		//System.out.println(country.getCode()+" "+country.getName());
-		String code = "%"+country.getCode()+"%";
+		String code = country.getCode();
+		if(code==null)
+			code="-1";
+		else
+			code="%"+country.getCode()+"%";
 		String name = "%"+country.getName()+"%";
 		List<Country> countries =countryService.findByCodeLikeOrNameLike(code, name);
 		return countries;
@@ -348,9 +365,23 @@ public class BankerController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public List<PopulatedPlace> searchPopulatedPlace(@RequestBody PopulatedPlace populatedPlace) {
 		//System.out.println(country.getCode()+" "+country.getName());
-		String pttCode = "%"+populatedPlace.getPttCode()+"%";
-		String name = "%"+populatedPlace.getName()+"%";
-		List<PopulatedPlace> populatedPlaces =populatedPlaceService.findByNameLikeOrPttCodeLike(name, pttCode);
+		String pttCode = populatedPlace.getPttCode();
+		if (pttCode==null)
+			pttCode="";
+		else
+			pttCode = "%"+pttCode+"%";
+		String name = populatedPlace.getName();
+		if (name==null)
+			name="";
+		else 
+			name =  "%"+name+"%";
+		Country country = populatedPlace.getCountry();
+		String countryName = null;
+		if (country==null)
+			countryName = "";
+		else
+			countryName = "%"+country.getName()+"%";
+		List<PopulatedPlace> populatedPlaces =populatedPlaceService.findByNameLikeOrPttCodeLikeOrCountry_NameLike(name, pttCode, countryName);
 		return populatedPlaces;
 	}
 	

@@ -41,8 +41,8 @@ public class PopulatedPlaceServiceImpl implements PopulatedPlaceService {
 	}
 
 	@Override
-	public List<PopulatedPlace> findByNameLikeOrPttCodeLike(String name, String pttCode) {
-		return populatedPlaceRepository.findByNameLikeOrPttCodeLike(name, pttCode);
+	public List<PopulatedPlace> findByNameLikeOrPttCodeLikeOrCountry_NameLike(String name,String pttCode,String country) {
+		return populatedPlaceRepository.findByNameLikeOrPttCodeLikeOrCountry_NameLike(name,pttCode,country);
 	}
 
 }
