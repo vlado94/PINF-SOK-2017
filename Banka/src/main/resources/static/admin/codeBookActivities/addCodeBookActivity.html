@@ -2,10 +2,10 @@
 <form name = "addCodeBookActivity">
 
 	<label>Code</label>
-	<input type = "text" class = "form-control" ng-model = "$parent.codeBookActivity.code" ></input>
+	<input type = "text" class = "form-control" ng-model = "$parent.$parent.codeBookActivity.code" ></input>
 
 	<label>Name</label>
-	<input type = "text" class = "form-control" ng-model = "$parent.codeBookActivity.name"></input>
+	<input type = "text" class = "form-control" ng-model = "$parent.$parent.codeBookActivity.name"></input>
 
 <button class = "btn btn-default" ng-click = "saveCodeBookActivity()"><span class = "glyphicon glyphicon-ok"></span>Add</button>
 <button class = "btn btn-default" ng-click = "cancel()"><span class = "glyphicon glyphicon-remove"></span>Cancel</button>

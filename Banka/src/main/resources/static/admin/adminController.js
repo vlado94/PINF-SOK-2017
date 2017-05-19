@@ -1,6 +1,8 @@
 var app = angular.module('admin.controllers', []);
 
 var currentCountryIndex = -1;
+var currentCodeBookActivityIndex = -1;
+var currentPopulatedPlaceIndex = -1;
 app.controller('adminController', ['$scope','adminService', '$location','$state',
   	function ($scope, adminService, $location,$state) {
 		function checkRights() {
@@ -118,11 +120,12 @@ app.controller('adminController', ['$scope','adminService', '$location','$state'
 			);
 		};
 		
-		$scope.findPopulatedPlaceById = function (populatedPlaceId) { 
+		$scope.findPopulatedPlaceById = function (populatedPlaceId,index) { 
 			adminService.findPopulatedPlaceById(populatedPlaceId).then(
 				function(response){
+					currentPopulatedPlaceIndex = index;
 					$state.go("admin.populatedPlaces.updatePopulatedPlace", {});
-					$scope.populatedPlaceForUpdate = response.data;
+					$scope.populatedPlaceForUpdate = response.data;		
 					$scope.selectedNameWhenChanged = response.data.country.name;
 				}, 
 				function (response){
@@ -131,22 +134,9 @@ app.controller('adminController', ['$scope','adminService', '$location','$state'
 			);
 		}
 		
-		$scope.setSelected = function(code) {
-	        $scope.selected = code;
-	        markRow(code);
-	        
-	        adminService.findCountryById($scope.selected).then(
-				function(response){
-					$scope.selectedName = response.data.name;
-				}, function (response){
-					alert("Morate odabrati drzavu!");
-				}
-			);
-	    };	
-	    
-	    $scope.setSelectedWhenChanged = function(code) {
-	        $scope.selectedForUpdate = code;
-	        markRow(code);
+	    $scope.setSelectedWhenChanged = function(id) {
+	        $scope.selectedForUpdate = id;
+	        markRow(id);
 	       
 	    };
 	    
@@ -159,9 +149,44 @@ app.controller('adminController', ['$scope','adminService', '$location','$state'
 		     element.setAttribute("class", "selectedRow");
 		}
 	    
+	   
+		
+	    $scope.setSelected = function(code) {
+	        $scope.selected = code;
+	        markRow(code);
+	        
+	        adminService.findCountryById($scope.selected).then(
+				function(response){
+					$scope.selectedNameForAdd = response.data.name;
+				}, function (response){
+					alert("Morate odabrati drzavu!");
+				}
+			);
+	    };	
+	    
+	    $scope.saveCountryForPopulatedPlace= function () {   
+	    	$scope.selectedName = $scope.selectedNameForAdd
+		}
+	    
+	    $scope.savePopulatedPlace= function () {
+	    	adminService.findCountryById($scope.selected).then(
+				function(response){
+					$scope.populatedPlace.country = response.data;
+					adminService.savePopulatedPlace($scope.populatedPlace).then(
+						function(response){
+							$scope.allPopulatedPlaces.push(response.data);
+						}, function (response){
+							alert("Greska pri cuvanju naseljenog mjesta");
+						}
+					);
+				}, function (response){
+					alert("Morate odabrati drzavu!");
+				}
+			);
+		}
+	    
 	    $scope.saveChangedCountryForPopulatedPlace= function () {   
-			$scope.previousSelectedForUpdate = $scope.selectedForUpdate;
-			adminService.findCountryById($scope.selectedForUpdate).then(
+	    	adminService.findCountryById($scope.selectedForUpdate).then(
 				function(response){
 					$scope.selectedNameWhenChanged = response.data.name;
 				}, function (response){
@@ -169,7 +194,113 @@ app.controller('adminController', ['$scope','adminService', '$location','$state'
 				}
 			 );
 		}
+	    
+	    $scope.updatePopulatedPlacee = function() {
+	    	adminService.findCountryByName($scope.selectedNameWhenChanged).then(
+				function(response){
+					$scope.populatedPlaceForUpdate.country = response.data;
+					adminService.updatePopulatedPlace($scope.populatedPlaceForUpdate).then(
+						function(response){
+							 $scope.allPopulatedPlaces[currentPopulatedPlaceIndex] = response.data;
+						}, function (response){
+								alert("Morate odabrati drzavu!");
+						}
+					);
+				}, function (response){
+					alert("Morate odabrati drzavu!");
+				}
+			);
+		};
+	    
+	    $scope.searchPopulatedPlacesState = function () {
+			$state.go("admin.populatedPlaces.searchPopulatedPlaces", {});
+	    }
+	    
+	    $scope.searchForPopulatedPlace = function(){
+	    	adminService.searchPopulatedPlace($scope.populatedPlace).then(
+				function(response){
+				    $scope.allPopulatedPlaces = response.data;
+				}, 
+				function (response){
+					alert("Greska");
+				}
+			);
+		}	    
+
+//CODE BOOK ACTIVITIES
+	    $scope.findAllCodeBookActivities = function () { 
+	    	adminService.findAllCodeBookActivities().then(
+				function(response){
+					$scope.allCodeBookActivities = response.data;
+				}, function (response){
+					alert("Greska");
+				}
+			);
+		}
+	    
+	    $scope.saveCodeBookActivity= function () { 
+	    	adminService.saveCodeBookActivity($scope.codeBookActivity).then(
+				function(response){
+					$scope.allCodeBookActivities.push(response.data);
+				}, function (response){
+					alert("Greska");
+				}
+			);
+		}
+	    
+	    $scope.findCodeBookActivityById= function(codeBookActivityId,index) {
+
+			$state.go("admin.codeBookActivities.updateCodeBookActivity", {});
+	    	adminService.findActivityById(codeBookActivityId).then(
+				function(response){
+					currentCodeBookActivityIndex = index;
+					$scope.codeBookActivityForUpdate = response.data;
+				}, 
+				function (response){
+					alert("Greska");
+				}
+			);
+		}
+	    
+	    $scope.updateCodeBookActivityy = function() {
+	    	adminService.updateCodeBookActivity($scope.codeBookActivityForUpdate).then(
+				function(response){
+					 $scope.allCodeBookActivities[currentCodeBookActivityIndex] = response.data;
+				}, 
+				function (response){
+					alert("Greska");
+				}
+			);
+		};
 		
+		$scope.deleteCodeBookActivity = function(id,index) {
+			adminService.deleteCodeBookActivity(id).then(
+				function(){
+					$scope.allCodeBookActivities.splice( index, 1 );
+				}, 
+				function (response){
+					alert("Postoji pravno lice koje posjeduje datu djelatnost. Nije moguce trenutno izbrisati.");					}
+			);
 		
+		};
+		
+		$scope.searchCodeBookActivities = function(){
+			adminService.searchCodeBookActivity($scope.codeBookActivity).then(
+					function(response){
+					    $scope.allcodeBookActivities = response.data;
+					}, 
+					function (response){
+						alert("Greska");
+					}
+				);
+		}
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
 	}
 ]);

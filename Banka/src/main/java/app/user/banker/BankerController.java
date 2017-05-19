@@ -170,14 +170,7 @@ public class BankerController {
 	@PostMapping(path = "/searchCodeBookActivity")
 	@ResponseStatus(HttpStatus.CREATED)
 	public List<CodeBookActivities> searchCodeBookActivity(@RequestBody CodeBookActivities codeBookActivity) {
-		//System.out.println(country.getCode()+" "+country.getName());
-		Integer code = codeBookActivity.getCode();
-		if(code==null){
-			code=-1;
-		}
-		String name = "%"+codeBookActivity.getName()+"%";
-		List<CodeBookActivities> codeBookActivities = codeBookActivitiesService.findByCodeLikeOrNameLike(code, name);
-		return codeBookActivities;
+		return codeBookActivitiesService.findByCodeLikeOrNameLike(codeBookActivity.getCode(), codeBookActivity.getName());
 	}
 	
 	@GetMapping("/findAllCountries")

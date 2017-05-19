@@ -1,0 +1,28 @@
+<div class = "col-sm-4">
+
+
+<div ng-init="findAllCodeBookActivities()">
+	<table class="table table-bordered" border="1">
+		<tbody>
+			<tr>
+				<th>Code</th>
+				<th>Name</th>
+				<th>Action</th>
+			</tr>
+			<tr ng-repeat="activity in allCodeBookActivities">
+				<td>{{activity.code}}</td>
+				<td>{{activity.name}}</td>
+				<td>
+					<button class = "btn" ng-click = findCodeBookActivityById(activity.id,$index)><span class = "glyphicon glyphicon-pencil"></span></button>
+					<button class = "btn" ng-click = deleteCodeBookActivity(activity.id,$index)><span class = "glyphicon glyphicon-remove"></span></button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+<button class = "btn btn-default" ui-sref =".addCodeBookActivity" ><span class = "glyphicon glyphicon-plus"></span> Add</button> 
+<button class = "btn btn-default" ui-sref =".searchCodeBookActivity" ><span class = "glyphicon glyphicon-search"></span>  Search</button> 
+
+</div>
+<div ui-view></div>
+</div>

@@ -623,7 +623,6 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 			);
 		};
 		
-		
 		$scope.setSelectedWhenChanged = function(code) {
 	        $scope.selectedForUpdate = code;
 	        markRow(code);

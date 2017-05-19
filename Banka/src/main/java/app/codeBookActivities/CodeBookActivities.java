@@ -22,4 +22,9 @@ public class CodeBookActivities { //sifarnik djelatnosti
 	
 	@Column
 	private String name; //not nul
+	
+	public void update(CodeBookActivities codeBookActivities) {
+		setCode(codeBookActivities.getCode());
+		setName(codeBookActivities.getName());
+	}
 }

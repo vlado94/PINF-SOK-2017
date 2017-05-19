@@ -36,7 +36,6 @@ public class CodeBookActivitiesServiceImpl implements CodeBookActivitiesService 
 	@Override
 	public void delete(Long id) {
 		codeBookActivitiesRepository.delete(id);
-		
 	}
 
 	@Override
@@ -46,6 +45,10 @@ public class CodeBookActivitiesServiceImpl implements CodeBookActivitiesService 
 
 	@Override
 	public List<CodeBookActivities> findByCodeLikeOrNameLike(Integer code, String name) {
+		name = "%"+name+"%";
+		if(code==null){
+			code=-1;
+		}
 		return codeBookActivitiesRepository.findByCodeLikeOrNameLike(code, name);
 	}
 }

@@ -24,6 +24,9 @@ var url = "/admin/";
 	this.findCountryById = function(countryId){
 		return $http.get("/country/"+countryId);
 	}
+	this.findCountryByName = function(name){
+		return $http.get("/country/findByName/"+name);
+	}
 	
 	this.updateCountry = function(country){
 		return $http.put("/country/"+country.id,country);
@@ -41,7 +44,7 @@ var url = "/admin/";
 		return $http.get("/populatedPlaces");
 	}
 	
-	this.savePopulatedPlaces = function(country){
+	this.savePopulatedPlace = function(populatedPlace){
 		return $http.post("/populatedPlaces",populatedPlace);
 	}
 	
@@ -56,10 +59,31 @@ var url = "/admin/";
 	this.deletePopulatedPlace = function(id){
 		return $http.delete("/populatedPlaces/"+id);
 	}
-	this.searchPopulatedPlaces = function(populatedPlace){
+	this.searchPopulatedPlace = function(populatedPlace){
 		return $http.post("/populatedPlaces/search",populatedPlace);
 	}
+//CODE BOOK ACTIVITY
+	this.findAllCodeBookActivities = function(){
+		return $http.get("/codeBookActivities");
+	}
+	this.findActivityById = function(id){
+		return $http.get("/codeBookActivities/"+id);
+	}
+	this.findActivityByName = function(activityName){
+		return $http.get("/codeBookActivities/findByName/"+activityName);
+	}
 	
+	this.saveCodeBookActivity = function(codeBookActivity){
+		return $http.post("/codeBookActivities",codeBookActivity);
+	}
 	
-	
+	this.updateCodeBookActivity = function(codeBookActivity){
+		return $http.put("/codeBookActivities/"+codeBookActivity.id,codeBookActivity);
+	}
+	this.deleteCodeBookActivity = function(id){
+		return $http.delete("/codeBookActivities/"+id);
+	}
+	this.searchCodeBookActivity = function(codeBookActivity){
+		return $http.post("/codeBookActivities/search",codeBookActivity);
+	}	
 }]);

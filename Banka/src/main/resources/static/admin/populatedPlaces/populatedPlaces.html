@@ -22,15 +22,15 @@
 				<td>{{populatedPlace.pttCode}}</td>
 				<td>{{populatedPlace.country.name}}</td>
 				<td colspan="2">
-					<button class = "btn" ng-click = findPopulatedPlaceById(populatedPlace.id)><span class = "glyphicon glyphicon-pencil"></span></button>
-					<button class = "btn" ng-click = deletePopulatedPlace(populatedPlace.id)><span class = "glyphicon glyphicon-remove"></span></button>
+					<button class = "btn" ng-click = findPopulatedPlaceById(populatedPlace.id,$index)><span class = "glyphicon glyphicon-pencil"></span></button>
+					<button class = "btn" ng-click = deletePopulatedPlace(populatedPlace.id,$index)><span class = "glyphicon glyphicon-remove"></span></button>
 				</td>
 				</tr>
 		</tbody>
 	</table>
 
-<button class = "btn btn-default" ui-sref =".addPopulatedPlace()" ><span class = "glyphicon glyphicon-plus"></span>  Add</button> 
-<button class = "btn btn-default" ui-sref =".searchPopulatedPlace" ><span class = "glyphicon glyphicon-search"></span>  Search</button> 
+<button class = "btn btn-default" ui-sref =".addPopulatedPlace" ><span class = "glyphicon glyphicon-plus"></span>  Add</button> 
+<button class = "btn btn-default" ng-click ="searchPopulatedPlacesState()" ><span class = "glyphicon glyphicon-search"></span>  Search</button> 
 
 
 

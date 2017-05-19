@@ -63,4 +63,11 @@ public class CountryController {
 	public List<Country> search(@RequestBody Country country) {
 		return countryService.findByCodeLikeOrNameLike(country.getCode(), country.getName());
 	}
+	
+	@GetMapping(path = "/findByName/{name}")
+	@ResponseStatus(HttpStatus.OK)
+	public Country findCountryByName(@PathVariable String name) {
+		return countryService.findByName(name);
+		
+	}
 }

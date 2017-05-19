@@ -43,7 +43,7 @@ angular.module('routerApp', ['ui.router',
           	templateUrl : 'admin/adminHome.html'
         })
         
-        //COUNTRIES
+//COUNTRIES
         .state('admin.countries', {
         	url : '/countries',
           	templateUrl : 'admin/country/countries.html'
@@ -53,7 +53,6 @@ angular.module('routerApp', ['ui.router',
 			templateUrl : 'admin/country/addCountry.html'
 		})
 		.state('admin.countries.updateCountry', {
-        	url : '/update',
 			templateUrl : 'admin/country/updateCountry.html'
 		})
 		.state('admin.countries.searchCountry', {
@@ -61,7 +60,7 @@ angular.module('routerApp', ['ui.router',
 			templateUrl : 'admin/country/searchCountry.html'
 		})
 		
-		//POPULATED PLACES
+//POPULATED PLACES
         .state('admin.populatedPlaces', {
         	url : '/populatedPlaces',
           	templateUrl : 'admin/populatedPlaces/populatedPlaces.html'
@@ -71,14 +70,29 @@ angular.module('routerApp', ['ui.router',
 			templateUrl : 'admin/populatedPlaces/addPopulatedPlace.html'
 		})
 		.state('admin.populatedPlaces.updatePopulatedPlace', {
-        	url : '/update',
 			templateUrl : 'admin/populatedPlaces/updatePopulatedPlace.html'
 		})
 		.state('admin.populatedPlaces.searchPopulatedPlaces', {
         	url : '/search',
-			templateUrl : 'admin/populatedPlaces/searchPopulatedPlaces.html'
+			templateUrl : 'admin/populatedPlaces/searchPopulatedPlace.html'
 		})
-        
+		
+//CODE BOOK ACTIVITIES
+        .state('admin.codeBookActivities', {
+        	url : '/codeBookActivities',
+          	templateUrl : 'admin/codeBookActivities/codeBookActivities.html'
+        })
+		.state('admin.codeBookActivities.addCodeBookActivity', {
+        	url : '/addNew',
+			templateUrl : 'admin/codeBookActivities/addCodeBookActivity.html'
+		})
+		.state('admin.codeBookActivities.updateCodeBookActivity', {
+			templateUrl : 'admin/codeBookActivities/updateCodeBookActivity.html'
+		})
+		.state('admin.codeBookActivities.searchCodeBookActivity', {
+        	url : '/search',
+			templateUrl : 'admin/codeBookActivities/searchCodeBookActivity.html'
+		})
         
         
         
