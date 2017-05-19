@@ -42,7 +42,10 @@ angular.module('routerApp', ['ui.router',
         	url : '/home',
           	templateUrl : 'admin/adminHome.html'
         })
-        
+        .state('admin.profile', {
+        	url : '/profile',
+          	templateUrl : 'admin/adminProfile.html'
+        })
 //COUNTRIES
         .state('admin.countries', {
         	url : '/countries',
