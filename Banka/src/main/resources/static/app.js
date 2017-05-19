@@ -2,6 +2,7 @@
 
 angular.module('routerApp', ['ui.router', 
 	'banker.services','banker.controllers',
+	'admin.services','admin.controllers',
 	'login.services','login.controllers'
 	])
 
@@ -31,6 +32,68 @@ angular.module('routerApp', ['ui.router',
         	templateUrl : 'loggedIn.html'
          })
          
+         .state('admin', {
+        	url : '/admin',
+          	templateUrl : 'admin/adminPartial.html',
+            controller : 'adminController'
+         })
+         
+         .state('admin.home', {
+        	url : '/home',
+          	templateUrl : 'admin/adminHome.html'
+        })
+        
+        //COUNTRIES
+        .state('admin.countries', {
+        	url : '/countries',
+          	templateUrl : 'admin/country/countries.html'
+        })
+		.state('admin.countries.addCountry', {
+        	url : '/addNew',
+			templateUrl : 'admin/country/addCountry.html'
+		})
+		.state('admin.countries.updateCountry', {
+        	url : '/update',
+			templateUrl : 'admin/country/updateCountry.html'
+		})
+		.state('admin.countries.searchCountry', {
+        	url : '/search',
+			templateUrl : 'admin/country/searchCountry.html'
+		})
+		
+		//POPULATED PLACES
+        .state('admin.populatedPlaces', {
+        	url : '/populatedPlaces',
+          	templateUrl : 'admin/populatedPlaces/populatedPlaces.html'
+        })
+		.state('admin.populatedPlaces.addPopulatedPlace', {
+        	url : '/addNew',
+			templateUrl : 'admin/populatedPlaces/addPopulatedPlace.html'
+		})
+		.state('admin.populatedPlaces.updatePopulatedPlace', {
+        	url : '/update',
+			templateUrl : 'admin/populatedPlaces/updatePopulatedPlace.html'
+		})
+		.state('admin.populatedPlaces.searchPopulatedPlaces', {
+        	url : '/search',
+			templateUrl : 'admin/populatedPlaces/searchPopulatedPlaces.html'
+		})
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
          .state('banker', {
         	url : '/banker',
           	templateUrl : 'banker/bankerPartial.html',

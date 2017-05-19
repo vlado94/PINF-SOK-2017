@@ -1,0 +1,23 @@
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" ui-sref="admin.home" >Bank</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="javascript:;" ui-sref="admin.home">Home</a></li>
+      <li><a  ui-sref="admin.codeBookActivities">SICC book</a></li>
+      <li><a  ui-sref="admin.countries">Countries</a></li>
+      <li><a  ui-sref="admin.populatedPlaces">Populated places</a></li>
+      <li><a  ui-sref="admin.exchangeRates">History of exchange of rates</a></li>
+	</ul>
+    
+    <ul class="nav navbar-nav navbar-right">  
+    	<li><a href="javascript:;" ui-sref=".profile">Update profile   </a></li> 
+       	<li><a href="javascript:;" ui-sref="login.logOut">Log out   </a></li> 
+    </ul> 
+  </div>
+</nav>
+
+
+
+<div ui-view></div>

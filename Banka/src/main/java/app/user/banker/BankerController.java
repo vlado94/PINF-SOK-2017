@@ -71,7 +71,7 @@ public class BankerController {
 	public BankerController(final HttpSession httpSession,final BankerService bankerService, final CodeBookActivitiesService codeBookActivitiesService, 
 							final CountryService countryService, final ClientService clientService, final PopulatedPlaceService populatedPlaceService,
 							final BillService billService, final BankService bankService,final ClosingBillService closingBillService,
-							final DailyBalanceService dailyBalanceService,DepositSlipService depositSlipService,ExchangeRateService exchangeRateService,ExchangeInCurrencyService exchangeInCurrencyService) {
+							final DailyBalanceService dailyBalanceService,final DepositSlipService depositSlipService,final ExchangeRateService exchangeRateService,final ExchangeInCurrencyService exchangeInCurrencyService) {
 		this.bankerService = bankerService;
 		this.codeBookActivitiesService = codeBookActivitiesService;
 		this.countryService = countryService;

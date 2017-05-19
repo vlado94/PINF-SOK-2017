@@ -35,5 +35,11 @@ public class PopulatedPlace {
 	@JoinTable(name = "POPULATED_PLACE_COUNTRY", joinColumns = @JoinColumn(name = "POPULATED_PLACE_ID"), inverseJoinColumns = @JoinColumn(name = "COUNTRY_ID"))
 	private Country country;
 	
+	public void update(PopulatedPlace populatedPlace) {
+		setName(populatedPlace.getName());
+		setPttCode(populatedPlace.getPttCode());
+		setCountry(populatedPlace.getCountry());
+	}
+	
 	
 }

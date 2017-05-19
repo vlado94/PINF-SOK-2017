@@ -1,0 +1,12 @@
+<div class = "col-sm-6">
+<form name = "searchPopulatedPlace">
+
+	<label>Name</label>
+	<input type = "text" class = "form-control" ng-model = "$parent.$parent.populatedPlace.name" ></input>
+
+	<label>PTT code</label>
+	<input type = "text" class = "form-control" ng-model = "$parent.$parent.populatedPlace.pttCode"></input>
+
+<button class = "btn btn-default" ng-click = "searchForPopulatedPlace()"><span class = "glyphicon glyphicon-ok"></span>Search</button>
+</form>
+</div>

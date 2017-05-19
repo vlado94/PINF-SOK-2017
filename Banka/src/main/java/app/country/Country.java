@@ -33,4 +33,9 @@ public class Country {
 	@ManyToOne
 	@JoinColumn(name = "CURRENCY_ID")
 	private Currency currency;	
+	
+	public void update(Country country) {
+		setCode(country.getCode());
+		setName(country.getName());
+	}
 }

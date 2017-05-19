@@ -25,10 +25,5 @@ public class Banker extends User{
 	@JoinColumn(name = "BANK_ID")
 	private Bank bank;
 
-	public void setAttributes (Banker banker) {
-		this.setFirstname(banker.getFirstname());
-		this.setLastname(banker.getLastname());
-		this.setMail(banker.getMail());
-		this.setPassword(banker.getPassword());
-	}
+	
 }

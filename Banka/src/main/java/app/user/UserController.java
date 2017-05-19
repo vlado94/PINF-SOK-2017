@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import app.bankAdmin.AdminService;
 import app.user.banker.BankerService;
 
 @RestController
@@ -19,25 +20,29 @@ import app.user.banker.BankerService;
 public class UserController {
 	private HttpSession httpSession;
 	private BankerService bankerService;
+	private AdminService adminService;
 
 	@Autowired
 	public UserController(final HttpSession httpSession,
-			final BankerService bankerService) {
+			final BankerService bankerService,AdminService adminService) {
 		this.httpSession = httpSession;
 		this.bankerService = bankerService;
+		this.adminService = adminService;
 	}
 	
 	@PostMapping(path = "/logIn")
 	@ResponseStatus(HttpStatus.OK)
 	public User logIn(@RequestBody User userInput) {
 		User user = null;
-		System.out.println("Loged user: "+ userInput.getMail() +" pass" + userInput.getPassword());
 		if (bankerService.findOneByMailAndPassword(userInput.getMail(), userInput.getPassword()) != null) {
 			user = bankerService.findOneByMailAndPassword(userInput.getMail(), userInput.getPassword());
 		}
+		if (adminService.findOneByMailAndPassword(userInput.getMail(), userInput.getPassword()) != null) {
+			user = adminService.findOneByMailAndPassword(userInput.getMail(), userInput.getPassword());
+		}
 		if (user != null) {
 			httpSession.setAttribute("user", user);
-		}	
+		}
 		return user;
 	}
 

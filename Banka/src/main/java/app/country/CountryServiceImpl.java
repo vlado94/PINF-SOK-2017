@@ -45,6 +45,8 @@ public class CountryServiceImpl implements CountryService{
 
 	@Override
 	public List<Country> findByCodeLikeOrNameLike(String code, String name) {
+		code = "%"+code+"%";
+		name = "%"+name+"%";
 		return countryRepository.findByCodeLikeOrNameLike(code, name);
 	}
 }

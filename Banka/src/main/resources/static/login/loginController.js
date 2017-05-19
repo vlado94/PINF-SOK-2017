@@ -8,7 +8,11 @@ app.controller('loginController', ['$scope','loginService', '$location',
 				function (response) {
                     $scope.state = undefined;
                     if(response.data !== null && response.data !== "")
-                    	$location.path('banker/home');      
+                    	if(response.data.userType == "B") {
+                    		$location.path('banker/home');     
+                    	} else if(response.data.userType == "A") {
+                    		$location.path('admin/home');     
+                        }
                     else
     				    alert("Access denied!");
 				},
