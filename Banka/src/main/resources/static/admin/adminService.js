@@ -86,4 +86,18 @@ var url = "/admin/";
 	this.searchCodeBookActivity = function(codeBookActivity){
 		return $http.post("/codeBookActivities/search",codeBookActivity);
 	}	
+//EXCHANGE RATE
+	this.findAllExchangeRate = function(){
+		return $http.get("/exchangeRate");
+	}
+	
+	this.saveExchangeRate = function(exchangeRate){
+		return $http.post("/exchangeRate",exchangeRate);
+	}
+	
+	this.exchangeRateDetails = function(id){
+		return $http.get("/exchangeRate/"+id);
+	}
+	
+	
 }]);

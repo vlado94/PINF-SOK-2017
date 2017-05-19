@@ -94,7 +94,18 @@ angular.module('routerApp', ['ui.router',
 			templateUrl : 'admin/codeBookActivities/searchCodeBookActivity.html'
 		})
         
-        
+//EXCHANGE RATE
+		.state('admin.exchangeRates', {
+        	url : '/exchangeRates',
+          	templateUrl : 'admin/exchangeRate/exchangeRates.html'
+        })
+        .state('admin.exchangeRates.addExchangeRate', {
+        	url : '/add',
+          	templateUrl : 'admin/exchangeRate/addExchangeRate.html'
+        })
+        .state('admin.exchangeRates.exchangeRateDetails', {
+        	templateUrl : 'admin/exchangeRate/detailsExchangeRate.html'
+        })
         
         
         

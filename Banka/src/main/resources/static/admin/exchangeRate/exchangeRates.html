@@ -1,0 +1,25 @@
+<div ng-init = "findAllExchangeRates()" class = "col-sm-2">
+	<button ui-sref = ".addExchangeRate" class="btn btn-default navbar-btn" ><span class="glyphicon glyphicon-user"></span>Add exchangeRate</button>
+	<table class="table ">
+		<caption class = "caption">All exchange rates</caption>
+		<tbody>
+			<tr>
+				<th>Number</th>
+				<th>Date formed</th>
+				<th>Date start</th>
+				<th>Action</th>
+			</tr>
+			<tr ng-repeat="exchangeRate in exchangeRates">
+				<td>{{exchangeRate.numberOfExchangeRate}}</td>
+				<td>{{exchangeRate.date}}</td>
+				<td>{{exchangeRate.startDate}}</td>
+				<td>
+					<button class = "btn" ng-click = exchangeRateDetails(exchangeRate.id)><span class = "glyphicon glyphicon-th"></span></button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+
+<div ui-view ></div>

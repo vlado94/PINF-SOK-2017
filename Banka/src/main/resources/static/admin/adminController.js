@@ -10,6 +10,7 @@ app.controller('adminController', ['$scope','adminService', '$location','$state'
 				function (response) {
 					if(response.data != "") {
 						$scope.admin = response.data;
+						$scope.currentExchangeRate = $scope.admin.bank.exchangeRates[$scope.admin.bank.exchangeRates.length - 1];
 					}
 				}, 
 				function (response){
@@ -29,11 +30,7 @@ app.controller('adminController', ['$scope','adminService', '$location','$state'
 				}
 			);
 		}
-	
-	
-	
-	
-	
+
 //COUNTRIES
 		$scope.findAllCountries = function () {   
 			adminService.findAllCountries().then(
@@ -249,7 +246,6 @@ app.controller('adminController', ['$scope','adminService', '$location','$state'
 		}
 	    
 	    $scope.findCodeBookActivityById= function(codeBookActivityId,index) {
-
 			$state.go("admin.codeBookActivities.updateCodeBookActivity", {});
 	    	adminService.findActivityById(codeBookActivityId).then(
 				function(response){
@@ -286,21 +282,77 @@ app.controller('adminController', ['$scope','adminService', '$location','$state'
 		
 		$scope.searchCodeBookActivities = function(){
 			adminService.searchCodeBookActivity($scope.codeBookActivity).then(
-					function(response){
-					    $scope.allcodeBookActivities = response.data;
-					}, 
-					function (response){
-						alert("Greska");
-					}
-				);
+				function(response){
+				    $scope.allcodeBookActivities = response.data;
+				}, 
+				function (response){
+					alert("Greska");
+				}
+			);
 		}
 	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
+//EXCCHANGE RATE
+		
+		$scope.findAllExchangeRates = function() {
+			adminService.findAllExchangeRate().then(
+				function(response){
+				    $scope.exchangeRates = response.data;
+				}, 
+				function (response){
+					alert("Greska");
+				}
+			);
+		}
+		
+		$scope.exchangeRateDetails = function(exchangeRateId) {
+			$state.go("admin.exchangeRates.exchangeRateDetails", {});
+			adminService.exchangeRateDetails(exchangeRateId).then(
+				function(response){
+					$scope.exchangeRateDetail = response.data;
+				}, function (response){
+					alert("Error!");
+				}
+			);
+		}
+		
+		$scope.getCurrentExchangeRate = function () {
+			$scope.newCurrentExchange = $scope.currentExchangeRate;
+		}
+		
+		$scope.addExchangeRatee = function() {
+			exchangeInCurrencies = $scope.newCurrentExchange.exchangeInCurrencies;
+			exchangeInCurrencies2 = [];
+			for(var i =0;i<exchangeInCurrencies.length;i++) {
+				object = exchangeInCurrencies[i];
+				exPurchase = "exPurchase"+object.currency.code;
+				exMid = "exMid"+object.currency.code;
+				exSale = "exSale"+object.currency.code;
+				purchase = document.getElementById(exPurchase).value;
+				mid = document.getElementById(exMid).value;
+				sale = document.getElementById(exSale).value;
+				var exchangeInCurrency = {}
+				exchangeInCurrency.serialNumber = 999;
+				exchangeInCurrency.purchasingRate = purchase;
+				exchangeInCurrency.middleRate = mid;
+				exchangeInCurrency.saleRate = sale;
+				exchangeInCurrency.currency = object.currency;
+				exchangeInCurrencies2.push(exchangeInCurrency);
+			}
+			
+			$scope.exchangeRate.exchangeInCurrencies = exchangeInCurrencies2;
+			$scope.exchangeRate.date = new Date();
+			adminService.saveExchangeRate($scope.exchangeRate).then(
+				function(response){
+					alert("Successfull added.");
+
+					$scope.exchangeRates.push(response.data);
+					$state.go("admin.exchangeRates", {});
+					$scope.currentExchangeRate = response.data;
+				}, 
+				function (response){
+					alert("Greska");
+				}
+			);
+		}
 	}
 ]);

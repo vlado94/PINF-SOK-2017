@@ -680,6 +680,7 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 		$scope.getCurrentExchangeRate = function () {
 			$scope.newCurrentExchange = $scope.currentExchangeRate;
 		}
+		
 		$scope.addExchangeRatee = function() {
 			exchangeInCurrencies = $scope.newCurrentExchange.exchangeInCurrencies;
 			exchangeInCurrencies2 = [];

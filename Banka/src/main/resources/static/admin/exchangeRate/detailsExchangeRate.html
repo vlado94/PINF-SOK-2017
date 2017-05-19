@@ -1,0 +1,20 @@
+<div class = "col-sm-12 addExchangeRatePartal">
+
+<div>
+	<table class="table tableExchangeDetails">
+		<tbody>
+			<tr>
+				<th>Code</th>
+				<th>Purchasing</th>
+				<th>Middle</th>
+				<th>Sale</th>
+			</tr>
+			<tr ng-repeat="exchangeInCurrency in exchangeRateDetail.exchangeInCurrencies">
+				<td>{{exchangeInCurrency.currency.code}}</td>
+				<td>{{exchangeInCurrency.purchasingRate}}</td>
+				<td>{{exchangeInCurrency.middleRate}}</td>
+				<td>{{exchangeInCurrency.saleRate}}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
