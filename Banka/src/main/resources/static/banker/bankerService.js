@@ -32,7 +32,9 @@ services.service('bankerService', ['$http', function($http){
 	this.deleteCodeBookActivity = function(id){
 		return $http.delete(url+"deleteCodeBookActivity/"+id);
 	}
-	
+	this.searchCodeBookActivity = function(codeBookActivity){
+		return $http.post(url+"searchCodeBookActivity",codeBookActivity);
+	}
 	this.findAllCountries = function(){
 		return $http.get(url+"findAllCountries");
 	}

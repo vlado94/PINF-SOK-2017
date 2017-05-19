@@ -7,6 +7,8 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import app.country.Country;
+
 @Service
 @Transactional
 public class PopulatedPlaceServiceImpl implements PopulatedPlaceService {
@@ -39,12 +41,23 @@ public class PopulatedPlaceServiceImpl implements PopulatedPlaceService {
 	public PopulatedPlace findOne(Long id) {
 		return populatedPlaceRepository.findOne(id);
 	}
-
+	
 	@Override
-	public List<PopulatedPlace> findByNameLikeOrPttCodeLike(String name, String pttCode) {
-		pttCode = "%"+pttCode+"%";
-		name = "%"+name+"%";
-		return populatedPlaceRepository.findByNameLikeOrPttCodeLike(name, pttCode);
+	public List<PopulatedPlace> findByNameLikeOrPttCodeLikeOrCountry_NameLike(String name,String pttCode,Country country) {
+		if (pttCode==null)
+			pttCode="";
+		else
+			pttCode = "%"+pttCode+"%";
+		if (name==null)
+			name="";
+		else 
+			name =  "%"+name+"%";
+		String countryName = null;
+		if (country == null)
+			countryName = "";
+		else
+			countryName = "%"+country.getName()+"%";
+		return populatedPlaceRepository.findByNameLikeOrPttCodeLikeOrCountry_NameLike(name,pttCode,countryName);
 	}
 
 }

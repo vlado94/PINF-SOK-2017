@@ -2,6 +2,8 @@ package app.populatedPlace;
 
 import java.util.List;
 
+import app.country.Country;
+
 public interface PopulatedPlaceService {
 
 	public List<PopulatedPlace> findAll();
@@ -12,7 +14,7 @@ public interface PopulatedPlaceService {
 	
 	PopulatedPlace findOne(Long id);
 
-	List<PopulatedPlace> findByNameLikeOrPttCodeLike(String name,String pttCode);
+	List<PopulatedPlace> findByNameLikeOrPttCodeLikeOrCountry_NameLike(String name,String pttCode,Country country);
 
 	
 }

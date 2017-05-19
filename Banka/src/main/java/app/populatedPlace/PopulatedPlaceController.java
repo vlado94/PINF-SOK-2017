@@ -64,9 +64,10 @@ public class PopulatedPlaceController {
 			throw new NotFoundException();
 		}
 	}
+	
 	@PostMapping(path = "/search")
 	@ResponseStatus(HttpStatus.CREATED)
 	public List<PopulatedPlace> search(@RequestBody PopulatedPlace populatedPlace) {
-		return populatedPlaceService.findByNameLikeOrPttCodeLike(populatedPlace.getName(), populatedPlace.getPttCode());
+		return populatedPlaceService.findByNameLikeOrPttCodeLikeOrCountry_NameLike(populatedPlace.getName(), populatedPlace.getPttCode(),populatedPlace.getCountry());
 	}
 }
