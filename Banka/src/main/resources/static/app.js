@@ -89,9 +89,6 @@ angular.module('routerApp', ['ui.router',
         	url : '/addNew',
 			templateUrl : 'admin/codeBookActivities/addCodeBookActivity.html'
 		})
-		.state('admin.codeBookActivities.updateCodeBookActivity', {
-			templateUrl : 'admin/codeBookActivities/updateCodeBookActivity.html'
-		})
 		.state('admin.codeBookActivities.searchCodeBookActivity', {
         	url : '/search',
 			templateUrl : 'admin/codeBookActivities/searchCodeBookActivity.html'
@@ -162,24 +159,12 @@ angular.module('routerApp', ['ui.router',
         	url : '/codeBookActivities',
           	templateUrl : 'banker/codeBookActivities/codeBookActivities.html'
         })
-         .state('banker.codeBookActivities.addCodeBookActivity', {
-          	templateUrl : 'banker/codeBookActivities/addCodeBookActivity.html'
-        })
-         .state('banker.codeBookActivities.updateCodeBookActivity', {
-          	templateUrl : 'banker/codeBookActivities/updateCodeBookActivity.html'
-        })
         .state('banker.codeBookActivities.searchCodeBookActivity', {
           	templateUrl : 'banker/codeBookActivities/searchCodeBookActivity.html'
         })
          .state('banker.countries', {
         	url : '/countries',
           	templateUrl : 'banker/country/countries.html'
-        })
-          .state('banker.countries.addCountry', {
-          	templateUrl : 'banker/country/addCountry.html'
-        })
-          .state('banker.countries.updateCountry', {
-          	templateUrl : 'banker/country/updateCountry.html'
         })
         .state('banker.countries.searchCountry', {
           	templateUrl : 'banker/country/searchCountry.html'
@@ -188,12 +173,6 @@ angular.module('routerApp', ['ui.router',
         	url : '/populatedPlace',
           	templateUrl : 'banker/populatedPlace/populatedPlaces.html'
         })
-          .state('banker.populatedPlaces.addPopulatedPlace', {
-          	templateUrl : 'banker/populatedPlace/addPopulatedPlace.html'
-        })
-           .state('banker.populatedPlaces.updatePopulatedPlace', {
-          	templateUrl : 'banker/populatedPlace/updatePopulatedPlace.html'
-        })
         .state('banker.populatedPlaces.searchPopulatedPlace', {
           	templateUrl : 'banker/populatedPlace/searchPopulatedPlace.html'
         })
@@ -201,12 +180,7 @@ angular.module('routerApp', ['ui.router',
         	url : '/exchangeRates',
           	templateUrl : 'banker/exchangeRate/exchangeRates.html'
         })
-        .state('banker.exchangeRates.addExchangeRate', {
-        	url : '/addExchangeRate',
-          	templateUrl : 'banker/exchangeRate/addExchangeRate.html'
-        })
         .state('banker.exchangeRates.exchangeRateDetails', {
-        	url : '/exchangeRateDetails',
           	templateUrl : 'banker/exchangeRate/detailsExchangeRate.html'
         })
         .state('banker.closeBill', {

@@ -1,42 +1,40 @@
-<div class = "col-sm-4">
+<div class="col-sm-4">
 
-<div  ng-init="findAllPopulatedPlaces()">
- <form>
-   <div class="form-group">
-     <div class="input-group">
-       <div class="input-group-addon"><i class="fa fa-search"></i></div>
-       <input type="text" class="form-control" placeholder="Filter populated place..." ng-model="searchPopulatedPlace">
-     </div>      
-   </div>
- </form>
-<table class="table table-bordered" border="1">
-		<tbody>
-			<tr>
-				<th>Name</th>
-				<th>PTT code</th>
-				<th>Country</th>
-				<th colspan="2">Action</th>
-			</tr>
-			<tr ng-repeat="populatedPlace in allPopulatedPlaces | filter:searchPopulatedPlace">
-				<td>{{populatedPlace.name}}</td>
-				<td>{{populatedPlace.pttCode}}</td>
-				<td>{{populatedPlace.country.name}}</td>
-				<td colspan="2">
-					<button class = "btn" ui-sref =".updatePopulatedPlace" ng-click = prepareToUpdatePopulatedPlace(populatedPlace.id)><span class = "glyphicon glyphicon-pencil"></span></button>
-					<button class = "btn" ng-click = deletePopulatedPlace(populatedPlace.id)><span class = "glyphicon glyphicon-remove"></span></button>
-				</td>
+	<div ng-init="findAllPopulatedPlaces()">
+		<form>
+			<div class="form-group">
+				<div class="input-group">
+					<div class="input-group-addon">
+						<i class="fa fa-search"></i>
+					</div>
+					<input type="text" class="form-control"
+						placeholder="Filter populated place..."
+						ng-model="searchPopulatedPlace">
+				</div>
+			</div>
+		</form>
+		<table class="table table-bordered" border="1">
+			<tbody>
+				<tr>
+					<th>Name</th>
+					<th>PTT code</th>
+					<th>Country</th>
 				</tr>
-		</tbody>
-	</table>
+				<tr
+					ng-repeat="populatedPlace in allPopulatedPlaces | filter:searchPopulatedPlace">
+					<td>{{populatedPlace.name}}</td>
+					<td>{{populatedPlace.pttCode}}</td>
+					<td>{{populatedPlace.country.name}}</td>
+				</tr>
+			</tbody>
+		</table>
 
-<button class = "btn btn-default" ui-sref =".addPopulatedPlace()" ><span class = "glyphicon glyphicon-plus"></span>  Add</button> 
-<button class = "btn btn-default" ui-sref =".searchPopulatedPlace" ><span class = "glyphicon glyphicon-search"></span>  Search</button> 
-
-
-
-</div>
-</br>
-<div ui-view ></div>
+		<button class="btn btn-default" ui-sref=".searchPopulatedPlace">
+			<span class="glyphicon glyphicon-search"></span> Search
+		</button>
+	</div>
+	</br>
+	<div ui-view></div>
 </div>
 
 

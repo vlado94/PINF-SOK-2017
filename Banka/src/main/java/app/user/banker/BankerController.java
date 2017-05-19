@@ -118,54 +118,11 @@ public class BankerController {
 		return codeBookActivitiesService.findAll(); 
 	}
 	
-	@GetMapping(path = "/findActivityById/{id}")
-	@ResponseStatus(HttpStatus.OK)
-	public CodeBookActivities findActivityById(@PathVariable Long id) {
-		return codeBookActivitiesService.findOne(id);
-	}
-	
-	
 	@GetMapping(path = "/findActivityByName/{name}")
 	@ResponseStatus(HttpStatus.OK)
 	public CodeBookActivities findActivityByName(@PathVariable String name) {
-		return codeBookActivitiesService.findByName(name);
-		
-	}
-	
-	
-	@PostMapping(path = "/saveCodeBookActivity")
-	@ResponseStatus(HttpStatus.CREATED)
-	public CodeBookActivities saveCodeBookActivity(@RequestBody CodeBookActivities codeBookActivity) {
-		try {
-			return codeBookActivitiesService.save(codeBookActivity);
-		}
-		catch(Exception ex) {
-			throw new NotFoundException();
-		}
-
-	}
-	
-	@PutMapping(path = "/updateCodeBookActivity/{id}")
-	@ResponseStatus(HttpStatus.CREATED)
-	public CodeBookActivities updateCodeBookActivity(@PathVariable Long id,@RequestBody CodeBookActivities codeBookActivity) {
-		CodeBookActivities codeBookActivityForUpdate = codeBookActivitiesService.findOne(id);
-		if(codeBookActivityForUpdate != null) {
-			codeBookActivityForUpdate.setCode(codeBookActivity.getCode());
-			codeBookActivityForUpdate.setName(codeBookActivity.getName());
-			return codeBookActivitiesService.save(codeBookActivity);
-		}
-		else {
-			throw new NotFoundException();
-		}
-		
-	}
-	
-	
-	@DeleteMapping(path = "/deleteCodeBookActivity/{id}")
-	@ResponseStatus(HttpStatus.OK)
-	public void deleteCodeBookActivity(@PathVariable Long id) {
-		codeBookActivitiesService.delete(id);
-	}
+		return codeBookActivitiesService.findByName(name);	
+	}	
 	
 	@PostMapping(path = "/searchCodeBookActivity")
 	@ResponseStatus(HttpStatus.CREATED)

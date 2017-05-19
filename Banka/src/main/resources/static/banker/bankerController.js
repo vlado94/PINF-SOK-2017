@@ -16,9 +16,6 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 				}
 			);
 		}
-		
-		
-
 		checkRights();
 
 		$scope.updateProfile = function () {
@@ -41,82 +38,17 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 			);
 		}
 		
-		$scope.saveCodeBookActivity= function () { 
-			bankerService.saveCodeBookActivity($scope.codeBookActivity).then(
-				function(response){
-					$scope.allcodeBookActivities.push({ 'id':response.data.id ,'code':response.data.code, 'name': response.data.name});
-				}, function (response){
-					alert("Greska");
-				}
-			);
-		}
-		
-		$scope.prepareToUpdateCodeBookActivity= function (codeBookActivityId) {
-			bankerService.findActivityById(codeBookActivityId).then(
-					function(response){
-						$scope.codeBookActivityForUpdate = response.data;
-					}, 
-					function (response){
-						alert("Greska");
-					}
-				);
-		}
-		
-		$scope.updateCodeBookActivityy = function() {
-			bankerService.updateCodeBookActivity($scope.codeBookActivityForUpdate).then(
-				function(response){
-					 var index = -1;
-			          var listOfActivities = eval( $scope.allcodeBookActivities );
-			          for( var i = 0; i < listOfActivities.length; i++ ) {
-			                if( listOfActivities[i].id === response.data.id ) {
-			                    index = i;
-			                    break;
-			                 }
-			          }
-			          if( index === -1 ) {
-			               alert( "Something gone wrong" );
-			          }
-			          $scope.allcodeBookActivities[index] = response.data;
-				}, 
-				function (response){
-					alert("Greska");
-				}
-			);
-		};
-		
-		$scope.deleteCodeBookActivity = function(id) {
-			bankerService.deleteCodeBookActivity(id).then(
-				function(){
-					var index = -1;
-			          var listOfActivities = eval( $scope.allcodeBookActivities );
-			          for( var i = 0; i < listOfActivities.length; i++ ) {
-			                if( listOfActivities[i].id === id ) {
-			                    index = i;
-			                    break;
-			                 }
-			          }
-			          if( index === -1 ) {
-			               alert( "Something gone wrong" );
-			          }
-			          $scope.allcodeBookActivities.splice( index, 1 );
-				}, 
-				function (response){
-					alert("Postoji pravno lice koje posjeduje datu djelatnost. Nije moguce trenutno izbrisati.");					}
-			);
-		
-		};
-		
 		$scope.searchForCodeBookActivity = function(){
 			var codeBookActivity = $scope.codeBookActivity;
 			bankerService.searchCodeBookActivity(codeBookActivity).then(
-					function(response){
-						alert(response.data)
-					    $scope.allcodeBookActivities = response.data;
-					}, 
-					function (response){
-						alert("Greska");
-					}
-				);
+				function(response){
+					alert(response.data)
+				    $scope.allcodeBookActivities = response.data;
+				}, 
+				function (response){
+					alert("Greska");
+				}
+			);
 		}
 		
 		$scope.findAllCountries = function () {   
@@ -139,71 +71,15 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 			);
 		}	
 		
-		$scope.prepareToUpdateCountry= function (countryId) { 
-				bankerService.findCountryById(countryId).then(
-						function(response){
-							$scope.countryForUpdate = response.data;
-						}, 
-						function (response){
-							alert("Greska");
-						}
-					);
-		}
-		
-		$scope.updateCountryy = function() {
-			bankerService.updateCountry($scope.countryForUpdate).then(
+		$scope.searchForCountry = function(){
+			bankerService.searchCountry($scope.country).then(
 				function(response){
-					var index = -1;
-			          var listOfCountries = eval( $scope.allCountries );
-			          for( var i = 0; i < listOfCountries.length; i++ ) {
-			                if( listOfCountries[i].id === response.data.id ) {
-			                    index = i;
-			                    break;
-			                 }
-			          }
-			          if( index === -1 ) {
-			               alert( "Something gone wrong" );
-			          }
-			          $scope.allCountries[index] = response.data;
+				    $scope.allCountries = response.data;
 				}, 
 				function (response){
-					alert("Greska");					
+					alert("Greska");
 				}
 			);
-		
-		};
-		
-		$scope.deleteCountry = function(id) {
-			bankerService.deleteCountry(id).then(
-				function(){
-					   var index = -1;
-				          var listOfCountries = eval( $scope.allCountries );
-				          for( var i = 0; i < listOfCountries.length; i++ ) {
-				                if( listOfCountries[i].id === id ) {
-				                    index = i;
-				                    break;
-				                 }
-				          }
-				          if( index === -1 ) {
-				               alert( "Something gone wrong" );
-				          }
-				          $scope.allCountries.splice( index, 1 );
-				}, 
-				function (response){
-					alert("Postoji naseljeno mesto koje je vezano za tu drzavu. Nije moguce trenutno izbrisati.");					}
-			);
-		};
-		
-		$scope.searchForCountry = function(){
-			var country = $scope.country;
-			bankerService.searchCountry(country).then(
-					function(response){
-					    $scope.allCountries = response.data;
-					}, 
-					function (response){
-						alert("Greska");
-					}
-				);
 		}
 		
 		$scope.findAllIndividualBills = function () {   
@@ -486,173 +362,8 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 					alert("Greska");
 				}
 			);
-		}
-		
-		$scope.setSelected = function(code) {
-	        $scope.selected = code;
-	        markRow(code);
-	        
-	        bankerService.findCountryById($scope.selected).then(
-				function(response){
-					$scope.selectedName = response.data.name;
-				}, function (response){
-					alert("Morate odabrati drzavu!");
-				}
-			);
-	    };	
+		}	    	    
 	    
-	    
-	    function markRow(code) {   
-	    	 var rows = document.getElementsByTagName('tr');
-		        for(var i=0; i<rows.length; i +=1) {
-		          rows[i].className = "";
-		        }
-		     element = document.getElementById(code);
-		     element.setAttribute("class", "selectedRow");
-		}
-	    
-
-		$scope.saveCountryForPopulatedPlace= function () {   
-			$scope.previousSelected = $scope.selected;
-			
-			
-			 bankerService.findCountryById($scope.selected).then(
-					function(response){
-						$scope.selectedName = response.data.name;
-					}, function (response){
-						alert("Morate odabrati drzavu!");
-					}
-			 );
-			
-		
-		}
-		
-		$scope.annulCountryForPopulatedPlace= function () {   
-			$scope.selected = $scope.previousSelected;
-			
-			bankerService.findCountryById($scope.previousSelected).then(
-				function(response){
-					$scope.selectedName = response.data.name;
-				}, function (response){
-					$scope.selectedName =$scope.previousSelected; 
-				}
-			);
-		}
-		
-		$scope.savePopulatedPlace= function () {
-			bankerService.findCountryById($scope.selected).then(
-				function(response){
-					var country = response.data;
-					var place  = $scope.populatedPlace;
-					place.country = country;
-					bankerService.savePopulatedPlace(place).then(
-						function(response){
-							$scope.allPopulatedPlaces.push({ 'id':response.data.id ,'name':response.data.name, 'pttCode': response.data.pttCode, 'country':response.data.country});
-						}, function (response){
-							alert("Greska pri cuvanju naseljenog mjesta");
-						}
-					);
-				}, function (response){
-					alert("Morate odabrati drzavu!");
-				}
-			);
-		}
-		
-		
-		$scope.deletePopulatedPlace = function(id) {
-			bankerService.deletePopulatedPlace(id).then(
-				function(){
-					 var index = -1;
-			          var listOfPlaces = eval( $scope.allPopulatedPlaces );
-			          for( var i = 0; i < listOfPlaces.length; i++ ) {
-			                if( listOfPlaces[i].id === id ) {
-			                    index = i;
-			                    break;
-			                 }
-			          }
-			          if( index === -1 ) {
-			               alert( "Something gone wrong" );
-			          }
-			          $scope.allPopulatedPlaces.splice( index, 1 );
-				}, 
-				function (response){
-					alert("Postoji pravno lice koje posjeduje datu djelatnost. Nije moguce trenutno izbrisati.");					}
-			);
-		};
-		
-		$scope.prepareToUpdatePopulatedPlace= function (populatedPlaceId) { 
-		
-			bankerService.findPopulatedPlaceById(populatedPlaceId).then(
-					function(response){
-						$scope.populatedPlaceForUpdate = response.data;
-						$scope.selectedNameWhenChanged = response.data.country.name;
-					}, 
-					function (response){
-						alert("Greska");
-					}
-				);
-		}
-		
-		$scope.updatePopulatedPlacee = function() {
-			bankerService.findCountryByName($scope.selectedNameWhenChanged).then(
-				function(response){
-					var country = response.data;
-					var place  = $scope.populatedPlaceForUpdate;
-					place.country = country;
-					bankerService.updatePopulatedPlace(place).then(
-						function(response){
-							 var index = -1;
-					          var listOfPlaces = eval( $scope.allPopulatedPlaces );
-					          for( var i = 0; i < listOfPlaces.length; i++ ) {
-					                if( listOfPlaces[i].id === response.data.id ) {
-					                    index = i;
-					                    break;
-					                 }
-					          }
-					          if( index === -1 ) {
-					               alert( "Something gone wrong" );
-					          }
-					          $scope.allPopulatedPlaces[index] = response.data;
-						}, function (response){
-								alert("Morate odabrati drzavu!");
-						}
-					);
-				}, function (response){
-					alert("Morate odabrati drzavu!");
-				}
-			);
-		};
-		
-		$scope.setSelectedWhenChanged = function(code) {
-	        $scope.selectedForUpdate = code;
-	        markRow(code);
-	       
-	    };
-	    
-	    
-		$scope.saveChangedCountryForPopulatedPlace= function () {   
-			$scope.previousSelectedForUpdate = $scope.selectedForUpdate;
-			
-			 bankerService.findCountryById($scope.selectedForUpdate).then(
-				function(response){
-					$scope.selectedNameWhenChanged = response.data.name;
-				}, function (response){
-					alert("Morate odabrati drzavu!");
-				}
-			 );
-		}
-		
-		$scope.annulChangedCountryForPopulatedPlace= function () {   
-			$scope.selectedForUpdate = $scope.previousSelectedForUpdate;
-			
-			bankerService.findCountryById($scope.previousSelectedForUpdate).then(
-				function(response){
-					$scope.selectedNameWhenChanged = response.data.name;
-				}, function (response){
-					alert("Morate odabrati drzavu!");
-				}
-			);
-		}
 		$scope.searchForPopulatedPlace = function(){
 			var populatedPlace = $scope.populatedPlace;
 			bankerService.searchPopulatedPlace(populatedPlace).then(
@@ -675,45 +386,6 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 						alert("Greska");
 					}
 				);
-		}
-		
-		$scope.getCurrentExchangeRate = function () {
-			$scope.newCurrentExchange = $scope.currentExchangeRate;
-		}
-		
-		$scope.addExchangeRatee = function() {
-			exchangeInCurrencies = $scope.newCurrentExchange.exchangeInCurrencies;
-			exchangeInCurrencies2 = [];
-			for(var i =0;i<exchangeInCurrencies.length;i++) {
-				object = exchangeInCurrencies[i];
-				exPurchase = "exPurchase"+object.currency.code;
-				exMid = "exMid"+object.currency.code;
-				exSale = "exSale"+object.currency.code;
-				purchase = document.getElementById(exPurchase).value;
-				mid = document.getElementById(exMid).value;
-				sale = document.getElementById(exSale).value;
-				var exchangeInCurrency = {}
-				exchangeInCurrency.serialNumber = 999;
-				exchangeInCurrency.purchasingRate = purchase;
-				exchangeInCurrency.middleRate = mid;
-				exchangeInCurrency.saleRate = sale;
-				exchangeInCurrency.currency = object.currency;
-				exchangeInCurrencies2.push(exchangeInCurrency);
-			}
-			
-			$scope.exchangeRate.exchangeInCurrencies = exchangeInCurrencies2;
-			$scope.exchangeRate.date = new Date();
-			bankerService.exchangeRateNew($scope.exchangeRate).then(
-					function(response){
-						alert("Successfull added.");
-						$state.go("banker.home", {});
-						$scope.currentExchangeRate = response.data;
-					}, 
-					function (response){
-						alert("Greska");
-					}
-				);
-		
 		}
 		
 		$scope.exchangeRateDetails = function(exchangeRateId) {
@@ -891,6 +563,15 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 				}, function (response){
 					alert("Error!")
 				});						
+		}
+		
+		function markRow(code) {   
+	    	 var rows = document.getElementsByTagName('tr');
+		        for(var i=0; i<rows.length; i +=1) {
+		          rows[i].className = "";
+		        }
+		     element = document.getElementById(code);
+		     element.setAttribute("class", "selectedRow");
 		}
 	}
 ]);
