@@ -7,6 +7,9 @@
 	background-size: cover;
 }
 
+.dropdown-toggle {
+	cursor: pointer;
+}
 
 .selectedRow{
     background: #ffff6f;

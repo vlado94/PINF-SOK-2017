@@ -11,112 +11,79 @@ services.service('bankerService', ['$http', function($http){
 	this.updateProfile = function(banker){
 		return $http.put(url+"updateProfile/"+banker.id,banker);
 	}
-	
+
+//CODE BOOK ACTIVITIES
 	this.findAllCodeBookActivities = function(){
-		return $http.get(url+"findAllCodeBookActivities");
-	}
-	this.findActivityById = function(activityId){
-		return $http.get(url+"findActivityById/"+activityId);
-	}
-	this.findActivityByName = function(activityName){
-		return $http.get(url+"findActivityByName/"+activityName);
+		return $http.get("/codeBookActivities");
 	}
 	
-	this.saveCodeBookActivity = function(codeBookActivity){
-		return $http.post(url+"saveCodeBookActivity",codeBookActivity);
+	this.findActivityById = function(id){
+		return $http.get("/codeBookActivities/"+id);
 	}
 	
-	this.updateCodeBookActivity = function(codeBookActivity){
-		return $http.put(url+"updateCodeBookActivity/"+codeBookActivity.id,codeBookActivity);
+	this.findActivityByName = function(activityName){	
+		return $http.get("/codeBookActivities/findByName/"+activityName);
 	}
-	this.deleteCodeBookActivity = function(id){
-		return $http.delete(url+"deleteCodeBookActivity/"+id);
-	}
+	
 	this.searchCodeBookActivity = function(codeBookActivity){
-		return $http.post(url+"searchCodeBookActivity",codeBookActivity);
+		return $http.get("/codeBookActivities/search",codeBookActivity);
 	}
+
+
+//COUNTRIES
 	this.findAllCountries = function(){
-		return $http.get(url+"findAllCountries");
-	}
-	this.findCountryById = function(countryId){
-		return $http.get(url+"findCountryById/"+countryId);
-	}
-	this.findCountryByName = function(countryName){
-		return $http.get(url+"findCountryByName/"+countryName);
-	}
-	this.updateCountry = function(country){
-		return $http.put(url+"updateCountry/"+country.id,country);
-	}
-	this.saveCountry = function(country){
-		return $http.post(url+"saveCountry",country);
-	}
-	this.deleteCountry = function(id){
-		return $http.delete(url+"deleteCountry/"+id);
+		return $http.get("/country");
 	}
 	this.searchCountry = function(country){
-		return $http.post(url+"searchCountry",country);
+		return $http.get("/country/search",country);
 	}
+
+//EXCHANGE RATE
 	this.exchangeRateDetails = function(id){
-		return $http.get(url+"exchangeRateDetails/"+id);
+		return $http.get("/exchangeRate/"+id);
 	}
-	this.exchangeRateNew = function(exchangeRate){
-		return $http.post(url+"exchangeRateNew",exchangeRate);
-	}
-	
 	this.findAllExchangeRate = function(){
-		return $http.get(url+"findAllExchangeRate");
+		return $http.get("/exchangeRate");
+	}
+
+//POPULATED PLACES
+	this.findAllPopulatedPlaces = function(){
+		return $http.get("/populatedPlaces");
 	}
 	
+	this.searchPopulatedPlace = function(populatedPlace){
+		return $http.get("/populatedPlaces/search",populatedPlace);
+	}
+	
+//INDIVIDUAL BILLS
 	this.findAllIndividualBills = function(){
-		return $http.get(url+"findAllIndividualBills");
-	}
-	this.saveIndividualBill = function(individualPerson){
-		return $http.post(url+"saveIndividualBill",individualPerson);
+		return $http.get("/bill/findAllIndividualBills");
 	}
 	
-	this.saveIndividualBill = function(individualPerson){
-		return $http.post(url+"saveIndividualBill",individualPerson);
+	this.findAllLegalBills = function(){
+		return $http.get("/bill/findAllLegalBills");
 	}
 	
 	this.updateIndividualClient = function(individualClient){
-		return $http.put(url+"updateIndividualClient/"+individualClient.id,individualClient);
+		return $http.put("/client/updateIndividualClient/"+individualClient.id,individualClient);
 	}
 	
 	this.findClientById = function(clientId){
-		return $http.get(url+"findClientById/"+clientId);
+		return $http.get("/client/"+clientId);
 	}
 	
 	this.updateLegalClient = function(legalClient){
-		return $http.put(url+"updateLegalClient/"+legalClient.id, legalClient);
+		return $http.put("/client/updateLegalClient/"+legalClient.id, legalClient);
 	}
+	
 	this.saveLegalBill = function(legalPerson){
-		return $http.post(url+"saveLegalBill",legalPerson);
+		return $http.post("/client/saveLegalBill",legalPerson);
 	}
-	this.findAllPopulatedPlaces = function(){
-		return $http.get(url+"findAllPopulatedPlaces");
-	}
-	
-	this.findPopulatedPlaceById = function(populatedPlaceId){
-		return $http.get(url+"findPopulatedPlaceById/"+populatedPlaceId);
-	}
-	
-	this.savePopulatedPlace = function(populatedPlace){
-		return $http.post(url+"savePopulatedPlace",populatedPlace);
-	}
-	this.deletePopulatedPlace = function(id){
-		return $http.delete(url+"deletePopulatedPlace/"+id);
-	}
-	this.updatePopulatedPlace = function(populatedPlace){
-		return $http.put(url+"updatePopulatedPlace/"+populatedPlace.id,populatedPlace);
-	}
-	this.searchPopulatedPlace = function(populatedPlace){
-		return $http.post(url+"searchPopulatedPlace",populatedPlace);
-	}
+
+
+//BILLS	
 	this.saveBill = function(bill){
-		return $http.post(url+"saveBill",bill);
-	}
-	this.updateBank = function(bank){
-		return $http.put(url+"updateBank/"+bank.id,bank);
+		return $http.post("/bill/",bill);
 	}
 	this.closeBill = function(closingBill){
 		return $http.post(url+"closeBill",closingBill);

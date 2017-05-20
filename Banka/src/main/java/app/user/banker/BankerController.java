@@ -14,7 +14,6 @@ import javax.ws.rs.NotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,62 +28,41 @@ import app.bank.BankService;
 import app.bill.Bill;
 import app.bill.BillService;
 import app.client.Client;
-import app.client.Client.TypeOfClient;
 import app.client.ClientService;
+import app.client.Client.TypeOfClient;
 import app.closingBill.ClosingBill;
 import app.closingBill.ClosingBillService;
-import app.codeBookActivities.CodeBookActivities;
-import app.codeBookActivities.CodeBookActivitiesService;
-import app.country.Country;
-import app.country.CountryService;
 import app.dailyBalance.DailyBalance;
 import app.dailyBalance.DailyBalanceService;
 import app.depositSlip.DepositSlip;
 import app.depositSlip.DepositSlip.Type;
 import app.depositSlip.DepositSlipService;
-import app.exchangeInCurrency.ExchangeInCurrency;
-import app.exchangeInCurrency.ExchangeInCurrencyService;
-import app.exchangeRate.ExchangeRate;
-import app.exchangeRate.ExchangeRateService;
-import app.populatedPlace.PopulatedPlace;
-import app.populatedPlace.PopulatedPlaceService;
 
 @RestController
 @RequestMapping("/banker")
 public class BankerController {
 	
 	private final BankerService bankerService;
-	private final CodeBookActivitiesService codeBookActivitiesService;
-	private final CountryService countryService;
-	private final ClientService clientService;
-	private final PopulatedPlaceService populatedPlaceService;
 	private final BillService billService;
 	private final BankService bankService;
 	private HttpSession httpSession;
 	private final ClosingBillService closingBillService;
 	private final DailyBalanceService dailyBalanceService;
 	private final DepositSlipService depositSlipService;
-	private final ExchangeRateService exchangeRateService;
-	private final ExchangeInCurrencyService exchangeInCurrencyService;
+	private final ClientService clientService;
 	
 	@Autowired
-	public BankerController(final HttpSession httpSession,final BankerService bankerService, final CodeBookActivitiesService codeBookActivitiesService, 
-							final CountryService countryService, final ClientService clientService, final PopulatedPlaceService populatedPlaceService,
+	public BankerController(final HttpSession httpSession,final BankerService bankerService, 
 							final BillService billService, final BankService bankService,final ClosingBillService closingBillService,
-							final DailyBalanceService dailyBalanceService,final DepositSlipService depositSlipService,final ExchangeRateService exchangeRateService,final ExchangeInCurrencyService exchangeInCurrencyService) {
+							final DailyBalanceService dailyBalanceService,final DepositSlipService depositSlipService,final ClientService clientService) {
 		this.bankerService = bankerService;
-		this.codeBookActivitiesService = codeBookActivitiesService;
-		this.countryService = countryService;
-		this.clientService = clientService;
-		this.populatedPlaceService = populatedPlaceService;
 		this.billService = billService;
 		this.bankService = bankService;
 		this.httpSession = httpSession;
 		this.closingBillService = closingBillService;
 		this.dailyBalanceService = dailyBalanceService;
 		this.depositSlipService = depositSlipService;
-		this.exchangeRateService = exchangeRateService;
-		this.exchangeInCurrencyService = exchangeInCurrencyService;
+		this.clientService = clientService;
 	}
 	
 	@GetMapping("/checkRights")
@@ -110,235 +88,7 @@ public class BankerController {
 		else {
 			throw new NotFoundException();
 		}
-	}
-	
-	@GetMapping("/findAllCodeBookActivities")
-	@ResponseStatus(HttpStatus.OK)
-	public List<CodeBookActivities> findAllCodeBookActivities() {
-		return codeBookActivitiesService.findAll(); 
-	}
-	
-	@GetMapping(path = "/findActivityByName/{name}")
-	@ResponseStatus(HttpStatus.OK)
-	public CodeBookActivities findActivityByName(@PathVariable String name) {
-		return codeBookActivitiesService.findByName(name);	
 	}	
-	
-	@PostMapping(path = "/searchCodeBookActivity")
-	@ResponseStatus(HttpStatus.CREATED)
-	public List<CodeBookActivities> searchCodeBookActivity(@RequestBody CodeBookActivities codeBookActivity) {
-		return codeBookActivitiesService.findByCodeLikeOrNameLike(codeBookActivity.getCode(), codeBookActivity.getName());
-	}
-	
-	@GetMapping("/findAllCountries")
-	@ResponseStatus(HttpStatus.OK)
-	public List<Country> findAllCountries() {
-		return countryService.findAll(); 
-	}
-	
-	
-	@GetMapping(path = "/findCountryById/{id}")
-	@ResponseStatus(HttpStatus.OK)
-	public Country findCountryById(@PathVariable Long id) {
-		return countryService.findOne(id);
-	}
-	
-	@GetMapping(path = "/findCountryByName/{name}")
-	@ResponseStatus(HttpStatus.OK)
-	public Country findCountryByName(@PathVariable String name) {
-		return countryService.findByName(name);
-		
-	}
-	
-	@PostMapping(path = "/saveCountry")
-	@ResponseStatus(HttpStatus.CREATED)
-	public Country saveCountry(@RequestBody Country country) {
-		return countryService.save(country);
-	}
-	
-	@PutMapping(path = "/updateCountry/{id}")
-	@ResponseStatus(HttpStatus.CREATED)
-	public Country updateCountry(@PathVariable Long id,@RequestBody Country country) {
-		Country countryForUpdate = countryService.findOne(id);
-		countryForUpdate.setCode(country.getCode());
-		countryForUpdate.setName(country.getName());
-		return countryService.save(countryForUpdate);
-	}
-	
-	@DeleteMapping(path = "/deleteCountry/{id}")
-	@ResponseStatus(HttpStatus.OK)
-	public void deleteCountry(@PathVariable Long id) {
-		countryService.delete(id);
-	}
-	
-	@PostMapping(path = "/searchCountry")
-	@ResponseStatus(HttpStatus.CREATED)
-	public List<Country> searchCountry(@RequestBody Country country) {
-		//System.out.println(country.getCode()+" "+country.getName());
-		List<Country> countries =countryService.findByCodeLikeOrNameLike(country.getCode(), country.getName());
-		return countries;
-	}
-	
-	@GetMapping(path = "/exchangeRateDetails/{id}")
-	@ResponseStatus(HttpStatus.OK)
-	public ExchangeRate exchangeRateDetails(@PathVariable Long id) {
-		return exchangeRateService.findOne(id);
-	}
-	
-	@PostMapping(path = "/exchangeRateNew")
-	@ResponseStatus(HttpStatus.OK)
-	public ExchangeRate exchangeRateNew(@RequestBody ExchangeRate exchangeRate) {
-		exchangeRate.setNumberOfExchangeRate(111);
-		for(int i=0;i<exchangeRate.getExchangeInCurrencies().size();i++) {
-			ExchangeInCurrency exchangeInCurrency = exchangeInCurrencyService.save(exchangeRate.getExchangeInCurrencies().get(i));
-			exchangeRate.getExchangeInCurrencies().set(i, exchangeInCurrency);
-		}
-		exchangeRate = exchangeRateService.save(exchangeRate);
-		Bank bank = bankService.findOne(((Banker)httpSession.getAttribute("user")).getBank().getId());
-		bank.getExchangeRates().add(exchangeRate);
-		bankService.save(bank);
-		return exchangeRate;
-	}
-	
-	@GetMapping("/findAllExchangeRate")
-	@ResponseStatus(HttpStatus.OK)
-	public List<ExchangeRate> findAllExchangeRate() {
-		return exchangeRateService.findAll(); 
-	}
-	
-	@GetMapping("/findAllIndividualBills")
-	@ResponseStatus(HttpStatus.OK)
-	public List<Client> findAllIndividualBills() {
-		return clientService.findAllIndividualBills(); 
-	}
-	
-	@PostMapping(path = "/saveIndividualBill")
-	@ResponseStatus(HttpStatus.CREATED)
-	public Client saveIndividualBill(@Valid @RequestBody Client client) {
-		client.setType(TypeOfClient.FIZICKO);
-		return clientService.save(client);
-	}
-	
-	
-	@GetMapping(path = "/findClientById/{id}")
-	@ResponseStatus(HttpStatus.OK)
-	public Client findClientById(@PathVariable Long id) {
-		return clientService.findOne(id);
-	}
-	
-	@PutMapping(path = "/updateIndividualClient/{id}")
-	@ResponseStatus(HttpStatus.CREATED)
-	public void updateIndividualClient(@PathVariable Long id,@RequestBody Client client) {
-		Client clientForUpdate = clientService.findOne(id);
-		if(clientForUpdate != null) {
-			clientForUpdate.update(client);
-			clientService.save(clientForUpdate);
-		}
-		else {
-			throw new NotFoundException();
-		}
-	}
-	
-	
-	@PutMapping(path = "/updateLegalClient/{id}")
-	@ResponseStatus(HttpStatus.CREATED)
-	public void updateLegalClient(@PathVariable Long id,@RequestBody Client client) {
-		Client clientForUpdate = clientService.findOne(id);
-		if(clientForUpdate != null) {
-			clientForUpdate.update(client);
-			clientService.save(clientForUpdate);
-		}
-		else {
-			throw new NotFoundException();
-		}
-	}
-	
-	@GetMapping("/findAllLegalBills")
-	@ResponseStatus(HttpStatus.OK)
-	public List<Client> findAllLegalBills() {
-		return clientService.findAllLegalBills(); 
-	}
-	
-	@PostMapping(path = "/saveLegalBill")
-	@ResponseStatus(HttpStatus.CREATED)
-	public Client saveLegalBill(@Valid @RequestBody Client client) {
-		client.setType(TypeOfClient.PRAVNO);
-		return clientService.save(client);
-	}
-	
-	@GetMapping("/findAllPopulatedPlaces")
-	@ResponseStatus(HttpStatus.OK)
-	public List<PopulatedPlace> findAllPopulatedPlaces() {
-		return populatedPlaceService.findAll(); 
-	}
-	
-	
-	@GetMapping(path = "/findPopulatedPlaceById/{id}")
-	@ResponseStatus(HttpStatus.OK)
-	public PopulatedPlace findPopulatedPlaceById(@PathVariable Long id) {
-		return populatedPlaceService.findOne(id);
-	}
-	
-	@PostMapping(path = "/savePopulatedPlace")
-	@ResponseStatus(HttpStatus.CREATED)
-	public PopulatedPlace savePopulatedPlace(@Valid @RequestBody PopulatedPlace populatedPlace) {
-		return populatedPlaceService.save(populatedPlace);
-	}
-	
-	@DeleteMapping(path = "/deletePopulatedPlace/{id}")
-	@ResponseStatus(HttpStatus.OK)
-	public void deletePopulatedPlace(@PathVariable Long id) {
-		populatedPlaceService.delete(id);
-	}
-	
-	@PutMapping(path = "/updatePopulatedPlace/{id}")
-	@ResponseStatus(HttpStatus.CREATED)
-	public PopulatedPlace updatePopulatedPlace(@PathVariable Long id,@RequestBody PopulatedPlace populatedPlace) {
-		PopulatedPlace populatedPlaceForUpdate = populatedPlaceService.findOne(id);
-		if(populatedPlaceForUpdate != null) {
-			populatedPlaceForUpdate.setName(populatedPlace.getName());
-			populatedPlaceForUpdate.setPttCode(populatedPlace.getPttCode());
-			populatedPlaceForUpdate.setCountry(populatedPlace.getCountry());
-			return populatedPlaceService.save(populatedPlaceForUpdate);
-		}
-		else {
-			throw new NotFoundException();
-		}
-	}
-	@PostMapping(path = "/searchPopulatedPlace")
-	@ResponseStatus(HttpStatus.CREATED)
-	public List<PopulatedPlace> searchPopulatedPlace(@RequestBody PopulatedPlace populatedPlace) {
-		return populatedPlaceService.findByNameLikeOrPttCodeLikeOrCountry_NameLike(populatedPlace.getName(), populatedPlace.getPttCode(), populatedPlace.getCountry());
-	}
-	
-	@PostMapping(path = "/saveBill")
-	@ResponseStatus(HttpStatus.CREATED)
-	public Bill saveBill(@Valid @RequestBody Bill bill) {
-		
-		//desa dodala da cim se kreira racun, doda u DailyBalance red saza taj racun, 
-		//sa vrijednostima za prethodno i tekuce stanje 0
-		/*DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		Date date = new Date();
-		System.out.println(dateFormat.format(date));
-		DailyBalance dailyBalance = new DailyBalance();
-		dailyBalance.setDate(date);
-		dailyBalance.setPreviousState(0);
-		dailyBalance.setNewState(0);
-		dailyBalance.setTrafficAtExpense(0);
-		dailyBalance.setTrafficToBenefit(0);	
-		dailyBalanceService.save(dailyBalance);*/
-		
-		bill.setStatus(true);//postavi da je racun otvoren
-		return billService.save(bill);
-	}
-	
-	@PutMapping(path = "/updateBank/{id}")
-	@ResponseStatus(HttpStatus.CREATED)
-	public void updateBank(@PathVariable Long id,@RequestBody Bank bank) {
-		Bank bankForUpdate = bankService.findOne(id);
-		bankForUpdate.setBills(bank.getBills());
-		bankService.save(bankForUpdate);
-	}
 	
 	@PostMapping(path = "/closeBill")
 	@ResponseStatus(HttpStatus.CREATED)
@@ -379,7 +129,6 @@ public class BankerController {
 		}else{
 			return null;
 		}
-
 	}
 	
 	

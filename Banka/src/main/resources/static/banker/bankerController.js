@@ -83,48 +83,38 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 		}
 		
 		$scope.findAllIndividualBills = function () {   
-			var banker = $scope.banker;
-			var listOfBills = banker.bank.bills;
-			var list = [];
-			
-			 for(var i=0; i<listOfBills.length; i +=1) {
-				 if(listOfBills[i].client.type == "FIZICKO"){
-					 list.push(listOfBills[i]);
-				 }
-		     }
-			$scope.allIndividualBills = list;
-			
-			
+			bankerService.findAllIndividualBills().then(
+				function(response){
+					$scope.allIndividualBills = response.data;
+				}, function (response){
+					alert("Greska!");
+				}
+			);	
 		}
 		
-		$scope.getDetailsAboutLegal= function (clientID) { 
+		$scope.findAllLegalBills= function () {   
+			bankerService.findAllLegalBills().then(
+				function(response){
+					$scope.allLegalBills = response.data;
+				}, function (response){
+					alert("Greska!");
+				}
+			);
+		}
+		
+		$scope.findClientById= function (clientID) { 
 			bankerService.findClientById(clientID).then(
-					function(response){
-						$scope.client = response.data;
-						initDetailsAboutLegal($scope.client);
-					}, function (response){
-						alert("Greska!");
-					}
-				);
-			
+				function(response){
+					$scope.client = response.data;
+					initDetailsAboutLegal($scope.client);
+				}, function (response){
+					alert("Greska!");
+				}
+			);
 		}
 		
-		
-		
-		$scope.getDetailsAboutIndividual= function (clientID) { 
-			bankerService.findClientById(clientID).then(
-					function(response){
-						$scope.client = response.data;
-						initDetailsAboutIndividual($scope.client);
-					}, function (response){
-						alert("Greska!");
-					}
-				);
-			
-		}
-		
+		//kasnije se menja sa check box
 		function initDetailsAboutIndividual(client) {
-			
 			if(client.deliveryByMail == true){
 				document.getElementById("deliveryTrue").checked= true;
 			}else{
@@ -132,7 +122,7 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 			}
 		}
 		
-		
+		//kasnije se menja sa check box
 		function initDetailsAboutLegal(client) {
 			if(client.deliveryByMail == true){
 				document.getElementById("deliveryTrue").checked= true;
@@ -142,6 +132,7 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 			$scope.selectedNameOfActivity = client.codeBookActivities.name;
 		}
 		
+		//kasnije se menja sa check box
 		$scope.chooseDelivery= function (chosen) {
 			if(chosen == true){
 				document.getElementById("deliveryFalse").checked= false;
@@ -155,38 +146,39 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 		}
 		
 		$scope.saveIndividualBill= function () {
-			bankerService.saveIndividualBill($scope.individualPerson).then(
-				function(response){
-					var client = response.data;
-					var bill = {};
-					
-					var generatedAccountNumber = generateAccountNumber();
-					bill.accountNumber = generatedAccountNumber;
-					bill.status = true;
-					bill.date = new Date();
-					bill.client = client;
-					
-					bankerService.saveBill(bill).then(
-						function(response){ 
-							var banker = $scope.banker;
-							banker.bank.bills.push(response.data);
-							bankerService.updateBank(banker.bank).then(
-								function(){
-									$state.go("banker.individualBills", {});
-								}, function (response){
-									alert("Greska kod update banke!");
-								}
-							);
-						}, function (response){
-							alert("Ne moze se dodati racun!");
-						}
-					);
+			var bill = {};
+			bill.accountNumber = generateAccountNumber();
+			bill.status = true;
+			bill.date = new Date();
+			bill.client = $scope.individualPerson;
+			bill.client.type = "FIZICKO";
+			bankerService.saveBill(bill).then(
+				function(response){ 
+					$state.go("banker.individualBills", {});
+					$scope.allIndividualBills.push(response.data);
 				}, function (response){
-					alert("Greska");
+					alert("Greska kod update banke!");
 				}
-			);
+			);			
 		}	
 		
+		$scope.saveLegalBill= function () {
+			$scope.legalPerson.codeBookActivities = $scope.selectedActivityObject;
+			var bill = {};
+			bill.accountNumber = generateAccountNumber();
+			bill.status = true;
+			bill.date = new Date();
+			bill.client = $scope.legalPerson;
+			bill.client.type = "PRAVNO";
+			bankerService.saveBill(bill).then(
+				function(response){ 
+					$state.go("banker.legalBills", {});
+					$scope.allLegalBills.push(response.data);
+				}, function (response){
+					alert("Morate odabrati djelatnost!");
+				}
+			);
+		}
 		
 		function generateAccountNumber(){
 			var bankCode= $scope.banker.bank.code;
@@ -199,7 +191,6 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 			}
 			return concatNumber+controlNumber;
 		}
-		
 		
 		$scope.updateLegalClient = function() {
 			var deliveryByMail =$scope.delivery ; 
@@ -224,8 +215,6 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 				}
 			);
 		};
-		
-		
 		
 		$scope.updateIndividualClient = function() {
 			var deliveryByMail =$scope.delivery ; 
@@ -253,64 +242,7 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 						alert("Greska");
 					}
 				);*/
-		}
-		
-		$scope.findAllLegalBills= function () {   
-			var banker = $scope.banker;
-			var listOfBills = banker.bank.bills;
-			var list = [];
-			
-			 for(var i=0; i<listOfBills.length; i +=1) {
-				 if(listOfBills[i].client.type == "PRAVNO"){
-					 list.push(listOfBills[i]);
-				 }
-		     }
-			$scope.allLegalBills = list;
-		}
-		
-		
-		$scope.saveLegalBill= function () {
-			bankerService.findActivityById($scope.selectedActivity).then(
-				function(response){
-					var activity = response.data;
-					var person  = $scope.legalPerson;
-					person.codeBookActivities = activity;
-						
-					bankerService.saveLegalBill(person).then(
-						function(response){var client = response.data;
-							var bill = {};
-							
-							var generatedAccountNumber = generateAccountNumber();
-							bill.accountNumber = generatedAccountNumber;
-							bill.status = true;
-							bill.date = new Date();
-							bill.client = client;
-							
-							bankerService.saveBill(bill).then(
-								function(response){ 
-									var banker = $scope.banker;
-									banker.bank.bills.push(response.data);
-									bankerService.updateBank(banker.bank).then(
-										function(){
-											$state.go("banker.legalBills", {});
-										}, function (response){
-											alert("Greska kod update banke!");
-										}
-									);
-								}, function (response){
-									alert("Ne moze se dodati racun!");
-								}
-							);
-						}, function (response){
-							alert("Ne moze se sacuvati pravno lice");
-						}
-					);
-				}, function (response){
-					alert("Morate odabrati djelatnost!");
-				}
-			);
-		}	
-		
+		}				
 		
 		$scope.setSelectedActivity = function(code) {
 	        $scope.selectedActivity = code;
@@ -319,6 +251,7 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 	        bankerService.findActivityById($scope.selectedActivity).then(
 				function(response){
 					$scope.selectedNameOfActivity = response.data.name; 
+					$scope.selectedActivityObject = response.data;
 				}, function (response){
 					alert("Morate odabrati drzavu!");
 				}

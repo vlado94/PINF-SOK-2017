@@ -147,12 +147,14 @@ angular.module('routerApp', ['ui.router',
           	templateUrl : 'banker/bills/detailsAboutLegal.html'
         })
         .state('banker.addLegalBill', {
+        	url : '/addLegalBill',
           	templateUrl : 'banker/bills/addLegalBill.html'
         })
         .state('banker.individualBills.searchIndividualBill', {
           	templateUrl : 'banker/bills/searchIndividualBill.html'
         })
         .state('banker.addIndividualBill', {
+        	url : '/addIndividualBill',
           	templateUrl : 'banker/bills/addIndividualBill.html'
         })
          .state('banker.codeBookActivities', {

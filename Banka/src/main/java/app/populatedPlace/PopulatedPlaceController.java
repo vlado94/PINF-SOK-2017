@@ -65,7 +65,7 @@ public class PopulatedPlaceController {
 		}
 	}
 	
-	@PostMapping(path = "/search")
+	@GetMapping(path = "/search")
 	@ResponseStatus(HttpStatus.CREATED)
 	public List<PopulatedPlace> search(@RequestBody PopulatedPlace populatedPlace) {
 		return populatedPlaceService.findByNameLikeOrPttCodeLikeOrCountry_NameLike(populatedPlace.getName(), populatedPlace.getPttCode(),populatedPlace.getCountry());
