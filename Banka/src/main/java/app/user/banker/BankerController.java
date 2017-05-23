@@ -23,13 +23,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import app.bank.Bank;
-import app.bank.BankService;
 import app.bill.Bill;
 import app.bill.BillService;
-import app.client.Client;
-import app.client.ClientService;
-import app.client.Client.TypeOfClient;
 import app.closingBill.ClosingBill;
 import app.closingBill.ClosingBillService;
 import app.dailyBalance.DailyBalance;
@@ -44,25 +39,21 @@ public class BankerController {
 	
 	private final BankerService bankerService;
 	private final BillService billService;
-	private final BankService bankService;
 	private HttpSession httpSession;
 	private final ClosingBillService closingBillService;
 	private final DailyBalanceService dailyBalanceService;
 	private final DepositSlipService depositSlipService;
-	private final ClientService clientService;
 	
 	@Autowired
 	public BankerController(final HttpSession httpSession,final BankerService bankerService, 
-							final BillService billService, final BankService bankService,final ClosingBillService closingBillService,
-							final DailyBalanceService dailyBalanceService,final DepositSlipService depositSlipService,final ClientService clientService) {
+							final BillService billService, final ClosingBillService closingBillService,
+							final DailyBalanceService dailyBalanceService,final DepositSlipService depositSlipService) {
 		this.bankerService = bankerService;
 		this.billService = billService;
-		this.bankService = bankService;
 		this.httpSession = httpSession;
 		this.closingBillService = closingBillService;
 		this.dailyBalanceService = dailyBalanceService;
 		this.depositSlipService = depositSlipService;
-		this.clientService = clientService;
 	}
 	
 	@GetMapping("/checkRights")
@@ -95,28 +86,12 @@ public class BankerController {
 	public ClosingBill closeBill(@Valid @RequestBody ClosingBill closingBill) {
 		Bill billForClosing = closingBill.getBill();
 		String billSuccessor = closingBill.getBillSuccessor();
-		DepositSlip depositSlip = new DepositSlip();
-		depositSlip.setType(Type.TRANSFER);
-		depositSlip.setDeptor(billForClosing.getClient().getApplicant());
-		depositSlip.setPurposeOfPayment("zatvaranje racuna");
-		depositSlip.setReceiver("Pravni nasljednik");
-		depositSlip.setCurrencyDate(closingBill.getDate());
-		depositSlip.setCodeOfCurrency("rsd");
-		depositSlip.setBillOfReceiver(billSuccessor);
-		depositSlip.setModelApproval(2);
-		depositSlip.setReferenceNumberApproval("20");
-		depositSlip.setReferenceNumberAssignment("20");
-		depositSlip.setBillOfDeptor(billForClosing.getAccountNumber());
-		depositSlip.setModelAssignment(2);
-		depositSlip.setDepositSlipDate(closingBill.getDate());
-		depositSlip.setUrgently(false);
-		depositSlip.setDirection(false);
+		DepositSlip depositSlip = new DepositSlip(billForClosing,closingBill,billSuccessor);
 		//novac za prenos dobijam iz dnevnog stanja racuna kog zatvaraju 
 		List<DailyBalance> dbs = billForClosing.getDailyBalances();
 		if(!dbs.isEmpty()){
 			DailyBalance db = dbs.get(dbs.size()-1);
 			depositSlip.setAmount(db.getNewState());
-			System.out.println("ima dnevno stanje");
 		}
 		//poziva obradu izvoda
 		saveDepositSlip(depositSlip);
@@ -149,7 +124,7 @@ public class BankerController {
 			if(bankCode == bankCodeBillOfReciver && bankCode == bankCodeBillOfDeptor) {
 				Bill billForRecieveMoney = null;
 				if(depositSlip.getType() == Type.TRANSFER) {
-					billForRecieveMoney = defineFirstBill(depositSlip);
+					billForRecieveMoney = billService.findByAccountNumber(depositSlip.getBillOfReceiver());
 				}else if (depositSlip.getType() == Type.PAYOUT) {
 					
 				}else if (depositSlip.getType() == Type.PAYMENTIN) {
@@ -161,7 +136,7 @@ public class BankerController {
 					throw new BadRequestException();
 				if(billForRecieveMoney.getDailyBalances() == null) {
 					billForRecieveMoney.setDailyBalances(new ArrayList<DailyBalance>());
-					DailyBalance dailyB = createNewDailyBalance(depositSlip);
+					DailyBalance dailyB = dailyBalanceService.save(new DailyBalance());
 					dailyB.getDepositSlips().add(depositSlip);
 					dailyB.setPreviousState(dailyB.getNewState());
 					dailyB.setNewState(dailyB.getNewState() + depositSlip.getAmount());
@@ -171,7 +146,7 @@ public class BankerController {
 					billForRecieveMoney.getDailyBalances().add(dailyB);				
 				}
 				else if(billForRecieveMoney.getDailyBalances().size() == 0) {
- 					DailyBalance dailyB = createNewDailyBalance(depositSlip);
+ 					DailyBalance dailyB = dailyBalanceService.save(new DailyBalance());
 					dailyB.getDepositSlips().add(depositSlip);
 					dailyB.setPreviousState(dailyB.getNewState());
 					dailyB.setNewState(dailyB.getNewState() + depositSlip.getAmount());
@@ -204,37 +179,4 @@ public class BankerController {
 			throw new BadRequestException();
 		}
 	}
-	
-	private Bill defineFirstBill(DepositSlip depositSlip) {
-		Bill retVal = null;
-		String accountNumberForRecive = depositSlip.getBillOfReceiver();
-		retVal = billService.findByAccountNumber(accountNumberForRecive);
-		
-		return retVal;
-	}
-	
-	private DailyBalance createNewDailyBalance(DepositSlip depositSlip) {
-		DailyBalance dailyBalance = new DailyBalance();
-		dailyBalance.setDate(new Date());
-		dailyBalance.setDepositSlips(new ArrayList<DepositSlip>());
-		dailyBalance.setNewState(0);
-		dailyBalance.setPreviousState(0);
-		dailyBalance.setTrafficAtExpense(0);
-		dailyBalance.setTrafficToBenefit(0);
-		dailyBalance = dailyBalanceService.save(dailyBalance);
-		return dailyBalance;
-	}
-	
-	@GetMapping("/findBillsForAllBanks/{id}")
-	@ResponseStatus(HttpStatus.OK)
-	public List<Bill> findBillsForAllBanks(@PathVariable Long id) {
-		List<Bill> allBills = billService.findAllCurrentBillsExceptClosingOne(id);
-		if(allBills.isEmpty())
-			System.out.println(allBills.get(0));
-		else 
-			System.out.println("PRAZNOOO");
-		return allBills;
-	}
-	
-	
 }

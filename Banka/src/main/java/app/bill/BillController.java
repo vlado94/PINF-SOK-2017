@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,6 +44,12 @@ public class BillController {
 		this.httpSession = httpSession;
 		this.clientService = clientService;
 		this.codeBookActivitiesService = codeBookActivitiesService;
+	}
+	
+	@GetMapping(path = "/findAllBills")
+	@ResponseStatus(HttpStatus.CREATED)
+	public List<Bill> findAllBills() {
+		return billService.findAll();
 	}
 	
 	@GetMapping(path = "/findAllIndividualBills")
@@ -87,5 +94,11 @@ public class BillController {
 		bank.getBills().add(bill);
 		bankService.save(bank);
 		return bill;
+	}
+	
+	@GetMapping("/findBillsForAllBanks/{id}")
+	@ResponseStatus(HttpStatus.OK)
+	public List<Bill> findBillsForAllBanks(@PathVariable Long id) {
+		return billService.findAllCurrentBillsExceptClosingOne(id);
 	}
 }

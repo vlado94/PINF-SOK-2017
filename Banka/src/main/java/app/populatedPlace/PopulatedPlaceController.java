@@ -40,7 +40,7 @@ public class PopulatedPlaceController {
 		return populatedPlaceService.findOne(id);
 	}
 	
-	@PostMapping()
+	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public PopulatedPlace save(@Valid @RequestBody PopulatedPlace populatedPlace) {
 		return populatedPlaceService.save(populatedPlace);
@@ -66,7 +66,7 @@ public class PopulatedPlaceController {
 	}
 	
 	@GetMapping(path = "/search")
-	@ResponseStatus(HttpStatus.CREATED)
+	@ResponseStatus(HttpStatus.OK)
 	public List<PopulatedPlace> search(@RequestBody PopulatedPlace populatedPlace) {
 		return populatedPlaceService.findByNameLikeOrPttCodeLikeOrCountry_NameLike(populatedPlace.getName(), populatedPlace.getPttCode(),populatedPlace.getCountry());
 	}

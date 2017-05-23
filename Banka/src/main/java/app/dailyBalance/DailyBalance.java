@@ -1,5 +1,6 @@
 package app.dailyBalance;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -47,5 +48,13 @@ public class DailyBalance {
 	@JoinTable(name = "DAILY_BALANCEL_DEPOSIT_SLIP", joinColumns = @JoinColumn(name = "DB_ID"), inverseJoinColumns = @JoinColumn(name = "DS_ID"))
 	private List<DepositSlip> depositSlips;
 	
+	public DailyBalance() {
+		setDate(new Date());
+		setDepositSlips(new ArrayList<DepositSlip>());
+		setNewState(0);
+		setPreviousState(0);
+		setTrafficAtExpense(0);
+		setTrafficToBenefit(0);
+	}
 	
 }

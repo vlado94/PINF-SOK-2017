@@ -98,6 +98,6 @@ services.service('bankerService', ['$http', function($http){
 	}	
 	
 	this.findBillsForAllBanks = function(id){
-		return $http.get(url+"findBillsForAllBanks/"+id);
+		return $http.get("/bill/findBillsForAllBanks/"+id);
 	}	
 }]);

@@ -17,6 +17,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import app.bill.Bill;
+import app.closingBill.ClosingBill;
 import app.paymentTypes.PaymentTypes;
 import lombok.Data;
 
@@ -89,5 +91,23 @@ public class DepositSlip {
 	@ManyToOne
 	@JoinColumn(name = "PAYMENT_TYPE_ID")
 	private PaymentTypes paymentType;
+	
+	public DepositSlip(Bill billForClosing,ClosingBill closingBill,String billSuccessor) {
+		setType(Type.TRANSFER);
+		setDeptor(billForClosing.getClient().getApplicant());
+		setPurposeOfPayment("zatvaranje racuna");
+		setReceiver("Pravni nasljednik");
+		setCurrencyDate(closingBill.getDate());
+		setCodeOfCurrency("rsd");
+		setBillOfReceiver(billSuccessor);
+		setModelApproval(2);
+		setReferenceNumberApproval("20");
+		setReferenceNumberAssignment("20");
+		setBillOfDeptor(billForClosing.getAccountNumber());
+		setModelAssignment(2);
+		setDepositSlipDate(closingBill.getDate());
+		setUrgently(false);
+		setDirection(false);
+	}
 		
 }
