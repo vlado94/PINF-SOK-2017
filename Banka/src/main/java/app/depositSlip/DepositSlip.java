@@ -109,5 +109,7 @@ public class DepositSlip {
 		setUrgently(false);
 		setDirection(false);
 	}
+	
+	public DepositSlip(){}
 		
 }

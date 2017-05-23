@@ -94,7 +94,7 @@ public class BankerController {
 			depositSlip.setAmount(db.getNewState());
 		}
 		//poziva obradu izvoda
-		saveDepositSlip(depositSlip);
+		depositSlipService.save(depositSlip);
 		closingBill.setDepositSlip(depositSlip);
 		ClosingBill savedClosingBill = closingBillService.save(closingBill);
 		if(savedClosingBill != null){//uspjesno zatvoren racuna
@@ -104,15 +104,10 @@ public class BankerController {
 		}else{
 			return null;
 		}
-	}
+	}	
 	
 	
-	@GetMapping("/findAllDepositSlips")
-	@ResponseStatus(HttpStatus.OK)
-	public List<DepositSlip> findAllDepositSlips() {
-		return depositSlipService.findAll();
-	}
-	
+	//kopija!!
 	@PostMapping(path = "/saveDepositSlip")
 	@ResponseStatus(HttpStatus.CREATED)
 	public void saveDepositSlip(@RequestBody DepositSlip depositSlip) {

@@ -85,19 +85,22 @@ services.service('bankerService', ['$http', function($http){
 	this.saveBill = function(bill){
 		return $http.post("/bill/",bill);
 	}
-	this.closeBill = function(closingBill){
-		return $http.post(url+"closeBill",closingBill);
-	}
-	
-	this.saveDepositSlip = function(depositSlip){
-		return $http.post(url+"saveDepositSlip",depositSlip);
-	}
-	
-	this.findAllDepositSlips = function(){
-		return $http.get(url+"findAllDepositSlips");
-	}	
-	
+
 	this.findBillsForAllBanks = function(id){
 		return $http.get("/bill/findBillsForAllBanks/"+id);
 	}	
+	
+	this.closeBill = function(closingBill){
+		return $http.post(url+"closeBill",closingBill);
+	}
+
+//DEPOSIT SLIPS
+	this.saveDepositSlip = function(depositSlip){
+		return $http.post("depositSlip/saveDepositSlip",depositSlip);
+	}
+	
+	this.findAllDepositSlips = function(){
+		return $http.get("depositSlip/findAllDepositSlips");
+	}	
+	
 }]);
