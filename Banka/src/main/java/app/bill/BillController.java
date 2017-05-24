@@ -23,6 +23,7 @@ import app.client.Client.TypeOfClient;
 import app.client.ClientService;
 import app.codeBookActivities.CodeBookActivities;
 import app.codeBookActivities.CodeBookActivitiesService;
+import app.country.Country;
 import app.dailyBalance.DailyBalance;
 import app.user.banker.Banker;
 
@@ -100,5 +101,24 @@ public class BillController {
 	@ResponseStatus(HttpStatus.OK)
 	public List<Bill> findBillsForAllBanks(@PathVariable Long id) {
 		return billService.findAllCurrentBillsExceptClosingOne(id);
+	}
+	
+	@PostMapping("/search")
+	@ResponseStatus(HttpStatus.CREATED)
+	public List<Bill> searchBill(@RequestBody Bill bill) {
+		String accountNumber = bill.getAccountNumber();
+		if(accountNumber==null){
+			accountNumber="%";
+		}else{
+			accountNumber="%"+bill.getAccountNumber()+"%";
+		}
+		String clientApplicant = "";
+		if(bill.getClient()==null){
+			clientApplicant="%";
+		}else{
+			clientApplicant="%"+bill.getClient().getApplicant()+"%";
+		}
+		System.out.println(accountNumber+"   "+clientApplicant);
+		return billService.findByAccountNumberLikeAndClient_ApplicantLike(accountNumber, clientApplicant);
 	}
 }

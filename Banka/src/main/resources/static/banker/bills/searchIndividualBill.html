@@ -2,11 +2,13 @@
 <form name = "searchIndividualBill">
 
 	<label>Account number</label>
-	<input type = "text" class = "form-control" ng-model = "$parent.individualBill.accountNumber" ></input>
+	<input type = "text" class = "form-control" ng-model = "$parent.$parent.individualBill.accountNumber" ></input>
 
 	<label>Name</label>
-	<input type = "text" class = "form-control" ng-model = "$parent.individualBill.client.applicant"></input>
+	<input type = "text" class = "form-control" ng-model = "$parent.$parent.individualBill.client.applicant"></input>
 
 <button class = "btn btn-default" ng-click = "searchForIndividualBill()"><span class = "glyphicon glyphicon-ok"></span>Search</button>
+<button class = "btn btn-default" ng-click = "resetSearchIndividualBill()"><span class = "glyphicon glyphicon-refresh"></span>Reset</button>
+
 </form>
 </div>

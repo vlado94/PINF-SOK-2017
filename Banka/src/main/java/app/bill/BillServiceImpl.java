@@ -7,6 +7,8 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import app.client.Client;
+
 @Service
 @Transactional
 public class BillServiceImpl implements BillService{
@@ -42,5 +44,11 @@ public class BillServiceImpl implements BillService{
 	public List<Bill> findAllCurrentBillsExceptClosingOne(Long id) {
 		return this.billRepository.findAllCurrentBillsExceptClosingOne(id);
 	}
+
+	@Override
+	public List<Bill> findByAccountNumberLikeAndClient_ApplicantLike(String accountNumber,String client) {
+		return this.billRepository.findByAccountNumberLikeAndClient_ApplicantLike(accountNumber, client);
+	}
+	
 
 }

@@ -17,15 +17,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import app.country.Country;
+import app.country.CountryService;
+
 @RestController
 @RequestMapping("/populatedPlaces")
 public class PopulatedPlaceController {
 
 	private final PopulatedPlaceService populatedPlaceService;
+	private final CountryService countryService;
 	
 	@Autowired
-	public PopulatedPlaceController(final PopulatedPlaceService populatedPlaceService) { 
+	public PopulatedPlaceController(final PopulatedPlaceService populatedPlaceService,final CountryService countryService) { 
 		this.populatedPlaceService = populatedPlaceService;
+		this.countryService = countryService;
 	}
 	
 	@GetMapping()
@@ -65,9 +70,30 @@ public class PopulatedPlaceController {
 		}
 	}
 	
-	@GetMapping(path = "/search")
-	@ResponseStatus(HttpStatus.OK)
+	@PostMapping(path = "/search")
+	@ResponseStatus(HttpStatus.CREATED)
 	public List<PopulatedPlace> search(@RequestBody PopulatedPlace populatedPlace) {
-		return populatedPlaceService.findByNameLikeOrPttCodeLikeOrCountry_NameLike(populatedPlace.getName(), populatedPlace.getPttCode(),populatedPlace.getCountry());
+		String name = populatedPlace.getName();
+		if(name==null){
+			name="%";
+		}else{
+			name="%"+populatedPlace.getName().toLowerCase()+"%";
+		}
+		String pttCode = populatedPlace.getPttCode();
+		if(pttCode==null){
+			pttCode="%";
+		}else{
+			pttCode="%"+populatedPlace.getPttCode()+"%";
+		}
+		String countryName = "";
+		if(populatedPlace.getCountry()!=null){
+			countryName=populatedPlace.getCountry().getName();
+		}
+		Country country = countryService.findByName(countryName);
+		if(country!=null){
+			return populatedPlaceService.findByNameLikeAndPttCodeLikeAndCountry(name, pttCode,country);
+		}else{
+			return populatedPlaceService.findByNameLikeAndPttCodeLike(name, pttCode);
+		}
 	}
 }

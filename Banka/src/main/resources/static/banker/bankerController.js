@@ -42,7 +42,6 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 			var codeBookActivity = $scope.codeBookActivity;
 			bankerService.searchCodeBookActivity(codeBookActivity).then(
 				function(response){
-					alert(response.data)
 				    $scope.allcodeBookActivities = response.data;
 				}, 
 				function (response){
@@ -50,6 +49,12 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 				}
 			);
 		}
+		
+		$scope.resetSearchCodeBookActivities = function(){
+			$scope.findAllCodeBookActivities();
+			$scope.codeBookActivity=null;
+		}
+	    
 		
 		$scope.findAllCountries = function () {   
 			bankerService.findAllCountries().then(
@@ -72,6 +77,7 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 		}	
 		
 		$scope.searchForCountry = function(){
+			alert($scope.country.name+"  "+$scope.country.code)
 			bankerService.searchCountry($scope.country).then(
 				function(response){
 				    $scope.allCountries = response.data;
@@ -81,6 +87,12 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 				}
 			);
 		}
+		
+		$scope.resetSearchCountry = function(){
+			$scope.findAllCountries();
+			$scope.country=null;
+		}
+		
 		
 		$scope.findAllIndividualBills = function () {   
 			bankerService.findAllIndividualBills().then(
@@ -225,17 +237,38 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 		
 		$scope.searchForIndividualBill = function(){
 			var individualBill = $scope.individualBill;
-			alert(individualBill.accountNumber+"  "+individualBill.client.applicant)
-			/*bankerService.searchCodeBookActivity(codeBookActivity).then(
+			bankerService.searchBill(individualBill).then(
 					function(response){
 						alert(response.data)
-					    $scope.allcodeBookActivities = response.data;
+					    $scope.allIndividualBills = response.data;
 					}, 
 					function (response){
 						alert("Greska");
 					}
-				);*/
-		}				
+				);
+		}
+		
+		$scope.resetSearchIndividualBill = function(){
+			$scope.findAllIndividualBills();
+			$scope.individualBill=null;
+		}
+		$scope.searchForLegalBill = function(){
+			var legalBill = $scope.legalBill;
+			bankerService.searchBill(legalBill).then(
+					function(response){
+						alert(response.data)
+					    $scope.allLegalBills = response.data;
+					}, 
+					function (response){
+						alert("Greska");
+					}
+				);
+		}
+		
+		$scope.resetSearchLegalBill = function(){
+			$scope.findAllLegalBills();
+			$scope.legalBill=null;
+		}
 		
 		$scope.setSelectedActivity = function(code) {
 	        $scope.selectedActivity = code;
@@ -294,6 +327,11 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 					alert("Greska");
 				}
 			);
+		}
+		
+		$scope.resetSearchPopulatedPlace = function(){
+			$scope.findAllPopulatedPlaces();
+			$scope.populatedPlace=null;
 		}
 		
 		$scope.findAllExchangeRates = function() {

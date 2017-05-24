@@ -14,6 +14,6 @@ public interface CountryService {
 
 	Country findByName(String name);
 	
-	List<Country> findByCodeLikeOrNameLike(String code,String name);
+	List<Country> findByCodeLikeAndNameLike(String code,String name);
 
 }

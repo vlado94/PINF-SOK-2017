@@ -58,10 +58,22 @@ public class CountryController {
 		countryService.delete(id);
 	}
 	
-	@GetMapping(path = "/search")
+	@PostMapping(path = "/search")
 	@ResponseStatus(HttpStatus.CREATED)
 	public List<Country> search(@RequestBody Country country) {
-		return countryService.findByCodeLikeOrNameLike(country.getCode(), country.getName());
+		//System.out.println(country.getCode()+" "+country.getName());
+		String code = country.getCode();
+		if(code==null)
+			code="%";
+		else
+			code="%"+country.getCode().toLowerCase()+"%";
+		String name = country.getName();
+		if(name==null)
+			name="%";
+		else
+			name="%"+country.getName().toLowerCase()+"%";
+		List<Country> countries =countryService.findByCodeLikeAndNameLike(code, name);
+		return countries;
 	}
 	
 	@GetMapping(path = "/findByName/{name}")

@@ -153,6 +153,9 @@ angular.module('routerApp', ['ui.router',
         .state('banker.individualBills.searchIndividualBill', {
           	templateUrl : 'banker/bills/searchIndividualBill.html'
         })
+        .state('banker.legalBills.searchLegalBill', {
+          	templateUrl : 'banker/bills/searchLegalBill.html'
+        })
         .state('banker.addIndividualBill', {
         	url : '/addIndividualBill',
           	templateUrl : 'banker/bills/addIndividualBill.html'
