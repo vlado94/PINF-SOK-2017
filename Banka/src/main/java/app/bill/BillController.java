@@ -23,7 +23,6 @@ import app.client.Client.TypeOfClient;
 import app.client.ClientService;
 import app.codeBookActivities.CodeBookActivities;
 import app.codeBookActivities.CodeBookActivitiesService;
-import app.country.Country;
 import app.dailyBalance.DailyBalance;
 import app.user.banker.Banker;
 

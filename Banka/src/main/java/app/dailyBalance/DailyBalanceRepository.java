@@ -1,7 +1,5 @@
 package app.dailyBalance;
 
-import java.util.List;
-
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 
