@@ -42,7 +42,6 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 			var codeBookActivity = $scope.codeBookActivity;
 			bankerService.searchCodeBookActivity(codeBookActivity).then(
 				function(response){
-					alert(response.data)
 				    $scope.allcodeBookActivities = response.data;
 				}, 
 				function (response){
@@ -50,6 +49,12 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 				}
 			);
 		}
+		
+		$scope.resetSearchCodeBookActivities = function(){
+			$scope.findAllCodeBookActivities();
+			$scope.codeBookActivity=null;
+		}
+	    
 		
 		$scope.findAllCountries = function () {   
 			bankerService.findAllCountries().then(

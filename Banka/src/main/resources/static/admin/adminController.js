@@ -292,12 +292,16 @@ app.controller('adminController', ['$scope','adminService', '$location','$state'
 		$scope.searchCodeBookActivities = function(){
 			adminService.searchCodeBookActivity($scope.codeBookActivity).then(
 				function(response){
-				    $scope.allcodeBookActivities = response.data;
+				    $scope.allCodeBookActivities = response.data;
 				}, 
 				function (response){
 					alert("Greska");
 				}
 			);
+		}
+		$scope.resetSearchCodeBookActivities = function(){
+			$scope.findAllCodeBookActivities();
+			$scope.codeBookActivity=null;
 		}
 	    
 //EXCCHANGE RATE

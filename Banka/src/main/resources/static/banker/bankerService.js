@@ -26,7 +26,7 @@ services.service('bankerService', ['$http', function($http){
 	}
 	
 	this.searchCodeBookActivity = function(codeBookActivity){
-		return $http.get("/codeBookActivities/search",codeBookActivity);
+		return $http.post("/codeBookActivities/search",codeBookActivity);
 	}
 
 

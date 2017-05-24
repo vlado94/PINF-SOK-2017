@@ -57,10 +57,20 @@ public class CodeBookActivitiesController {
 		codeBookService.delete(id);
 	}	
 	
-	@GetMapping(path = "/search")
+	@PostMapping(path = "/search")
 	@ResponseStatus(HttpStatus.CREATED)
 	public List<CodeBookActivities> searchCodeBookActivity(@RequestBody CodeBookActivities codeBookActivity) {
-		return codeBookService.findByCodeLikeOrNameLike(codeBookActivity.getCode(), codeBookActivity.getName());
+		Integer code = codeBookActivity.getCode();
+		if(code==null){
+			code=-1;
+		}
+		String name = codeBookActivity.getName();
+		if(name==null){
+			name = "-1";
+		}else{
+			name = "%"+codeBookActivity.getName()+"%";
+		}
+		return codeBookService.findByCodeLikeAndNameLike(code, name);
 	}
 	
 	@GetMapping(path = "/findByName/{name}")

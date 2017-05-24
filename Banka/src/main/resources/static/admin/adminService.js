@@ -84,7 +84,7 @@ var url = "/admin/";
 		return $http.delete("/codeBookActivities/"+id);
 	}
 	this.searchCodeBookActivity = function(codeBookActivity){
-		return $http.get("/codeBookActivities/search",codeBookActivity);
+		return $http.post("/codeBookActivities/search",codeBookActivity);
 	}	
 //EXCHANGE RATE
 	this.findAllExchangeRate = function(){
