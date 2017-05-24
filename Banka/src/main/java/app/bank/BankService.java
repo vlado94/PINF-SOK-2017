@@ -9,5 +9,7 @@ public interface BankService {
 
 	public Bank findOne(Long id);
 
+	public Bank findOneByCode(Integer id);
+
 	public void delete(Long id);
 }

@@ -47,13 +47,7 @@ public class Bank {
 	@JoinTable(name = "BANK_EXCHANGE_RATE", joinColumns = @JoinColumn(name = "BANK_ID"), inverseJoinColumns = @JoinColumn(name = "EXCHANGE_RATE_ID"))
 	private List<ExchangeRate> exchangeRates; // kursna lista
 	
-	/*@OneToMany
-	@JoinTable(name = "BANK_BANKERS", joinColumns = @JoinColumn(name = "BANK_ID"), inverseJoinColumns = @JoinColumn(name = "BANKER_ID"))
-	private List<Banker> bankers;*/
-
 	@OneToMany
 	@JoinTable(name = "BANK_BILLS", joinColumns = @JoinColumn(name = "BANK_ID"), inverseJoinColumns = @JoinColumn(name = "BILL_ID"))
-	private List<Bill> bills;
-	
-	
+	private List<Bill> bills;	
 }
