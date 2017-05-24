@@ -66,7 +66,7 @@ public class CodeBookActivitiesController {
 		}
 		String name = codeBookActivity.getName();
 		if(name==null){
-			name = "-1";
+			name = "%";
 		}else{
 			name = "%"+codeBookActivity.getName()+"%";
 		}

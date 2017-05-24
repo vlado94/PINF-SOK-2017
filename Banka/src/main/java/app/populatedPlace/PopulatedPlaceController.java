@@ -74,22 +74,26 @@ public class PopulatedPlaceController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public List<PopulatedPlace> search(@RequestBody PopulatedPlace populatedPlace) {
 		String name = populatedPlace.getName();
-		if(name==null)
-			name="-1";
-		else
+		if(name==null){
+			name="%";
+		}else{
 			name="%"+populatedPlace.getName().toLowerCase()+"%";
+		}
 		String pttCode = populatedPlace.getPttCode();
-		if(pttCode==null)
-			pttCode="-1";
-		else
+		if(pttCode==null){
+			pttCode="%";
+		}else{
 			pttCode="%"+populatedPlace.getPttCode()+"%";
+		}
 		String countryName = "";
 		if(populatedPlace.getCountry()!=null){
 			countryName=populatedPlace.getCountry().getName();
 		}
 		Country country = countryService.findByName(countryName);
-		if (country!=null)
-			System.out.println("Drzavaaaa "+country.getName()+"  "+country.getId());
-		return populatedPlaceService.findByNameLikeAndPttCodeLikeAndCountry(name, pttCode,country);
+		if(country!=null){
+			return populatedPlaceService.findByNameLikeAndPttCodeLikeAndCountry(name, pttCode,country);
+		}else{
+			return populatedPlaceService.findByNameLikeAndPttCodeLike(name, pttCode);
+		}
 	}
 }

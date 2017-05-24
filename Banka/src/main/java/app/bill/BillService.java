@@ -2,6 +2,8 @@ package app.bill;
 
 import java.util.List;
 
+import app.client.Client;
+
 public interface BillService {
 
 	public List<Bill> findAll();
@@ -13,4 +15,6 @@ public interface BillService {
 	public Bill findByAccountNumber(String accountNumber);
 	
 	public List<Bill> findAllCurrentBillsExceptClosingOne(Long id);
+	
+	List<Bill> findByAccountNumberLikeAndClient_ApplicantLike(String accountNumber,String client);
 }

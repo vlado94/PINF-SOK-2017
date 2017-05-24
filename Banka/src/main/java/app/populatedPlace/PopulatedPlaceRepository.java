@@ -11,6 +11,9 @@ public interface PopulatedPlaceRepository extends PagingAndSortingRepository<Pop
 
 	@Query("select p from PopulatedPlace p where lower(p.name) like ?1 and p.pttCode like ?2 and p.country=?3")
 	List<PopulatedPlace> findByNameLikeAndPttCodeLikeAndCountry(String name,String pttCode,Country country);
+	
+	@Query("select p from PopulatedPlace p where lower(p.name) like ?1 and p.pttCode like ?2")
+	List<PopulatedPlace> findByNameLikeAndPttCodeLike(String name,String pttCode);
 
 	
 }

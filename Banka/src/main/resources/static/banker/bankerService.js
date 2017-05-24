@@ -67,6 +67,7 @@ services.service('bankerService', ['$http', function($http){
 	this.updateIndividualClient = function(individualClient){
 		return $http.put("/client/updateIndividualClient/"+individualClient.id,individualClient);
 	}
+
 	
 	this.findClientById = function(clientId){
 		return $http.get("/client/"+clientId);
@@ -79,7 +80,7 @@ services.service('bankerService', ['$http', function($http){
 	this.saveLegalBill = function(legalPerson){
 		return $http.post("/client/saveLegalBill",legalPerson);
 	}
-
+	
 
 //BILLS	
 	this.saveBill = function(bill){
@@ -92,6 +93,10 @@ services.service('bankerService', ['$http', function($http){
 	
 	this.closeBill = function(closingBill){
 		return $http.post(url+"closeBill",closingBill);
+	}
+	
+	this.searchBill = function(bill){
+		return $http.post("/bill/search",bill);
 	}
 
 //DEPOSIT SLIPS

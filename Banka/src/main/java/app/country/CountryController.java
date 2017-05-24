@@ -64,12 +64,12 @@ public class CountryController {
 		//System.out.println(country.getCode()+" "+country.getName());
 		String code = country.getCode();
 		if(code==null)
-			code="-1";
+			code="%";
 		else
 			code="%"+country.getCode().toLowerCase()+"%";
 		String name = country.getName();
 		if(name==null)
-			name="-1";
+			name="%";
 		else
 			name="%"+country.getName().toLowerCase()+"%";
 		List<Country> countries =countryService.findByCodeLikeAndNameLike(code, name);

@@ -237,17 +237,38 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 		
 		$scope.searchForIndividualBill = function(){
 			var individualBill = $scope.individualBill;
-			alert(individualBill.accountNumber+"  "+individualBill.client.applicant)
-			/*bankerService.searchCodeBookActivity(codeBookActivity).then(
+			bankerService.searchBill(individualBill).then(
 					function(response){
 						alert(response.data)
-					    $scope.allcodeBookActivities = response.data;
+					    $scope.allIndividualBills = response.data;
 					}, 
 					function (response){
 						alert("Greska");
 					}
-				);*/
-		}				
+				);
+		}
+		
+		$scope.resetSearchIndividualBill = function(){
+			$scope.findAllIndividualBills();
+			$scope.individualBill=null;
+		}
+		$scope.searchForLegalBill = function(){
+			var legalBill = $scope.legalBill;
+			bankerService.searchBill(legalBill).then(
+					function(response){
+						alert(response.data)
+					    $scope.allLegalBills = response.data;
+					}, 
+					function (response){
+						alert("Greska");
+					}
+				);
+		}
+		
+		$scope.resetSearchLegalBill = function(){
+			$scope.findAllLegalBills();
+			$scope.legalBill=null;
+		}
 		
 		$scope.setSelectedActivity = function(code) {
 	        $scope.selectedActivity = code;

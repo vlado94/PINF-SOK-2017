@@ -1,0 +1,14 @@
+<div class = "col-sm-6">
+<form name = "searchLegalBill">
+
+	<label>Account number</label>
+	<input type = "text" class = "form-control" ng-model = "$parent.$parent.legalBill.accountNumber" ></input>
+
+	<label>Name</label>
+	<input type = "text" class = "form-control" ng-model = "$parent.$parent.legalBill.client.applicant"></input>
+
+<button class = "btn btn-default" ng-click = "searchForLegalBill()"><span class = "glyphicon glyphicon-ok"></span>Search</button>
+<button class = "btn btn-default" ng-click = "resetSearchLegalBill()"><span class = "glyphicon glyphicon-refresh"></span>Reset</button>
+
+</form>
+</div>
