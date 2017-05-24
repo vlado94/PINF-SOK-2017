@@ -96,6 +96,12 @@ app.controller('adminController', ['$scope','adminService', '$location','$state'
 				}
 			);
 		}
+		
+		$scope.resetSearchCountry = function(){
+			$scope.findAllCountries();
+			$scope.country=null;
+		}
+		
 //POPULATED PLACES
 		$scope.findAllPopulatedPlaces= function () {   
 			adminService.findAllPopulatedPlaces().then(
@@ -223,7 +229,10 @@ app.controller('adminController', ['$scope','adminService', '$location','$state'
 				}
 			);
 		}	    
-
+	    $scope.resetSearchPopulatedPlace = function(){
+			$scope.findAllPopulatedPlaces();
+			$scope.populatedPlace=null;
+		}
 //CODE BOOK ACTIVITIES
 	    $scope.findAllCodeBookActivities = function () { 
 	    	adminService.findAllCodeBookActivities().then(

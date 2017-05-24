@@ -41,23 +41,10 @@ public class PopulatedPlaceServiceImpl implements PopulatedPlaceService {
 	public PopulatedPlace findOne(Long id) {
 		return populatedPlaceRepository.findOne(id);
 	}
-	
+
 	@Override
-	public List<PopulatedPlace> findByNameLikeOrPttCodeLikeOrCountry_NameLike(String name,String pttCode,Country country) {
-		if (pttCode==null)
-			pttCode="";
-		else
-			pttCode = "%"+pttCode+"%";
-		if (name==null)
-			name="";
-		else 
-			name =  "%"+name+"%";
-		String countryName = null;
-		if (country == null)
-			countryName = "";
-		else
-			countryName = "%"+country.getName()+"%";
-		return populatedPlaceRepository.findByNameLikeOrPttCodeLikeOrCountry_NameLike(name,pttCode,countryName);
+	public List<PopulatedPlace> findByNameLikeAndPttCodeLikeAndCountry(String name,String pttCode,Country country) {
+		return populatedPlaceRepository.findByNameLikeAndPttCodeLikeAndCountry(name,pttCode,country);
 	}
 
 }

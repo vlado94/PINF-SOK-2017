@@ -36,7 +36,7 @@ var url = "/admin/";
 		return $http.delete("/country/"+id);
 	}
 	this.searchCountry = function(country){
-		return $http.get("/country/search",country);
+		return $http.post("/country/search",country);
 	}
 	
 //POPULATED PLACE
@@ -60,7 +60,7 @@ var url = "/admin/";
 		return $http.delete("/populatedPlaces/"+id);
 	}
 	this.searchPopulatedPlace = function(populatedPlace){
-		return $http.get("/populatedPlaces/search",populatedPlace);
+		return $http.post("/populatedPlaces/search",populatedPlace);
 	}
 //CODE BOOK ACTIVITY
 	this.findAllCodeBookActivities = function(){

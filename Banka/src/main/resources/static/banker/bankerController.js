@@ -72,6 +72,7 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 		}	
 		
 		$scope.searchForCountry = function(){
+			alert($scope.country.name+"  "+$scope.country.code)
 			bankerService.searchCountry($scope.country).then(
 				function(response){
 				    $scope.allCountries = response.data;
@@ -81,6 +82,12 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 				}
 			);
 		}
+		
+		$scope.resetSearchCountry = function(){
+			$scope.findAllCountries();
+			$scope.country=null;
+		}
+		
 		
 		$scope.findAllIndividualBills = function () {   
 			bankerService.findAllIndividualBills().then(
@@ -294,6 +301,11 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 					alert("Greska");
 				}
 			);
+		}
+		
+		$scope.resetSearchPopulatedPlace = function(){
+			$scope.findAllPopulatedPlaces();
+			$scope.populatedPlace=null;
 		}
 		
 		$scope.findAllExchangeRates = function() {

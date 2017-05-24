@@ -35,7 +35,7 @@ services.service('bankerService', ['$http', function($http){
 		return $http.get("/country");
 	}
 	this.searchCountry = function(country){
-		return $http.get("/country/search",country);
+		return $http.post("/country/search",country);
 	}
 
 //EXCHANGE RATE
@@ -52,7 +52,7 @@ services.service('bankerService', ['$http', function($http){
 	}
 	
 	this.searchPopulatedPlace = function(populatedPlace){
-		return $http.get("/populatedPlaces/search",populatedPlace);
+		return $http.post("/populatedPlaces/search",populatedPlace);
 	}
 	
 //INDIVIDUAL BILLS
