@@ -500,5 +500,22 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 		     element = document.getElementById(code);
 		     element.setAttribute("class", "selectedRow");
 		}
+		
+		$scope.searchForDepositSlip = function(){
+			var depositSlip = $scope.depositSlip;
+			bankerService.searchDepositSlip(depositSlip).then(
+				function(response){
+				    $scope.allDepositSlips = response.data;
+				}, 
+				function (response){
+					alert("Greska");
+				}
+			);
+		}
+		
+		$scope.resetSearchPopulatedPlace = function(){
+			$scope.findAllDepositSlips();
+			$scope.depositSlip=null;
+		}
 	}
 ]);

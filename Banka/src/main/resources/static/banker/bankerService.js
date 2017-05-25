@@ -107,5 +107,7 @@ services.service('bankerService', ['$http', function($http){
 	this.findAllDepositSlips = function(){
 		return $http.get("depositSlip/findAllDepositSlips");
 	}	
-	
+	this.searchDepositSlip = function(depositSlip){
+		return $http.post("depositSlip/search",depositSlip);
+	}	
 }]);

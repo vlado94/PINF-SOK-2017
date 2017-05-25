@@ -219,5 +219,7 @@ angular.module('routerApp', ['ui.router',
         	url : '/depositSlip/allInBank',
           	templateUrl : 'banker/depositSlip/depositSlipsAll.html'
         })
-        
+        .state('banker.depositSlipsAll.searchDepositSlip', {
+          	templateUrl : 'banker/depositSlip/searchDepositSlip.html'
+        })
 });

@@ -1,0 +1,23 @@
+<div class = "col-sm-6">
+<form name = "searchDepositSlip">
+
+	<label>Date</label>
+	<input type = "text" class = "form-control" ng-model = "$parent.$parent.depositSlip.depositSlipDate" ></input>
+
+	<label>Type</label>
+	<input type = "text" class = "form-control" ng-model = "$parent.$parent.depositSlip.type"></input>
+	
+	<label>Bill of receiver</label>
+	<input type = "text" class = "form-control" ng-model = "$parent.$parent.depositSlip.billOfReceiver"></input>
+	
+	<label>Bill of deptor</label>
+	<input type = "text" class = "form-control" ng-model = "$parent.$parent.depositSlip.billOfDeptor"></input>
+
+	<label>Amount</label>
+	<input type = "text" class = "form-control" ng-model = "$parent.$parent.depositSlip.amount"></input>
+	
+	<button class = "btn btn-default" ng-click = "searchForDepositSlip()"><span class = "glyphicon glyphicon-ok"></span>Search</button>
+	<button class = "btn btn-default" ng-click = "resetSearchDepositSlip()"><span class = "glyphicon glyphicon-refresh"></span>Reset</button>
+
+</form>
+</div>
