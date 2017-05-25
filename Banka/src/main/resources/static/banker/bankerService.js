@@ -109,5 +109,13 @@ services.service('bankerService', ['$http', function($http){
 	}	
 	this.searchDepositSlip = function(depositSlip){
 		return $http.post("depositSlip/search",depositSlip);
-	}	
+	}
+//INTERBANK TRANSFER
+	this.findAllUnsentInterbankTransfer = function(){
+		return $http.get("interbankTransfer/findAllUnsentInterbankTransfer");
+	}
+	
+	this.exportDepositSlips = function(){
+		return $http.get("mt102/exportDepositSlips");
+	}
 }]);

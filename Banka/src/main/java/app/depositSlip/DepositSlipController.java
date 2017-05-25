@@ -1,5 +1,10 @@
 package app.depositSlip;
 
+import java.io.File;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -7,6 +12,13 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.BadRequestException;
+import javax.xml.XMLConstants;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,7 +28,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.xml.sax.SAXException;
 
+import app.MyValidationEventHandler;
+import app.MT102xml.MT102xml;
 import app.bill.Bill;
 import app.bill.BillService;
 import app.dailyBalance.DailyBalance;
@@ -113,4 +128,6 @@ public class DepositSlipController {
 			throw new BadRequestException();
 		}
 	}
+	
+	
 }

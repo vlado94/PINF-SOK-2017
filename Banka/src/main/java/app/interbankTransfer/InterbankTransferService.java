@@ -11,4 +11,6 @@ public interface InterbankTransferService {
 	public void delete(Long id);
 	
 	public InterbankTransfer findOne(Long id);
+
+	public List<InterbankTransfer> findAllAndDateTimeIsNull();
 }

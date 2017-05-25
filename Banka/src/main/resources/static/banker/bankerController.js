@@ -400,6 +400,19 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 			);
 		}
 		
+		$scope.exportDepositSlips = function() {
+			bankerService.exportDepositSlips().then(
+				function(response){
+					alert("Export successfuly processed.");
+					/*location.reload();
+					$state.go("banker.home", {});
+					*/
+				}, function (response){
+					alert("Error!");
+				}
+			);
+		}
+		
 		$scope.openDepositSlip = function() {
 			if($scope.depositSlip.type == "TRANSFER") {
 				$state.go("banker.depositSlip.transer", {});
@@ -457,6 +470,23 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 			bankerService.findAllDepositSlips().then (
 				function(response){
 					$scope.allDepositSlips = response.data;
+				}, function (response){
+					alert("Error!")
+				});						
+		}
+		
+		$scope.findNotProcessedDepositSlips = function() {
+			bankerService.findAllUnsentInterbankTransfer().then (
+				function(response){
+					var interbankTransfers = response.data;//lista interbank transfera
+					var listOfAllDepositSlips = [];
+					for (var i in interbankTransfers) {
+						for(var j in interbankTransfers[i].depositSlips){
+							listOfAllDepositSlips.push(interbankTransfers[i].depositSlips[j]);
+						}
+						
+					}
+					$scope.allNotProcessedDepositSlips = listOfAllDepositSlips;
 				}, function (response){
 					alert("Error!")
 				});						

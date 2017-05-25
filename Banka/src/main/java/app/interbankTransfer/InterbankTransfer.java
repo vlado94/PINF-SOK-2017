@@ -29,7 +29,6 @@ public class InterbankTransfer {
 	@Column(name = "INTERBANK_TRANSFER_ID")
 	private Long id;
 	
-	
 	@Column
 	@NotBlank
 	private String typeOfMessage;
@@ -52,15 +51,20 @@ public class InterbankTransfer {
 	@JoinColumn(name = "BANK_S_ID")
 	private Bank bankSender;
 
+	@Column
+	private String currencyCode;
+	
 	public InterbankTransfer(boolean type) {
 		depositSlips = new ArrayList<DepositSlip>();
 		amount = 0;
 		if(type) {//RTGS
 			typeOfMessage = "MT102";
 			dateTime = new Timestamp(System.currentTimeMillis());
+			currencyCode = "rsd";
 		}
 		else {//CLEARING
-			typeOfMessage = "MT103";			
+			typeOfMessage = "MT103";
+			currencyCode = "rsd";
 		}
 	}
 	

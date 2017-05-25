@@ -1,7 +1,7 @@
 <h1>List of bank transactions</h1><h1>List of client transactions</h1>
 
 
-<table ng-init="findAllDepositSlips()"class="table table-bordered" border="1">
+<table ng-init="findNotProcessedDepositSlips()"class="table table-bordered" border="1">
 	<tbody>
 			<tr>
 				<th>Date</th>
@@ -9,7 +9,7 @@
 				<th>Bill of receiver</th>
 				<th>Bill of debtor</th>
 				<th>Amount</th>
-			<tr ng-repeat="depositSlip in allDepositSlips">
+			<tr ng-repeat="depositSlip in allNotProcessedDepositSlips">
 				<td>{{depositSlip.depositSlipDate}}</td>
 				<td>{{depositSlip.type}}</td>
 				<td>{{depositSlip.billOfReceiver}}</td>
@@ -18,4 +18,6 @@
 			</tr>
 		</tbody>
 </table>
+
+<button class = "btn btn-default" ng-click = "exportDepositSlips()" ><span class = "glyphicon glyphicon-export"></span>  Export</button> 
 <button class = "btn btn-default" ui-sref =".searchDepositSlip" ><span class = "glyphicon glyphicon-search"></span>  Search</button> 

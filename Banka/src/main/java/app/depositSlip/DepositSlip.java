@@ -1,10 +1,5 @@
 package app.depositSlip;
 
-
-
-
-
-
 import java.sql.Date;
 
 import javax.persistence.Column;
