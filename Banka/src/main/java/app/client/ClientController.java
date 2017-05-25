@@ -1,7 +1,5 @@
 package app.client;
 
-import java.util.List;
-
 import javax.validation.Valid;
 import javax.ws.rs.NotFoundException;
 

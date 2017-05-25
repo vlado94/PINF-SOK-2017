@@ -38,4 +38,9 @@ public class BankServiceImpl implements BankService {
 	public void delete(Long id) {
 		bankRepository.delete(id);
 	}
+
+	@Override
+	public Bank findOneByCode(Integer code) {
+		return bankRepository.findByCode(code);
+	}
 }

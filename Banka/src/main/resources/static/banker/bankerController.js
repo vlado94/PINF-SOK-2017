@@ -255,14 +255,13 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 		$scope.searchForLegalBill = function(){
 			var legalBill = $scope.legalBill;
 			bankerService.searchBill(legalBill).then(
-					function(response){
-						alert(response.data)
-					    $scope.allLegalBills = response.data;
-					}, 
-					function (response){
-						alert("Greska");
-					}
-				);
+				function(response){
+					$scope.allLegalBills = response.data;
+				}, 
+				function (response){
+					alert("Greska");
+				}
+			);
 		}
 		
 		$scope.resetSearchLegalBill = function(){

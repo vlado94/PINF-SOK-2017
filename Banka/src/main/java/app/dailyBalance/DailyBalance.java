@@ -11,7 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 
 import app.depositSlip.DepositSlip;
 import lombok.Data;
@@ -44,7 +44,7 @@ public class DailyBalance {
 	@JoinColumn(name = "BILL_ID")
 	private Bill bill;  //not null
 	*/
-	@OneToMany
+	@ManyToMany
 	@JoinTable(name = "DAILY_BALANCEL_DEPOSIT_SLIP", joinColumns = @JoinColumn(name = "DB_ID"), inverseJoinColumns = @JoinColumn(name = "DS_ID"))
 	private List<DepositSlip> depositSlips;
 	
@@ -57,4 +57,12 @@ public class DailyBalance {
 		setTrafficToBenefit(0);
 	}
 	
+	public DailyBalance(DailyBalance oldDailyBalance) {
+		setDate(new Date());
+		setDepositSlips(new ArrayList<DepositSlip>());
+		setNewState(oldDailyBalance.getNewState());
+		setPreviousState(oldDailyBalance.getNewState());
+		setTrafficAtExpense(0);
+		setTrafficToBenefit(0);
+	}	
 }
