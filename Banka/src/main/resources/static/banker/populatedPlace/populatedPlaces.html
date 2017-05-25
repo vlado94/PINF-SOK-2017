@@ -9,7 +9,7 @@
 					</div>
 					<input type="text" class="form-control"
 						placeholder="Filter populated place..."
-						ng-model="searchPopulatedPlace">
+						ng-model="filterPopulatedPlace">
 				</div>
 			</div>
 		</form>
@@ -21,7 +21,7 @@
 					<th>Country</th>
 				</tr>
 				<tr
-					ng-repeat="populatedPlace in allPopulatedPlaces | filter:searchPopulatedPlace">
+					ng-repeat="populatedPlace in allPopulatedPlaces | filter:filterPopulatedPlace">
 					<td>{{populatedPlace.name}}</td>
 					<td>{{populatedPlace.pttCode}}</td>
 					<td>{{populatedPlace.country.name}}</td>

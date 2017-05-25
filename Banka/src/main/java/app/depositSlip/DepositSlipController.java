@@ -113,4 +113,76 @@ public class DepositSlipController {
 			throw new BadRequestException();
 		}
 	}
+	
+	@PostMapping("/search")
+	@ResponseStatus(HttpStatus.CREATED)
+	public List<DepositSlip> searchDepositSlips(@RequestBody DepositSlip depositSlip) {
+		double amount = depositSlip.getAmount();
+		Type type = depositSlip.getType();
+		String receiver = depositSlip.getBillOfReceiver();
+		if(receiver==null){
+			receiver="%";
+		}else{
+			receiver="%"+depositSlip.getBillOfReceiver()+"%";
+		}
+		String deptor = depositSlip.getBillOfDeptor();
+		if(deptor==null){
+			deptor="%";
+		}else{
+			deptor="%"+depositSlip.getBillOfDeptor()+"%";
+		}
+
+		if(type==Type.PAYMENTOUT){
+			if(amount==0){
+				if(depositSlip.getDepositSlipDate()==null){
+					return depositSlipService.findByTypeAndBillOfReceiverLike(type, receiver);
+				}else{
+					return depositSlipService.findByDepositSlipDateAndTypeAndBillOfReceiverLike(depositSlip.getDepositSlipDate(), type, receiver);
+				}
+			}else{
+				if(depositSlip.getDepositSlipDate()==null){
+					return depositSlipService.findByTypeAndBillOfReceiverLikeAndAmount(type, receiver, amount);
+				}else{
+					return depositSlipService.findByDepositSlipDateAndTypeAndBillOfReceiverLikeAndAmount(depositSlip.getDepositSlipDate(), type, receiver, amount);
+				}
+			}
+		}else if(type==Type.PAYOUT){
+			if(amount==0){
+				if(depositSlip.getDepositSlipDate()==null){
+					return depositSlipService.findByTypeAndBillOfDeptorLike(type, deptor);
+				}else{
+					return depositSlipService.findByDepositSlipDateAndTypeAndBillOfDeptorLike(depositSlip.getDepositSlipDate(), type, deptor);
+				}
+			}else{
+				if(depositSlip.getDepositSlipDate()==null){
+					return depositSlipService.findByTypeAndBillOfDeptorLikeAndAmount(type, deptor, amount);
+				}else{
+					return depositSlipService.findByDepositSlipDateAndTypeAndBillOfDeptorLikeAndAmount(depositSlip.getDepositSlipDate(), type, deptor, amount);
+				}
+			}
+		}else if(type==Type.PAYMENTIN || type==Type.TRANSFER){
+			if(amount==0){
+				if(depositSlip.getDepositSlipDate()==null){
+					return depositSlipService.findByTypeAndBillOfReceiverLikeAndBillOfDeptorLike(type, receiver, deptor);
+				}else{
+					return depositSlipService.findByDepositSlipDateAndTypeAndBillOfReceiverLikeAndBillOfDeptorLike(depositSlip.getDepositSlipDate(), type, receiver, deptor);
+				}
+			}else{
+				if(depositSlip.getDepositSlipDate()==null){
+					return depositSlipService.findByTypeAndBillOfReceiverLikeAndBillOfDeptorLikeAndAmount(type, receiver, deptor, amount);
+				}else{
+					return depositSlipService.findByDepositSlipDateAndTypeAndBillOfReceiverLikeAndBillOfDeptorLikeAndAmount(depositSlip.getDepositSlipDate(), type, receiver, deptor, amount);
+				}
+			}
+		}else{
+			if(amount==0){
+				if(depositSlip.getDepositSlipDate()==null){
+					return depositSlipService.findByBillOfReceiverLikeAndBillOfDeptorLike(receiver, deptor);
+				}else{
+					return depositSlipService.findByDepositSlipDateAndBillOfReceiverLikeAndBillOfDeptorLike(depositSlip.getDepositSlipDate(), receiver, deptor);
+				}
+			}
+		}
+		return depositSlipService.findByDepositSlipDateAndBillOfReceiverLikeAndBillOfDeptorLikeAndAmount(depositSlip.getDepositSlipDate(), receiver, deptor, amount);
+	}
 }

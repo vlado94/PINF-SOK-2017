@@ -1,11 +1,19 @@
 <div class="col-sm-4" ng-init="findAllCodeBookActivities()">
+  <form>
+    <div class="form-group">
+      <div class="input-group">
+        <div class="input-group-addon"><i class="fa fa-search"></i></div>
+        <input type="text" class="form-control" placeholder="Filter codebook..." ng-model="filterCodebook">
+      </div>      
+    </div>
+  </form>
 	<table class="table table-bordered" border="1">
 		<tbody>
 			<tr>
 				<th>Code</th>
 				<th>Name</th>
 			</tr>
-			<tr ng-repeat="activity in allcodeBookActivities">
+			<tr ng-repeat="activity in allcodeBookActivities | filter:filterCodebook">
 				<td>{{activity.code}}</td>
 				<td>{{activity.name}}</td>
 			</tr>

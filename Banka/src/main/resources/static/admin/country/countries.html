@@ -6,7 +6,7 @@
     <div class="form-group">
       <div class="input-group">
         <div class="input-group-addon"><i class="fa fa-search"></i></div>
-        <input type="text" class="form-control" placeholder="Filter country..." ng-model="searchCountry">
+        <input type="text" class="form-control" placeholder="Filter country..." ng-model="filterCountry">
       </div>      
     </div>
   </form>
@@ -17,7 +17,7 @@
 				<th>Name</th>
 				<th colspan="2">Action</th>
 			</tr>
-			<tr ng-repeat="country in allCountries  | filter:searchCountry">
+			<tr ng-repeat="country in allCountries  | filter:filterCountry">
 				<td>{{country.code}}</td>
 				<td>{{country.name}}</td>
 				<td colspan="2">
