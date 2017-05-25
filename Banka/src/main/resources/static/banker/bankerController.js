@@ -118,43 +118,14 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 			bankerService.findClientById(clientID).then(
 				function(response){
 					$scope.client = response.data;
-					initDetailsAboutLegal($scope.client);
-				}, function (response){
+					
+					if(response.data.type == "PRAVNO"){
+						$scope.selectedNameOfActivity = $scope.client.codeBookActivities.name;
+					}
+		}, function (response){
 					alert("Greska!");
 				}
 			);
-		}
-		
-		//kasnije se menja sa check box
-		function initDetailsAboutIndividual(client) {
-			if(client.deliveryByMail == true){
-				document.getElementById("deliveryTrue").checked= true;
-			}else{
-				document.getElementById("deliveryFalse").checked= true;
-			}
-		}
-		
-		//kasnije se menja sa check box
-		function initDetailsAboutLegal(client) {
-			if(client.deliveryByMail == true){
-				document.getElementById("deliveryTrue").checked= true;
-			}else{
-				document.getElementById("deliveryFalse").checked= true;
-			}
-			$scope.selectedNameOfActivity = client.codeBookActivities.name;
-		}
-		
-		//kasnije se menja sa check box
-		$scope.chooseDelivery= function (chosen) {
-			if(chosen == true){
-				document.getElementById("deliveryFalse").checked= false;
-				document.getElementById("deliveryTrue").checked= true;
-				$scope.delivery = "true";
-			}else{
-				document.getElementById("deliveryTrue").checked= false;
-				document.getElementById("deliveryFalse").checked= true;
-				$scope.delivery = "false";
-			}
 		}
 		
 		$scope.saveIndividualBill= function () {
@@ -208,7 +179,7 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 			bankerService.findActivityByName($scope.selectedNameOfActivity).then(
 				function(response){
 					var client  = $scope.client;
-					client.deliveryByMail = $scope.delivery;
+					//client.deliveryByMail = $scope.delivery;
 					client.codeBookActivities =response.data;
 					bankerService.updateLegalClient(client).then(
 						function(){
@@ -225,7 +196,7 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 		
 		$scope.updateIndividualClient = function() {
 			var client  = $scope.client;
-			client.deliveryByMail = $scope.delivery;		
+					
 		    bankerService.updateIndividualClient(client).then(
 				function(){
 					$state.go("banker.individualBills", {});

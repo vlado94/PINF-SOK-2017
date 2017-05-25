@@ -10,13 +10,8 @@
 	
 	<label>Delivery by mail</label>
 	
-	</br>
-	<span>
-	<input type ="radio"  ng-model = "$parent.individualPerson.deliveryByMail" value = "true"> Yes
-		<input type ="radio" ng-model = "$parent.individualPerson.deliveryByMail" value="false"> No
-	</span>
-	
-	
+	<br/>
+	<input type="checkbox" ng-model="$parent.individualPerson.deliveryByMail" ng-true-value="true" ng-false-value="false">
 
 	</br></br>
 <button class = "btn btn-default" ng-click = "saveIndividualBill()"><span class = "glyphicon glyphicon-plus"></span>  Save</button>
