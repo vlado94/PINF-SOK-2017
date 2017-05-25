@@ -152,8 +152,12 @@ input{
 	margin-left: 720px;	
 }
 
-input[type=checkbox] {
-	visibility: hidden;
+/* input[type=checkbox] { */
+/* 	visibility: hidden; */
+/* } */
+
+.checkboxHidden{
+		visibility: hidden;
 }
 
 .checkboxTwo {
