@@ -5,7 +5,7 @@
    <div class="form-group">
      <div class="input-group">
        <div class="input-group-addon"><i class="fa fa-search"></i></div>
-       <input type="text" class="form-control" placeholder="Search legal bill..." ng-model="searchLegalBill">
+       <input type="text" class="form-control" placeholder="Filter company accounts..." ng-model="filterLegalBill">
      </div>      
    </div>
  </form>
@@ -16,7 +16,7 @@
 				<th>Client name</th>
 				<th>Action</th>
 			</tr>
-			<tr ng-repeat="legalBill in allLegalBills | filter:searchLegalBill">
+			<tr ng-repeat="legalBill in allLegalBills | filter:filterLegalBill">
 				<td>{{legalBill.accountNumber}}</td>
 				<td>{{legalBill.client.applicant}}</td>
 				<td colspan="2">

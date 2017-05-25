@@ -1,7 +1,18 @@
 <h1>List of bank transactions</h1><h1>List of client transactions</h1>
 
 
+
 <table ng-init="findNotProcessedDepositSlips()"class="table table-bordered" border="1">
+
+  <form>
+    <div class="form-group">
+      <div class="input-group">
+        <div class="input-group-addon"><i class="fa fa-search"></i></div>
+        <input type="text" class="form-control" placeholder="Filter transactions..." ng-model="filterDepositSlip">
+      </div>      
+    </div>
+  </form>
+
 	<tbody>
 			<tr>
 				<th>Date</th>
@@ -9,7 +20,9 @@
 				<th>Bill of receiver</th>
 				<th>Bill of debtor</th>
 				<th>Amount</th>
-			<tr ng-repeat="depositSlip in allNotProcessedDepositSlips">
+
+			<tr ng-repeat="depositSlip in allNotProcessedDepositSlips | filter:filterDepositSlip">
+
 				<td>{{depositSlip.depositSlipDate}}</td>
 				<td>{{depositSlip.type}}</td>
 				<td>{{depositSlip.billOfReceiver}}</td>
@@ -21,3 +34,4 @@
 
 <button class = "btn btn-default" ng-click = "exportDepositSlips()" ><span class = "glyphicon glyphicon-export"></span>  Export</button> 
 <button class = "btn btn-default" ui-sref =".searchDepositSlip" ><span class = "glyphicon glyphicon-search"></span>  Search</button> 
+<div ui-view></div>

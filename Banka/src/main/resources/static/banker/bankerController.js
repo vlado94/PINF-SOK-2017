@@ -299,7 +299,7 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 			);
 		}
 		
-		$scope.resetSearchPopulatedPlace = function(){
+		$scope.resetsearchPopulatedPlace = function(){
 			$scope.findAllPopulatedPlaces();
 			$scope.populatedPlace=null;
 		}
@@ -513,7 +513,7 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 			);
 		}
 		
-		$scope.resetSearchPopulatedPlace = function(){
+		$scope.resetSearchDepositSlip = function(){
 			$scope.findAllDepositSlips();
 			$scope.depositSlip=null;
 		}

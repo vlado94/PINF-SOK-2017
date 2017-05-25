@@ -5,7 +5,7 @@
    <div class="form-group">
      <div class="input-group">
        <div class="input-group-addon"><i class="fa fa-search"></i></div>
-       <input type="text" class="form-control" placeholder="Filter individual bill..." ng-model="searchIndividualBill">
+       <input type="text" class="form-control" placeholder="Filter persona accounts..." ng-model="filterIndividualBill">
      </div>      
    </div>
  </form>
@@ -16,7 +16,7 @@
 				<th>Client name</th>
 				<th>Action</th>
 			</tr>
-			<tr ng-repeat="individualBill in allIndividualBills | filter:searchIndividualBill">
+			<tr ng-repeat="individualBill in allIndividualBills | filter:filterIndividualBill">
 				<td>{{individualBill.accountNumber}}</td>
 				<td>{{individualBill.client.applicant}}</td>
 				<td colspan="2">

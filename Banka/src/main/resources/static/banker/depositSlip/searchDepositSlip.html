@@ -2,11 +2,15 @@
 <form name = "searchDepositSlip">
 
 	<label>Date</label>
-	<input type = "text" class = "form-control" ng-model = "$parent.$parent.depositSlip.depositSlipDate" ></input>
+	<input type="date" class = "form-control" ng-model = "$parent.$parent.depositSlip.depositSlipDate">
 
 	<label>Type</label>
-	<input type = "text" class = "form-control" ng-model = "$parent.$parent.depositSlip.type"></input>
-	
+	<select class = "form-control" ng-model="$parent.$parent.depositSlip.type">
+				  <option value="PAYMENTOUT">PAYMENTOUT</option> <!-- UPLATA -->
+				  <option value="PAYMENTIN">PAYMENTIN</option><!-- NAPLATA -->
+				  <option value="PAYOUT">PAYOUT</option><!-- ISPLATA -->
+				  <option value="TRANSFER">TRANSFER</option><!-- PRENOS -->
+	</select>	
 	<label>Bill of receiver</label>
 	<input type = "text" class = "form-control" ng-model = "$parent.$parent.depositSlip.billOfReceiver"></input>
 	
