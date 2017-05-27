@@ -2,8 +2,6 @@ package app.MT102xml;
 
 import java.util.List;
 
-import app.bank.Bank;
-
 public interface MT102xmlService {
 
 	public List<MT102xml> findAll();

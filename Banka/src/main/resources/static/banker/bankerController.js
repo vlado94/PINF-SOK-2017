@@ -484,7 +484,6 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 						for(var j in interbankTransfers[i].depositSlips){
 							listOfAllDepositSlips.push(interbankTransfers[i].depositSlips[j]);
 						}
-						
 					}
 					$scope.allNotProcessedDepositSlips = listOfAllDepositSlips;
 				}, function (response){

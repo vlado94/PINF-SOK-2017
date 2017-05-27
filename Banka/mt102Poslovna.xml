@@ -2,14 +2,14 @@
 <mt102xml>
     <headerMT102xml>
         <messageId>fsf1ds2ds</messageId>
-        <debtorBankswiftCode>88344696</debtorBankswiftCode>
-        <debtorBankclearingAccount>543216789123456987</debtorBankclearingAccount>
-        <receiverBankswiftCode>12345678</receiverBankswiftCode>
-        <receiverBankclearingAccount>123456789123456789</receiverBankclearingAccount>
+        <debtorBankswiftCode>12345678</debtorBankswiftCode>
+        <debtorBankclearingAccount>123456789123456789</debtorBankclearingAccount>
+        <receiverBankswiftCode>88344696</receiverBankswiftCode>
+        <receiverBankclearingAccount>543216789123456987</receiverBankclearingAccount>
         <amount>120.00</amount>
         <currencyCode>rsd</currencyCode>
-        <currencyDate>2017-05-26</currencyDate>
-        <date>2017-05-26</date>
+        <currencyDate>2017-05-27</currencyDate>
+        <date>2017-05-27</date>
     </headerMT102xml>
     <depositSlipXml>
         <messageId>ndsk2fdsmfs</messageId>

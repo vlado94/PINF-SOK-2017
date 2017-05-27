@@ -13,4 +13,6 @@ public interface InterbankTransferService {
 	public InterbankTransfer findOne(Long id);
 
 	public List<InterbankTransfer> findAllAndDateTimeIsNull();
+
+	public List<InterbankTransfer> findAllByBankCodeAndDateTimeIsNull(Integer code);
 }

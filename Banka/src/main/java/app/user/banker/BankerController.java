@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -17,6 +19,9 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.NotFoundException;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,6 +34,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import app.MT103xml.MT103xml;
 import app.bank.BankService;
 import app.bill.Bill;
 import app.bill.BillService;
@@ -205,13 +211,17 @@ public class BankerController {
 			resolveAllForReciver(depositSlip);
 		}
 		else {
+			String currencyCode = ((Banker)httpSession.getAttribute("user")).getBank().getCurrencyCode();
 			if(depositSlip.getAmount() > 250000 || depositSlip.isUrgently()) {
 				//rtgs
-				InterbankTransfer interbankTransfer = new InterbankTransfer(true);
+				InterbankTransfer interbankTransfer = new InterbankTransfer(true,currencyCode);
 				interbankTransfer.getDepositSlips().add(depositSlip);	
 				interbankTransfer.setBankReciever(bankService.findOneByCode(bankCodeBillOfReciver));
 				interbankTransfer.setBankSender(bankService.findOneByCode(bankCodeBillOfDeptor));
 				interbankTransferService.save(interbankTransfer);
+				
+				MT103xml mt103 = makeMT103Message(interbankTransfer);
+				exportMT103Message(mt103);
 			}
 			else {
 				InterbankTransfer interbankTransfer = findInterBankTransfer(bankCodeBillOfReciver,bankCodeBillOfDeptor);
@@ -222,6 +232,55 @@ public class BankerController {
 		}		
 	}
 	
+	private MT103xml makeMT103Message(InterbankTransfer interbankTransfer){
+		MT103xml mt103 = new MT103xml();
+		mt103.setMessageId("fsa1fa5fas");
+		mt103.setDebtorBankswiftCode(interbankTransfer.getBankSender().getSwiftCode().toString());
+	    mt103.setDebtorBankclearingAccount(interbankTransfer.getBankSender().getClearingAccount().toString());
+		mt103.setReceiverBankswiftCode(interbankTransfer.getBankSender().getSwiftCode().toString());
+		mt103.setReceiverBankclearingAccount(interbankTransfer.getBankSender().getClearingAccount().toString());
+		mt103.setDeptor(interbankTransfer.getDepositSlips().get(0).getDeptor());
+		mt103.setPurposeOfPayment(interbankTransfer.getDepositSlips().get(0).getPurposeOfPayment());
+		mt103.setReceiver(interbankTransfer.getDepositSlips().get(0).getReceiver());
+		
+		try {
+		    java.sql.Date sqlDepositSlipDate = new java.sql.Date(interbankTransfer.getDepositSlips().get(0).getDepositSlipDate().getTime());
+			java.sql.Date sqlCurrencyDate = new java.sql.Date(interbankTransfer.getDepositSlips().get(0).getCurrencyDate().getTime());
+			mt103.setDate(sqlDepositSlipDate);
+			mt103.setCurrencyDate(sqlCurrencyDate);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		mt103.setBillOfDeptor(interbankTransfer.getDepositSlips().get(0).getBillOfDeptor());
+		mt103.setModelAssignment(interbankTransfer.getDepositSlips().get(0).getModelAssignment());
+		mt103.setReferenceNumberAssignment(interbankTransfer.getDepositSlips().get(0).getReferenceNumberAssignment());
+		mt103.setBillOfReceiver(interbankTransfer.getDepositSlips().get(0).getBillOfReceiver());
+		mt103.setModelApproval(interbankTransfer.getDepositSlips().get(0).getModelApproval());
+		mt103.setReferenceNumberApproval(interbankTransfer.getDepositSlips().get(0).getReferenceNumberApproval());
+		mt103.setAmount(new BigDecimal(interbankTransfer.getDepositSlips().get(0).getAmount()).setScale(2, RoundingMode.CEILING));
+		mt103.setCurrencyCode(interbankTransfer.getCurrencyCode());
+		
+		return mt103;
+	}
+	
+	
+	private void exportMT103Message(MT103xml mt103){
+		try {
+
+			File file = new File("mt103Poslovna.xml");
+			JAXBContext jaxbContext = JAXBContext.newInstance(MT103xml.class);
+			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+
+			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+			jaxbMarshaller.marshal(mt103, file);
+			jaxbMarshaller.marshal(mt103, System.out);
+
+		      } catch (JAXBException e) {
+			e.printStackTrace();
+		      }
+	}
 	private InterbankTransfer findInterBankTransfer(Integer bankCodeBillOfReciver,Integer bankCodeBillOfDeptor) {
 		List<InterbankTransfer> list = interbankTransferService.findAll();
 		for(int i=0;i<list.size();i++) {
@@ -229,7 +288,8 @@ public class BankerController {
 				return list.get(i);
 			}
 		}
-		InterbankTransfer retVal = new InterbankTransfer(false);
+		String currencyCode = ((Banker)httpSession.getAttribute("user")).getBank().getCurrencyCode();
+		InterbankTransfer retVal = new InterbankTransfer(false,currencyCode);
 		retVal.setBankReciever(bankService.findOneByCode(bankCodeBillOfReciver));
 		retVal.setBankSender(bankService.findOneByCode(bankCodeBillOfDeptor));
 		return retVal;
