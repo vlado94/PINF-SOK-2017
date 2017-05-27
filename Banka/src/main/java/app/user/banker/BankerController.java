@@ -2,12 +2,17 @@ package app.user.banker;
 
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.naming.AuthenticationException;
 import javax.servlet.http.HttpSession;
@@ -17,7 +22,6 @@ import javax.ws.rs.NotFoundException;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -43,6 +47,12 @@ import app.depositSlip.DepositSlip.Type;
 import app.depositSlip.DepositSlipService;
 import app.interbankTransfer.InterbankTransfer;
 import app.interbankTransfer.InterbankTransferService;
+import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @RestController
 @RequestMapping("/banker")
@@ -94,7 +104,29 @@ public class BankerController {
 		else {
 			throw new NotFoundException();
 		}
-	}	
+	}
+	
+	@GetMapping("/makePDF")
+	@ResponseStatus(HttpStatus.OK)
+	public void handleSimpleReportMulti2() throws JRException, FileNotFoundException {
+		
+		ProductModel pr = new ProductModel();
+	    String outputFile ="D:\\JasperTableExample2.pdf";
+		JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(pr.findAll());
+
+        /* Map to hold Jasper report Parameters */
+        Map<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put("ItemDataSource", itemsJRBean);
+
+        /* Using compiled version(.jasper) of Jasper report to generate PDF */
+        JasperPrint jasperPrint = JasperFillManager.fillReport("D:\\products1.jasper", parameters, new JREmptyDataSource());
+
+       
+        /* outputStream to create PDF */
+        OutputStream outputStream = new FileOutputStream(new File(outputFile));
+        /* Write content to PDF file */
+        JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
+	}
 	
 	@PostMapping(path = "/closeBill")
 	@ResponseStatus(HttpStatus.CREATED)
@@ -370,4 +402,6 @@ public class BankerController {
 		}
 		billService.save(billReciver);	
 	}
+	
+	
 }
