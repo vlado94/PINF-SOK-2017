@@ -40,8 +40,11 @@ public class InterbankTransferServiceImpl implements InterbankTransferService {
 
 	@Override
 	public List<InterbankTransfer> findAllAndDateTimeIsNull() {
-		List<InterbankTransfer> list = interbankTransferRepo.findAllAndDateTimeIsNull();
-		System.out.println("U service impl" + list.size());
-		return list;
+		return interbankTransferRepo.findAllAndDateTimeIsNull();
+	}
+
+	@Override
+	public List<InterbankTransfer> findAllByBankCodeAndDateTimeIsNull(Integer code) {
+		return interbankTransferRepo.findAllByBankCodeAndDateTimeIsNull(code);
 	}
 }

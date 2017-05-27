@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import app.bank.Bank;
 import app.bill.BillService;
 import app.dailyBalance.DailyBalanceService;
 import app.depositSlip.DepositSlip;
 import app.depositSlip.DepositSlipService;
+import app.user.banker.Banker;
 
 @RestController
 @RequestMapping("/interbankTransfer")
@@ -36,7 +38,9 @@ public class InterbankTransferController {
 	@GetMapping("/findAllUnsentInterbankTransfer")
 	@ResponseStatus(HttpStatus.OK)
 	public List<InterbankTransfer> findAllUnsentInterbankTransfer() {
-		return interbankTransferService.findAllAndDateTimeIsNull();
+		Banker banker = (Banker) httpSession.getAttribute("user");
+		Bank currentBank = banker.getBank();
+		return interbankTransferService.findAllByBankCodeAndDateTimeIsNull(currentBank.getCode());
 	}
 	
 	

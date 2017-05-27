@@ -54,17 +54,16 @@ public class InterbankTransfer {
 	@Column
 	private String currencyCode;
 	
-	public InterbankTransfer(boolean type) {
+	public InterbankTransfer(boolean type,String currencyCode) {
 		depositSlips = new ArrayList<DepositSlip>();
+		this.currencyCode = currencyCode;
 		amount = 0;
 		if(type) {//RTGS
 			typeOfMessage = "MT102";
 			dateTime = new Timestamp(System.currentTimeMillis());
-			currencyCode = "rsd";
 		}
 		else {//CLEARING
 			typeOfMessage = "MT103";
-			currencyCode = "rsd";
 		}
 	}
 	

@@ -40,6 +40,11 @@ public class Bank {
 	private Integer swiftCode;
 	
 	@NotNull
+	@Column
+	private String currencyCode;
+	
+	
+	@NotNull
 	@Column(length=18)
 	private Long clearingAccount; // obracunski racun
 	
