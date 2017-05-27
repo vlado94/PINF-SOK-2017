@@ -41,6 +41,7 @@ import app.depositSlip.DepositSlip.Type;
 import app.depositSlip.DepositSlipService;
 import app.interbankTransfer.InterbankTransfer;
 import app.interbankTransfer.InterbankTransferService;
+import app.modelView.Excerpt;
 import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -122,6 +123,31 @@ public class BankerController {
         JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
 	}
 	
+	@GetMapping("/makePDFForClient")
+	@ResponseStatus(HttpStatus.OK)
+	public void getReportForClient() throws JRException, FileNotFoundException {
+	    String outputFile ="D:\\ExcerptForClient.pdf";
+		
+	    Excerpt ex = new Excerpt();
+	    
+		ProductModel pr = new ProductModel();
+		JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(ex.findAll());
+
+		
+		
+        /* Map to hold Jasper report Parameters */
+        Map<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put("ItemDataSource", itemsJRBean);
+
+        /* Using compiled version(.jasper) of Jasper report to generate PDF */
+        JasperPrint jasperPrint = JasperFillManager.fillReport("D:\\excerpt.jasper", parameters, new JREmptyDataSource());
+
+       
+        /* outputStream to create PDF */
+        OutputStream outputStream = new FileOutputStream(new File(outputFile));
+        /* Write content to PDF file */
+        JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
+	}
 	@PostMapping(path = "/closeBill")
 	@ResponseStatus(HttpStatus.CREATED)
 	public ClosingBill closeBill(@Valid @RequestBody ClosingBill closingBill) {

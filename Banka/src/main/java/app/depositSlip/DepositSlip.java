@@ -72,7 +72,7 @@ public class DepositSlip {
 	private String referenceNumberApproval; //poziv na broj odobrenja 20
 	
 	@Column
-	private double amount; //iznos
+	private Double amount; //iznos
 	
 	@Column
 	private String codeOfCurrency; //sifra valute 3
@@ -106,5 +106,23 @@ public class DepositSlip {
 	}
 	
 	public DepositSlip(){}
+	
+	public DepositSlip(boolean type) {
+		setType(Type.TRANSFER);
+		setDeptor("2131312");
+		setPurposeOfPayment("zatvaranje racuna");
+		setReceiver("Pravni nasljednik");
+		setCurrencyDate(new Date(0));
+		setCodeOfCurrency("rsd");
+		setBillOfReceiver("4566656");
+		setModelApproval(2);
+		setReferenceNumberApproval("20");
+		setReferenceNumberAssignment("20");
+		setBillOfDeptor("321312");
+		setModelAssignment(2);
+		setDepositSlipDate(new Date(0));
+		setUrgently(false);
+		setDirection(false);
+	}
 		
 }
