@@ -1,6 +1,4 @@
 package app.user.banker;
-
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -24,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
 
 import app.bill.Bill;
 import app.bill.BillService;
@@ -113,17 +110,14 @@ public class BankerController {
 	@ResponseStatus(HttpStatus.OK)
 	public void getReportForClient() throws JRException, FileNotFoundException {
 	    String outputFile ="D:\\ExcerptForClient.pdf";
-		
-	    Excerpt ex = new Excerpt();
-	    
-		ProductModel pr = new ProductModel();
-		JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(ex.findAll());
-
-		
+		Excerpt ex = new Excerpt();
+	    JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(ex.findAll());
 		
         /* Map to hold Jasper report Parameters */
         Map<String, Object> parameters = new HashMap<String, Object>();
         parameters.put("ItemDataSource", itemsJRBean);
+        parameters.put("to", ex.getToDate());
+        parameters.put("from", ex.getFromDate());
 
         /* Using compiled version(.jasper) of Jasper report to generate PDF */
         JasperPrint jasperPrint = JasperFillManager.fillReport("D:\\excerpt.jasper", parameters, new JREmptyDataSource());

@@ -14,7 +14,6 @@ import javax.persistence.ManyToOne;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -22,6 +21,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import app.Adapter1;
 import app.bill.Bill;
 import app.closingBill.ClosingBill;
+import app.enums.Type;
 import app.paymentTypes.PaymentTypes;
 import lombok.Data;
 
@@ -31,19 +31,11 @@ import lombok.Data;
 @Entity
 public class DepositSlip {
 
-	@XmlEnum
-	public enum Type {
-	    TRANSFER, //prenos
-	    PAYMENTOUT, //uplata
-	    PAYOUT, //isplata
-	    PAYMENTIN //naplata
-	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "DEPOSIT_SLIP_ID")
-	private Long id;
-	
+	private Long id;	
 
 	@XmlElement(name = "type", required = true)
 	@Column
@@ -149,6 +141,8 @@ public class DepositSlip {
 		setModelAssignment(2);
 		setDepositSlipDate(new Date(0));
 		setUrgently(false);
+
+		setAmount(3.33);
 	}
 		
 }
