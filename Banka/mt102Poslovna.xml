@@ -8,8 +8,8 @@
         <receiverBankclearingAccount>543216789123456987</receiverBankclearingAccount>
         <amount>120.00</amount>
         <currencyCode>rsd</currencyCode>
-        <currencyDate>2017-05-27</currencyDate>
-        <date>2017-05-27</date>
+        <currencyDate>2017-05-28</currencyDate>
+        <date>2017-05-28</date>
     </headerMT102xml>
     <depositSlipXml>
         <messageId>ndsk2fdsmfs</messageId>

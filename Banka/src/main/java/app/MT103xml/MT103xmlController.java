@@ -1,18 +1,14 @@
 package app.MT103xml;
 
 import java.io.File;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
@@ -26,16 +22,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.xml.sax.SAXException;
 
 import app.MyValidationEventHandler;
-import app.MT102xml.MT102xml;
-import app.MT102xml.MT102xmlService;
-import app.bank.Bank;
 import app.depositSlip.DepositSlip;
 import app.depositSlip.DepositSlipService;
-import app.depositSlip.DepositSlipXml;
-import app.depositSlip.HeaderMT102xml;
-import app.interbankTransfer.InterbankTransfer;
 import app.interbankTransfer.InterbankTransferService;
-import app.user.banker.Banker;
 
 @RestController
 @RequestMapping("/mt103")
@@ -173,4 +162,6 @@ public class MT103xmlController {
 		
 	}
 	*/
+	
+
 }

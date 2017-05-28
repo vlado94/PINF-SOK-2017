@@ -516,5 +516,6 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 			$scope.findAllDepositSlips();
 			$scope.depositSlip=null;
 		}
+		
 	}
 ]);
