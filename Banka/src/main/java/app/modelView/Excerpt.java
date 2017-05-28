@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.depositSlip.DepositSlip;
+import lombok.Data;
 
+@Data
 public class Excerpt {
 
 	private Date fromDate;

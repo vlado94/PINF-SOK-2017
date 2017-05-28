@@ -1,12 +1,12 @@
 package app.user.banker;
-
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -34,6 +34,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import app.BankaApplication;
 import app.MT103xml.MT103xml;
 import app.bank.BankService;
 import app.bill.Bill;
@@ -43,8 +44,8 @@ import app.closingBill.ClosingBillService;
 import app.dailyBalance.DailyBalance;
 import app.dailyBalance.DailyBalanceService;
 import app.depositSlip.DepositSlip;
-import app.depositSlip.DepositSlip.Type;
 import app.depositSlip.DepositSlipService;
+import app.enums.Type;
 import app.interbankTransfer.InterbankTransfer;
 import app.interbankTransfer.InterbankTransferService;
 import app.modelView.Excerpt;
@@ -133,17 +134,14 @@ public class BankerController {
 	@ResponseStatus(HttpStatus.OK)
 	public void getReportForClient() throws JRException, FileNotFoundException {
 	    String outputFile ="D:\\ExcerptForClient.pdf";
-		
-	    Excerpt ex = new Excerpt();
-	    
-		ProductModel pr = new ProductModel();
-		JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(ex.findAll());
-
-		
+		Excerpt ex = new Excerpt();
+	    JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(ex.findAll());
 		
         /* Map to hold Jasper report Parameters */
         Map<String, Object> parameters = new HashMap<String, Object>();
         parameters.put("ItemDataSource", itemsJRBean);
+        parameters.put("to", ex.getToDate());
+        parameters.put("from", ex.getFromDate());
 
         /* Using compiled version(.jasper) of Jasper report to generate PDF */
         JasperPrint jasperPrint = JasperFillManager.fillReport("D:\\excerpt.jasper", parameters, new JREmptyDataSource());

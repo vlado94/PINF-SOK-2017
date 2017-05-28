@@ -3,9 +3,7 @@ package app.depositSlip;
 import java.sql.Date;
 import java.util.List;
 
-import org.springframework.data.jpa.repository.Query;
-
-import app.depositSlip.DepositSlip.Type;
+import app.enums.Type;
 
 public interface DepositSlipService {
 	

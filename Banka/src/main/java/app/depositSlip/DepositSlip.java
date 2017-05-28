@@ -14,25 +14,17 @@ import javax.persistence.ManyToOne;
 
 import app.bill.Bill;
 import app.closingBill.ClosingBill;
+import app.enums.Type;
 import app.paymentTypes.PaymentTypes;
 import lombok.Data;
 
 @Data
 @Entity
 public class DepositSlip {
-
-	public enum Type {
-	    TRANSFER, //prenos
-	    PAYMENTOUT, //uplata
-	    PAYOUT, //isplata
-	    PAYMENTIN //naplata
-	}
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "DEPOSIT_SLIP_ID")
-	private Long id;
-	
+	private Long id;	
 
 	@Column
     @Enumerated(EnumType.STRING)
@@ -123,6 +115,7 @@ public class DepositSlip {
 		setDepositSlipDate(new Date(0));
 		setUrgently(false);
 		setDirection(false);
+		setAmount(3.33);
 	}
 		
 }
