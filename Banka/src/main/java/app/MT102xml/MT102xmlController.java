@@ -31,6 +31,7 @@ import app.depositSlip.DepositSlip;
 import app.depositSlip.DepositSlipService;
 import app.depositSlip.DepositSlipXml;
 import app.depositSlip.HeaderMT102xml;
+import app.enums.Status;
 import app.interbankTransfer.InterbankTransfer;
 import app.interbankTransfer.InterbankTransferService;
 import app.user.banker.Banker;
@@ -199,6 +200,9 @@ public class MT102xmlController {
 			for(int j = 0; j< transfer.getDepositSlips().size(); j++){ //za svaki deposit slip iz tranfera 
 			
 				DepositSlip depositSlip = transfer.getDepositSlips().get(j);
+				depositSlip.setStatus(Status.PROCESSED);
+				depositSlipService.save(depositSlip);
+				
 				
 				DepositSlipXml xml =  new DepositSlipXml();
 				xml.setMessageId("ndsk2fdsmfs");

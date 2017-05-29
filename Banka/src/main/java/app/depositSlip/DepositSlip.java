@@ -21,6 +21,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import app.Adapter1;
 import app.bill.Bill;
 import app.closingBill.ClosingBill;
+import app.enums.Status;
 import app.enums.Type;
 import app.paymentTypes.PaymentTypes;
 import lombok.Data;
@@ -105,6 +106,11 @@ public class DepositSlip {
 	@ManyToOne
 	@JoinColumn(name = "PAYMENT_TYPE_ID")
 	private PaymentTypes paymentType;
+	
+	
+	@XmlTransient
+	@Column
+	private Status status; 	
 	
 	public DepositSlip(Bill billForClosing,ClosingBill closingBill,String billSuccessor) {
 		setType(Type.TRANSFER);

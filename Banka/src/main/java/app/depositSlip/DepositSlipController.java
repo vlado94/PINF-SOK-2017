@@ -34,6 +34,7 @@ import app.bill.Bill;
 import app.bill.BillService;
 import app.dailyBalance.DailyBalance;
 import app.dailyBalance.DailyBalanceService;
+import app.enums.Status;
 import app.enums.Type;
 import app.interbankTransfer.InterbankTransfer;
 import app.interbankTransfer.InterbankTransferService;
@@ -66,9 +67,31 @@ public class DepositSlipController {
 		return depositSlipService.findAll();
 	}
 	
+	@GetMapping("/findAllDepositSlipsForBank")
+	@ResponseStatus(HttpStatus.OK)
+	public List<DepositSlip> findAllDepositSlipsForBank() {
+		int bankCode = ((Banker)httpSession.getAttribute("user")).getBank().getCode();
+		
+		List<DepositSlip> allDepositSlips = depositSlipService.findAll();
+		List<DepositSlip> depositSlipsForBank = new ArrayList<DepositSlip>();
+		
+		for(int i = 0; i <allDepositSlips.size(); i++){
+			if(allDepositSlips.get(i).getBillOfDeptor() != null && allDepositSlips.get(i).getBillOfDeptor().substring(0, 3).equals(String.valueOf(bankCode))){
+				depositSlipsForBank.add(allDepositSlips.get(i));
+			}
+			if(allDepositSlips.get(i).getType() == Type.PAYMENTOUT && allDepositSlips.get(i).getBillOfReceiver().substring(0, 3).equals(String.valueOf(bankCode))){
+				depositSlipsForBank.add(allDepositSlips.get(i));
+			}
+		}
+		return depositSlipsForBank;
+	}
+	
+	
+	
 	@PostMapping(path = "/saveDepositSlip")
 	@ResponseStatus(HttpStatus.CREATED)
 	public void saveDepositSlip(@RequestBody DepositSlip depositSlip) {
+		depositSlip.setStatus(Status.UNPROCESSED);
 		depositSlip = depositSlipService.save(depositSlip);
 		if(depositSlip.getType() == Type.TRANSFER) {
 			checkBillInBank(billService.findByAccountNumber(depositSlip.getBillOfDeptor()).getId());
@@ -80,12 +103,13 @@ public class DepositSlipController {
 			DepositSlipPaymentIn(depositSlip);				
 			
 		}else if (depositSlip.getType() == Type.PAYMENTOUT) {
-			checkBillInBank(billService.findByAccountNumber(depositSlip.getBillOfReceiver()).getId());
+			long id = billService.findByAccountNumber(depositSlip.getBillOfReceiver()).getId();
+			checkBillInBank(id);
 			DepositSlipPaymentOut(depositSlip);								
 		}
 	
 	}
-	
+
 	private void DepositSlipTransfer(DepositSlip depositSlip) {
 		int bankCodeBillOfReciver = Integer.parseInt(depositSlip.getBillOfReceiver().substring(0, 3));
 		int bankCodeBillOfDeptor = Integer.parseInt(depositSlip.getBillOfDeptor().substring(0, 3));
@@ -107,6 +131,8 @@ public class DepositSlipController {
 				interbankTransferService.save(interbankTransfer);
 				
 				MT103xml mt103 = makeMT103Message(interbankTransfer);
+				depositSlip.setStatus(Status.PROCESSED);
+				depositSlipService.save(depositSlip);
 				exportMT103Message(mt103);
 			}
 			else {
@@ -232,8 +258,13 @@ public class DepositSlipController {
 	
 	private void DepositSlipPayOut(DepositSlip depositSlip) {
 		resolveAllForDeptor(depositSlip);
+		depositSlip.setStatus(Status.PROCESSED);
+		depositSlipService.save(depositSlip);
 	}
 	private void DepositSlipPaymentIn(DepositSlip depositSlip) {
+		depositSlip.setStatus(Status.UNPROCESSED);
+		depositSlipService.save(depositSlip);
+		
 		int bankCodeBillOfReciver = Integer.parseInt(depositSlip.getBillOfReceiver().substring(0, 3));
 		int bankCodeBillOfDeptor = Integer.parseInt(depositSlip.getBillOfDeptor().substring(0, 3));
 		int bankCode = ((Banker)httpSession.getAttribute("user")).getBank().getCode();
@@ -244,12 +275,15 @@ public class DepositSlipController {
 			resolveAllForReciver(depositSlip);
 		}
 		else {
-			System.out.println("nije ista banka");
+			System.out.println("nije ista banka"); //treba i ovdje vezano za status rijesiti
 			//nalog ide u clearing ili rtgs
 		}
 	}
 	private void DepositSlipPaymentOut(DepositSlip depositSlip) {
+		
 		resolveAllForReciver(depositSlip);
+		depositSlip.setStatus(Status.PROCESSED);
+		depositSlipService.save(depositSlip);
 	}
 	private void resolveAllForDeptor(DepositSlip depositSlip) {
 		Bill billDeptor = billService.findByAccountNumber(depositSlip.getBillOfDeptor());
@@ -342,6 +376,8 @@ public class DepositSlipController {
 			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 			jaxbMarshaller.marshal(mt103, file);
 			jaxbMarshaller.marshal(mt103, System.out);
+			
+			
 
 		      } catch (JAXBException e) {
 			e.printStackTrace();

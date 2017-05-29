@@ -456,6 +456,7 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 			bankerService.exportDepositSlips().then(
 				function(response){
 					alert("Export successfuly processed.");
+					$scope.allNotProcessedDepositSlips = [];
 					/*location.reload();
 					$state.go("banker.home", {});
 					*/
@@ -528,12 +529,13 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 		}
 		
 		$scope.findNotProcessedDepositSlips = function() {
-			bankerService.findAllUnsentInterbankTransfer().then (
+		bankerService.findAllUnsentInterbankTransfer().then (
 				function(response){
 					var interbankTransfers = response.data;//lista interbank transfera
 					var listOfAllDepositSlips = [];
 					for (var i in interbankTransfers) {
 						for(var j in interbankTransfers[i].depositSlips){
+							if(interbankTransfers[i].depositSlips[j].status == "UNPROCESSED")
 							listOfAllDepositSlips.push(interbankTransfers[i].depositSlips[j]);
 						}
 					}
@@ -541,6 +543,15 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 				}, function (response){
 					alert("Error!")
 				});						
+		}
+		
+		$scope.findAllDepositSlipsForBank = function() {
+			bankerService.findAllDepositSlipsForBank().then (
+				function(response){
+					$scope.allDepositSlipsForBank = response.data;
+				}, function (response){
+					alert("Error!")
+			});						
 		}
 		
 		function markRow(code) {   

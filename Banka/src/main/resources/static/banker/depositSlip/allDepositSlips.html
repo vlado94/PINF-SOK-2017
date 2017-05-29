@@ -1,0 +1,40 @@
+<h1>List of all deposit slips</h1>
+
+<table ng-init="findAllDepositSlipsForBank()"class="table table-bordered" border="1">
+
+  <form>
+    <div class="form-group">
+      <div class="input-group">
+        <div class="input-group-addon"><i class="fa fa-search"></i></div>
+        <input type="text" class="form-control" placeholder="Filter transactions..." ng-model="filterDepositSlip">
+      </div>      
+    </div>
+  </form>
+
+	<tbody>
+			<tr>
+				<th> ID </th>
+				<th>Date</th>
+				<th>Type of deposit slip</th>
+				<th>Bill of receiver</th>
+				<th>Bill of debtor</th>
+				<th>Amount</th>
+				<th>Status</th>
+
+			<tr ng-repeat="depositSlip in allDepositSlipsForBank | filter:filterDepositSlip">
+				<td>{{depositSlip.id}} </td>
+				<td>{{depositSlip.depositSlipDate}}</td>
+				<td>{{depositSlip.type}}</td>
+				<td>{{depositSlip.billOfReceiver}}</td>
+				<td>{{depositSlip.billOfDeptor}}</td>
+				<td>{{depositSlip.amount}}</td>
+				<td>{{depositSlip.status}}</td>
+			</tr>
+		</tbody>
+</table>
+
+
+<!-- <button class = "btn btn-default" ui-sref =".searchDepositSlip" ><span class = "glyphicon glyphicon-search"></span>  Search</button>  -->
+
+
+<div ui-view></div>
