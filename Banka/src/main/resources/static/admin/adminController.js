@@ -328,6 +328,23 @@ app.controller('adminController', ['$scope','adminService', '$location','$state'
 			);
 		}
 		
+		$scope.searchForExchangeRates = function(){
+			var exchangeRate = $scope.exchangeRate;
+			//alert(exchangeRate.date+" "+exchangeRate.numberOfExchangeRate+" "+exchangeRate.startDate)
+			adminService.searchExchangeRate(exchangeRate).then(
+				function(response){
+				    $scope.exchangeRates = response.data;
+				}, 
+				function (response){
+					alert("Greska");
+				}
+			);
+		}
+		
+		$scope.resetSearchExchangeRates = function(){
+			$scope.findAllExchangeRates();
+			$scope.exchangeRate=null;
+		}
 		$scope.getCurrentExchangeRate = function () {
 			$scope.newCurrentExchange = $scope.currentExchangeRate;
 		}

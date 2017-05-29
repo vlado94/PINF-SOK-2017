@@ -98,6 +98,8 @@ var url = "/admin/";
 	this.exchangeRateDetails = function(id){
 		return $http.get("/exchangeRate/"+id);
 	}
-	
+	this.searchExchangeRate = function(exchangeRate){
+		return $http.post("/exchangeRate/search",exchangeRate);
+	}
 	
 }]);
