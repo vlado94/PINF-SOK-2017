@@ -38,25 +38,25 @@ public class DepositSlipServiceImpl implements DepositSlipService{
 
 	@Override
 	public List<DepositSlip> findByDepositSlipDateAndTypeAndBillOfReceiverLikeAndBillOfDeptorLikeAndAmount(
-			Date date, Type type, String billOfReceiver, String billOfDeptor, double amount) {
+			Date date, Type type, String billOfReceiver, String billOfDeptor, Double amount) {
 		return depositSlipRepository.findByDepositSlipDateAndTypeAndBillOfReceiverLikeAndBillOfDeptorLikeAndAmount(date, type, billOfReceiver, billOfDeptor, amount);
 	}
 
 	@Override
 	public List<DepositSlip> findByDepositSlipDateAndTypeAndBillOfDeptorLikeAndAmount(Date date, Type type,
-			String billOfDeptor, double amount) {
+			String billOfDeptor, Double amount) {
 		return depositSlipRepository.findByDepositSlipDateAndTypeAndBillOfDeptorLikeAndAmount(date, type, billOfDeptor, amount);
 	}
 
 	@Override
 	public List<DepositSlip> findByDepositSlipDateAndTypeAndBillOfReceiverLikeAndAmount(Date date, Type type,
-			String billOfReceiver, double amount) {
+			String billOfReceiver, Double amount) {
 		return depositSlipRepository.findByDepositSlipDateAndTypeAndBillOfReceiverLikeAndAmount(date, type, billOfReceiver, amount);
 	}
 
 	@Override
 	public List<DepositSlip> findByDepositSlipDateAndBillOfReceiverLikeAndBillOfDeptorLikeAndAmount(Date date,
-			String billOfReceiver, String billOfDeptor, double amount) {
+			String billOfReceiver, String billOfDeptor, Double amount) {
 		return depositSlipRepository.findByDepositSlipDateAndBillOfReceiverLikeAndBillOfDeptorLikeAndAmount(date, billOfReceiver, billOfDeptor, amount);
 	}
 
@@ -86,26 +86,26 @@ public class DepositSlipServiceImpl implements DepositSlipService{
 
 	@Override
 	public List<DepositSlip> findByTypeAndBillOfReceiverLikeAndBillOfDeptorLikeAndAmount(Type type,
-			String billOfReceiver, String billOfDeptor, double amount) {
+			String billOfReceiver, String billOfDeptor, Double amount) {
 		// TODO Auto-generated method stub
 		return depositSlipRepository.findByTypeAndBillOfReceiverLikeAndBillOfDeptorLikeAndAmount(type, billOfReceiver, billOfDeptor, amount);
 	}
 
 	@Override
-	public List<DepositSlip> findByTypeAndBillOfDeptorLikeAndAmount(Type type, String billOfDeptor, double amount) {
+	public List<DepositSlip> findByTypeAndBillOfDeptorLikeAndAmount(Type type, String billOfDeptor, Double amount) {
 		// TODO Auto-generated method stub
 		return depositSlipRepository.findByTypeAndBillOfDeptorLikeAndAmount(type, billOfDeptor, amount);
 	}
 
 	@Override
-	public List<DepositSlip> findByTypeAndBillOfReceiverLikeAndAmount(Type type, String billOfReceiver, double amount) {
+	public List<DepositSlip> findByTypeAndBillOfReceiverLikeAndAmount(Type type, String billOfReceiver, Double amount) {
 		// TODO Auto-generated method stub
 		return depositSlipRepository.findByTypeAndBillOfReceiverLikeAndAmount(type, billOfReceiver, amount);
 	}
 
 	@Override
 	public List<DepositSlip> findByBillOfReceiverLikeAndBillOfDeptorLikeAndAmount(String billOfReceiver,
-			String billOfDeptor, double amount) {
+			String billOfDeptor, Double amount) {
 		// TODO Auto-generated method stub
 		return depositSlipRepository.findByBillOfReceiverLikeAndBillOfDeptorLikeAndAmount(billOfReceiver, billOfDeptor, amount);
 	}

@@ -106,8 +106,10 @@ angular.module('routerApp', ['ui.router',
         .state('admin.exchangeRates.exchangeRateDetails', {
         	templateUrl : 'admin/exchangeRate/detailsExchangeRate.html'
         })
-        
-        
+        .state('admin.exchangeRates.searchExchangeRates', {
+        	url : '/search',
+          	templateUrl : 'admin/exchangeRate/searchExchangeRates.html'
+        })
         
         
         
@@ -186,7 +188,11 @@ angular.module('routerApp', ['ui.router',
           	templateUrl : 'banker/exchangeRate/exchangeRates.html'
         })
         .state('banker.exchangeRates.exchangeRateDetails', {
-          	templateUrl : 'banker/exchangeRate/detailsExchangeRate.html'
+          	templateUrl : 'banker/exchangeRate/detailsExchangeRate.html'          	       
+        })
+        .state('banker.exchangeRates.searchExchangeRates', {
+        	url : '/search',
+          	templateUrl : 'banker/exchangeRate/searchExchangeRates.html'
         })
         .state('banker.closeBill', {
           	templateUrl : 'banker/bills/closeBill.html'

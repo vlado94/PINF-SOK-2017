@@ -1,0 +1,17 @@
+<div class = "col-sm-6 excchangeRateSearch">
+<form name = "searchExchangeRates">
+
+	<label>Number</label>
+	<input type = "text" class = "form-control" ng-model = "$parent.$parent.exchangeRate.numberOfExchangeRate" ></input>
+
+	<label>Date formed</label>
+	<input type="date" class = "form-control" ng-model = "$parent.$parent.exchangeRate.date">
+	
+	<label>Date start</label>
+	<input type="date" class = "form-control" ng-model = "$parent.$parent.exchangeRate.startDate">
+
+	<button class = "btn btn-default" ng-click = "searchForExchangeRates()"><span class = "glyphicon glyphicon-ok"></span>Search</button>
+	<button class = "btn btn-default" ng-click = "resetSearchExchangeRates()"><span class = "glyphicon glyphicon-refresh"></span>Reset</button>
+
+</form>
+</div>

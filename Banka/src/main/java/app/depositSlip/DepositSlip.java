@@ -11,70 +11,97 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import app.Adapter1;
 import app.bill.Bill;
 import app.closingBill.ClosingBill;
 import app.enums.Type;
 import app.paymentTypes.PaymentTypes;
 import lombok.Data;
 
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "depositSlip")
 @Data
 @Entity
 public class DepositSlip {
+
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "DEPOSIT_SLIP_ID")
 	private Long id;	
 
+	@XmlElement(name = "type", required = true)
 	@Column
     @Enumerated(EnumType.STRING)
 	private Type type;
 	
+	@XmlElement
 	@Column
 	private String deptor; //duznik
 	
+	@XmlElement
 	@Column
 	private String receiver; //primalac
 	
+	@XmlElement
 	@Column
 	private String purposeOfPayment; //svrha placanja
 	
+	@XmlJavaTypeAdapter(Adapter1.class)
+	@XmlElement
 	@Column
 	private Date currencyDate; //datum valute
 	
+	@XmlJavaTypeAdapter(Adapter1.class)
+	@XmlElement
 	@Column
 	private Date depositSlipDate; //datum naloga
 	
+	@XmlElement
 	@Column
 	private String billOfDeptor; //racun duznika 18
 	
+	@XmlElement
 	@Column
 	private int modelAssignment; //model zaduzenja 2
 	
+	@XmlElement
 	@Column
 	private String referenceNumberAssignment; // poziv na broj zaduzenja 20
 	
+	@XmlElement
 	@Column
 	private String billOfReceiver; //racun primaoca 18
 	
+	@XmlElement
 	@Column
 	private int modelApproval; //model odobrenja 2
 	
+	@XmlElement
 	@Column
 	private String referenceNumberApproval; //poziv na broj odobrenja 20
 	
+	@XmlElement
 	@Column
 	private Double amount; //iznos
 	
+	@XmlElement
 	@Column
 	private String codeOfCurrency; //sifra valute 3
 	
+	@XmlElement
 	@Column
 	private boolean urgently; //hitno
 	
-	@Column
-	private boolean direction; //smjer provjeriti tip - na stetu, na korist
 	
+	@XmlTransient
 	@ManyToOne
 	@JoinColumn(name = "PAYMENT_TYPE_ID")
 	private PaymentTypes paymentType;
@@ -94,7 +121,7 @@ public class DepositSlip {
 		setModelAssignment(2);
 		setDepositSlipDate(closingBill.getDate());
 		setUrgently(false);
-		setDirection(false);
+		
 	}
 	
 	public DepositSlip(){}
@@ -114,7 +141,7 @@ public class DepositSlip {
 		setModelAssignment(2);
 		setDepositSlipDate(new Date(0));
 		setUrgently(false);
-		setDirection(false);
+
 		setAmount(3.33);
 	}
 		

@@ -45,6 +45,9 @@ services.service('bankerService', ['$http', function($http){
 	this.findAllExchangeRate = function(){
 		return $http.get("/exchangeRate");
 	}
+	this.searchExchangeRate = function(exchangeRate){
+		return $http.post("/exchangeRate/search",exchangeRate);
+	}
 
 //POPULATED PLACES
 	this.findAllPopulatedPlaces = function(){
@@ -101,7 +104,7 @@ services.service('bankerService', ['$http', function($http){
 
 //DEPOSIT SLIPS
 	this.saveDepositSlip = function(depositSlip){
-		return $http.post(url+ "saveDepositSlip",depositSlip);
+		return $http.post("depositSlip/saveDepositSlip",depositSlip);
 	}
 	
 	this.findAllDepositSlips = function(){
@@ -118,4 +121,5 @@ services.service('bankerService', ['$http', function($http){
 	this.exportDepositSlips = function(){
 		return $http.get("mt102/exportDepositSlips");
 	}
+	
 }]);
