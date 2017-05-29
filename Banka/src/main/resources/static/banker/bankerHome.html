@@ -67,12 +67,15 @@
 			<tr>
 				<th>Type</th>
 				<th>Deptor</th>
+				<th>Reciever</th>
+				<th>Amount</th>
 			</tr>
 			<tr ng-repeat="depositSlip in depositSlipsForBill" ng-click="openDepositSlipForClient(depositSlip.id);">
 				<td>{{depositSlip.type}}</td>
 				<td>{{depositSlip.deptor}}</td>
-				
-				</tr>
+				<td>{{depositSlip.receiver}}</td>
+				<td>{{depositSlip.amount}}</td>
+			</tr>
 		</tbody>
 		</table>
         
