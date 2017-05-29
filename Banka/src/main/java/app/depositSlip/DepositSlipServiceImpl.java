@@ -25,7 +25,7 @@ public class DepositSlipServiceImpl implements DepositSlipService{
 	public List<DepositSlip> findAll() {
 		return (List<DepositSlip>) depositSlipRepository.findAll();
 	}
-
+	
 	@Override
 	public DepositSlip save(DepositSlip dailyBalance) {
 		return depositSlipRepository.save(dailyBalance);
@@ -36,6 +36,8 @@ public class DepositSlipServiceImpl implements DepositSlipService{
 		return depositSlipRepository.findOne(id);
 	}
 
+
+	
 	@Override
 	public List<DepositSlip> findByDepositSlipDateAndTypeAndBillOfReceiverLikeAndBillOfDeptorLikeAndAmount(
 			Date date, Type type, String billOfReceiver, String billOfDeptor, double amount) {
@@ -134,5 +136,7 @@ public class DepositSlipServiceImpl implements DepositSlipService{
 		// TODO Auto-generated method stub
 		return depositSlipRepository.findByBillOfReceiverLikeAndBillOfDeptorLike(billOfReceiver, billOfDeptor);
 	}
+
+	
 
 }

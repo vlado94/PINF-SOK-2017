@@ -1,4 +1,4 @@
-<h1>List of bank transactions</h1><h1>List of client transactions</h1>
+<h1>List of unprocessed deposit slips</h1>
 
 
 
@@ -15,19 +15,22 @@
 
 	<tbody>
 			<tr>
+				<th>Id</th>
 				<th>Date</th>
 				<th>Type of deposit slip</th>
 				<th>Bill of receiver</th>
 				<th>Bill of debtor</th>
 				<th>Amount</th>
+				<th>Status</th>
 
 			<tr ng-repeat="depositSlip in allNotProcessedDepositSlips | filter:filterDepositSlip">
-
+				<td> {{depositSlip.id}}</td>
 				<td>{{depositSlip.depositSlipDate}}</td>
 				<td>{{depositSlip.type}}</td>
 				<td>{{depositSlip.billOfReceiver}}</td>
 				<td>{{depositSlip.billOfDeptor}}</td>
 				<td>{{depositSlip.amount}}</td>
+				<td>{{depositSlip.status}}</td>
 			</tr>
 		</tbody>
 </table>

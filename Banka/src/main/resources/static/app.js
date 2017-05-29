@@ -215,10 +215,14 @@ angular.module('routerApp', ['ui.router',
         .state('banker.depositSlipsForAccount', {
           	templateUrl : 'banker/depositSlip/depositSlipsForAccount.html'
           		
-        }).state('banker.depositSlipsAll', {
-        	url : '/depositSlip/allInBank',
-          	templateUrl : 'banker/depositSlip/depositSlipsAll.html'
-        })
+        }).state('banker.unprocessedDepositSlips', {
+        	url : '/depositSlip/unprocessedDepositSlips',
+          	templateUrl : 'banker/depositSlip/unprocessedDepositSlips.html'
+		
+        }).state('banker.allDepositSlips', {
+			url : '/depositSlip/allDepositSlips',
+			templateUrl : 'banker/depositSlip/allDepositSlips.html'
+		})
         .state('banker.depositSlipsAll.searchDepositSlip', {
           	templateUrl : 'banker/depositSlip/searchDepositSlip.html'
         })

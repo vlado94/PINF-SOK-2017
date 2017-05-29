@@ -11,8 +11,8 @@ public interface DepositSlipService {
 
 	public DepositSlip save(DepositSlip depositSlip);
 
-	public DepositSlip findOne(Long id);	
-		
+	public DepositSlip findOne(Long id);
+	
 	List<DepositSlip> findByDepositSlipDateAndTypeAndBillOfReceiverLikeAndBillOfDeptorLikeAndAmount(Date date,Type type,String billOfReceiver,String billOfDeptor,double amount);
 
 	List<DepositSlip> findByDepositSlipDateAndTypeAndBillOfDeptorLikeAndAmount(Date date,Type type,String billOfDeptor,double amount);
@@ -44,4 +44,6 @@ public interface DepositSlipService {
 	List<DepositSlip> findByTypeAndBillOfReceiverLike(Type type,String billOfReceiver);
 
 	List<DepositSlip> findByBillOfReceiverLikeAndBillOfDeptorLike(String billOfReceiver,String billOfDeptor);
+
+
 }

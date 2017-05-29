@@ -31,16 +31,16 @@ public class HeaderMT102xml {
 		@XmlElement(required = true)
 		private String messageId; //50
 	    
-		@XmlElement(required = true)
+		@XmlElement(required = false)
 		private String debtorBankswiftCode; //8 
 		
-		@XmlElement(required = true)
+		@XmlElement(required = false)
 		private String debtorBankclearingAccount; //18
 		
-		@XmlElement(required = true)	
+		@XmlElement(required = false)	
 		private String receiverBankswiftCode; //8
 		
-		@XmlElement(required = true)
+		@XmlElement(required = false)
 		private String receiverBankclearingAccount; //18
 		
 		@XmlElement(required = true)

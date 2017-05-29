@@ -12,6 +12,9 @@ import app.enums.Type;
 public interface DepositSlipRepository extends PagingAndSortingRepository<DepositSlip, Long> {
 	
 	@Query("select d from DepositSlip d where d.depositSlipDate=?1 and d.type=?2 and d.billOfReceiver like ?3 and d.billOfDeptor like ?4 and d.amount=?5")
+	List<DepositSlip> findAllDepositSlipsForBank(int bankCode);
+	
+	@Query("select d from DepositSlip d where d.depositSlipDate=?1 and d.type=?2 and d.billOfReceiver like ?3 and d.billOfDeptor like ?4 and d.amount=?5")
 	List<DepositSlip> findByDepositSlipDateAndTypeAndBillOfReceiverLikeAndBillOfDeptorLikeAndAmount(Date date,Type type,String billOfReceiver,String billOfDeptor,double amount);
 	
 	@Query("select d from DepositSlip d where d.depositSlipDate=?1 and d.type=?2 and d.billOfDeptor like ?3 and d.amount=?4")
@@ -58,6 +61,10 @@ public interface DepositSlipRepository extends PagingAndSortingRepository<Deposi
 
 	@Query("select d from DepositSlip d where d.billOfReceiver like ?1 and d.billOfDeptor like ?2")
 	List<DepositSlip> findByBillOfReceiverLikeAndBillOfDeptorLike(String billOfReceiver,String billOfDeptor);
+
+	
+
+	
 
 	
 }

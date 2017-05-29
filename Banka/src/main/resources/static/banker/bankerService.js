@@ -107,9 +107,14 @@ services.service('bankerService', ['$http', function($http){
 	this.findAllDepositSlips = function(){
 		return $http.get("depositSlip/findAllDepositSlips");
 	}	
+	this.findAllDepositSlipsForBank = function(){
+		return $http.get("depositSlip/findAllDepositSlipsForBank");
+	}	
 	this.searchDepositSlip = function(depositSlip){
 		return $http.post("depositSlip/search",depositSlip);
 	}
+
+	
 //INTERBANK TRANSFER
 	this.findAllUnsentInterbankTransfer = function(){
 		return $http.get("interbankTransfer/findAllUnsentInterbankTransfer");
