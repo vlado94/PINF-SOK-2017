@@ -11,6 +11,11 @@
 	cursor: pointer;
 }
 
+.excchangeRateSearch {
+	margin-left : 130px;
+	margin-top : 40px;
+}
+
 .selectedRow{
     background: #ffff6f;
 }

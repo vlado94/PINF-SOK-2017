@@ -1,5 +1,6 @@
 package app.exchangeRate;
 
+import java.sql.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -64,5 +65,43 @@ public class ExchangeRateController {
 		bank.getExchangeRates().add(exchangeRate);
 		bankService.save(bank);
 		return exchangeRate;
+	}
+	
+	@PostMapping("/search")
+	@ResponseStatus(HttpStatus.CREATED)
+	public List<ExchangeRate> search(@RequestBody ExchangeRate exchangeRate) {
+		Date date=exchangeRate.getDate();
+		Date startDate = exchangeRate.getStartDate();
+		Integer number = exchangeRate.getNumberOfExchangeRate();
+		System.out.println(number+"  "+date+"  "+startDate);
+		if(date==null){
+			if(startDate==null){
+				if(number==null){
+					return exchangeRateService.findAll();
+				}else{
+					return exchangeRateService.findByNumberOfExchangeRate(number);
+				}
+			}else{
+				if(number==null){
+					return exchangeRateService.findByStartDate(startDate);
+				}else{
+					return exchangeRateService.findByNumberOfExchangeRateAndStartDate(number, startDate);
+				}
+			}
+		}else{
+			if(startDate==null){
+				if(number==null){
+					return exchangeRateService.findByDate(date);
+				}else{
+					return exchangeRateService.findByNumberOfExchangeRateAndDate(number, date);
+				}
+			}else{
+				if(number==null){
+					return exchangeRateService.findByDateAndStartDate(date, startDate);
+				}else{
+					return exchangeRateService.findByNumberOfExchangeRateAndDateAndStartDate(number, date, startDate);
+				}
+			}
+		}
 	}
 }

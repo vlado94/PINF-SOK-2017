@@ -121,7 +121,7 @@ public class DepositSlipController {
 	@PostMapping("/search")
 	@ResponseStatus(HttpStatus.CREATED)
 	public List<DepositSlip> searchDepositSlips(@RequestBody DepositSlip depositSlip) {
-		double amount = depositSlip.getAmount();
+		Double amount = depositSlip.getAmount();
 		Type type = depositSlip.getType();
 		String receiver = depositSlip.getBillOfReceiver();
 		if(receiver==null){
@@ -137,7 +137,7 @@ public class DepositSlipController {
 		}
 
 		if(type==Type.PAYMENTOUT){
-			if(amount==0){
+			if(amount==null){
 				if(depositSlip.getDepositSlipDate()==null){
 					return depositSlipService.findByTypeAndBillOfReceiverLike(type, receiver);
 				}else{
@@ -151,7 +151,7 @@ public class DepositSlipController {
 				}
 			}
 		}else if(type==Type.PAYOUT){
-			if(amount==0){
+			if(amount==null){
 				if(depositSlip.getDepositSlipDate()==null){
 					return depositSlipService.findByTypeAndBillOfDeptorLike(type, deptor);
 				}else{
@@ -165,7 +165,7 @@ public class DepositSlipController {
 				}
 			}
 		}else if(type==Type.PAYMENTIN || type==Type.TRANSFER){
-			if(amount==0){
+			if(amount==null){
 				if(depositSlip.getDepositSlipDate()==null){
 					return depositSlipService.findByTypeAndBillOfReceiverLikeAndBillOfDeptorLike(type, receiver, deptor);
 				}else{
@@ -179,7 +179,7 @@ public class DepositSlipController {
 				}
 			}
 		}else{
-			if(amount==0){
+			if(amount==null){
 				if(depositSlip.getDepositSlipDate()==null){
 					return depositSlipService.findByBillOfReceiverLikeAndBillOfDeptorLike(receiver, deptor);
 				}else{

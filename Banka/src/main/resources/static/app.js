@@ -186,7 +186,16 @@ angular.module('routerApp', ['ui.router',
           	templateUrl : 'banker/exchangeRate/exchangeRates.html'
         })
         .state('banker.exchangeRates.exchangeRateDetails', {
-          	templateUrl : 'banker/exchangeRate/detailsExchangeRate.html'
+          		// views: {
+          	      //  "searchView": {
+
+        	url : '/search',
+          	templateUrl : 'banker/exchangeRate/detailsExchangeRate.html'          	       
+          	     //   }
+          	   // }    
+        })
+        .state('banker.exchangeRates.searchExchangeRates', {
+          	templateUrl : 'banker/exchangeRate/searchExchangeRates.html'
         })
         .state('banker.closeBill', {
           	templateUrl : 'banker/bills/closeBill.html'
