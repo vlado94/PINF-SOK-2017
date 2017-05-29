@@ -11,6 +11,14 @@ services.service('bankerService', ['$http', function($http){
 	this.updateProfile = function(banker){
 		return $http.put(url+"updateProfile/"+banker.id,banker);
 	}
+	
+	this.getBillsForBank = function(banker){
+		return $http.get(url+"getBillsForBank");
+	}
+	
+	this.getDepositSlipsForBill = function(id){
+		return $http.get(url+"getDepositSlipsForBill/"+id);
+	}
 
 //CODE BOOK ACTIVITIES
 	this.findAllCodeBookActivities = function(){

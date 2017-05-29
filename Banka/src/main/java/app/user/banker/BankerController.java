@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -70,6 +71,17 @@ public class BankerController {
 		}
 	}
 	
+	@GetMapping("/getBillsForBank")
+	@ResponseStatus(HttpStatus.OK)
+	public List<Bill> getBillsForBank() throws AuthenticationException {
+		try {
+			Banker banker = bankerService.findOneById(((Banker) httpSession.getAttribute("user")).getId());
+			return banker.getBank().getBills();
+		} catch (Exception e) {
+			throw new AuthenticationException("Forbidden.");
+		}
+	}
+	
 	@PutMapping("/updateProfile/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public Banker update(@PathVariable Long id,@RequestBody Banker banker) {
@@ -82,6 +94,21 @@ public class BankerController {
 		else {
 			throw new NotFoundException();
 		}
+	}
+	
+	@GetMapping("/getDepositSlipsForBill/{id}")
+	@ResponseStatus(HttpStatus.OK)
+	public List<DepositSlip> getDepositSlipsForBill(@PathVariable Long id) {
+		List<DepositSlip> retVal = new ArrayList<DepositSlip>();
+		Bill bill = billService.findOne(id);
+		if(bill.getDailyBalances() == null)
+			bill.setDailyBalances(new ArrayList<DailyBalance>());
+		for(int i=0;i<bill.getDailyBalances().size();i++) {
+			retVal.addAll(bill.getDailyBalances().get(i).getDepositSlips());
+		}
+	
+		return retVal;
+
 	}
 	
 	@GetMapping("/makePDF")

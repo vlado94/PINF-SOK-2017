@@ -8,6 +8,7 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 					if(response.data != "") {
 						$scope.banker = response.data;
 						$scope.currentExchangeRate = $scope.banker.bank.exchangeRates[$scope.banker.bank.exchangeRates.length - 1];
+						getBillsForBank();
 					}
 					else {
 					    $location.path('login');
@@ -17,7 +18,40 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 			);
 		}
 		checkRights();
+		
+		function getBillsForBank() {
+			bankerService.getBillsForBank().then(
+				function (response) {
+					var bills = response.data;
+					for(var i =0;i < bills.length;i++) { //hehe
+						if(bills[i].dailyBalances.length > 0)
+							bills[i].client.jmbg = bills[i].dailyBalances[bills[i].dailyBalances.length-1].newState;
+					}
+					
+					$scope.bills = bills;
+					
+				}
+			);
+		}
+				
+		$scope.showDepositSlipsForBill = function(billId) {
+			bankerService.getDepositSlipsForBill(billId).then(
+				function (response) {
+					if(response.data.length == 0) {
+						alert("No deposit slips for this bill")
+					}
+					else {
+						$scope.depositSlipsForBill = response.data;				
+					}
+				}
+			);
+		}
 
+		$scope.openDepositSlipForClient = function(billId) {
+			alert(billId)
+		}
+
+		
 		$scope.updateProfile = function () {
 			bankerService.updateProfile($scope.banker).then(
 				function(response){

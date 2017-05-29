@@ -16,6 +16,18 @@
 	margin-top : 40px;
 }
 
+.actualExchangeRate {
+	float : right;
+	padding-right: 30px;
+}
+
+.billInBank {
+	padding-top : 50px;
+	padding-left : 30px;
+	width : 70%;
+	
+}
+
 .selectedRow{
     background: #ffff6f;
 }
