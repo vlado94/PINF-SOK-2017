@@ -2,11 +2,9 @@ package app.user.banker;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -34,7 +32,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import app.BankaApplication;
 import app.MT103xml.MT103xml;
 import app.bank.BankService;
 import app.bill.Bill;
@@ -152,6 +149,7 @@ public class BankerController {
         /* Write content to PDF file */
         JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
 	}
+	
 	@PostMapping(path = "/closeBill")
 	@ResponseStatus(HttpStatus.CREATED)
 	public ClosingBill closeBill(@Valid @RequestBody ClosingBill closingBill) {
