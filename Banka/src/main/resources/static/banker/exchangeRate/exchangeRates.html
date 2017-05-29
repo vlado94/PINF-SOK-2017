@@ -1,4 +1,14 @@
 <div  ng-init = "findAllExchangeRates()" class = "col-sm-2">
+<form>
+	<div class="form-group">
+		<div class="input-group">
+			<div class="input-group-addon">
+				<i class="fa fa-search"></i>
+			</div>
+			<input type="text" class="form-control" placeholder="Filter rates..." ng-model="filterRates">
+		</div>
+	</div>
+</form>
 	<table class="table ">
 		<caption class = "caption">All exchange rates</caption>
 		<tbody>
@@ -8,7 +18,7 @@
 				<th>Date start</th>
 				<th>Action</th>
 			</tr>
-			<tr ng-repeat="exchangeRate in exchangeRates">
+			<tr ng-repeat="exchangeRate in exchangeRates | filter:filterRates">
 				<td>{{exchangeRate.numberOfExchangeRate}}</td>
 				<td>{{exchangeRate.date}}</td>
 				<td>{{exchangeRate.startDate}}</td>
@@ -18,7 +28,9 @@
 			</tr>
 		</tbody>
 	</table>
+	<button class = "btn btn-default" ui-sref =".searchExchangeRates" ><span class = "glyphicon glyphicon-search"></span>  Search</button> 
 </div>
-
-
+<!--  <table class="table">
+<div  ui-view="searchView" ></div>
+</table>-->
 <div ui-view ></div>

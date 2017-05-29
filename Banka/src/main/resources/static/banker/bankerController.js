@@ -77,7 +77,7 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 		}	
 		
 		$scope.searchForCountry = function(){
-			alert($scope.country.name+"  "+$scope.country.code)
+			//alert($scope.country.name+"  "+$scope.country.code)
 			bankerService.searchCountry($scope.country).then(
 				function(response){
 				    $scope.allCountries = response.data;
@@ -315,6 +315,24 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 			);
 		}
 		
+		$scope.searchForExchangeRates = function(){
+			var exchangeRate = $scope.exchangeRate;
+			//alert(exchangeRate.date+" "+exchangeRate.numberOfExchangeRate+" "+exchangeRate.startDate)
+			bankerService.searchExchangeRate(exchangeRate).then(
+				function(response){
+				    $scope.exchangeRates = response.data;
+				}, 
+				function (response){
+					alert("Greska");
+				}
+			);
+		}
+		
+		$scope.resetSearchExchangeRates = function(){
+			$scope.findAllExchangeRates();
+			$scope.exchangeRate=null;
+		}
+		
 		$scope.exchangeRateDetails = function(exchangeRateId) {
 			bankerService.exchangeRateDetails(exchangeRateId).then(
 				function(response){
@@ -515,7 +533,7 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 			var depositSlip = $scope.depositSlip;
 			bankerService.searchDepositSlip(depositSlip).then(
 				function(response){
-				    $scope.allDepositSlips = response.data;
+				    $scope.allNotProcessedDepositSlips = response.data;
 				}, 
 				function (response){
 					alert("Greska");
@@ -524,7 +542,7 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 		}
 		
 		$scope.resetSearchDepositSlip = function(){
-			$scope.findAllDepositSlips();
+			$scope.findNotProcessedDepositSlips();
 			$scope.depositSlip=null;
 		}
 		

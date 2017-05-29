@@ -45,6 +45,9 @@ services.service('bankerService', ['$http', function($http){
 	this.findAllExchangeRate = function(){
 		return $http.get("/exchangeRate");
 	}
+	this.searchExchangeRate = function(exchangeRate){
+		return $http.post("/exchangeRate/search",exchangeRate);
+	}
 
 //POPULATED PLACES
 	this.findAllPopulatedPlaces = function(){

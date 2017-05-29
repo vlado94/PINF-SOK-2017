@@ -106,9 +106,13 @@ public class BankerController {
         JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
 	}
 	
+	//srediti izvestaj za dammy podatke
+	//na frontu odabrati datume a pre toga korisnika
+	//namestiti da fajlovi budu ispod app properties
 	@GetMapping("/makePDFForClient")
 	@ResponseStatus(HttpStatus.OK)
 	public void getReportForClient() throws JRException, FileNotFoundException {
+		
 	    String outputFile ="D:\\ExcerptForClient.pdf";
 		Excerpt ex = new Excerpt();
 	    JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(ex.findAll());
@@ -128,6 +132,7 @@ public class BankerController {
         /* Write content to PDF file */
         JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
 	}
+	
 	@PostMapping(path = "/closeBill")
 	@ResponseStatus(HttpStatus.CREATED)
 	public ClosingBill closeBill(@Valid @RequestBody ClosingBill closingBill) {
