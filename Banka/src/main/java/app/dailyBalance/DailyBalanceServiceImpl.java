@@ -33,8 +33,7 @@ public class DailyBalanceServiceImpl implements DailyBalanceService{
 		return dailyBalanceRepository.findOne(id);
 	}
 
-
-
+	
 	/*@Override
 	public DailyBalance findMaxDate(String accountNumber) {
 		return this.dailyBalanceRepository.findMaxDate(accountNumber);

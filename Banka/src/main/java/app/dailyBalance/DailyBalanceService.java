@@ -9,7 +9,6 @@ public interface DailyBalanceService {
 	public DailyBalance save(DailyBalance dailyBalance);
 
 	public DailyBalance findOne(Long id);
-	
 
 	//public DailyBalance findMaxDate(String accountNumber);
 	

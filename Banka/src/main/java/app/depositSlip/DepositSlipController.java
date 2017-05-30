@@ -5,6 +5,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -454,5 +456,55 @@ public class DepositSlipController {
 		return false;
 	}
 	
+	
+	@GetMapping("/getBalanceFromDateToDate")
+	@ResponseStatus(HttpStatus.OK)
+	public List<DepositSlip> getBalanceFromDateToDate() {
+		//prosledjeni ce se morati uvecati za dan
+		Bill bill= billService.findByAccountNumber("123758369874575393");
+		
+		List<DailyBalance> allBalances = bill.getDailyBalances();
+		
+		 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+	        Date fromDate = null;
+	        Date toDate = null;
+			try {
+				fromDate = format.parse("2016-04-27");
+				toDate = format.parse("2016-04-29");
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	       
+			List<DailyBalance> balancesByDate = new ArrayList<DailyBalance>();
+	        
+			List<DepositSlip> slips = new ArrayList<DepositSlip>();
+			for(int i = 0; i< allBalances.size(); i++){
+				java.util.Date utilDate = new java.util.Date(allBalances.get(i).getDate().getTime());
+				
+				if(compareDates(fromDate,toDate,utilDate)){
+					balancesByDate.add(allBalances.get(i));
+				}
+			}
+	      
+			
+			for(int j = 0; j< balancesByDate.size(); j++){
+				slips.addAll(balancesByDate.get(j).getDepositSlips());
+			}
+	      
+			return slips;
+	     
+	}
+	
+	  public boolean compareDates(Date dateFrom,Date dateTo, Date choosenDate)
+	  {
+	       	if(dateFrom.before(choosenDate) && dateTo.after(choosenDate)){
+	       		
+	       		return true;
+	       	}
+	       	
+	       	return false;
+	        
+	   }
 	
 }

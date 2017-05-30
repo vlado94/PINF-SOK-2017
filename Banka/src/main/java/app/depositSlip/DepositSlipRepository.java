@@ -12,7 +12,6 @@ import app.enums.Type;
 public interface DepositSlipRepository extends PagingAndSortingRepository<DepositSlip, Long> {
 	
 	@Query("select d from DepositSlip d where d.depositSlipDate=?1 and d.type=?2 and d.billOfReceiver like ?3 and d.billOfDeptor like ?4 and d.amount=?5")
-
 	List<DepositSlip> findAllDepositSlipsForBank(int bankCode);
 	
 	@Query("select d from DepositSlip d where d.depositSlipDate=?1 and d.type=?2 and d.billOfReceiver like ?3 and d.billOfDeptor like ?4 and d.amount=?5")

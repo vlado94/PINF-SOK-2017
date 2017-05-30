@@ -1,9 +1,16 @@
 package app.dailyBalance;
 
+import java.sql.Date;
+import java.util.List;
+
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 
 public interface DailyBalanceRepository extends PagingAndSortingRepository<DailyBalance, Long> {
+
+/*	@Query("select d from DailyBalance d where d.date=?1")
+	List<DailyBalance> findAllByDate(Date sql);*/
 	
 	
 	//@Query("select * from daily_balance where date=( select  max(date) from daily_balance where daily_balance .bill_id=(select bill_id from bill where account_number=456752378574512664)) "
