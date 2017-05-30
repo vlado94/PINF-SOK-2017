@@ -25,10 +25,10 @@
 	    <ul class="dropdown-menu">
 	    	<li><a ui-sref="banker.allDepositSlips">All deposit slips</a></li>
 	        <li><a ui-sref="banker.unprocessedDepositSlips">Unprocessed deposit slips</a></li>
-	        <li><a ui-sref="banker.depositSlip.transer">New deposit slip for transfer </a></li>
-	        <li><a ui-sref="banker.depositSlip.paymentOut">New deposit slip for payment out</a></li>
-	        <li><a ui-sref="banker.depositSlip.payout">New deposit slip for payout</a></li>
-	        <li><a ui-sref="banker.depositSlip.paymentIn">New deposit slip for payment in</a></li>
+	        <li><a ng-click=openDepositSlip("TRANSFER")>New deposit slip for transfer </a></li>
+	        <li><a ng-click=openDepositSlip("PAYMENTOUT")>New deposit slip for payment out</a></li>
+	        <li><a ng-click=openDepositSlip("PAYOUT")>New deposit slip for payout</a></li>
+	        <li><a ng-click=openDepositSlip("PAYMENTIN")>New deposit slip for payment in</a></li>
 	   	</ul>
 	 </li>
 	</ul>
