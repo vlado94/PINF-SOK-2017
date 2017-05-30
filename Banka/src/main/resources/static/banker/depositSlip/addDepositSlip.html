@@ -2,7 +2,7 @@
 		<fieldset>
 			<div class = "selectTypeOfDepositSLip">
 				<label class = "infoLabel"> Type</label>
-				<select class = "form-control" ng-model="$parent.$parent.depositSlip.type" ng-change="openDepositSlip()">
+				<select class = "form-control" ng-model="$parent.depositSlip.type" ng-change="openDepositSlip()">
 				  <option value="PAYMENTOUT" selected>PAYMENTOUT</option> <!-- UPLATA -->
 				  <option value="PAYMENTIN">PAYMENTIN</option><!-- NAPLATA -->
 				  <option value="PAYOUT">PAYOUT</option><!-- ISPLATA -->

@@ -6,7 +6,6 @@ import javax.persistence.MappedSuperclass;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
-import app.user.banker.Banker;
 import lombok.Data;
 
 @Data

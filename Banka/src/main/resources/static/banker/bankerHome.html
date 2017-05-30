@@ -1,6 +1,6 @@
-<h1>Banker: {{banker.firstname}}</h1>
-<h1>Bank: {{banker.bank.name}}</h1>
-
+<div class = "titlee" >
+	<span class = "banker">Banker: {{banker.firstname}}</span><span class="bank">Bank: {{banker.bank.name}}</span>	
+</div>
 <div class="actualExchangeRate">
 	<button ui-sref = "banker.exchangeRates" class="btn btn-default navbar-btn" ><span class="glyphicon glyphicon-user"></span>History of exchange of rates</button>
 	<table class="table table-bordered exchangeInCurrencyTable">
@@ -60,7 +60,7 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title" >Choose country</h4>
       </div>
-      <div class="modal-body" ng-init="findAllCountries()">
+      <div class="modal-body">
         
         <table class="table table-bordered" border="1">
 		<tbody>
@@ -70,7 +70,7 @@
 				<th>Reciever</th>
 				<th>Amount</th>
 			</tr>
-			<tr ng-repeat="depositSlip in depositSlipsForBill" ng-click="openDepositSlipForClient(depositSlip.id);">
+			<tr ng-repeat="depositSlip in depositSlipsForBill" ng-click="openDepositSlipForClient(depositSlip);">
 				<td>{{depositSlip.type}}</td>
 				<td>{{depositSlip.deptor}}</td>
 				<td>{{depositSlip.receiver}}</td>

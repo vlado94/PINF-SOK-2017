@@ -7,6 +7,17 @@
 	background-size: cover;
 }
 
+.titlee {
+	font-size: 300%;
+}
+
+.banker {
+	padding-left : 250px;
+}
+.bank {
+	
+	padding-left : 250px;
+}
 .dropdown-toggle {
 	cursor: pointer;
 }

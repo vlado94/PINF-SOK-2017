@@ -1,5 +1,5 @@
 var app = angular.module('banker.controllers', []);
- 
+var flagSave = 1;
 app.controller('bankerController', ['$scope','bankerService', '$location','$state',
   	function ($scope, bankerService, $location,$state) {
 		function checkRights() {
@@ -39,6 +39,7 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 				function (response) {
 					if(response.data.length == 0) {
 						alert("No deposit slips for this bill")
+						$scope.depositSlipsForBill = [];
 					}
 					else {
 						$scope.depositSlipsForBill = response.data;				
@@ -47,8 +48,12 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 			);
 		}
 
-		$scope.openDepositSlipForClient = function(billId) {
-			alert(billId)
+		$scope.openDepositSlipForClient = function(depositSlip) {
+			$(".modal-backdrop").removeClass("fade");
+			$(".modal-backdrop").removeClass("in");
+			$(".modal-backdrop").removeClass("modal-backdrop");
+			$scope.depositSlip = depositSlip;
+			$scope.openDepositSlip(1);
 		}
 
 		
@@ -156,7 +161,7 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 					if(response.data.type == "PRAVNO"){
 						$scope.selectedNameOfActivity = $scope.client.codeBookActivities.name;
 					}
-		}, function (response){
+				}, function (response){
 					alert("Greska!");
 				}
 			);
@@ -440,17 +445,20 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 	    };	
 	    
 		$scope.saveDepositSlip = function() {
-			bankerService.saveDepositSlip($scope.depositSlip).then(
-				function(response){
-					alert("Deposit slip successfuly processed.");
-					location.reload();
-					$state.go("banker.home", {});
-					
-				}, function (response){
-					alert("Error!");
-				}
-			);
-		}
+			if(flagSave == 1) {
+				bankerService.saveDepositSlip($scope.depositSlip).then(
+					function(response){
+						alert("Deposit slip successfuly processed.");
+						location.reload();
+						$state.go("banker.home", {});
+						
+					}, function (response){
+						alert("Error!");
+					}
+				);
+			} else
+				alert("That request is forbidden now.")
+			}
 		
 		$scope.exportDepositSlips = function() {
 			bankerService.exportDepositSlips().then(
@@ -466,21 +474,43 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 			);
 		}
 		
-		$scope.openDepositSlip = function() {
-			if($scope.depositSlip.type == "TRANSFER") {
-				$state.go("banker.depositSlip.transer", {});
+		$scope.openDepositSlip = function(val) {
+			if(val != undefined && val != 1) {
+				if(val == "TRANSFER") {
+					$state.go("banker.depositSlip.transer", {});
+				}
+				else if(val == "PAYMENTOUT"){
+					$state.go("banker.depositSlip.paymentOut", {});
+				}
+				else if(val == "PAYOUT"){
+					$state.go("banker.depositSlip.payout", {});
+				}
+				else if(val == "PAYMENTIN"){
+					$state.go("banker.depositSlip.paymentIn", {});
+				}			    
 			}
-			else if($scope.depositSlip.type == "PAYMENTOUT"){
-				$state.go("banker.depositSlip.paymentOut", {});
+			else {
+				if($scope.depositSlip.type == "TRANSFER") {
+					$state.go("banker.depositSlip.transer", {});
+				}
+				else if($scope.depositSlip.type == "PAYMENTOUT"){
+					$state.go("banker.depositSlip.paymentOut", {});
+				}
+				else if($scope.depositSlip.type == "PAYOUT"){
+					$state.go("banker.depositSlip.payout", {});
+				}
+				else if($scope.depositSlip.type == "PAYMENTIN"){
+					$state.go("banker.depositSlip.paymentIn", {});
+				}
 			}
-			else if($scope.depositSlip.type == "PAYOUT"){
-				$state.go("banker.depositSlip.payout", {});
-			}
-			else if($scope.depositSlip.type == "PAYMENTIN"){
-				$state.go("banker.depositSlip.paymentIn", {});
+			var depositSlip = $scope.depositSlip;
+			$scope.depositSlip = {};
+			if(val == 1) {
+				flagSave = 0;
+				$scope.depositSlip = depositSlip;
 			}
 		}
-		
+				
 		$scope.findAllDepositSlipsForAccount = function (accountNumber) {  //koristi se kod all depositSlips
 			bankerService.findAllDepositSlips().then (
 				function(response){
