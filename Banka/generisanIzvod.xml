@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<accountStatement>
+    <fromDate>2017-05-27</fromDate>
+    <toDate>2017-05-28</toDate>
+    <depositSlip>
+        <type>TRANSFER</type>
+        <purposeOfPayment>transfer</purposeOfPayment>
+        <currencyDate>2016-11-11</currencyDate>
+        <depositSlipDate>2016-11-11</depositSlipDate>
+        <billOfDeptor>123758369874575393</billOfDeptor>
+        <modelAssignment>97</modelAssignment>
+        <billOfReceiver>456758356374575789</billOfReceiver>
+        <modelApproval>97</modelApproval>
+        <amount>48000.0</amount>
+        <codeOfCurrency>rsd</codeOfCurrency>
+        <urgently>false</urgently>
+    </depositSlip>
+    <depositSlip>
+        <type>TRANSFER</type>
+        <deptor>Duznik 1 </deptor>
+        <receiver>Primalac1</receiver>
+        <purposeOfPayment>transfer</purposeOfPayment>
+        <currencyDate>2016-11-11</currencyDate>
+        <depositSlipDate>2016-11-11</depositSlipDate>
+        <billOfDeptor>123758369874575393</billOfDeptor>
+        <modelAssignment>97</modelAssignment>
+        <referenceNumberAssignment>12312312336547859620</referenceNumberAssignment>
+        <billOfReceiver>456758369874575393</billOfReceiver>
+        <modelApproval>97</modelApproval>
+        <referenceNumberApproval>12318962336547855520</referenceNumberApproval>
+        <amount>30000.0</amount>
+        <codeOfCurrency>rsd</codeOfCurrency>
+        <urgently>false</urgently>
+    </depositSlip>
+    <depositSlip>
+        <type>TRANSFER</type>
+        <deptor>Duznik 2 </deptor>
+        <receiver>Primalac2</receiver>
+        <purposeOfPayment>transfer</purposeOfPayment>
+        <currencyDate>2016-11-11</currencyDate>
+        <depositSlipDate>2016-11-11</depositSlipDate>
+        <billOfDeptor>123758369874575393</billOfDeptor>
+        <modelAssignment>97</modelAssignment>
+        <referenceNumberAssignment>12312314446547859620</referenceNumberAssignment>
+        <billOfReceiver>456758369874575393</billOfReceiver>
+        <modelApproval>97</modelApproval>
+        <referenceNumberApproval>12318962555547855520</referenceNumberApproval>
+        <amount>750.0</amount>
+        <codeOfCurrency>rsd</codeOfCurrency>
+        <urgently>true</urgently>
+    </depositSlip>
+    <depositSlip>
+        <type>TRANSFER</type>
+        <deptor>Duznik 3 </deptor>
+        <receiver>Primalac3</receiver>
+        <purposeOfPayment>transfer</purposeOfPayment>
+        <currencyDate>2016-11-11</currencyDate>
+        <depositSlipDate>2016-11-11</depositSlipDate>
+        <billOfDeptor>456758369874575393</billOfDeptor>
+        <modelAssignment>97</modelAssignment>
+        <referenceNumberAssignment>45612314446547859620</referenceNumberAssignment>
+        <billOfReceiver>123758356374575888</billOfReceiver>
+        <modelApproval>97</modelApproval>
+        <referenceNumberApproval>45618962555547855520</referenceNumberApproval>
+        <amount>750.0</amount>
+        <codeOfCurrency>rsd</codeOfCurrency>
+        <urgently>true</urgently>
+    </depositSlip>
+    <depositSlip>
+        <type>TRANSFER</type>
+        <deptor>Duznik 4 </deptor>
+        <receiver>Primalac4</receiver>
+        <purposeOfPayment>transfer</purposeOfPayment>
+        <currencyDate>2016-11-11</currencyDate>
+        <depositSlipDate>2016-11-11</depositSlipDate>
+        <billOfDeptor>456758369874575393</billOfDeptor>
+        <modelAssignment>97</modelAssignment>
+        <referenceNumberAssignment>45612314446547859620</referenceNumberAssignment>
+        <billOfReceiver>123758369874575393</billOfReceiver>
+        <modelApproval>97</modelApproval>
+        <referenceNumberApproval>45618962555547855520</referenceNumberApproval>
+        <amount>750.0</amount>
+        <codeOfCurrency>rsd</codeOfCurrency>
+        <urgently>true</urgently>
+    </depositSlip>
+</accountStatement>

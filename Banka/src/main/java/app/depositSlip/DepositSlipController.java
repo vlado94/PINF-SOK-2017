@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.BadRequestException;
@@ -22,7 +23,9 @@ import javax.xml.bind.Unmarshaller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,6 +34,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import app.MT103xml.MT103xml;
+import app.accountStatement.AccountStatement;
 import app.bank.BankService;
 import app.bill.Bill;
 import app.bill.BillService;
@@ -455,56 +459,80 @@ public class DepositSlipController {
 		}
 		return false;
 	}
+
 	
-	
-	@GetMapping("/getBalanceFromDateToDate")
+	@PutMapping(path ="/exportBalanceFromDateToDateForBill/{id}")
 	@ResponseStatus(HttpStatus.OK)
-	public List<DepositSlip> getBalanceFromDateToDate() {
-		//prosledjeni ce se morati uvecati za dan
-		Bill bill= billService.findByAccountNumber("123758369874575393");
+	public List<DepositSlip> exportBalanceFromDateToDateForBill(@PathVariable Long id,  @RequestBody Map<String, String> mapOfDays) {
+		
+		billService.findOne(id);
+		Bill bill= billService.findOne(id);
 		
 		List<DailyBalance> allBalances = bill.getDailyBalances();
 		
 		 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 	        Date fromDate = null;
 	        Date toDate = null;
+	        Date newToDate  = null;
 			try {
-				fromDate = format.parse("2016-04-27");
-				toDate = format.parse("2016-04-29");
+				fromDate = format.parse(mapOfDays.get("first"));
+				toDate = format.parse(mapOfDays.get("last"));
+				
+				
+				Calendar c = Calendar.getInstance(); 
+				c.setTime(toDate); 
+				c.add(Calendar.DATE, 1);
+				newToDate = c.getTime();
+				
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 	       
-			List<DailyBalance> balancesByDate = new ArrayList<DailyBalance>();
-	        
 			List<DepositSlip> slips = new ArrayList<DepositSlip>();
+			
 			for(int i = 0; i< allBalances.size(); i++){
 				java.util.Date utilDate = new java.util.Date(allBalances.get(i).getDate().getTime());
 				
-				if(compareDates(fromDate,toDate,utilDate)){
-					balancesByDate.add(allBalances.get(i));
+				if(compareDates(fromDate,newToDate,utilDate)){
+					slips.addAll(allBalances.get(i).getDepositSlips());
 				}
 			}
-	      
-			
-			for(int j = 0; j< balancesByDate.size(); j++){
-				slips.addAll(balancesByDate.get(j).getDepositSlips());
-			}
-	      
+	     
+			exportAccountStatement(slips,fromDate, toDate);
 			return slips;
 	     
 	}
 	
-	  public boolean compareDates(Date dateFrom,Date dateTo, Date choosenDate)
+	  private boolean compareDates(Date dateFrom,Date dateTo, Date choosenDate)
 	  {
 	       	if(dateFrom.before(choosenDate) && dateTo.after(choosenDate)){
-	       		
 	       		return true;
 	       	}
 	       	
-	       	return false;
+	     return false;
 	        
 	   }
-	
+	  
+		private void exportAccountStatement(List<DepositSlip> slips, Date fromDate, Date toDate) {
+			
+			AccountStatement accountStatement = new AccountStatement();
+			accountStatement.setFromDate(new java.sql.Date(fromDate.getTime()));
+			accountStatement.setToDate(new java.sql.Date(toDate.getTime()));
+			accountStatement.setDepositSlip(slips);
+			 
+			try {
+				File file = new File("generisanIzvod.xml");
+				JAXBContext jaxbContext = JAXBContext.newInstance(AccountStatement.class);
+				Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+
+				jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+				jaxbMarshaller.marshal(accountStatement, file);
+				jaxbMarshaller.marshal(accountStatement, System.out);
+
+			      } catch (JAXBException e) {
+				e.printStackTrace();
+			      }
+		}
 }

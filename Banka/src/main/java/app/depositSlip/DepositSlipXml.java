@@ -39,12 +39,6 @@ public class DepositSlipXml {
 	@XmlElement
 	private String receiver; //primalac Primalac - poverilac String 255
 	
-	
-	/*
-	@XmlElement
-	@XmlJavaTypeAdapter(Adapter1.class)
-	private Date currencyDate; //datum valute
-	*/
 	@XmlElement
 	@XmlJavaTypeAdapter(Adapter1.class)
 	private Date depositSlipDate; //datum naloga Datum naloga Date

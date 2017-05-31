@@ -48,6 +48,55 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 			);
 		}
 
+		$scope.setBillInScope = function(billId) {
+			 $scope.billID = billId;
+		
+		}
+		
+		//$scope.saveChoosenDates = function() {
+			//alert("bill" + $scope.billID);
+			//alert($scope.chossenDates.fromDate);
+			/*bankerService.exportBalanceFromDateToDateForBill(billId).then(
+				function (response) {
+					if(response.data.length == 0) {
+						alert("No deposit slips for this bill")
+					
+						//$scope.depositSlipsForBill = [];
+					}
+					else {
+						//$scope.depositSlipsForBill = response.data;	
+						alert(response.data.length);
+					}
+				}
+			);*/
+		//}
+		
+		
+		
+		$scope.exportBalanceFromDateToDateForBill = function() {
+			
+			if($scope.chossenDates.fromDate == null || $scope.chossenDates.toDate == null){
+				alert("You must choose date!");
+			}else{
+				var billId = $scope.billID;
+				var fromDate = $scope.chossenDates.fromDate;
+				var toDate = $scope.chossenDates.toDate;
+			bankerService.exportBalanceFromDateToDateForBill(billId , fromDate, toDate).then(
+				function (response) {
+					if(response.data.length == 0) {
+						alert("No deposit slips for this bill")
+					}
+					else {	
+						alert("Number of transactions :" + response.data.length);
+					}
+				},function (response){
+					alert("Greska");
+				}
+			);
+				
+			}
+		}
+		
 		$scope.openDepositSlipForClient = function(depositSlip) {
 			$(".modal-backdrop").removeClass("fade");
 			$(".modal-backdrop").removeClass("in");

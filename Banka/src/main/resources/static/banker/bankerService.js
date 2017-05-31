@@ -20,6 +20,12 @@ services.service('bankerService', ['$http', function($http){
 		return $http.get(url+"getDepositSlipsForBill/"+id);
 	}
 
+	this.exportBalanceFromDateToDateForBill = function(id , fromDate, toDate){
+		var mapOfDays = {};
+		mapOfDays["first"] = fromDate;
+		mapOfDays["last"] = toDate;
+		return $http.put("/depositSlip/exportBalanceFromDateToDateForBill/"+id, mapOfDays);
+	}
 //CODE BOOK ACTIVITIES
 	this.findAllCodeBookActivities = function(){
 		return $http.get("/codeBookActivities");

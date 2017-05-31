@@ -42,9 +42,9 @@
 				<td>{{bill.client.jmbg}}</td>
 				<td >
 					<button class = "btn btn-default navbar-btn" ng-click = alert(1)>PDF</button>
-					<button class = "btn btn-default navbar-btn" ng-click = alert(2)>Export</button>
+					<button class = "btn btn-default navbar-btn" data-toggle="modal" data-target="#chooseDate" ng-click = "setBillInScope(bill.id)" >Export</button>
 					<button type="button" class="btn btn-default" ng-click = "showDepositSlipsForBill(bill.id)" data-toggle="modal" data-target="#showDepositSlips"> Deposit slips</button>
-					
+					<!-- ng-click = "exportBalanceFromDateToDateForBill(bill.id)"  -->
 				</td>
 			</tr>
 		</tbody>
@@ -83,6 +83,41 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">CANCEL</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<div id="chooseDate"  class="modal fade" role="dialog" style="color:black;">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title" >Choose country</h4>
+      </div>
+      <div class="modal-body">
+ 
+<table>
+				<tr><label class = "infoLabel" > From date</label>
+				<input type="date" class = "form-control" ng-model = "$parent.chossenDates.fromDate">
+				</tr>
+				<tr>
+				<label class = "infoLabel"> To date</label> <!-- datum valute -->
+				<input type="date" class = "form-control" ng-model = "$parent.chossenDates.toDate">
+				</tr>
+
+		
+	</table>	
+        
+       
+      </div>
+      <div class="modal-footer">
+       <button type="button" class="btn btn-default" data-dismiss="modal" ng-click = "exportBalanceFromDateToDateForBill()">OK</button>
+       <button type="button" class="btn btn-default" data-dismiss="modal">CANCEL</button>
       </div>
     </div>
 

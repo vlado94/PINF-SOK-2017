@@ -32,7 +32,7 @@ import lombok.Data;
 @Entity
 public class DepositSlip {
 
-
+	@XmlTransient
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "DEPOSIT_SLIP_ID")
