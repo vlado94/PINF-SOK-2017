@@ -35,12 +35,35 @@
 		</tbody>
 </table>
 
+
 <button class = "btn btn-default" ng-click = "exportDepositSlips()" ><span class = "glyphicon glyphicon-export"></span>  Export</button> 
 <button class = "btn btn-default" ui-sref =".searchDepositSlip" ><span class = "glyphicon glyphicon-search"></span>  Search</button> 
+<button class = "btn btn-default" data-toggle="modal" data-target="#import" ><span class = "glyphicon glyphicon-search"></span>  Import</button> 
 
 
-<form id="uploadbanner" enctype="multipart/form-data" method="post" action="depositSlip/upload">
+<div id="import"  class="modal fade" role="dialog" style="color:black;">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+       
+      </div>
+      <div class="modal-body">
+      <form id="uploadbanner" enctype="multipart/form-data" method="post" action="depositSlip/upload">
    <input id="file" name="file" type="file" multiple />
-   <input type="submit" value="submit" id="submit" />
-</form>
+   <input type="submit" value="submit" id="submit" ui-sref ="banker.allDepositSlips"  class="btn btn-default" />
+   
+	</form>
+        
+       
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal"></button>
+      </div>
+    </div>
+
+  </div>
+</div>
 <div ui-view></div>
