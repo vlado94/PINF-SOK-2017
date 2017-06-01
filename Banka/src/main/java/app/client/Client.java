@@ -1,5 +1,7 @@
 package app.client;
 
+import java.math.BigInteger;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -32,7 +34,7 @@ public class Client {
 	
 	
 	@Column(nullable = false)
-	protected Integer jmbg; //not null
+	protected String jmbg; //not null
 	
 	@NotBlank
 	@Column

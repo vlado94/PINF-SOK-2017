@@ -1,7 +1,7 @@
 package app.enums;
 
 public enum Status {
-	PROCESSED,
-	UNPROCESSED
+	PROCESSED, //0
+	UNPROCESSED	//1
 	
 }

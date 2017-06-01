@@ -608,7 +608,7 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 		}
 		
 		$scope.findNotProcessedDepositSlips = function() {
-		bankerService.findAllUnsentInterbankTransfer().then (
+			bankerService.findAllUnsentInterbankTransfer().then (
 				function(response){
 					var interbankTransfers = response.data;//lista interbank transfera
 					var listOfAllDepositSlips = [];

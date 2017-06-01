@@ -6,50 +6,39 @@
         <debtorBankclearingAccount>123456789123456789</debtorBankclearingAccount>
         <receiverBankswiftCode>88344696</receiverBankswiftCode>
         <receiverBankclearingAccount>543216789123456987</receiverBankclearingAccount>
-        <amount>120.00</amount>
+        <amount>8000.00</amount>
         <currencyCode>rsd</currencyCode>
-        <currencyDate>2017-05-30</currencyDate>
-        <date>2017-05-30</date>
+        <currencyDate>2017-06-01</currencyDate>
+        <date>2017-06-01</date>
     </headerMT102xml>
     <depositSlipXml>
         <messageId>ndsk2fdsmfs</messageId>
+        <deptor>Firma3</deptor>
         <purposeOfPayment>transfer</purposeOfPayment>
-        <depositSlipDate>2016-11-11</depositSlipDate>
-        <billOfDeptor>123758369874575393</billOfDeptor>
+        <receiver>Ivan Neric</receiver>
+        <depositSlipDate>2017-06-02</depositSlipDate>
+        <billOfDeptor>123752378574512764</billOfDeptor>
         <modelAssignment>97</modelAssignment>
-        <billOfReceiver>456758356374575789</billOfReceiver>
+        <referenceNumberAssignment>97123752378574512764</referenceNumberAssignment>
+        <billOfReceiver>456758396974575789</billOfReceiver>
         <modelApproval>97</modelApproval>
-        <amount>48000.0</amount>
+        <referenceNumberApproval>97456758396974575789</referenceNumberApproval>
+        <amount>5000.0</amount>
         <codeOfCurrency>rsd</codeOfCurrency>
     </depositSlipXml>
     <depositSlipXml>
         <messageId>ndsk2fdsmfs</messageId>
-        <deptor>Duznik 1 </deptor>
+        <deptor>Firma3</deptor>
         <purposeOfPayment>transfer</purposeOfPayment>
-        <receiver>Primalac1</receiver>
-        <depositSlipDate>2016-11-11</depositSlipDate>
-        <billOfDeptor>123758369874575393</billOfDeptor>
+        <receiver>Ivan Neric</receiver>
+        <depositSlipDate>2017-06-02</depositSlipDate>
+        <billOfDeptor>123752378574512764</billOfDeptor>
         <modelAssignment>97</modelAssignment>
-        <referenceNumberAssignment>12312312336547859620</referenceNumberAssignment>
-        <billOfReceiver>456758369874575393</billOfReceiver>
+        <referenceNumberAssignment>97123752378574512764</referenceNumberAssignment>
+        <billOfReceiver>456758396974575789</billOfReceiver>
         <modelApproval>97</modelApproval>
-        <referenceNumberApproval>12318962336547855520</referenceNumberApproval>
-        <amount>30000.0</amount>
-        <codeOfCurrency>rsd</codeOfCurrency>
-    </depositSlipXml>
-    <depositSlipXml>
-        <messageId>ndsk2fdsmfs</messageId>
-        <deptor>Duznik 2 </deptor>
-        <purposeOfPayment>transfer</purposeOfPayment>
-        <receiver>Primalac2</receiver>
-        <depositSlipDate>2016-11-11</depositSlipDate>
-        <billOfDeptor>123758369874575393</billOfDeptor>
-        <modelAssignment>97</modelAssignment>
-        <referenceNumberAssignment>12312314446547859620</referenceNumberAssignment>
-        <billOfReceiver>456758369874575393</billOfReceiver>
-        <modelApproval>97</modelApproval>
-        <referenceNumberApproval>12318962555547855520</referenceNumberApproval>
-        <amount>750.0</amount>
+        <referenceNumberApproval>97456758396974575789</referenceNumberApproval>
+        <amount>3000.0</amount>
         <codeOfCurrency>rsd</codeOfCurrency>
     </depositSlipXml>
 </mt102xml>

@@ -465,7 +465,6 @@ public class DepositSlipController {
 	@ResponseStatus(HttpStatus.OK)
 	public List<DepositSlip> exportBalanceFromDateToDateForBill(@PathVariable Long id,  @RequestBody Map<String, String> mapOfDays) {
 		
-		billService.findOne(id);
 		Bill bill= billService.findOne(id);
 		
 		List<DailyBalance> allBalances = bill.getDailyBalances();
