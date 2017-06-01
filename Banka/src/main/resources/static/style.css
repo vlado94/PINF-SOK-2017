@@ -52,9 +52,24 @@ table {
     background: #8c8c8c;
 }
 
+.btn-file{
+	    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+	color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+}
 .btn:hover { 
     background: #a6a6a6;
 }
+
 
 .table{
 	background-color: #8c8c8c;
