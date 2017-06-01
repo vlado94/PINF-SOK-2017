@@ -12,10 +12,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import app.bank.Bank;
-import app.bill.BillService;
-import app.dailyBalance.DailyBalanceService;
-import app.depositSlip.DepositSlip;
-import app.depositSlip.DepositSlipService;
 import app.user.banker.Banker;
 
 @RestController
