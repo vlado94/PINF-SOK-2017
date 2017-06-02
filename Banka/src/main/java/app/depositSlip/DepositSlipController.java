@@ -227,8 +227,45 @@ public class DepositSlipController {
 	
 	@PostMapping(path = "/upload")
 	@ResponseStatus(HttpStatus.OK)
-	public void upload(@RequestParam("file") List<MultipartFile> files) {
+	public void upload(@RequestParam("files") MultipartFile files) {
+		try {
+		JAXBContext jaxbContext = JAXBContext.newInstance(DepositSlip.class);
+
+		Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller(); //unmarshaller
 		
+		//for(int i = 0; i < files.size(); i++ ){
+		 File convFile = new File(files.getOriginalFilename());
+		 try {
+			convFile.createNewFile();
+			FileOutputStream fos = new FileOutputStream(convFile); 
+			fos.write(files.getBytes());
+		    fos.close(); 
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}   
+		DepositSlip depositSlip= (DepositSlip) jaxbUnmarshaller.unmarshal(convFile);
+		saveDepositSlip(depositSlip);
+		//}
+	  } catch (JAXBException e) {
+		e.printStackTrace();
+	  }
+	}
+	
+	/*@PostMapping(path = "/upload")
+	@ResponseStatus(HttpStatus.OK)
+	public void upload(@RequestBody FormData formData) {
+		System.out.println("Pogodio kontroler");
+		
+		for(int i = 0; i<formData.getAllIds().length; i++){
+			System.out.println("vdg"+formData.getAllIds()[0].toString());
+		}
+		
+		for( pair of formData.entries()) {
+			   console.log(pair[0]+ ', '+ pair[1]); 
+			}
+		List<File> files = (List<File>) formData.getAll("file");
+		System.out.println("Files" + files.size());
 		try {
 		JAXBContext jaxbContext = JAXBContext.newInstance(DepositSlip.class);
 
@@ -251,8 +288,7 @@ public class DepositSlipController {
 	  } catch (JAXBException e) {
 		e.printStackTrace();
 	  }
-	}
-	
+	}*/
 	
 	private void checkBillInBank(long id) {
 		List<Bill> billsInBank = bankService.findOne(((Banker)httpSession.getAttribute("user")).getBank().getId()).getBills();

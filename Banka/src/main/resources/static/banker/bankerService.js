@@ -141,4 +141,19 @@ services.service('bankerService', ['$http', function($http){
 		return $http.get("mt102/exportDepositSlips");
 	}
 	
+	  this.uploadFileToUrl = function(file){
+          var fd = new FormData();
+          fd.append('files', file);
+       
+          $http.post("depositSlip/upload", fd, {
+             transformRequest: angular.identity,
+             headers: {'Content-Type': undefined}
+          });
+       }
+	
+	/*this.uploadFile = function(fd){
+		alert("Service");
+		return $http.post("depositSlip/upload",fd);
+	}*/
+	
 }]);

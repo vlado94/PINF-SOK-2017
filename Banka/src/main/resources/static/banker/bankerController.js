@@ -660,6 +660,19 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 		}
 		
 		
-		
+		 $scope.uploadFile=function(){
+			 file = document.getElementById("tempp").files[0]
+			 if(file != null || file != undefined) {
+	             bankerService.uploadFileToUrl(file).then(
+	            	function(response){
+	            		 alert("ok");
+					}, 
+					function (response){
+						alert("Greska");
+					}
+     			);
+			 }
+            
+		 }
 	}
 ]);

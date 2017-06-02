@@ -5,7 +5,21 @@ angular.module('routerApp', ['ui.router',
 	'admin.services','admin.controllers',
 	'login.services','login.controllers'
 	])
-
+.directive('fileModel', ['$parse', function ($parse) {
+            return {
+               restrict: 'A',
+               link: function(scope, element, attrs) {
+                  var model = $parse(attrs.fileModel);
+                  var modelSetter = model.assign;
+                  
+                  element.bind('change', function(){
+                     scope.$apply(function(){
+                        modelSetter(scope, element[0].files[0]);
+                     });
+                  });
+               }
+            };
+         }])
 .config(function($stateProvider, $urlRouterProvider) {
         
         $urlRouterProvider.otherwise('/login');
@@ -232,4 +246,10 @@ angular.module('routerApp', ['ui.router',
         .state('banker.depositSlipsAll.searchDepositSlip', {
           	templateUrl : 'banker/depositSlip/searchDepositSlip.html'
         })
+         .state('banker.depositSlip.upload', {
+        	url : '/depositSlip/upload',
+          	templateUrl : 'banker/depositSlip/allDepositSlips.html'
+        })
+        
 });
+
