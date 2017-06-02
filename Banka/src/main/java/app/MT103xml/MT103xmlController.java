@@ -1,9 +1,6 @@
 package app.MT103xml;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import javax.xml.XMLConstants;
@@ -22,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.xml.sax.SAXException;
 
 import app.MyValidationEventHandler;
-import app.depositSlip.DepositSlip;
 import app.depositSlip.DepositSlipService;
 import app.interbankTransfer.InterbankTransferService;
 

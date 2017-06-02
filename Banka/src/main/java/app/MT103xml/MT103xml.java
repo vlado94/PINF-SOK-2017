@@ -2,7 +2,6 @@ package app.MT103xml;
 
 import java.math.BigDecimal;
 import java.sql.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,9 +16,6 @@ import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import app.Adapter1;
-import app.MT102xml.MT102xml;
-import app.depositSlip.DepositSlipXml;
-import app.depositSlip.HeaderMT102xml;
 import lombok.Data;
 
 @Entity

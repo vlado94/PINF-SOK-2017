@@ -1,7 +1,10 @@
 package app.user.banker;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,10 +12,12 @@ import java.util.List;
 import java.util.Map;
 
 import javax.naming.AuthenticationException;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import javax.ws.rs.NotFoundException;
 
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +29,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import app.bank.Bank;
+import app.bank.BankService;
 import app.bill.Bill;
 import app.bill.BillService;
 import app.closingBill.ClosingBill;
@@ -32,6 +39,7 @@ import app.dailyBalance.DailyBalance;
 import app.depositSlip.DepositSlip;
 import app.depositSlip.DepositSlipService;
 import app.modelView.Excerpt;
+import app.modelView.ExcerptForBills;
 import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -42,8 +50,9 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 @RestController
 @RequestMapping("/banker")
 public class BankerController {
-	
+
 	private final BankerService bankerService;
+	private final BankService bankService;
 	private final BillService billService;
 	private HttpSession httpSession;
 	private final ClosingBillService closingBillService;
@@ -52,8 +61,9 @@ public class BankerController {
 	@Autowired
 	public BankerController(final HttpSession httpSession,final BankerService bankerService, 
 							final BillService billService, final ClosingBillService closingBillService,
-							final DepositSlipService depositSlipService) {
+							final DepositSlipService depositSlipService,final BankService bankService) {
 		this.bankerService = bankerService;
+		this.bankService = bankService;
 		this.billService = billService;
 		this.httpSession = httpSession;
 		this.closingBillService = closingBillService;
@@ -158,6 +168,30 @@ public class BankerController {
         OutputStream outputStream = new FileOutputStream(new File(outputFile));
         /* Write content to PDF file */
         JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
+	}
+	
+	
+	@GetMapping("/makePDFForBank")
+	@ResponseStatus(HttpStatus.OK)
+	public void getReportForBank(HttpServletResponse response) throws JRException, IOException {
+		Bank bank = bankService.findOne(((Banker)httpSession.getAttribute("user")).getBank().getId());
+		ExcerptForBills ex = new ExcerptForBills(bank);
+	    String outputFile ="D:\\ExcerptForBank.pdf";
+	    JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(ex.setBills());
+		
+        /* Map to hold Jasper report Parameters */
+        Map<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put("ItemDataSource", itemsJRBean);
+        parameters.put("BankName", bank.getName());
+        parameters.put("CurrencyCode", bank.getCurrencyCode());
+
+        JasperPrint jasperPrint = JasperFillManager.fillReport("D:\\excerptBank.jasper", parameters, new JREmptyDataSource());
+        File file = new File(outputFile);
+        OutputStream outputStream = new FileOutputStream(file);
+        JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
+        response.setContentType("application/pdf");
+		InputStream inputStream = new FileInputStream(file);
+		IOUtils.copy(inputStream, response.getOutputStream());
 	}
 	
 	@PostMapping(path = "/closeBill")
