@@ -26,6 +26,13 @@ services.service('bankerService', ['$http', function($http){
 		mapOfDays["last"] = toDate;
 		return $http.put("/depositSlip/exportBalanceFromDateToDateForBill/"+id, mapOfDays);
 	}
+	
+	this.makePdf = function(id , fromDate, toDate){
+		var mapOfDays = {};
+		mapOfDays["first"] = fromDate;
+		mapOfDays["last"] = toDate;
+		return $http.put("/banker/makePDFForClient/"+id, mapOfDays);
+	}
 //CODE BOOK ACTIVITIES
 	this.findAllCodeBookActivities = function(){
 		return $http.get("/codeBookActivities");

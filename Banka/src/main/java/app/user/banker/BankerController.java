@@ -6,11 +6,17 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.naming.AuthenticationException;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -19,7 +25,12 @@ import javax.ws.rs.NotFoundException;
 
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpStatus;
+import org.springframework.mail.MailParseException;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -58,16 +69,20 @@ public class BankerController {
 	private final ClosingBillService closingBillService;
 	private final DepositSlipService depositSlipService;
 	
+
+	private JavaMailSender mailSender;
+	
 	@Autowired
 	public BankerController(final HttpSession httpSession,final BankerService bankerService, 
 							final BillService billService, final ClosingBillService closingBillService,
-							final DepositSlipService depositSlipService,final BankService bankService) {
+							final DepositSlipService depositSlipService,final BankService bankService,JavaMailSender mailSender) {
 		this.bankerService = bankerService;
 		this.bankService = bankService;
 		this.billService = billService;
 		this.httpSession = httpSession;
 		this.closingBillService = closingBillService;
 		this.depositSlipService = depositSlipService;
+		this.mailSender = mailSender;
 	}
 	
 	@GetMapping("/checkRights")
@@ -146,13 +161,39 @@ public class BankerController {
 	//srediti izvestaj za dammy podatke
 	//na frontu odabrati datume a pre toga korisnika
 	//namestiti da fajlovi budu ispod app properties
-	@GetMapping("/makePDFForClient")
+	@PutMapping(path ="/makePDFForClient/{id}")
 	@ResponseStatus(HttpStatus.OK)
-	public void getReportForClient() throws JRException, FileNotFoundException {
+	public void makePDFForClient(@PathVariable Long id,  @RequestBody Map<String, String> mapOfDays,HttpServletResponse response) throws JRException, IOException {
+		Date from = null;
+		Date to = null;
 		
-	    String outputFile ="D:\\ExcerptForClient.pdf";
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			from = format.parse(mapOfDays.get("first"));
+			to = format.parse(mapOfDays.get("last"));
+			Calendar c = Calendar.getInstance(); 
+			c.setTime(to); 
+			c.add(Calendar.DATE, 1);
+			to = c.getTime();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		List<DepositSlip> slips = new ArrayList<DepositSlip>();
+		long BankID = (((Banker)httpSession.getAttribute("user")).getBank().getId());
+		Bank bank = bankService.findOne(BankID);
+		
+		for (Bill bill : bank.getBills()) {
+			if(bill.getClient().getId() == id) {
+				for(DailyBalance db : bill.getDailyBalances()) {
+					if(db.getDate() != null && db.getDate().before(to) && db.getDate().after(from)) {
+						slips.addAll(db.getDepositSlips());
+					}
+				}
+			}
+		}
+		String outputFile ="D:\\ExcerptForClient.pdf";
 		Excerpt ex = new Excerpt();
-	    JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(ex.findAll());
+	    JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(slips);
 		
         /* Map to hold Jasper report Parameters */
         Map<String, Object> parameters = new HashMap<String, Object>();
@@ -165,9 +206,39 @@ public class BankerController {
 
        
         /* outputStream to create PDF */
-        OutputStream outputStream = new FileOutputStream(new File(outputFile));
+        File file = new File(outputFile);
+        
+        OutputStream outputStream = new FileOutputStream(file);
         /* Write content to PDF file */
         JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
+        httpSession.setAttribute("file", file);
+        
+        MimeMessage message = mailSender.createMimeMessage();
+
+		try{
+			MimeMessageHelper helper = new MimeMessageHelper(message, true);
+			SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+			simpleMailMessage.setText("Excerpt");
+			helper.setFrom("poslovnainfo@gmail.com");
+			helper.setTo("vladimir94@gmail.com");
+			helper.setSubject("test");
+			helper.setText(String.format(
+				simpleMailMessage.getText(), " ", " "));
+				helper.addAttachment("excerpt.pdf", file);
+	     }catch (MessagingException e) {
+	    	 throw new MailParseException(e);
+	     }
+	     mailSender.send(message);
+	}
+	
+	@GetMapping("/makePDFForClient")
+	@ResponseStatus(HttpStatus.OK)
+	public void makePDFForClient(HttpServletResponse response) throws JRException, IOException {
+		File file = (File)httpSession.getAttribute("file");
+		response.setContentType("application/pdf");
+		InputStream inputStream = new FileInputStream(file);
+		IOUtils.copy(inputStream, response.getOutputStream());
+	         
 	}
 	
 	

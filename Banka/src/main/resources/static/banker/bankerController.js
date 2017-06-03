@@ -97,6 +97,40 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 			}
 		}
 		
+		$scope.makePDF = function () {
+			if($scope.chossenDatesForPdf.fromDate == null || $scope.chossenDatesForPdf.toDate == null){
+				alert("You must choose date!");
+			}else{
+				var billId = $scope.billID;
+				var fromDate = $scope.chossenDatesForPdf.fromDate;
+				var toDate = $scope.chossenDatesForPdf.toDate;
+				bankerService.makePdf(billId , fromDate, toDate).then(function(response){
+					window.location.href = "/banker/makePDFForClient";
+	            },
+				function(response){
+					alert("NOT FOUND");
+				})
+			}
+		}		
+		
+		/*
+		 * 
+		 * $scope.findCertificate = function(){
+			findCertificateService.findCertificate($scope.findSerialNumber)
+			.then(function(response){
+		        var blob = new Blob([response.data], {type: 'application/x-x509-ca-cert'});
+		        saveAs(blob,$scope.findSerialNumber+'.cer');
+		        $scope.findSerialNumber = "";
+			},
+			function(response){
+				alert("NOT FOUND");
+			})
+}
+		 * 
+		 * 
+		 * 
+		 * 
+		 */
 		$scope.openDepositSlipForClient = function(depositSlip) {
 			$(".modal-backdrop").removeClass("fade");
 			$(".modal-backdrop").removeClass("in");
