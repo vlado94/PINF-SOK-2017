@@ -100,19 +100,11 @@
         <h4 class="modal-title" >Choose country</h4>
       </div>
       <div class="modal-body">
- 
-		<table>
-			<tr><label class = "infoLabel" > From date</label>
-				<input type="date" class = "form-control" ng-model = "$parent.chossenDates.fromDate">
-			</tr>
-			<tr>
-				<label class = "infoLabel"> To date</label> <!-- datum valute -->
-				<input type="date" class = "form-control" ng-model = "$parent.chossenDates.toDate">
-			</tr>
-		</table>	
-        
-       
-      </div>
+		<label class = "infoLabel" > From date</label>
+		<input type="date" class = "form-control" ng-model = "$parent.chossenDates.fromDate">
+ 		<label class = "infoLabel"> To date</label> <!-- datum valute -->
+		<input type="date" class = "form-control" ng-model = "$parent.chossenDates.toDate">
+	  </div>
       <div class="modal-footer">
        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click = "exportBalanceFromDateToDateForBill()">OK</button>
        <button type="button" class="btn btn-default" data-dismiss="modal">CANCEL</button>
@@ -124,14 +116,14 @@
 
 
 
-<div id="chooseDateForPDF"  class="modal fade" role="dialog" style="color:black;">
+<div id="chooseDateForPDF"  class="modal fade" role="dialog" >
   <div class="modal-dialog">
 
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title" >Choose country</h4>
+        <h4 class="modal-title" >Choose dates</h4>
       </div>
       <div class="modal-body">
  

@@ -281,7 +281,18 @@ input{
 	 background: #8c8c8c;
 }
 
+.modal-dialog{
+	color:black;
+	width : 20%;
+}
 
+.modal-content {
+	background-color: #ddd;
+}
+
+.modal-body .form-control {
+	width : 100%;
+}
 
 
 
