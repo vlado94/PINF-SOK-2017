@@ -448,7 +448,7 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 
 		$scope.closeBill = function (individualBill) {
 			$scope.billForClosing = individualBill;
-			alert("Bill for closing: "+$scope.billForClosing.client.applicant +" "+$scope.billForClosing.accountNumber);
+			//alert("Bill for closing: "+$scope.billForClosing.client.applicant +" "+$scope.billForClosing.accountNumber);
 		}
 
 		$scope.finishClosingBill = function() {
@@ -504,7 +504,7 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 		
 		$scope.setSelectedSuccessor = function(accountNumber,code) {
 			$scope.billSuccessor=accountNumber;
-	        document.getElementById("billSuccessor").value = accountNumber;
+	        //document.getElementById("billSuccessor").value = accountNumber;
 	        markRow(code);	        
 	    };	
 	    
