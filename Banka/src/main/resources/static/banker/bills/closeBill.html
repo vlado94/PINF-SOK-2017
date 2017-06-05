@@ -26,7 +26,7 @@
 				<th>Account number</th>
 				<th>Applicant</th>
 			</tr>
-			<tr ng-repeat="bill in billsForAllBanks | filter:filterBills | limitTo:5" id="{{bill.id}}" ng-click="setSelectedSuccessor(bill.accountNumber,bill.id);">
+			<tr ng-repeat="bill in billsForAllBanks | filter:filterBills" id="{{bill.id}}" ng-click="setSelectedSuccessor(bill.accountNumber,bill.id);">
 				<td>{{bill.accountNumber}}</td>
 				<td>{{bill.client.applicant}}</td>
 				</tr>
