@@ -297,7 +297,7 @@ public class DepositSlipController {
 	
 	@PostMapping(path = "/upload")
 	@ResponseStatus(HttpStatus.OK)
-	public void upload(@RequestParam("files") MultipartFile files) {
+	public int upload(@RequestParam("files") MultipartFile files) {
 		try {
 		JAXBContext jaxbContext = JAXBContext.newInstance(DepositSlip.class);
 
@@ -317,8 +317,10 @@ public class DepositSlipController {
 		DepositSlip depositSlip= (DepositSlip) jaxbUnmarshaller.unmarshal(convFile);
 		saveDepositSlip(depositSlip);
 		//}
+		return 1;
+
 	  } catch (JAXBException e) {
-		e.printStackTrace();
+		  return 2;
 	  }
 	}
 	

@@ -1,0 +1,66 @@
+<h2>Owner :{{bill.client.applicant}}</h2>
+<h2>Current State : {{currentOnBill}}</h2>
+<table id="dailyBalanceForClient" class="table table-bordered" border="1">
+	<tbody>
+		<tr>
+			<th>ID</th>
+			<th>Date</th>
+			<th>Previous State</th>
+			<th>Traffic to benefit</th>
+			<th>New state</th>
+			<td>Action</td>
+		</tr>
+		<tr ng-repeat="dailyB in dailyBalances">
+			<td>{{dailyB.id}}</td>
+			<td>{{dailyB.date}}</td>
+			<td>{{dailyB.previousState}}</td>
+			<td>{{dailyB.trafficAtExpense}}</td>
+			<td>{{dailyB.trafficToBenefit}}</td>
+			<td>
+				<button type="button" class="btn btn-default"
+					ng-click="showDepositSlipsForDepositSlip(dailyB.id)"
+					data-toggle="modal" data-target="#showDepositSlipss">
+					Deposit slips</button>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+
+<div id="showDepositSlipss" class="modal fade" role="dialog" style="color: black;">
+	<div class="modal-dialog">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Deposit slips</h4>
+			</div>
+			<div class="modal-body">
+
+				<table class="table table-bordered" border="1">
+					<tbody>
+						<tr>
+							<th>Type</th>
+							<th>Deptor</th>
+							<th>Reciever</th>
+							<th>Amount</th>
+						</tr>
+						<tr ng-repeat="depositSlip in depositSlipsForDailyBalances">
+							<td>{{depositSlip.type}}</td>
+							<td>{{depositSlip.deptor}}</td>
+							<td>{{depositSlip.receiver}}</td>
+							<td>{{depositSlip.amount}}</td>
+						</tr>
+					</tbody>
+				</table>
+
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">CANCEL</button>
+			</div>
+		</div>
+
+	</div>
+</div>

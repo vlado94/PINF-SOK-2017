@@ -112,29 +112,11 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 			}
 		}		
 		
-		/*
-		 * 
-		 * $scope.findCertificate = function(){
-			findCertificateService.findCertificate($scope.findSerialNumber)
-			.then(function(response){
-		        var blob = new Blob([response.data], {type: 'application/x-x509-ca-cert'});
-		        saveAs(blob,$scope.findSerialNumber+'.cer');
-		        $scope.findSerialNumber = "";
-			},
-			function(response){
-				alert("NOT FOUND");
-			})
-}
-		 * 
-		 * 
-		 * 
-		 * 
-		 */
 		$scope.openDepositSlipForClient = function(depositSlip) {
 			$(".modal-backdrop").removeClass("fade");
 			$(".modal-backdrop").removeClass("in");
 			$(".modal-backdrop").removeClass("modal-backdrop");
-			$scope.depositSlip = depositSlip;
+			//$scope.depositSlip = depositSlip;
 			$scope.openDepositSlip(1);
 		}
 
@@ -586,49 +568,35 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 				}
 			}
 			var depositSlip = $scope.depositSlip;
+			temp = $scope.depositSlip.type;
 			$scope.depositSlip = {};
+			
 			if(val == 1) {
 				flagSave = 0;
 				$scope.depositSlip = depositSlip;
 			}
+			$scope.depositSlip.type = temp;
 		}
-				
-		$scope.findAllDepositSlipsForAccount = function (accountNumber) {  //koristi se kod all depositSlips
-			bankerService.findAllDepositSlips().then (
+		
+		$scope.dailyBalancesForClient = function (accNum) {
+			bankerService.findDailyBalancesWithAccNum(accNum).then (
 				function(response){
-					var slips = response.data;
-					var list = [];
-					var object;
-					var expense = 0;
-					var benefit = 0;
-					
-					for(var i=0; i<slips.length; i +=1) { //sve uplatnice
-						if(slips[i].billOfReceiver == accountNumber){
-							object = {date: slips[i].depositSlipDate,
-								account: slips[i].billOfDeptor,
-								description: slips[i].purposeOfPayment,
-								trafficAtExpense: 0,
-								trafficToBenefit : slips[i].amount
-								}
-							benefit += slips[i].amount;
-							list.push(object);
-						} else if(slips[i].billOfDeptor == accountNumber) {
-							object = {date: slips[i].depositSlipDate,
-									account: slips[i].billOfReceiver,
-									description: slips[i].purposeOfPayment,
-									trafficAtExpense: slips[i].amount,
-									trafficToBenefit : 0
-									}
-							expense += slips[i].amount;
-							list.push(object);
-						}				
-					}
-					$scope.list = list;
-					$scope.state = benefit - expense;
+					bill = response.data;
+					$scope.bill = bill;
+					$scope.currentOnBill = bill.dailyBalances[bill.dailyBalances.length-1].newState;
+					$scope.dailyBalances = response.data.dailyBalances;
+					$state.go("banker.dailyBalancesForClient", {});
 				}, function (response){
-					alert("Greska");
+					alert("Error!")
+				});	
+		}
+		
+		$scope.showDepositSlipsForDepositSlip = function (dbId) {
+			for(var i =0;i<$scope.bill.dailyBalances.length;i++) {
+				if($scope.bill.dailyBalances[i].id == dbId) {
+					$scope.depositSlipsForDailyBalances = $scope.bill.dailyBalances[i].depositSlips;					
 				}
-			);
+			}
 		}
 		
 		$scope.findAllDepositSlips = function() {
@@ -710,19 +678,17 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 		}
 		
 		
-		 $scope.uploadFile=function(){
+		 $scope.uploadFile = function(){
 			 file = document.getElementById("tempp").files[0]
-			 if(file != null || file != undefined) {
+			 if(file != null || file != undefined) {	             
 	             bankerService.uploadFileToUrl(file).then(
-	            	function(response){
-	            		 alert("ok");
-					}, 
-					function (response){
-						alert("Greska");
-					}
-     			);
+	     				function(response){
+	     					alert("test")
+	     				}, function (response){
+	    					alert("Error!");
+	    				}
+	    			);
 			 }
-            
 		 }
 	}
 ]);
