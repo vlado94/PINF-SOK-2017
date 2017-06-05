@@ -150,9 +150,9 @@ public class DepositSlipController {
 		}		
 	}
 
-	@PostMapping("/search")
+	@PostMapping("/searchAll")
 	@ResponseStatus(HttpStatus.CREATED)
-	public List<DepositSlip> searchDepositSlips(@RequestBody DepositSlip depositSlip) {
+	public List<DepositSlip> searchDepositSlipsProcessed(@RequestBody DepositSlip depositSlip) {
 		Double amount = depositSlip.getAmount();
 		Type type = depositSlip.getType();
 		String receiver = depositSlip.getBillOfReceiver();
@@ -221,7 +221,77 @@ public class DepositSlipController {
 		}
 		return depositSlipService.findByDepositSlipDateAndBillOfReceiverLikeAndBillOfDeptorLikeAndAmount(depositSlip.getDepositSlipDate(), receiver, deptor, amount);
 	}
+	@PostMapping("/search")
+	@ResponseStatus(HttpStatus.CREATED)
+	public List<DepositSlip> searchDepositSlips(@RequestBody DepositSlip depositSlip) {
+		Double amount = depositSlip.getAmount();
+		Type type = depositSlip.getType();
+		String receiver = depositSlip.getBillOfReceiver();
+		if(receiver==null){
+			receiver="%";
+		}else{
+			receiver="%"+depositSlip.getBillOfReceiver()+"%";
+		}
+		String deptor = depositSlip.getBillOfDeptor();
+		if(deptor==null){
+			deptor="%";
+		}else{
+			deptor="%"+depositSlip.getBillOfDeptor()+"%";
+		}
 
+		if(type==Type.PAYMENTOUT){
+			if(amount==null){
+				if(depositSlip.getDepositSlipDate()==null){
+					return depositSlipService.findByTypeAndBillOfReceiverLikeAndStatus(type, receiver,Status.UNPROCESSED);
+				}else{
+					return depositSlipService.findByDepositSlipDateAndTypeAndBillOfReceiverLikeAndStatus(depositSlip.getDepositSlipDate(), type, receiver,Status.UNPROCESSED);
+				}
+			}else{
+				if(depositSlip.getDepositSlipDate()==null){
+					return depositSlipService.findByTypeAndBillOfReceiverLikeAndAmountAndStatus(type, receiver, amount,Status.UNPROCESSED);
+				}else{
+					return depositSlipService.findByDepositSlipDateAndTypeAndBillOfReceiverLikeAndAmountAndStatus(depositSlip.getDepositSlipDate(), type, receiver, amount,Status.UNPROCESSED);
+				}
+			}
+		}else if(type==Type.PAYOUT){
+			if(amount==null){
+				if(depositSlip.getDepositSlipDate()==null){
+					return depositSlipService.findByTypeAndBillOfDeptorLikeAndStatus(type, deptor,Status.UNPROCESSED);
+				}else{
+					return depositSlipService.findByDepositSlipDateAndTypeAndBillOfDeptorLikeAndStatus(depositSlip.getDepositSlipDate(), type, deptor,Status.UNPROCESSED);
+				}
+			}else{
+				if(depositSlip.getDepositSlipDate()==null){
+					return depositSlipService.findByTypeAndBillOfDeptorLikeAndAmountAndStatus(type, deptor, amount,Status.UNPROCESSED);
+				}else{
+					return depositSlipService.findByDepositSlipDateAndTypeAndBillOfDeptorLikeAndAmountAndStatus(depositSlip.getDepositSlipDate(), type, deptor, amount,Status.UNPROCESSED);
+				}
+			}
+		}else if(type==Type.PAYMENTIN || type==Type.TRANSFER){
+			if(amount==null){
+				if(depositSlip.getDepositSlipDate()==null){
+					return depositSlipService.findByTypeAndBillOfReceiverLikeAndBillOfDeptorLikeAndStatus(type, receiver, deptor,Status.UNPROCESSED);
+				}else{
+					return depositSlipService.findByDepositSlipDateAndTypeAndBillOfReceiverLikeAndBillOfDeptorLikeAndStatus(depositSlip.getDepositSlipDate(), type, receiver, deptor,Status.UNPROCESSED);
+				}
+			}else{
+				if(depositSlip.getDepositSlipDate()==null){
+					return depositSlipService.findByTypeAndBillOfReceiverLikeAndBillOfDeptorLikeAndAmountAndStatus(type, receiver, deptor, amount,Status.UNPROCESSED);
+				}else{
+					return depositSlipService.findByDepositSlipDateAndTypeAndBillOfReceiverLikeAndBillOfDeptorLikeAndAmountAndStatus(depositSlip.getDepositSlipDate(), type, receiver, deptor, amount,Status.UNPROCESSED);
+				}
+			}
+		}else{
+			if(amount==null){
+				if(depositSlip.getDepositSlipDate()==null){
+					return depositSlipService.findByBillOfReceiverLikeAndBillOfDeptorLikeAndStatus(receiver, deptor,Status.UNPROCESSED);
+				}else{
+					return depositSlipService.findByDepositSlipDateAndBillOfReceiverLikeAndBillOfDeptorLikeAndStatus(depositSlip.getDepositSlipDate(), receiver, deptor,Status.UNPROCESSED);
+				}
+			}
+		}
+		return depositSlipService.findByDepositSlipDateAndBillOfReceiverLikeAndBillOfDeptorLikeAndAmountAndStatus(depositSlip.getDepositSlipDate(), receiver, deptor, amount,Status.UNPROCESSED);
+	}
 	
 	
 	

@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import app.enums.Status;
 import app.enums.Type;
 
 @Service
@@ -36,11 +37,9 @@ public class DepositSlipServiceImpl implements DepositSlipService{
 		return depositSlipRepository.findOne(id);
 	}
 
-
-	
 	@Override
 	public List<DepositSlip> findByDepositSlipDateAndTypeAndBillOfReceiverLikeAndBillOfDeptorLikeAndAmount(
-			Date date, Type type, String billOfReceiver, String billOfDeptor, double amount) {
+			Date date, Type type, String billOfReceiver, String billOfDeptor, Double amount) {
 		return depositSlipRepository.findByDepositSlipDateAndTypeAndBillOfReceiverLikeAndBillOfDeptorLikeAndAmount(date, type, billOfReceiver, billOfDeptor, amount);
 	}
 
@@ -135,6 +134,105 @@ public class DepositSlipServiceImpl implements DepositSlipService{
 	public List<DepositSlip> findByBillOfReceiverLikeAndBillOfDeptorLike(String billOfReceiver, String billOfDeptor) {
 		// TODO Auto-generated method stub
 		return depositSlipRepository.findByBillOfReceiverLikeAndBillOfDeptorLike(billOfReceiver, billOfDeptor);
+	}
+	
+	@Override
+	public List<DepositSlip> findByDepositSlipDateAndTypeAndBillOfReceiverLikeAndBillOfDeptorLikeAndAmountAndStatus(
+			Date date, Type type, String billOfReceiver, String billOfDeptor, double amount,Status status) {
+		return depositSlipRepository.findByDepositSlipDateAndTypeAndBillOfReceiverLikeAndBillOfDeptorLikeAndAmountAndStatus(date, type, billOfReceiver, billOfDeptor, amount,status);
+	}
+
+	@Override
+	public List<DepositSlip> findByDepositSlipDateAndTypeAndBillOfDeptorLikeAndAmountAndStatus(Date date, Type type,
+			String billOfDeptor, Double amount,Status status) {
+		return depositSlipRepository.findByDepositSlipDateAndTypeAndBillOfDeptorLikeAndAmountAndStatus(date, type, billOfDeptor, amount,status);
+	}
+
+	@Override
+	public List<DepositSlip> findByDepositSlipDateAndTypeAndBillOfReceiverLikeAndAmountAndStatus(Date date, Type type,
+			String billOfReceiver, Double amount,Status status) {
+		return depositSlipRepository.findByDepositSlipDateAndTypeAndBillOfReceiverLikeAndAmountAndStatus(date, type, billOfReceiver, amount,status);
+	}
+
+	@Override
+	public List<DepositSlip> findByDepositSlipDateAndBillOfReceiverLikeAndBillOfDeptorLikeAndAmountAndStatus(Date date,
+			String billOfReceiver, String billOfDeptor, Double amount,Status status) {
+		return depositSlipRepository.findByDepositSlipDateAndBillOfReceiverLikeAndBillOfDeptorLikeAndAmountAndStatus(date, billOfReceiver, billOfDeptor, amount,status);
+	}
+
+	@Override
+	public List<DepositSlip> findByDepositSlipDateAndTypeAndBillOfReceiverLikeAndBillOfDeptorLikeAndStatus(Date date, Type type,
+			String billOfReceiver, String billOfDeptor,Status status) {
+		return depositSlipRepository.findByDepositSlipDateAndBillOfReceiverLikeAndBillOfDeptorLikeAndStatus(date, billOfReceiver, billOfDeptor,status);
+	}
+
+	@Override
+	public List<DepositSlip> findByDepositSlipDateAndTypeAndBillOfDeptorLikeAndStatus(Date date, Type type,
+			String billOfDeptor,Status status) {
+		return depositSlipRepository.findByDepositSlipDateAndTypeAndBillOfDeptorLikeAndStatus(date, type, billOfDeptor,status);
+	}
+
+	@Override
+	public List<DepositSlip> findByDepositSlipDateAndTypeAndBillOfReceiverLikeAndStatus(Date date, Type type,
+			String billOfReceiver,Status status) {
+		return depositSlipRepository.findByDepositSlipDateAndTypeAndBillOfReceiverLikeAndStatus(date, type, billOfReceiver,status);
+	}
+
+	@Override
+	public List<DepositSlip> findByDepositSlipDateAndBillOfReceiverLikeAndBillOfDeptorLikeAndStatus(Date date,
+			String billOfReceiver, String billOfDeptor,Status status) {
+		return depositSlipRepository.findByDepositSlipDateAndBillOfReceiverLikeAndBillOfDeptorLikeAndStatus(date, billOfReceiver, billOfDeptor,status);
+	}
+
+	@Override
+	public List<DepositSlip> findByTypeAndBillOfReceiverLikeAndBillOfDeptorLikeAndAmountAndStatus(Type type,
+			String billOfReceiver, String billOfDeptor, Double amount,Status status) {
+		// TODO Auto-generated method stub
+		return depositSlipRepository.findByTypeAndBillOfReceiverLikeAndBillOfDeptorLikeAndAmountAndStatus(type, billOfReceiver, billOfDeptor, amount,status);
+	}
+
+	@Override
+	public List<DepositSlip> findByTypeAndBillOfDeptorLikeAndAmountAndStatus(Type type, String billOfDeptor, Double amount,Status status) {
+		// TODO Auto-generated method stub
+		return depositSlipRepository.findByTypeAndBillOfDeptorLikeAndAmountAndStatus(type, billOfDeptor, amount,status);
+	}
+
+	@Override
+	public List<DepositSlip> findByTypeAndBillOfReceiverLikeAndAmountAndStatus(Type type, String billOfReceiver, Double amount,Status status) {
+		// TODO Auto-generated method stub
+		return depositSlipRepository.findByTypeAndBillOfReceiverLikeAndAmountAndStatus(type, billOfReceiver, amount,status);
+	}
+
+	@Override
+	public List<DepositSlip> findByBillOfReceiverLikeAndBillOfDeptorLikeAndAmountAndStatus(String billOfReceiver,
+			String billOfDeptor, Double amount,Status status) {
+		// TODO Auto-generated method stub
+		return depositSlipRepository.findByBillOfReceiverLikeAndBillOfDeptorLikeAndAmountAndStatus(billOfReceiver, billOfDeptor, amount,status);
+	}
+
+	@Override
+	public List<DepositSlip> findByTypeAndBillOfReceiverLikeAndBillOfDeptorLikeAndStatus(Type type, String billOfReceiver,
+			String billOfDeptor,Status status) {
+		// TODO Auto-generated method stub
+		return depositSlipRepository.findByTypeAndBillOfReceiverLikeAndBillOfDeptorLikeAndStatus(type, billOfReceiver, billOfDeptor,status);
+	}
+
+	@Override
+	public List<DepositSlip> findByTypeAndBillOfDeptorLikeAndStatus(Type type, String billOfDeptor,Status status) {
+		// TODO Auto-generated method stub
+		return depositSlipRepository.findByTypeAndBillOfDeptorLikeAndStatus(type, billOfDeptor,status);
+	}
+
+	@Override
+	public List<DepositSlip> findByTypeAndBillOfReceiverLikeAndStatus(Type type, String billOfReceiver,Status status) {
+		// TODO Auto-generated method stub
+		return depositSlipRepository.findByTypeAndBillOfReceiverLikeAndStatus(type, billOfReceiver,status);
+	}
+
+	@Override
+	public List<DepositSlip> findByBillOfReceiverLikeAndBillOfDeptorLikeAndStatus(String billOfReceiver, String billOfDeptor,Status status) {
+		// TODO Auto-generated method stub
+		return depositSlipRepository.findByBillOfReceiverLikeAndBillOfDeptorLikeAndStatus(billOfReceiver, billOfDeptor,status);
 	}
 
 	

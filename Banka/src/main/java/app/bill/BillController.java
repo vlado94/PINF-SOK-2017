@@ -58,7 +58,7 @@ public class BillController {
 		List<Bill> individualBills = new ArrayList<Bill>();
 		Bank bank = bankService.findOne(((Banker)httpSession.getAttribute("user")).getBank().getId());
 		for(int i=0;i<bank.getBills().size();i++) {
-			if(bank.getBills().get(i).getClient().getType() == TypeOfClient.FIZICKO) {
+			if(bank.getBills().get(i).getClient().getType() == TypeOfClient.FIZICKO && bank.getBills().get(i).isStatus()) {
 				individualBills.add(bank.getBills().get(i));
 			}
 		}		
@@ -71,7 +71,7 @@ public class BillController {
 		List<Bill> individualBills = new ArrayList<Bill>();
 		Bank bank = bankService.findOne(((Banker)httpSession.getAttribute("user")).getBank().getId());
 		for(int i=0;i<bank.getBills().size();i++) {
-			if(bank.getBills().get(i).getClient().getType() == TypeOfClient.PRAVNO) {
+			if(bank.getBills().get(i).getClient().getType() == TypeOfClient.PRAVNO && bank.getBills().get(i).isStatus()) {
 				individualBills.add(bank.getBills().get(i));
 			}
 		}		
@@ -96,10 +96,23 @@ public class BillController {
 		return bill;
 	}
 	
-	@GetMapping("/findBillsForAllBanks/{id}")
+	@GetMapping("/findBillsForBank/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public List<Bill> findBillsForAllBanks(@PathVariable Long id) {
-		return billService.findAllCurrentBillsExceptClosingOne(id);
+		Bank bank = bankService.findOne(((Banker)httpSession.getAttribute("user")).getBank().getId());
+		Integer code = bank.getCode();
+		System.out.println("Code "+code);
+		List<Bill> bills = new ArrayList<Bill>();
+		List<Bill> allBills = billService.findAllCurrentBillsExceptClosingOne(id);
+		for(int i=0;i<allBills.size();i++){
+			Bill tempBill = allBills.get(i);
+			Integer tempCode = Integer.valueOf(tempBill.getAccountNumber().substring(0, 3));
+			System.out.println("tempCode "+tempCode);
+			if(tempCode.equals(code)){
+				bills.add(tempBill);
+			}
+		}
+		return bills;
 	}
 	
 	@PostMapping("/search")

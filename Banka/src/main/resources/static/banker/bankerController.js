@@ -27,7 +27,6 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 						if(bills[i].dailyBalances.length > 0)
 							bills[i].client.jmbg = bills[i].dailyBalances[bills[i].dailyBalances.length-1].newState;
 					}
-					
 					$scope.bills = bills;
 					
 				}
@@ -510,9 +509,9 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 			$scope.allBills = list;
 		}
 		
-		$scope.findBillsForAllBanks = function () {   
+		$scope.findBillsForBank = function () {   
 			var id = $scope.billForClosing.id;
-			bankerService.findBillsForAllBanks(id).then(
+			bankerService.findBillsForBank(id).then(
 				function(response){
 					$scope.billsForAllBanks = response.data;
 				}, function (response){
@@ -676,7 +675,7 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 		     element.setAttribute("class", "selectedRow");
 		}
 		
-		$scope.searchForDepositSlip = function(){
+		$scope.searchForNotProcessedDepositSlips = function(){
 			var depositSlip = $scope.depositSlip;
 			bankerService.searchDepositSlip(depositSlip).then(
 				function(response){
@@ -690,6 +689,23 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 		
 		$scope.resetSearchDepositSlip = function(){
 			$scope.findNotProcessedDepositSlips();
+			$scope.depositSlip=null;
+		}
+		
+		$scope.searchForAllDepositSlips = function(){
+			var depositSlip = $scope.depositSlip;
+			bankerService.searchAllDepositSlip(depositSlip).then(
+				function(response){
+				    $scope.allDepositSlipsForBank = response.data;
+				}, 
+				function (response){
+					alert("Greska");
+				}
+			);
+		}
+		
+		$scope.resetSearchAllDepositSlip = function(){
+			$scope.findAllDepositSlipsForBank();
 			$scope.depositSlip=null;
 		}
 		

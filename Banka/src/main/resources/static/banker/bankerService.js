@@ -111,8 +111,8 @@ services.service('bankerService', ['$http', function($http){
 		return $http.post("/bill/",bill);
 	}
 
-	this.findBillsForAllBanks = function(id){
-		return $http.get("/bill/findBillsForAllBanks/"+id);
+	this.findBillsForBank = function(id){
+		return $http.get("/bill/findBillsForBank/"+id);
 	}	
 	
 	this.closeBill = function(closingBill){
@@ -136,6 +136,9 @@ services.service('bankerService', ['$http', function($http){
 	}	
 	this.searchDepositSlip = function(depositSlip){
 		return $http.post("depositSlip/search",depositSlip);
+	}
+	this.searchAllDepositSlip = function(depositSlip){
+		return $http.post("depositSlip/searchAll",depositSlip);
 	}
 
 	
