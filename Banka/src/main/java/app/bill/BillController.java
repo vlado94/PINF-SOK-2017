@@ -120,4 +120,11 @@ public class BillController {
 		System.out.println(accountNumber+"   "+clientApplicant);
 		return billService.findByAccountNumberLikeAndClient_ApplicantLike(accountNumber, clientApplicant);
 	}
+	
+	@GetMapping("/findDailyBalances/{accNum}")
+	@ResponseStatus(HttpStatus.OK)
+	public Bill findDailyBalances(@PathVariable String accNum) {
+		Bill bill = billService.findByAccountNumber(accNum);
+		return bill;
+	}
 }

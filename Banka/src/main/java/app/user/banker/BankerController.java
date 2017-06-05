@@ -25,7 +25,6 @@ import javax.ws.rs.NotFoundException;
 
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.mail.MailParseException;
 import org.springframework.mail.SimpleMailMessage;
@@ -220,7 +219,7 @@ public class BankerController {
 			SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
 			simpleMailMessage.setText("Excerpt");
 			helper.setFrom("poslovnainfo@gmail.com");
-			helper.setTo("vladimir94@gmail.com");
+			helper.setTo(billService.findOne(id).getClient().getMail());
 			helper.setSubject("test");
 			helper.setText(String.format(
 				simpleMailMessage.getText(), " ", " "));

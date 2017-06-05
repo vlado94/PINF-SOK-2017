@@ -283,7 +283,6 @@ input{
 
 .modal-dialog{
 	color:black;
-	width : 20%;
 }
 
 .modal-content {
@@ -294,5 +293,17 @@ input{
 	width : 100%;
 }
 
+#dailyBalanceForClient {
+	width : 30%;
+}
+
+#chooseDate .modal-dialog {
+	width : 30%
+}
+
+#chooseDateForPDF .modal-dialog {
+	width : 30%
+	
+}
 
 

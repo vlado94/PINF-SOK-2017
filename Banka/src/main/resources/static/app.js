@@ -159,6 +159,10 @@ angular.module('routerApp', ['ui.router',
          .state('banker.detailsAboutIndividual', {
           	templateUrl : 'banker/bills/detailsAboutIndividual.html'
         })
+        .state('banker.dailyBalancesForClient', {
+        	url : '/dailyBalances',
+          	templateUrl : 'banker/bills/showDailyBalancesForClient.html'
+        })
           .state('banker.detailsAboutLegal', {
           	templateUrl : 'banker/bills/detailsAboutLegal.html'
         })
@@ -233,7 +237,7 @@ angular.module('routerApp', ['ui.router',
           	templateUrl : 'banker/depositSlip/depositSlipForTransfer.html'
         })
         .state('banker.depositSlipsForAccount', {
-          	templateUrl : 'banker/depositSlip/depositSlipsForAccount.html'
+        	templateUrl : 'banker/depositSlip/depositSlipsForAccount.html'
           		
         }).state('banker.unprocessedDepositSlips', {
         	url : '/depositSlip/unprocessedDepositSlips',

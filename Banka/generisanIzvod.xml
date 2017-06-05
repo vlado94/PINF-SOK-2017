@@ -4,48 +4,82 @@
     <toDate>2017-06-02</toDate>
     <depositSlip>
         <type>PAYMENTOUT</type>
-        <deptor>Miljan Ivic</deptor>
-        <receiver>Jovana Josipovic</receiver>
-        <purposeOfPayment>uplata za korisnika</purposeOfPayment>
+        <deptor>Milan Jankovic</deptor>
+        <receiver>Firma 2</receiver>
+        <purposeOfPayment>uplata kompaniji</purposeOfPayment>
         <currencyDate>2017-06-01</currencyDate>
         <depositSlipDate>2017-06-01</depositSlipDate>
         <modelAssignment>0</modelAssignment>
-        <billOfReceiver>123758396974575789</billOfReceiver>
+        <billOfReceiver>123852369874512365</billOfReceiver>
         <modelApproval>97</modelApproval>
-        <referenceNumberApproval>97123758396974575789</referenceNumberApproval>
-        <amount>4000.0</amount>
+        <referenceNumberApproval>97123852369874512365</referenceNumberApproval>
+        <amount>15000.0</amount>
         <codeOfCurrency>rsd</codeOfCurrency>
         <urgently>false</urgently>
     </depositSlip>
     <depositSlip>
         <type>PAYOUT</type>
-        <deptor>Jovana Josipovic</deptor>
-        <receiver>Perka Milaovic</receiver>
+        <deptor>Firma 2</deptor>
+        <receiver>Olja Ilic</receiver>
         <purposeOfPayment>isplata</purposeOfPayment>
         <currencyDate>2017-06-01</currencyDate>
         <depositSlipDate>2017-06-01</depositSlipDate>
-        <billOfDeptor>123758396974575789</billOfDeptor>
+        <billOfDeptor>123852369874512365</billOfDeptor>
         <modelAssignment>97</modelAssignment>
-        <referenceNumberAssignment>97123758396974575789</referenceNumberAssignment>
+        <referenceNumberAssignment>97123852369874512365</referenceNumberAssignment>
         <modelApproval>0</modelApproval>
-        <amount>8000.0</amount>
+        <amount>5000.0</amount>
         <codeOfCurrency>rsd</codeOfCurrency>
         <urgently>false</urgently>
     </depositSlip>
     <depositSlip>
         <type>TRANSFER</type>
-        <deptor>Dragan Smiljanic</deptor>
-        <receiver>Jovana Josipovic</receiver>
+        <deptor>Firma 2</deptor>
+        <receiver>Firma 3</receiver>
         <purposeOfPayment>transfer</purposeOfPayment>
         <currencyDate>2017-06-01</currencyDate>
         <depositSlipDate>2017-06-01</depositSlipDate>
-        <billOfDeptor>123758369874575393</billOfDeptor>
+        <billOfDeptor>123852369874512365</billOfDeptor>
         <modelAssignment>97</modelAssignment>
-        <referenceNumberAssignment>97123758369874575393</referenceNumberAssignment>
-        <billOfReceiver>123758396974575789</billOfReceiver>
+        <referenceNumberAssignment>97123852369874512365</referenceNumberAssignment>
+        <billOfReceiver>123752378574512764</billOfReceiver>
         <modelApproval>97</modelApproval>
-        <referenceNumberApproval>97123758396974575789</referenceNumberApproval>
-        <amount>7000.0</amount>
+        <referenceNumberApproval>97123752378574512764</referenceNumberApproval>
+        <amount>2000.0</amount>
+        <codeOfCurrency>rsd</codeOfCurrency>
+        <urgently>false</urgently>
+    </depositSlip>
+    <depositSlip>
+        <type>TRANSFER</type>
+        <deptor>Firma 2</deptor>
+        <receiver>Firma 3</receiver>
+        <purposeOfPayment>transfer</purposeOfPayment>
+        <currencyDate>2017-06-01</currencyDate>
+        <depositSlipDate>2017-06-01</depositSlipDate>
+        <billOfDeptor>123852369874512365</billOfDeptor>
+        <modelAssignment>97</modelAssignment>
+        <referenceNumberAssignment>97123852369874512365</referenceNumberAssignment>
+        <billOfReceiver>123752378574512764</billOfReceiver>
+        <modelApproval>97</modelApproval>
+        <referenceNumberApproval>97123752378574512764</referenceNumberApproval>
+        <amount>3000.0</amount>
+        <codeOfCurrency>rsd</codeOfCurrency>
+        <urgently>false</urgently>
+    </depositSlip>
+    <depositSlip>
+        <type>TRANSFER</type>
+        <deptor>Firma 2</deptor>
+        <receiver>Dragan Smiljanic</receiver>
+        <purposeOfPayment>transfer</purposeOfPayment>
+        <currencyDate>2017-06-01</currencyDate>
+        <depositSlipDate>2017-06-01</depositSlipDate>
+        <billOfDeptor>123852369874512365</billOfDeptor>
+        <modelAssignment>97</modelAssignment>
+        <referenceNumberAssignment>97123852369874512365</referenceNumberAssignment>
+        <billOfReceiver>123758369874575393</billOfReceiver>
+        <modelApproval>97</modelApproval>
+        <referenceNumberApproval>97123758369874575393</referenceNumberApproval>
+        <amount>1000.0</amount>
         <codeOfCurrency>rsd</codeOfCurrency>
         <urgently>false</urgently>
     </depositSlip>
@@ -68,18 +102,35 @@
     </depositSlip>
     <depositSlip>
         <type>TRANSFER</type>
-        <deptor>Jovana Josipovic</deptor>
-        <receiver>Firma 3</receiver>
+        <deptor>Firma2</deptor>
+        <receiver>Ivan Neric</receiver>
         <purposeOfPayment>transfer</purposeOfPayment>
         <currencyDate>2017-06-01</currencyDate>
-        <depositSlipDate>2017-06-01</depositSlipDate>
-        <billOfDeptor>123758396974575789</billOfDeptor>
+        <depositSlipDate>2017-06-02</depositSlipDate>
+        <billOfDeptor>123852369874512365</billOfDeptor>
         <modelAssignment>97</modelAssignment>
-        <referenceNumberAssignment>97123758396974575789</referenceNumberAssignment>
-        <billOfReceiver>123752378574512764</billOfReceiver>
+        <referenceNumberAssignment>97123852369874512365</referenceNumberAssignment>
+        <billOfReceiver>456758396974575789</billOfReceiver>
         <modelApproval>97</modelApproval>
-        <referenceNumberApproval>97123752378574512764</referenceNumberApproval>
+        <referenceNumberApproval>97456758396974575789</referenceNumberApproval>
         <amount>6000.0</amount>
+        <codeOfCurrency>rsd</codeOfCurrency>
+        <urgently>true</urgently>
+    </depositSlip>
+    <depositSlip>
+        <type>TRANSFER</type>
+        <deptor>Firma2</deptor>
+        <receiver>Ivan Neric</receiver>
+        <purposeOfPayment>transfer</purposeOfPayment>
+        <currencyDate>2017-06-01</currencyDate>
+        <depositSlipDate>2017-06-02</depositSlipDate>
+        <billOfDeptor>123852369874512365</billOfDeptor>
+        <modelAssignment>97</modelAssignment>
+        <referenceNumberAssignment>97123852369874512365</referenceNumberAssignment>
+        <billOfReceiver>456758396974575789</billOfReceiver>
+        <modelApproval>97</modelApproval>
+        <referenceNumberApproval>97456758396974575789</referenceNumberApproval>
+        <amount>260000.0</amount>
         <codeOfCurrency>rsd</codeOfCurrency>
         <urgently>false</urgently>
     </depositSlip>
