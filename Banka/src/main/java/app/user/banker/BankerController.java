@@ -48,7 +48,6 @@ import app.closingBill.ClosingBillService;
 import app.dailyBalance.DailyBalance;
 import app.depositSlip.DepositSlip;
 import app.depositSlip.DepositSlipService;
-import app.modelView.Excerpt;
 import app.modelView.ExcerptForBills;
 import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
@@ -178,28 +177,38 @@ public class BankerController {
 			e.printStackTrace();
 		}
 		List<DepositSlip> slips = new ArrayList<DepositSlip>();
-		long BankID = (((Banker)httpSession.getAttribute("user")).getBank().getId());
-		Bank bank = bankService.findOne(BankID);
+		Banker banker = (Banker)httpSession.getAttribute("user");
+		long BankID = banker.getBank().getId();
 		
+		Bank bank = bankService.findOne(BankID);
+		Bill billTemp = billService.findOne(id);
 		for (Bill bill : bank.getBills()) {
 			if(bill.getClient().getId() == id) {
 				for(DailyBalance db : bill.getDailyBalances()) {
 					if(db.getDate() != null && db.getDate().before(to) && db.getDate().after(from)) {
-						slips.addAll(db.getDepositSlips());
+						for(DepositSlip ds : db.getDepositSlips()) {
+							DepositSlip temp = new DepositSlip(ds);
+							slips.add(temp);
+						}
 					}
 				}
 			}
 		}
 		String outputFile ="D:\\ExcerptForClient.pdf";
-		Excerpt ex = new Excerpt();
 	    JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(slips);
 		
         /* Map to hold Jasper report Parameters */
         Map<String, Object> parameters = new HashMap<String, Object>();
         parameters.put("ItemDataSource", itemsJRBean);
-        parameters.put("to", ex.getToDate());
-        parameters.put("from", ex.getFromDate());
-
+        String tempDate2 = from.toString().substring(0, 10);
+        parameters.put("to", tempDate2 + "" + from.toString().substring(24));
+        String tempDate = from.toString().substring(0, 10);
+        parameters.put("from", tempDate + "" + from.toString().substring(24));
+        parameters.put("bankName", bank.getName());
+        parameters.put("bankerName", banker.getFirstname() + " " + banker.getLastname());
+        parameters.put("clientName", billTemp.getClient().getApplicant());
+        
+        
         /* Using compiled version(.jasper) of Jasper report to generate PDF */
         JasperPrint jasperPrint = JasperFillManager.fillReport("D:\\excerpt.jasper", parameters, new JREmptyDataSource());
 

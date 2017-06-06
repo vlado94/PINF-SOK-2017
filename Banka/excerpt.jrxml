@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-06-03T16:02:13 -->
+<!-- 2017-06-06T20:49:27 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="excerpt" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9499a957-6f07-494e-b880-d9a089fb9e44">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
@@ -41,8 +41,11 @@
 		<field name="amount" class="java.lang.Double"/>
 	</subDataset>
 	<parameter name="ItemDataSource" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
-	<parameter name="from" class="java.sql.Date"/>
-	<parameter name="to" class="java.sql.Date"/>
+	<parameter name="from" class="java.lang.String"/>
+	<parameter name="to" class="java.lang.String"/>
+	<parameter name="bankerName" class="java.lang.String"/>
+	<parameter name="clientName" class="java.lang.String"/>
+	<parameter name="bankName" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -50,25 +53,42 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch"/>
-	</title>
-	<columnHeader>
-		<band height="98" splitType="Stretch">
+		<band height="87" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="10" width="100" height="30" uuid="3be96f1b-3697-4060-9f1e-9dbba6e1c79b"/>
-				<text><![CDATA[From date]]></text>
+				<reportElement x="380" y="20" width="40" height="30" uuid="7c2abcc0-961b-433b-817f-d01dff33734d"/>
+				<text><![CDATA[Client:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="20" width="42" height="30" uuid="e7e4ac09-d740-4bbe-85c4-c5f020d2930a"/>
+				<text><![CDATA[Bank: ]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="130" y="10" width="100" height="30" uuid="4bf91ea4-e41a-42b8-a4fb-dff04f04cef1"/>
+				<reportElement x="420" y="20" width="100" height="30" uuid="b8bdd849-4e1c-4837-a5d9-f9b4360520af"/>
+				<textFieldExpression><![CDATA[$P{clientName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="40" y="20" width="100" height="30" uuid="ebce13db-3155-455e-92de-84e5747717a2"/>
+				<textFieldExpression><![CDATA[$P{bankName}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="66" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="20" width="52" height="30" uuid="3be96f1b-3697-4060-9f1e-9dbba6e1c79b"/>
+				<text><![CDATA[From date:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="60" y="20" width="100" height="30" uuid="4bf91ea4-e41a-42b8-a4fb-dff04f04cef1"/>
 				<textFieldExpression><![CDATA[$P{from}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="130" y="60" width="100" height="30" uuid="47388666-6e1e-4dcd-bb27-94264365f9c2"/>
+				<reportElement x="420" y="20" width="100" height="30" uuid="47388666-6e1e-4dcd-bb27-94264365f9c2"/>
 				<textFieldExpression><![CDATA[$P{to}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="60" width="100" height="30" uuid="db07f796-28a1-4cbd-95a1-e5f7060303f0"/>
-				<text><![CDATA[To date]]></text>
+				<reportElement x="380" y="20" width="40" height="30" uuid="db07f796-28a1-4cbd-95a1-e5f7060303f0"/>
+				<text><![CDATA[To date:]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -147,6 +167,21 @@
 					</jr:column>
 				</jr:table>
 			</componentElement>
+			<staticText>
+				<reportElement x="200" y="0" width="100" height="30" uuid="63bd924f-5fb9-4575-9255-4754a8450a0a"/>
+				<textElement>
+					<font size="15"/>
+				</textElement>
+				<text><![CDATA[Deposit slips: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="0" width="40" height="30" uuid="df0ced52-574e-4fc8-bbf6-f53f3ef2d2f0"/>
+				<text><![CDATA[Banker:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="420" y="0" width="100" height="30" uuid="3835bc7f-87e0-4273-9c3e-c960f86568d2"/>
+				<textFieldExpression><![CDATA[$P{bankerName}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 </jasperReport>
