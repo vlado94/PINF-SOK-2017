@@ -1,7 +1,6 @@
 package app.user.banker;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -134,28 +133,6 @@ public class BankerController {
 
 	}
 	
-	@GetMapping("/makePDF")
-	@ResponseStatus(HttpStatus.OK)
-	public void handleSimpleReportMulti2() throws JRException, FileNotFoundException {
-		
-		ProductModel pr = new ProductModel();
-	    String outputFile ="D:\\JasperTableExample2.pdf";
-		JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(pr.findAll());
-
-        /* Map to hold Jasper report Parameters */
-        Map<String, Object> parameters = new HashMap<String, Object>();
-        parameters.put("ItemDataSource", itemsJRBean);
-
-        /* Using compiled version(.jasper) of Jasper report to generate PDF */
-        JasperPrint jasperPrint = JasperFillManager.fillReport("D:\\products1.jasper", parameters, new JREmptyDataSource());
-
-       
-        /* outputStream to create PDF */
-        OutputStream outputStream = new FileOutputStream(new File(outputFile));
-        /* Write content to PDF file */
-        JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
-	}
-	
 	//srediti izvestaj za dammy podatke
 	//na frontu odabrati datume a pre toga korisnika
 	//namestiti da fajlovi budu ispod app properties
@@ -253,7 +230,9 @@ public class BankerController {
 	@GetMapping("/makePDFForBank")
 	@ResponseStatus(HttpStatus.OK)
 	public void getReportForBank(HttpServletResponse response) throws JRException, IOException {
-		Bank bank = bankService.findOne(((Banker)httpSession.getAttribute("user")).getBank().getId());
+		Banker banker = (Banker)httpSession.getAttribute("user");
+		long BankID = banker.getBank().getId();
+		Bank bank = bankService.findOne(BankID);
 		ExcerptForBills ex = new ExcerptForBills(bank);
 	    String outputFile ="D:\\ExcerptForBank.pdf";
 	    JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(ex.setBills());
@@ -263,7 +242,8 @@ public class BankerController {
         parameters.put("ItemDataSource", itemsJRBean);
         parameters.put("BankName", bank.getName());
         parameters.put("CurrencyCode", bank.getCurrencyCode());
-
+        parameters.put("bankerName", banker.getFirstname() + " " + banker.getLastname());
+        
         JasperPrint jasperPrint = JasperFillManager.fillReport("D:\\excerptBank.jasper", parameters, new JREmptyDataSource());
         File file = new File(outputFile);
         OutputStream outputStream = new FileOutputStream(file);

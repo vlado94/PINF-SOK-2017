@@ -22,7 +22,16 @@
 		</tbody>
 	</table>
 </div>
+
 <div class="billInBank">
+  <form>
+    <div class="form-group">
+      <div class="input-group">
+        <div class="input-group-addon"><i class="fa fa-search"></i></div>
+        <input type="text" class="form-control" placeholder="Filter clients..." ng-model="filterClients">
+      </div>      
+    </div>
+  </form>
 	<table class="table table-bordered">
 		<caption class = "caption">Clients</caption>
 		<tbody>
@@ -34,7 +43,7 @@
 				<th>Current amount</th>
 				<th >Action </th>
 			</tr>
-			<tr ng-repeat="bill in bills">
+			<tr ng-repeat="bill in bills | filter:filterClients">
 				<td>{{bill.client.type}}</td>
 				<td>{{bill.client.applicant}}</td>
 				<td>{{bill.client.mail}}</td>
