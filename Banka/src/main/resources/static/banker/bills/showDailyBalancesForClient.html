@@ -7,6 +7,7 @@
 			<th>Date</th>
 			<th>Previous State</th>
 			<th>Traffic to benefit</th>
+			<th>Traffic at expense</th>
 			<th>New state</th>
 			<td>Action</td>
 		</tr>
@@ -14,8 +15,9 @@
 			<td>{{dailyB.id}}</td>
 			<td>{{dailyB.date}}</td>
 			<td>{{dailyB.previousState}}</td>
-			<td>{{dailyB.trafficAtExpense}}</td>
 			<td>{{dailyB.trafficToBenefit}}</td>
+			<td>{{dailyB.trafficAtExpense}}</td>
+			<td>{{dailyB.newState}}</td>
 			<td>
 				<button type="button" class="btn btn-default"
 					ng-click="showDepositSlipsForDepositSlip(dailyB.id)"

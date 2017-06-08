@@ -131,23 +131,33 @@ public class DepositSlip {
 	
 	public DepositSlip(){}
 	
-	public DepositSlip(boolean type) {
-		setType(Type.TRANSFER);
-		setDeptor("2131312");
-		setPurposeOfPayment("zatvaranje racuna");
-		setReceiver("Pravni nasljednik");
-		setCurrencyDate(new Date(0));
-		setCodeOfCurrency("rsd");
-		setBillOfReceiver("4566656");
-		setModelApproval(2);
-		setReferenceNumberApproval("20");
-		setReferenceNumberAssignment("20");
-		setBillOfDeptor("321312");
-		setModelAssignment(2);
-		setDepositSlipDate(new Date(0));
-		setUrgently(false);
+	public DepositSlip(DepositSlip ds) {
+		setType(ds.getType());
+		setDeptor(ds.getDeptor());
+		setPurposeOfPayment(ds.getPurposeOfPayment());
+		setReceiver(ds.getReceiver());
+		setCurrencyDate(ds.getCurrencyDate());
+		setCodeOfCurrency(ds.getCodeOfCurrency());
+		if(ds.getBillOfReceiver() == null)
+			setBillOfReceiver("");
+		else
+			setBillOfReceiver(ds.getBillOfReceiver());
+			
+		setModelApproval(ds.getModelApproval());
+		setReferenceNumberApproval(ds.getReferenceNumberApproval());
+		setReferenceNumberAssignment(ds.getReferenceNumberAssignment());
+		if(ds.getBillOfDeptor() == null)
+			setBillOfDeptor("");
+		else
+			setBillOfDeptor(ds.getBillOfDeptor());
 
-		setAmount(3.33);
+		setModelAssignment(ds.getModelAssignment());
+		setDepositSlipDate(ds.getDepositSlipDate());
+		setUrgently(ds.isUrgently());
+		setAmount(ds.getAmount());
+
+		setStatus(ds.getStatus());
+		
 	}
 		
 }
