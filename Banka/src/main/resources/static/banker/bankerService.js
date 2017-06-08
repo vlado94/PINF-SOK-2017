@@ -116,7 +116,7 @@ services.service('bankerService', ['$http', function($http){
 	}	
 	
 	this.closeBill = function(closingBill){
-		return $http.post(url+"closeBill",closingBill);
+		return $http.post("/depositSlip/closeBill",closingBill);
 	}
 	
 	this.searchBill = function(bill){
