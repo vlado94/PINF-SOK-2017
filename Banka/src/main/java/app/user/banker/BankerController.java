@@ -63,22 +63,17 @@ public class BankerController {
 	private final BankService bankService;
 	private final BillService billService;
 	private HttpSession httpSession;
-	private final ClosingBillService closingBillService;
-	private final DepositSlipService depositSlipService;
 	
 
 	private JavaMailSender mailSender;
 	
 	@Autowired
 	public BankerController(final HttpSession httpSession,final BankerService bankerService, 
-							final BillService billService, final ClosingBillService closingBillService,
-							final DepositSlipService depositSlipService,final BankService bankService,JavaMailSender mailSender) {
+							final BillService billService,final BankService bankService,JavaMailSender mailSender) {
 		this.bankerService = bankerService;
 		this.bankService = bankService;
 		this.billService = billService;
 		this.httpSession = httpSession;
-		this.closingBillService = closingBillService;
-		this.depositSlipService = depositSlipService;
 		this.mailSender = mailSender;
 	}
 	
@@ -252,31 +247,5 @@ public class BankerController {
 		InputStream inputStream = new FileInputStream(file);
 		IOUtils.copy(inputStream, response.getOutputStream());
 	}
-	
-	@PostMapping(path = "/closeBill")
-	@ResponseStatus(HttpStatus.CREATED)
-	public ClosingBill closeBill(@Valid @RequestBody ClosingBill closingBill) {
-		Bill billForClosing = closingBill.getBill();
-		String billSuccessor = closingBill.getBillSuccessor();
-		DepositSlip depositSlip = new DepositSlip(billForClosing,closingBill,billSuccessor);
-		//novac za prenos dobijam iz dnevnog stanja racuna kog zatvaraju 
-		List<DailyBalance> dbs = billForClosing.getDailyBalances();
-		if(!dbs.isEmpty()){
-			DailyBalance db = dbs.get(dbs.size()-1);
-			depositSlip.setAmount(db.getNewState());
-		}
-		//poziva obradu izvoda
-		depositSlipService.save(depositSlip);
-		closingBill.setDepositSlip(depositSlip);
-		ClosingBill savedClosingBill = closingBillService.save(closingBill);
-		if(savedClosingBill != null){//uspjesno zatvoren racuna
-			billForClosing.setStatus(false);
-			billService.save(billForClosing);
-			return savedClosingBill;
-		}else{
-			return null;
-		}
-	}	
-	
 
 }

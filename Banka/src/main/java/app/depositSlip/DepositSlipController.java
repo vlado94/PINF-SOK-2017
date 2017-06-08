@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import javax.ws.rs.BadRequestException;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -38,6 +39,8 @@ import app.accountStatement.AccountStatement;
 import app.bank.BankService;
 import app.bill.Bill;
 import app.bill.BillService;
+import app.closingBill.ClosingBill;
+import app.closingBill.ClosingBillService;
 import app.dailyBalance.DailyBalance;
 import app.dailyBalance.DailyBalanceService;
 import app.enums.Status;
@@ -56,14 +59,17 @@ public class DepositSlipController {
 	private final BillService billService;
 	private final BankService bankService;
 	private final InterbankTransferService interbankTransferService;
+	private final ClosingBillService closingBillService;
+
 	
 	@Autowired
-	public DepositSlipController(final InterbankTransferService interbankTransferService,final BankService bankService, final DepositSlipService depositSlipService,final BillService billService,final DailyBalanceService dailyBalanceService,HttpSession httpSession) {
+	public DepositSlipController(final InterbankTransferService interbankTransferService,final BankService bankService, final DepositSlipService depositSlipService,final BillService billService,final DailyBalanceService dailyBalanceService,final ClosingBillService closingBillService,HttpSession httpSession) {
 		this.depositSlipService = depositSlipService;
 		this.httpSession = httpSession;
 		this.dailyBalanceService = dailyBalanceService;
 		this.billService = billService;
 		this.bankService = bankService;
+		this.closingBillService = closingBillService;
 		this.interbankTransferService = interbankTransferService;
 	}
 	
@@ -91,7 +97,30 @@ public class DepositSlipController {
 		}
 		return depositSlipsForBank;
 	}
-	
+	@PostMapping(path = "/closeBill")
+	@ResponseStatus(HttpStatus.CREATED)
+	public ClosingBill closeBill(@Valid @RequestBody ClosingBill closingBill) {
+		Bill billForClosing = closingBill.getBill();
+		String billSuccessor = closingBill.getBillSuccessor();
+		DepositSlip depositSlip = new DepositSlip(billForClosing,closingBill,billSuccessor);
+		//novac za prenos dobijam iz dnevnog stanja racuna kog zatvaraju 
+		List<DailyBalance> dbs = billForClosing.getDailyBalances();
+		if(!dbs.isEmpty()){
+			DailyBalance db = dbs.get(dbs.size()-1);
+			depositSlip.setAmount(db.getNewState());
+		}
+		//poziva obradu izvoda
+		saveDepositSlip(depositSlip);
+		closingBill.setDepositSlip(depositSlip);
+		ClosingBill savedClosingBill = closingBillService.save(closingBill);
+		if(savedClosingBill != null){//uspjesno zatvoren racuna
+			billForClosing.setStatus(false);
+			billService.save(billForClosing);
+			return savedClosingBill;
+		}else{
+			return null;
+		}
+	}	
 	
 	
 	@PostMapping(path = "/saveDepositSlip")

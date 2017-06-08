@@ -126,9 +126,7 @@ public class DepositSlip {
 		setBillOfDeptor(billForClosing.getAccountNumber());
 		setModelAssignment(2);
 		setDepositSlipDate(closingBill.getDate());
-		setUrgently(false);
-		setStatus(Status.UNPROCESSED);
-		
+		setUrgently(false);		
 	}
 	
 	public DepositSlip(){}
