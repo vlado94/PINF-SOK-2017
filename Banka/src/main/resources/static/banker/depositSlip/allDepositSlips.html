@@ -1,4 +1,9 @@
-<h1>List of all deposit slips</h1>
+<h1>List of all deposit slips</h1> 
+
+<form id="uploadbanner" enctype="multipart/form-data" method="post" action="depositSlip/upload">
+   <input id="file" name="file" type="file"/>
+   <input type="submit" value="Upload" id="submit" />
+</form>
 
 <table ng-init="findAllDepositSlipsForBank()"class="table table-bordered" border="1">
 
@@ -35,9 +40,5 @@
 
 
 <button class = "btn btn-default" ui-sref =".searchAllDepositSlips" ><span class = "glyphicon glyphicon-search"></span>  Search</button>
-<form id="uploadbanner" enctype="multipart/form-data" method="post" action="depositSlip/upload">
-   <input id="file" name="file" type="file" multiple />
-   <input type="submit" value="submit" id="submit" />
-</form>
 
 <div ui-view></div>

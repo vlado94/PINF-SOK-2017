@@ -30,6 +30,7 @@
 .actualExchangeRate {
 	float : right;
 	padding-right: 30px;
+	padding-top : 40px;
 }
 
 .billInBank {
@@ -307,3 +308,8 @@ input{
 }
 
 
+
+#uploadbanner {
+	margin-left : 400px;
+	margin-top : -40px;		
+}

@@ -81,6 +81,7 @@ public class BillController {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public Bill saveBill(@Valid @RequestBody Bill bill) {
+		bill.setStatus(true);
 		if(bill.getClient().getCodeBookActivities() != null) {
 			CodeBookActivities codeBookActivities = codeBookActivitiesService.findOne(bill.getClient().getCodeBookActivities().getId()	 );
 			bill.getClient().setCodeBookActivities(codeBookActivities);

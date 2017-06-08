@@ -3,8 +3,6 @@ package app.depositSlip;
 import java.sql.Date;
 import java.util.List;
 
-import org.springframework.data.jpa.repository.Query;
-
 import app.enums.Status;
 import app.enums.Type;
 

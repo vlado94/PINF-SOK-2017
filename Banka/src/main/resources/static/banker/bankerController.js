@@ -22,6 +22,11 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 		function getBillsForBank() {
 			bankerService.getBillsForBank().then(
 				function (response) {
+					var bills = [];
+					for(var i=0;i<response.data.length;i++) {
+						if(response.data[i].status == true)
+							bills.push(response.data[i]);
+					}
 					var bills = response.data;
 					for(var i =0;i < bills.length;i++) { //hehe
 						if(bills[i].dailyBalances.length > 0)
@@ -116,7 +121,8 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 			$(".modal-backdrop").removeClass("fade");
 			$(".modal-backdrop").removeClass("in");
 			$(".modal-backdrop").removeClass("modal-backdrop");
-			//$scope.depositSlip = depositSlip;
+			$scope.depositSlip = depositSlip;
+			flagSave = 0;
 			$scope.openDepositSlip(1);
 		}
 
@@ -540,6 +546,7 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 		
 		$scope.openDepositSlip = function(val) {
 			if(val != undefined && val != 1) {
+				flagSave = 1;	
 				if(val == "TRANSFER") {
 					$state.go("banker.depositSlip.transer", {});
 				}
@@ -551,7 +558,9 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 				}
 				else if(val == "PAYMENTIN"){
 					$state.go("banker.depositSlip.paymentIn", {});
-				}			    
+				}
+				$scope.depositSlip = {};
+				$scope.depositSlip.type = val;
 			}
 			else {
 				if($scope.depositSlip.type == "TRANSFER") {
@@ -566,16 +575,7 @@ app.controller('bankerController', ['$scope','bankerService', '$location','$stat
 				else if($scope.depositSlip.type == "PAYMENTIN"){
 					$state.go("banker.depositSlip.paymentIn", {});
 				}
-			}
-			var depositSlip = $scope.depositSlip;
-			temp = $scope.depositSlip.type;
-			$scope.depositSlip = {};
-			
-			if(val == 1) {
-				flagSave = 0;
-				$scope.depositSlip = depositSlip;
-			}
-			$scope.depositSlip.type = temp;
+			}			
 		}
 		
 		$scope.dailyBalancesForClient = function (accNum) {
