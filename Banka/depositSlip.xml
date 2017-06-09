@@ -3,18 +3,18 @@
     xsi:noNamespaceSchemaLocation="depositSlip.xsd">
 
     <type>TRANSFER</type>       
-    <deptor>duznik 1</deptor>
-    <receiver>primalac 1</receiver>
-    <purposeOfPayment>svrha placanja 1</purposeOfPayment>
-    <currencyDate>2008-02-02</currencyDate>
-    <depositSlipDate>2008-02-02</depositSlipDate>
+    <deptor>Firma 2</deptor>
+    <receiver>Jovana Josipovic</receiver>
+    <purposeOfPayment>uplata na racun</purposeOfPayment>
+    <currencyDate>2017-06-09</currencyDate>
+    <depositSlipDate>2017-06-09</depositSlipDate>
     <billOfDeptor>123852369874512365</billOfDeptor>
     <modelAssignment>97</modelAssignment>
     <referenceNumberAssignment>18181818181818181820</referenceNumberAssignment>
-    <billOfReceiver>456752378574512664</billOfReceiver>
+    <billOfReceiver>123758396974575789</billOfReceiver>
     <modelApproval>97</modelApproval>
     <referenceNumberApproval>18181818181818181820</referenceNumberApproval>
-    <amount>98.12</amount>
+    <amount>10000</amount>
     <codeOfCurrency>rsd</codeOfCurrency>
     <urgently>false</urgently>
             

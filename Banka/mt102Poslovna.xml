@@ -6,10 +6,10 @@
         <debtorBankclearingAccount>123456789123456789</debtorBankclearingAccount>
         <receiverBankswiftCode>88344696</receiverBankswiftCode>
         <receiverBankclearingAccount>543216789123456987</receiverBankclearingAccount>
-        <amount>8098.12</amount>
+        <amount>8000.00</amount>
         <currencyCode>rsd</currencyCode>
-        <currencyDate>2017-06-05</currencyDate>
-        <date>2017-06-05</date>
+        <currencyDate>2017-06-09</currencyDate>
+        <date>2017-06-09</date>
     </headerMT102xml>
     <depositSlipXml>
         <messageId>ndsk2fdsmfs</messageId>
@@ -39,21 +39,6 @@
         <modelApproval>97</modelApproval>
         <referenceNumberApproval>97456758396974575789</referenceNumberApproval>
         <amount>3000.0</amount>
-        <codeOfCurrency>rsd</codeOfCurrency>
-    </depositSlipXml>
-    <depositSlipXml>
-        <messageId>ndsk2fdsmfs</messageId>
-        <deptor>duznik 2</deptor>
-        <purposeOfPayment>svrha placanja 2</purposeOfPayment>
-        <receiver>primalac 2</receiver>
-        <depositSlipDate>2008-02-02</depositSlipDate>
-        <billOfDeptor>123852369874512365</billOfDeptor>
-        <modelAssignment>97</modelAssignment>
-        <referenceNumberAssignment>18181818181818181820</referenceNumberAssignment>
-        <billOfReceiver>456752378574512664</billOfReceiver>
-        <modelApproval>97</modelApproval>
-        <referenceNumberApproval>18181818181818181820</referenceNumberApproval>
-        <amount>98.12</amount>
         <codeOfCurrency>rsd</codeOfCurrency>
     </depositSlipXml>
 </mt102xml>
